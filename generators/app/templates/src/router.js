@@ -85,10 +85,12 @@ let routes = [
   ];
   let entitiesRoutes = require('./views/entities');
   let views = {};
-  entitiesRoutes.keys().forEach(function (key) {
-      let route = context(key).default;
-      routes.push(...route);
-  });
+  if(context.keys.length) {
+    context.keys().forEach(function (key) {
+        let route = context(key).default;
+        routes.push(...route);
+    });
+  }
 Vue.use(Router)
 const router = new Router({
   mode: 'history',
