@@ -158,7 +158,7 @@ module.exports = class extends BaseGenerator {
             {}
         )
 
-
+let destPath = this.options.env.cwd+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/src';
         this.fs.copyTpl(
                 this.templatePath('./routes.js'),
                 this.destinationPath(destPath+'/views/entities/'+name+'/routes.js'),
