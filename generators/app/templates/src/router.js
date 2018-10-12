@@ -83,7 +83,7 @@ let routes = [
     },
 
   ];
-  let context = require('./views/entities');
+  let context = require('./views/entities').default;
   let views = {};
   if(context.keys.length) {
     context.keys().forEach(function (key) {
@@ -100,10 +100,11 @@ const router = new Router({
 let guestRoutes = ['login','register','forgot', 'reset']
 router.beforeEach((to, from, next) => {
   let path = to.fullPath.substr(1);
-  if(getProfile().jwt && guestRoutes.includes(path)) {
+  let profile = getProfile() && getProfile().jwt;
+  if(profile && guestRoutes.includes(path)) {
     return next('/');
   }
-  if(!getProfile().jwt && to.fullPath.includes('entities')) {
+  if(profile && to.fullPath.includes('entities')) {
     return next('login');
   }
   return next();
