@@ -83,9 +83,9 @@ let routes = [
     },
 
   ];
-  var context = require.context("./views/entities", true, /routes\.js$/);
+  let entitiesRoutes = require('./views/entities');
   let views = {};
-  context.keys().forEach(function (key) {
+  entitiesRoutes.keys().forEach(function (key) {
       let route = context(key).default;
       routes.push(...route);
   });

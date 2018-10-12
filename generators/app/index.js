@@ -158,6 +158,14 @@ module.exports = class extends BaseGenerator {
             {}
         )
 
+
+        this.fs.copyTpl(
+                this.templatePath('./routes.js'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/routes.js'),
+                obj
+            )
+
+
         const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
         //const generatorGeneratorPkg = require('../../package.json');
 

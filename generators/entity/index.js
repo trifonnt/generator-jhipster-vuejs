@@ -144,6 +144,11 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/'+name+'/routes.js'),
                 obj
             )
+            this.fs.copyTpl(
+                this.templatePath('./entitiesIndex.ejs'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/index.js'),
+                {}
+            )
                 /*this.template('dummy.txt', 'dummy.txt', this, {});*/
             },
 
