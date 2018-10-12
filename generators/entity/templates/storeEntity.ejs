@@ -1,0 +1,23 @@
+<% include fns.ejs %>
+
+import {
+	<% for(relationship of relationships) { %>
+		get<%=addS(firstToUpper(relationship.relationshipName))%>Data,
+	<% } %>
+} from '../fetchers/<%=toLower(name)%>'
+
+let store = require('./products').default('<%=toLower(name)%>');
+<% for(relationship of relationships) { 
+	let thename = addS(firstToUpper(relationship.relationshipName))
+%>
+	store.get<%=thename%> = async function() {
+		try {
+			let response = await get<%=thename%>Data();
+			return response.map(u=>({value: u.id, text: u.<%=relationship.otherEntityField%>})) 
+		}
+		catch(err) {
+			console.log(err)
+		}
+	}
+<% } %>
+export default store;

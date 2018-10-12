@@ -1,0 +1,10 @@
+{
+  "generator-jhipster-module": {
+    "promptValues": {
+      "githubName": "pengiundev",
+      "authorName": "Angel Angelov",
+      "authorEmail": "disa",
+      "authorUrl": "das"
+    }
+  }
+}

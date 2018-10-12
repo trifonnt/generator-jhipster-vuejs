@@ -1,0 +1,48 @@
+<% include fns.ejs %>
+
+import axios from 'axios'
+
+export function getEntityData(page=0, sort='id,asc', search='', size=10) {
+	if(!search) return axios.get('<%=addS(toDashed(name))%>', {params: {paged: true, page, size:1, sort}});
+	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {paged: true, page, size:1, sort, query: search}});
+}
+export function getEntityCount(search='') {
+	if(!search) return axios.get('<%=addS(toDashed(name))%>').then(data=>data.headers);
+	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {query: search}}).then(data=>data.headers);	
+}
+export function createEntity(obj) {
+  <% for(field of fields) {
+    if(['Float','Double'].includes(field.fieldType)) {
+   %>
+   <%=field.fieldName%> = <%=field.fieldName%>.replace('/,/g','.');
+   <% }} %>
+	return axios.post('<%=addS(toDashed(name))%>', obj)
+}
+export function editEntity(obj) {
+   <% for(field of fields) {
+    if(['Float','Double'].includes(field.fieldType)) {
+   %>
+   <%=field.fieldName%> = <%=field.fieldName%>.replace('/,/g','.');
+   <% }} %>
+	return axios.put('<%=addS(toDashed(name))%>', obj)
+}
+export function getEntityId(id) {
+	return axios.get('<%=addS(toDashed(name))%>/'+id).then(data=>data.data)
+}
+export function deleteId(id) {
+	return axios.delete('<%=addS(toDashed(name))%>/'+id).then(data=>data.data)
+}
+export function deleteAllItems(items) {
+	let promises = items.map(id=>axios.delete('vendors/'+id).then(data=>data.data));
+	return Promise.all(promises)
+}
+
+
+<% for(relationship of relationships) { 
+	let thename = addS(firstToUpper(relationship.relationshipName))
+%>
+	export function get<%=thename%>Data() {
+		return axios.get('<%=addS(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
+	}
+
+<% }%>

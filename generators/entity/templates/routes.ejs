@@ -1,0 +1,30 @@
+<% include fns.ejs %>
+
+var context = require.context(".", false, /\.vue$/);
+let views = {};
+context.keys().forEach(function (key) {
+    views[key.match(/[a-zA-Z0-9]+\./)[0].slice(0,-1)] = context(key).default;
+});
+
+export default [
+	{
+      path: '/entities/<%=name%>',
+      name: '<%=name%>',
+      component: views.<%=firstToUpper(name)%>,
+    },
+    {
+      path: '/entities/<%=name%>/new',
+      name: 'new<%=name%>',
+      component: views.Create<%=firstToUpper(name)%>,
+    },
+    {
+      path: '/entities/<%=name%>/edit/:id',
+      name: 'edit<%=name%>',
+      component: views.Update<%=firstToUpper(name)%>,
+    },    
+    {
+      path: '/entities/<%=name%>/view/:id',
+      name: 'view<%=name%>',
+      component: views.View<%=firstToUpper(name)%>,
+    },
+]

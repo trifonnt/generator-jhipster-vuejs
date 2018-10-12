@@ -1,0 +1,196 @@
+<% include fns.ejs %>
+
+<template>
+  <v-app id="inspire">
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Create new <%= name %></v-toolbar-title>
+                <v-spacer></v-spacer>
+
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <% for(field of fields) {
+                    let validate = {};
+                    let fName = field.fieldName;
+                    let fType = field.fieldType;
+                    if(field.fieldValidateRules && field.fieldValidateRules.includes('required')) validate.required = true;
+                    if("fieldValidateRulesMinlength" in field) {
+                      validate.min=field.fieldValidateRulesMinlength;
+                    }
+                    if("fieldValidateRulesMaxlength" in field) {
+                      validate.max=field.fieldValidateRulesMaxlength;
+                    }
+                    if("fieldValidateRulesPattern" in field) {
+                      validate.pattern = field.fieldValidateRulesPattern;
+                    }
+                    if(fType == "Boolean") validate.boolean = true;
+                    if(fType == "String") validate["alpha_dash"] = true;
+                    if(['Integer', 'BigDecimal', 'Long'].includes(fType)) validate.integer = true;
+                    if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
+                    validate = JSON.stringify(validate)
+                  %>
+                    <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double', 'String'].includes(fType)) {%>
+                      <v-text-field v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
+                    <% }%>
+                    <% if(fType == "Boolean") {%>
+                      <v-checkbox :value='<%=fName%>' label='<%=toSpaced(fName)%>' v-validate='<%-validate%>' name='active' ></v-checkbox>
+                      <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
+                    <% } %>
+                    <% if(['LocalDate','ZonedDateTime','Instant'].includes(fType)) {%>
+                      <v-menu
+                          ref="menu<%=fName%>"
+                          :close-on-content-click="false"
+                          v-model="menu<%=fName%>"
+                          :nudge-right="40"
+                          :return-value.sync="date"
+                          lazy
+                          transition="scale-transition"
+                          offset-y
+                          full-width
+                          min-width="290px"
+                        >
+                          <v-text-field
+                            slot="activator"
+                            v-model="<%=fName%>"
+                            label="<%=toSpaced(fName)%>"
+                            prepend-icon="event"
+                            readonly
+                          ></v-text-field>
+                          <v-date-picker v-model="date" @input="$refs.menu<%=fName%>.save(date)"></v-date-picker>
+
+                        </v-menu>
+                        <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
+                    <% } %>
+                    <% if(fType == "Enumeration") {%>
+                      <v-select :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" v-model="<%=fName%>"></v-select>
+                      <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
+                    <% } %>
+                  <%}%>
+                  <% for(relationship of relationships) { 
+                    let validate = {};
+                    let fName = relationship.relationshipName;
+                    let fType = relationship.relationshipType;
+                    if(relationship.relationshipValidateRules && relationship.relationshipValidateRules.includes('required')) validate.required = true;
+                    if("relationshipValidateRulesMinlength" in relationship) {
+                      validate.min=relationship.relationshipValidateRulesMinlength;
+                    }
+                    if("relationshipValidateRulesMaxlength" in relationship) {
+                      validate.max=relationship.relationshipValidateRulesMaxlength;
+                    }
+                    if("relationshipValidateRulesPattern" in relationship) {
+                      validate.pattern = relationship.fieldValidateRulesPattern;
+                    }
+                    if(fType == "Boolean") validate.boolean = true;
+                    if(fType == "String") validate["alpha_dash"] = true;
+                    if(['Integer', 'BigDecimal', 'Long'].includes(fType)) validate.integer = true;
+                    if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
+                    validate = JSON.stringify(validate)
+                  %>
+                      <v-select :items='<%=addS(toLower(fName))%>' solo v-validate='<%-validate%>' name="<%=toLower(fName)%>" label="<%=toSpaced(fName)%>" v-model="<%=toLower(fName)%>"></v-select>
+                      <v-alert :value="errors.has('<%=toLower(fName)%>')" type="error">{{ errors.first('<%=toLower(fName)%>') }}</v-alert>
+                  <% } %>
+        
+               <!--  <v-alert type='success' :value="registered==true">You successfully created a vendor</v-alert>
+                <v-alert type='error' :value="registered==false">Please try again, server error</v-alert>   -->              
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='create'>Create</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
+</template>
+
+<script>
+  let store = require('../../../store/<%=toLower(name)%>').default;
+  <% for(relationship of relationships) {%>
+    let get<%=addS(firstToUpper(relationship.relationshipName))%> = store.get<%=addS(firstToUpper(relationship.relationshipName))%>
+  <% } %> 
+  let create = store.create;
+		export default {
+    inject: ["$validator"],
+		data: () => ({
+      registered: null,
+      <% fields.forEach(field=>{%>
+        <%
+          let fType = field.fieldType;
+          let val;
+          if(fType == 'String') val == '';
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
+            val = '""';
+          }
+          if(fType == 'Enumeration') val == [];
+        %>
+        <%=field.fieldName%>: <%-val%>,
+      <%})%>
+      <% if(relationships.length) { %>
+        <% for(relationship of relationships) { %>
+          <%=addS(relationship.relationshipName)%>: [],
+          <%=relationship.relationshipName%>: '',
+        <% } %>
+      <% } %>
+
+		}), 
+    created() {
+      this.getData();
+    },
+    computed: {
+      formValid() {
+        return Object.keys(this.fields).every(field => {
+          return this.fields[field] && this.fields[field].valid;
+        });
+      }
+    },
+		methods: {
+			async create() {
+				try {
+					await create({
+            <% for(field of fields) { %>
+              <%=field.fieldName%>:this.<%=field.fieldName%>, 
+            <% } %>
+            <% for(relationship of relationships) { %>
+              <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
+            <% } %>
+          });
+          this.$store.dispatch('snackShowAction', {text: "Successfully created", val: true, color: "success"})
+          this.registered = true
+				}
+				catch(err) {
+          this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})
+					this.registered = false
+				}
+			},
+      async getData() {
+          try {
+            let [
+            <% for(relationship of relationships) {%>
+              <%=relationship.relationshipName%>,
+            <% } %> 
+            ] = await Promise.all([
+                <% for(relationship of relationships) {%>
+                  get<%=addS(firstToUpper(relationship.relationshipName))%>(),
+                <% } %> 
+              ]);
+            <% for(relationship of relationships) {%>
+              this.<%=addS(relationship.relationshipName)%> = <%=relationship.relationshipName%>;
+            <% } %> 
+          }
+          catch(err) {console.log(err)}
+      },
+		}
+	}
+</script>
+<style scoped>
+	
+</style>

@@ -1,0 +1,66 @@
+<% include fns.ejs %>
+
+<template>
+  <v-app id="inspire">
+  <search></search>
+  <v-flex m1 l1 xs1>
+    <v-btn to='/entities/<%= name %>/new'  color="primary">
+        <v-icon>add</v-icon>
+        Create new <%= name %>
+    </v-btn>
+  <v-layout  v-show='areAllChecked'>
+    <v-btn @click='deleteAll'>Delete all
+          <v-icon color="red">delete</v-icon>
+    </v-btn>
+  </v-layout>
+  </v-flex>
+ <delete-dialog store-name="<%=toLower(name)%>"></delete-dialog>
+ <v-data-table
+    :headers="headers"
+    :items="products"
+    :loading='loading'
+    class="elevation-1"
+    :pagination.sync='pagination'
+    :total-items='totalItems'
+    :rows-per-page-items="[1,2,3]"
+    select-all
+  >
+    <template slot="headers" slot-scope="props">
+      <product-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></product-table-head>
+    </template>
+    <template slot="items" slot-scope="props">
+        <product-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></product-table-body>
+    </template>
+  </v-data-table>
+  <div class="text-xs-center pt-2">
+    <v-pagination v-model="page" :length="pages"></v-pagination>
+  </div>
+  </v-app>
+</template>
+
+<script>
+  import table from '../../mixins/Table'
+  import {createStore} from '../../../storex/'
+
+	export default {
+      mixins: [table("<%=toLower(name)%>")],
+      data: () => ({
+        headers: [
+          <% fields.forEach(field=>{%>
+            { text: "<%=toSpaced(field.fieldName)%>", value: "<%=field.fieldName%>" },
+          <%})%>
+          <% for(relationship of relationships) { %>
+            { text: "<%=toSpaced(relationship.relationshipName)%>", value: "<%=relationship.relationshipName%>" },
+          <% }%>
+          { text: 'Actions', value: 'actions', sortable: false }
+        ],
+
+      }),
+      beforeCreate() {
+        this.$store = createStore('<%=toLower(name)%>', '')
+      },
+	}
+</script>
+<style>
+
+</style>
