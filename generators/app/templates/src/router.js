@@ -83,7 +83,7 @@ let routes = [
     },
 
   ];
-  let entitiesRoutes = require('./views/entities');
+  let context = require('./views/entities');
   let views = {};
   if(context.keys.length) {
     context.keys().forEach(function (key) {
