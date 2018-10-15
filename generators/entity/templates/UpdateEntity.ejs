@@ -126,8 +126,8 @@
       <% fields.forEach(field=>{%>
         <%
           let fType = field.fieldType;
-          let val = '';
-          if(fType == 'String') val == '';
+          let val = '""';
+          if(fType == 'String') val == '""';
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
             val = '""';
           }

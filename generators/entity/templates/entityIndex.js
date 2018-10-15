@@ -1,2 +1,7 @@
 let context = require.context("./", true, /routes\.js$/);
-export default context;
+let routes = [];
+context.keys().forEach(function (key) {
+    routes.push(context(key).default);
+});
+
+export default routes;

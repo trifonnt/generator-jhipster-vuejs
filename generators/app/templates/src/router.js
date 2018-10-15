@@ -85,11 +85,8 @@ let routes = [
   ];
   let context = require('./views/entities').default;
   let views = {};
-  if(context.keys.length) {
-    context.keys().forEach(function (key) {
-        let route = context(key).default;
-        routes.push(...route);
-    });
+  if(context.length) {
+    routes.push(...context[0]);
   }
 Vue.use(Router)
 const router = new Router({
