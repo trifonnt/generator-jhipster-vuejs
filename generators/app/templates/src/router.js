@@ -101,7 +101,7 @@ router.beforeEach((to, from, next) => {
   if(profile && guestRoutes.includes(path)) {
     return next('/');
   }
-  if(profile && to.fullPath.includes('entities')) {
+  if(!profile && to.fullPath.includes('entities')) {
     return next('login');
   }
   return next();

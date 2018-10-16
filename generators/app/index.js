@@ -4,6 +4,7 @@ const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const extend = require('deep-extend');
+const ejs = require('ejs')
 
 module.exports = class extends BaseGenerator {
     get initializing() {

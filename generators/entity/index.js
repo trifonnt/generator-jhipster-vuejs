@@ -2,6 +2,7 @@ const chalk = require('chalk');
 const packagejs = require('../../package.json');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
+const ejs = require('ejs')
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -54,6 +55,9 @@ module.exports = class extends BaseGenerator {
     _toLower(str) {
         return str.toLowerCase();
     }
+    _spliceString(start, delCount, newSubStr) {
+        return this.slice(0, start) + newSubStr + this.slice(start + Math.abs(delCount));
+    }
     get writing() {
         return {
             updateFiles() {
@@ -85,7 +89,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`\nentityName=${entityName}`);
 
                 this.log('------\n');
-
+                this.log(this);
                 // do your stuff here
             },
 
@@ -149,8 +153,27 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
-                /*this.template('dummy.txt', 'dummy.txt', this, {});*/
+            try {
+                let str = await fs.readFile(this.templatePath('../../app/templates/src/views/MenuLeft.vue', "utf8"));
+                let template = ejs.render(this.templatePath('./MenuLeft.ejs'), {name}, (err, str) => {
+                    this._spliceString(str.indexOf("<!--insertlinkshere-->"), 0, str);
+                });
+                
+                let str2 = await fs.readFile(this.templatePath('../../app/templates/src/views/MenuUp.vue', "utf8"));
+                let template2 = ejs.render(this.templatePath('./MenuUp.ejs'), {name}, (err, str) => {
+                    this._spliceString(str.indexOf("<!--insertlinkshere-->"), 0, str2);
+                });
+
+            }
+            catch(err) {
+                this.log(err)
+            }
+            
+            /*this.template('dummy.txt', 'dummy.txt', this, {});*/
+
             },
+            
+
 
             updateConfig() {
                 this.updateEntityConfig(this.entityConfig.filename, 'yourOptionKey', this.yourOptionKey);

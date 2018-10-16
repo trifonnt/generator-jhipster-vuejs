@@ -8,22 +8,22 @@ context.keys().forEach(function (key) {
 
 export default [
 	{
-      path: '/entities/<%=name%>',
+      path: '/entities/<%=toLower(name)%>',
       name: '<%=name%>',
       component: views.<%=firstToUpper(name)%>,
     },
     {
-      path: '/entities/<%=name%>/new',
+      path: '/entities/<%=toLower(name)%>/new',
       name: 'new<%=name%>',
       component: views.Create<%=firstToUpper(name)%>,
     },
     {
-      path: '/entities/<%=name%>/edit/:id',
+      path: '/entities/<%=toLower(name)%>/edit/:id',
       name: 'edit<%=name%>',
       component: views.Update<%=firstToUpper(name)%>,
     },    
     {
-      path: '/entities/<%=name%>/view/:id',
+      path: '/entities/<%=toLower(name)%>/view/:id',
       name: 'view<%=name%>',
       component: views.View<%=firstToUpper(name)%>,
     },

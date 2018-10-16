@@ -19,6 +19,7 @@
                 <% for(relationship of relationships) { %>
                   <div><v-chip label><%=toSpaced(relationship.relationshipName)%></v-chip>{{<%=relationship.relationshipName%>}}</div>
                 <% }%>   
+                <v-btn @click='back'><v-icon right dark>arrow_back</v-icon> Back</v-btn>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -38,11 +39,11 @@
         <%
           let fType = field.fieldType;
           let val;
-          if(fType == 'String') val == '""';
+          if(fType == 'String') val = '""';
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
             val = '""';
           }
-          if(fType == 'Enumeration') val == [];
+          if(fType == 'Enumeration') val = [];
         %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>

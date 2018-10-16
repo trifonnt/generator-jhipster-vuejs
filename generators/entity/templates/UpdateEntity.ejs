@@ -103,6 +103,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn :disabled="errors.any()" color="primary" @click='edit'>Edit</v-btn>
+                <v-btn @click='cancel'>Cancel</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -120,18 +121,18 @@
     let edit = store.edit;
     let getEntityById = store.getEntityById;    
 		export default {
-		data: () => ({
-      inject: ['$validator'],
+    inject: ['$validator'],
+    data: () => ({
       registered: null,
       <% fields.forEach(field=>{%>
         <%
           let fType = field.fieldType;
           let val = '""';
-          if(fType == 'String') val == '""';
+          if(fType == 'String') val = '""';
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
             val = '""';
           }
-          if(fType == 'Enumeration') val == [];
+          if(fType == 'Enumeration') val = [];
         %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>
@@ -159,12 +160,16 @@
           });
           this.$store.dispatch('snackShowAction', {text: "Edit successfull", val: true, color: "success"})          
           this.registered = true
+          this.$router.push({name: <%=name%>})
 				}
 				catch(err) {
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})          
 					this.registered = false
 				}
 			},
+      cancel() {
+        this.$router.go(-1);
+      },
       async getData() {
         try {
           let [

@@ -16,121 +16,7 @@
         Close
       </v-btn>
     </v-snackbar>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      :mini-variant = "miniVariant"
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-        >
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title><router-link to="home">Home</router-link></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-group
-        prepend-icon="list"
-      >
-        <v-list-tile slot="activator">
-          <v-list-tile-title>Entities</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/product'>Products</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>        
-                <v-list-group
-          no-action
-          sub-group
-        >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Subgroup</v-list-tile-title>
-          </v-list-tile>
-           <v-list-tile>
-            <v-list-tile-title>Subgroup</v-list-tile-title>
-          </v-list-tile>
-        </v-list-group>
-      <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/vendor'>Vendors</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>
-      <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/vendorbid'>Vendor Bid</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/vendorbidproducts'>Vendor Bid Products</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>
-      </v-list-group>
-      <v-list-group
-        prepend-icon="person"
-      >
-        <v-list-tile slot="activator">
-          <v-list-tile-title>Account</router-link></v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-show='user.auth'>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title><router-link to='/account'>Settings</router-link></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-show='user.auth'>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title><router-link to='/changepass'>Password</router-link></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-show='user.auth'>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title><router-link to='/logout'>Logout</router-link></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-show='!user.auth'>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title><router-link to='/register'>Register</router-link></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-show='!user.auth'>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title><router-link to='/login'>Login</router-link></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
+    <menu-left></menu-left>
     <v-navigation-drawer right fixed temporary v-model='rightDrawer'>
       
 
@@ -263,27 +149,7 @@
           </v-list-tile>
         </v-list>
     </v-menu>
-      <v-btn flat><router-link to="home">Home</router-link></v-btn>
-      <v-btn flat v-show='!user.auth'><router-link to="/login">Login</router-link></v-btn>
-      <v-btn flat v-show='!user.auth'><router-link to="/register">Register</router-link></v-btn>
-      <v-menu offset-y v-show='user.auth'>
-      <v-btn flat
-        slot="activator"
-        color="primary"
-        dark
-      >
-        Entities
-        <v-icon dark>arrow_drop_down</v-icon>
-      </v-btn>
-      <v-list>
-        <v-list-tile>
-          <v-list-tile-title><router-link to='/entities/product'>Products</router-link></v-list-tile-title>
-        </v-list-tile>        
-          
-          <v-list-tile><v-list-tile-title><router-link to='/entities/vendor'>Vendors</router-link></v-list-tile-title></v-list-tile>
-          <v-list-tile><v-list-tile-title><router-link to='/entities/vendorbid'>Vendor Bid</router-link></v-list-tile-title></v-list-tile>
-          <v-list-tile><v-list-tile-title><router-link to='/entities/vendorbidproducts'>Vendor Bid + Products</router-link></v-list-tile-title></v-list-tile>
-      </v-list>
+      
     </v-menu>
       <v-menu offset-y v-show='user.auth'>
       <v-btn flat
@@ -330,6 +196,8 @@
 
 <script>
   import {user,logout} from './store/identity'
+  import MenuLeft from './views/MenuLeft.vue'
+
   export default {
     name: 'App',
     methods: {
@@ -365,6 +233,10 @@
       snackColor() {
         return this.$store.state.app.snackColor;
       }
+    },
+    components: {
+      MenuLeft,
+      MenuUp,
     }
   }
 </script>
