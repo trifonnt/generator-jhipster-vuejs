@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {user,logout} from './store/identity'
+  import {user,logout} from '../store/identity'
   export default {
     data: () => ({
       user,
