@@ -123,10 +123,9 @@ import {user,logout} from '../store/identity'
 
 export default {
   data: () => ({
-    drawer: false,
     user,
   }),
-  props: ['miniVariant'],
+  props: ['miniVariant', 'drawer'],
 
 }
 </script>

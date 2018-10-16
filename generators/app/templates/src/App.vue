@@ -16,7 +16,7 @@
         Close
       </v-btn>
     </v-snackbar>
-    <menu-left></menu-left>
+    <menu-left :miniVariant='miniVariant' :drawer='drawer'></menu-left>
     <v-navigation-drawer right fixed temporary v-model='rightDrawer'>
       
 
@@ -151,6 +151,19 @@
     </v-menu>
       
     </v-menu>
+    <v-btn flat><router-link to="home">Home</router-link></v-btn>
+    <v-btn flat v-show='!user.auth'><router-link to="/login">Login</router-link></v-btn>
+    <v-btn flat v-show='!user.auth'><router-link to="/register">Register</router-link></v-btn>
+    <v-menu offset-y v-show='user.auth'>
+    <v-btn flat
+      slot="activator"
+      color="primary"
+      dark
+    >
+      Entities
+      <v-icon dark>arrow_drop_down</v-icon>
+    </v-btn>
+    <menu-up></menu-up>
       <v-menu offset-y v-show='user.auth'>
       <v-btn flat
         slot="activator"
@@ -197,6 +210,7 @@
 <script>
   import {user,logout} from './store/identity'
   import MenuLeft from './views/MenuLeft.vue'
+  import MenuUp from './views/MenuLeft.vue'
 
   export default {
     name: 'App',
