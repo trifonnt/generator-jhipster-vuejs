@@ -4,6 +4,8 @@
   "description": "jHipster generator for vuejs client side",
   "keywords": [
     "yeoman-generator",
+    "generator",
+    "jhipster",
     "jhipster-module",
     "jhipster-5"
   ],
@@ -21,7 +23,7 @@
   "author": {
     "name": "Angel Angelov",
     "email": "disa",
-    "url": "das"
+    "url": "https://github.com/pengiundev"
   },
   "files": [
     "generators"

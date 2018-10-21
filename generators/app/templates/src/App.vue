@@ -149,8 +149,7 @@
           </v-list-tile>
         </v-list>
     </v-menu>
-      
-    </v-menu>
+
     <v-btn flat><router-link to="home">Home</router-link></v-btn>
     <v-btn flat v-show='!user.auth'><router-link to="/login">Login</router-link></v-btn>
     <v-btn flat v-show='!user.auth'><router-link to="/register">Register</router-link></v-btn>
@@ -164,7 +163,7 @@
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
     <menu-up></menu-up>
-      <v-menu offset-y v-show='user.auth'>
+      
       <v-btn flat
         slot="activator"
         color="primary"
@@ -190,12 +189,13 @@
           <v-list-tile-title><a href='#' @click='logout'>Logout</a></v-list-tile-title>
         </v-list-tile>
       </v-list>
-    </v-menu>
+
           <v-btn flat @click.stop='rightDrawer=!rightDrawer'
         color="primary"
       >
         <v-icon dark>messages</v-icon>
       </v-btn>
+    </v-menu>
     </v-toolbar-items>
     </v-toolbar>
     <v-content>
