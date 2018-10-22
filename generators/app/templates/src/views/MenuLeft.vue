@@ -86,12 +86,12 @@ export default {
     leftDrawer: {
       get() {
         return this.drawer;
-      }
+      },
       set() {
         
       }
     }
-  }
+  },
   props: {
     miniVariant: Boolean,
     drawer: Boolean

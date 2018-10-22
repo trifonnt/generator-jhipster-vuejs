@@ -160,7 +160,7 @@
           });
           this.$store.dispatch('snackShowAction', {text: "Edit successfull", val: true, color: "success"})          
           this.registered = true
-          this.$router.push({name: <%=name%>})
+          this.$router.push({name: "<%=name%>"})
 				}
 				catch(err) {
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})          

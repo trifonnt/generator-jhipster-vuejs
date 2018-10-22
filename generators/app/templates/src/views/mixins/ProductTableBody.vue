@@ -24,7 +24,7 @@
         </router-link>
           <v-icon
           size='20px'
-            
+            class='mr-2'
             @click="deleteItem"
           >
             delete
