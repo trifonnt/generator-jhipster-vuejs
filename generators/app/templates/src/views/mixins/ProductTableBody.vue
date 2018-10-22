@@ -22,6 +22,7 @@
             edit
           </v-icon>
         </router-link>
+        <a href='#'>
           <v-icon
           size='20px'
             class='mr-2'
@@ -29,6 +30,7 @@
           >
             delete
           </v-icon>
+        </a>
       </td>
       </tr>
 </template>

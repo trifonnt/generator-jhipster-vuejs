@@ -3,8 +3,8 @@
 import axios from 'axios'
 
 export function getEntityData(page=0, sort='id,asc', search='', size=10) {
-	if(!search) return axios.get('<%=addS(toDashed(name))%>', {params: {paged: true, page, size:1, sort}});
-	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {paged: true, page, size:1, sort, query: search}});
+	if(!search) return axios.get('<%=addS(toDashed(name))%>', {params: {paged: true, page, size, sort}});
+	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {paged: true, page, size, sort, query: search}});
 }
 export function getEntityCount(search='') {
 	if(!search) return axios.get('<%=addS(toDashed(name))%>').then(data=>data.headers);

@@ -13,7 +13,7 @@ export default((name, name2)=> {
 			products: [],
 			pagination: {
 				page: 1,
-				rowsPerPage: 1,
+				rowsPerPage: 10,
 				totalItems: 0,
 			},
 			totalItems: 0,
