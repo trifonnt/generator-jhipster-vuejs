@@ -55,6 +55,11 @@ npm update -g generator-jhipster-vuejs2
 
 # Usage
 
+
+```bash
+yarn add generator-jhipster-vuejs2 --latest
+yo jhipster-vuejs2
+```
 # License
 
 MIT © [Ilovepotatoes]

@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer
-      v-model="drawer"
+      v-model="leftDrawer"
       app
       :mini-variant = "miniVariant"
     >
@@ -20,49 +20,6 @@
       >
         <v-list-tile slot="activator">
           <v-list-tile-title>Entities</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/product'>Products</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>        
-                <v-list-group
-          no-action
-          sub-group
-        >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Subgroup</v-list-tile-title>
-          </v-list-tile>
-           <v-list-tile>
-            <v-list-tile-title>Subgroup</v-list-tile-title>
-          </v-list-tile>
-        </v-list-group>
-      <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/vendor'>Vendors</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>
-      <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/vendorbid'>Vendor Bid</router-link></v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          <v-list-tile-title><router-link to='entities/vendorbidproducts'>Vendor Bid Products</router-link></v-list-tile-title>
-        </v-list-tile-content>
         </v-list-tile>
         <!--insertlinkshere-->
 
@@ -125,7 +82,20 @@ export default {
   data: () => ({
     user,
   }),
-  props: ['miniVariant', 'drawer'],
+  computed: {
+    leftDrawer: {
+      get() {
+        return this.drawer;
+      }
+      set() {
+        
+      }
+    }
+  }
+  props: {
+    miniVariant: Boolean,
+    drawer: Boolean
+  },
 
 }
 </script>

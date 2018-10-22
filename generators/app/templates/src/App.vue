@@ -163,7 +163,8 @@
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
     <menu-up></menu-up>
-      
+  </v-menu>
+      <v-menu offset-y v-show='user.auth'>
       <v-btn flat
         slot="activator"
         color="primary"
@@ -189,7 +190,7 @@
           <v-list-tile-title><a href='#' @click='logout'>Logout</a></v-list-tile-title>
         </v-list-tile>
       </v-list>
-
+    </v-menu>
           <v-btn flat @click.stop='rightDrawer=!rightDrawer'
         color="primary"
       >
@@ -210,7 +211,7 @@
 <script>
   import {user,logout} from './store/identity'
   import MenuLeft from './views/MenuLeft.vue'
-  import MenuUp from './views/MenuLeft.vue'
+  import MenuUp from './views/MenuUp.vue'
 
   export default {
     name: 'App',
