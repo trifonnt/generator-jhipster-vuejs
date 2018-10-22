@@ -166,7 +166,7 @@
           });
           this.$store.dispatch('snackShowAction', {text: "Successfully created", val: true, color: "success"})
           this.registered = true
-          this.$router.push({name: "<%=name%>"})
+          this.$router.go(-1);
         }
         catch(err) {
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})

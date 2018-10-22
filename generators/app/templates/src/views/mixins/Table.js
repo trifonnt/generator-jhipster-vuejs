@@ -37,6 +37,7 @@ export default (name) => {
       else {
         url = urltoobj(url);
         url.page = +url.page;
+        url.rowsPerPage = +url.rowsPerPage;
         this.pagination = url;
       }
     },
