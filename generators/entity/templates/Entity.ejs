@@ -15,6 +15,35 @@
     <v-btn @click='deleteAll'>Delete all
           <v-icon color="red">delete</v-icon>
     </v-btn>
+    <v-btn @click='deleteAll'>Print 1
+    <v-icon color="block">print</v-icon>
+    </v-btn>
+    <v-btn @click='deleteAll'>Print 2
+      <v-icon color="block">print</v-icon>
+    </v-btn>
+    <v-btn @click='deleteAll'>Print 3
+      <v-icon color="block">print</v-icon>
+    </v-btn>
+    <div id='selectLabels'>
+      <v-select
+          :items="labels"
+          v-model="selectedLabels"
+          label="Label"
+          multiple
+          chips
+          item-avatar='search'
+        >
+          <template slot='item' scope='label'>
+            <v-list-tile-avatar>
+              <div class='greenlabel'></div>
+            </v-list-tile-avatar>
+            <v-checkbox></v-checkbox>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="label.item.text"></v-list-tile-title>
+            </v-list-tile-content>
+          </template>
+        </v-select>
+    </div>
   </div>
  <delete-dialog store-name="<%=toLower(name)%>"></delete-dialog>
  <v-data-table
@@ -63,5 +92,13 @@
 <style>
   #createnew {
     display: inline-block;
+  }
+  #selectLabels {
+    display: inline-block;
+  }
+  .greenlabel {
+    background: green;
+    width: 30px;
+    height: 30px;
   }
 </style>
