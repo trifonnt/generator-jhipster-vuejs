@@ -2,18 +2,20 @@
 
 <template>
   <v-app id="inspire">
-  <search></search>
-  <v-flex m1 l1 xs1>
-    <v-btn to='/entities/<%= name %>/new'  color="primary">
-        <v-icon>add</v-icon>
-        Create new <%= name %>
-    </v-btn>
-  <v-layout  v-show='areAllChecked'>
+  <div id='toptable'>
+    <div id='createnew'>
+      <v-btn to='/entities/<%= name %>/new'  color="primary">
+          <v-icon>add</v-icon>
+          Create new <%= name %>
+      </v-btn>
+    </div>
+    <search></search>
+  </div>
+  <div  v-show='areAllChecked'>
     <v-btn @click='deleteAll'>Delete all
           <v-icon color="red">delete</v-icon>
     </v-btn>
-  </v-layout>
-  </v-flex>
+  </div>
  <delete-dialog store-name="<%=toLower(name)%>"></delete-dialog>
  <v-data-table
     :headers="headers"
@@ -32,9 +34,6 @@
         <product-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></product-table-body>
     </template>
   </v-data-table>
-  <div class="text-xs-center pt-2">
-    <v-pagination v-model="page" :length="pages"></v-pagination>
-  </div>
   </v-app>
 </template>
 
@@ -62,5 +61,7 @@
 	}
 </script>
 <style>
-
+  #createnew {
+    display: inline-block;
+  }
 </style>

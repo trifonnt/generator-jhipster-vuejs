@@ -14,7 +14,9 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <% for(field of fields) {
+                  <% 
+                  fields[0].focus = true;
+                  for(field of fields) {
                     let validate = {};
                     let fName = field.fieldName;
                     let fType = field.fieldType;
@@ -35,11 +37,11 @@
                     validate = JSON.stringify(validate)
                   %>
                     <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double', 'String'].includes(fType)) {%>
-                      <v-text-field v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(field.focus){%> autofocus <%}%> v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType == "Boolean") {%>
-                      <v-checkbox :value='<%=fName%>' label='<%=toSpaced(fName)%>' v-validate='<%-validate%>' name='active' ></v-checkbox>
+                      <v-checkbox <%if(field.focus){%> autofocus <%}%>  :value='<%=fName%>' label='<%=toSpaced(fName)%>' v-validate='<%-validate%>' name='active' ></v-checkbox>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                     <% if(['LocalDate','ZonedDateTime','Instant'].includes(fType)) {%>
@@ -68,7 +70,7 @@
                         <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                     <% if(fType == "Enumeration") {%>
-                      <v-select :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" v-model="<%=fName%>"></v-select>
+                      <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" v-model="<%=fName%>"></v-select>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                   <%}%>
@@ -92,7 +94,7 @@
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
                   %>
-                      <v-select :items='<%=addS(toLower(fName))%>' solo v-validate='<%-validate%>' name="<%=toLower(fName)%>" label="<%=toSpaced(fName)%>" v-model="<%=toLower(fName)%>"></v-select>
+                      <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(toLower(fName))%>' solo v-validate='<%-validate%>' name="<%=toLower(fName)%>" label="<%=toSpaced(fName)%>" v-model="<%=toLower(fName)%>"></v-select>
                       <v-alert :value="errors.has('<%=toLower(fName)%>')" type="error">{{ errors.first('<%=toLower(fName)%>') }}</v-alert>
                   <% } %>
         

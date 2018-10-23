@@ -1,24 +1,27 @@
 <template>
-    <v-form>
-      <v-container>
-        <v-layout row wrap>
-          <v-flex>
-          <v-text-field v-model='searchQuery'
-          placeholder="Search"
-        ></v-text-field>
-          </v-flex>
-          <v-flex >
-          <v-btn color="primary" @click='search'>
-              <v-icon>search</v-icon>
-          </v-btn>
-          <v-btn color="primary" v-show='searchQuery' @click='deleteQuery'>
-              <v-icon>delete</v-icon>
-          </v-btn>
+	<div class='searchbox'>
+		<v-card-text>
+			{{model}}
+		  <v-autocomplete
+		  :allow-overflow='false'
+		    v-model="model"
+		    :items="items"
+		    placeholder="Search"
+		    prepend-icon="search"
+		    :search-input.sync="searchQuery"
+		    cache-items
+		    return-object
+		    :async-loading='loading'
+		    :filter="v => v"
+		  >
 
-            </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
+			<template slot="item" slot-scope="{item}">
+				<div class='leftcol'>{{item.text.substr(0,20)}}</div> <div class='rightcol'>{{item._id}}</div>
+			</template>
+
+		  </v-autocomplete>
+		</v-card-text>
+	</div>
 </template>
 
 <script>
@@ -45,5 +48,31 @@
 </script>
 
 <style>
-	
+	.leftcol {
+		width:200px;
+		float: left;
+	}
+	.rightcol {
+		width: 200px;
+		float: right;
+	}
+	.v-select-list > .v-list > div:nth-child(odd) {
+		background: #f5f5f5;
+	}
+	.v-select-list > .v-list > div:first-child {
+		border-bottom: 1px solid lightgray;
+	}
+
+	.searchbox {
+		display: inline-block;
+		width: 40%;
+		margin-left: 30px;
+	}
+
+	@media only screen and (max-width: 446px) {
+		.searchbox {
+			display: block;
+			width: 90%;
+		}
+	}
 </style>
