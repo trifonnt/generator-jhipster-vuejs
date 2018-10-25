@@ -37,6 +37,8 @@ export default (name) => {
       else {
         url = urltoobj(url);
         url.page = +url.page;
+        if(url.pagination.descending == "false") url.pagination = false;
+        if(url.pagination.descending == "true") url.pagination = true;
         url.rowsPerPage = +url.rowsPerPage;
         this.pagination = url;
       }

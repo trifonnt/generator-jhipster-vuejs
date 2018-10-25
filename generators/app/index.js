@@ -190,7 +190,8 @@ let destPath = this.options.env.cwd+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/
             "vuetify": "^1.0.19",
             "vuex": "^3.0.1",
             "material-design-icons-iconfont": "^3.0.3",
-            
+            "vuedraggable": "^2.16.0",
+
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",

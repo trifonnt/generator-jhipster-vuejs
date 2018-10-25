@@ -31,5 +31,8 @@ export default((name) => {
 		async deleteAll(items) {
 			return fetcher.deleteAllItems(items)
 		},
+		async saveLabels(fields, labels) {
+			return fetcher.saveLabels({ids: fields, labels})
+		},
 	}
 })

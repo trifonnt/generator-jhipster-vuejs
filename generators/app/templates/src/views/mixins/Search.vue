@@ -1,8 +1,6 @@
 <template>
 	<div class='searchbox'>
-		<v-card-text>
-			{{model}}
-		  <v-autocomplete
+	  	<v-autocomplete
 		  :allow-overflow='false'
 		    v-model="model"
 		    :items="items"
@@ -20,14 +18,15 @@
 			</template>
 
 		  </v-autocomplete>
-		</v-card-text>
 	</div>
 </template>
 
 <script>
 	export default {
 		data: () =>  ({
-			
+			model: null,
+			items: [],
+			loading: false,
 		}),
 		computed: {
 			searchQuery: {
@@ -44,10 +43,26 @@
 	        this.$store.dispatch('search', '')
 	      },
 		},
+
+		watch: {
+			async searchQuery(val) {
+		    	//this.search();
+			    try {
+			    	let response = await axios.get('https://cat-fact.herokuapp.com/facts');
+			    	this.items = response.data.all;
+			    	this.items.splice(0,0,{_id:'aa', text:'yy', disabled: true})
+			    	console.log(this.items)
+			    }
+			    catch(err) {
+			    	console.log(err)
+			    }
+			}
+		}
 	}
 </script>
 
 <style>
+
 	.leftcol {
 		width:200px;
 		float: left;
@@ -69,10 +84,19 @@
 		margin-left: 30px;
 	}
 
+	.searchbox .v-text-field__details {
+		display: none;
+	}
+
+	.searchbox .v-input__slot {
+		margin: 0;
+	}
+
 	@media only screen and (max-width: 446px) {
 		.searchbox {
 			display: block;
 			width: 90%;
 		}
 	}
+	
 </style>

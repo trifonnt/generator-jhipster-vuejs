@@ -1,7 +1,8 @@
 <template>
 	<tr  :class="{visible: visibleHeader}">
 	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
-	  <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' :data-label='header.text' v-text="items.item[header.value]" v-for='header in headers.slice(0,-1)'></td>
+    <td><div class='label'></div></td>
+    <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' :data-label='header.text' v-text="items.item[header.value]" v-for='header in headers.slice(0,-1)'></td>
 
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">
@@ -72,6 +73,10 @@
 	}
 </script>
 
-<style>
-	
+<style scoped>
+	.label {
+    width: 7px;
+    height: 30px;
+    background: red;
+  }
 </style>

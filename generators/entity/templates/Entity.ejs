@@ -1,50 +1,36 @@
 <% include fns.ejs %>
 
 <template>
-  <v-app id="inspire">
+ <v-app id="inspire">
   <div id='toptable'>
     <div id='createnew'>
-      <v-btn to='/entities/<%= name %>/new'  color="primary">
+      <v-btn to='/entities/Product/new'  color="primary">
           <v-icon>add</v-icon>
-          Create new <%= name %>
+          Create new Product
       </v-btn>
     </div>
-    <search></search>
+   <search></search>
+   <div id='filterlabels'>
+    <filter-labels :change='getData'></filter-labels>
+   </div>
   </div>
-  <div  v-show='areAllChecked'>
-    <v-btn @click='deleteAll'>Delete all
-          <v-icon color="red">delete</v-icon>
-    </v-btn>
-    <v-btn @click='deleteAll'>Print 1
-    <v-icon color="block">print</v-icon>
-    </v-btn>
-    <v-btn @click='deleteAll'>Print 2
-      <v-icon color="block">print</v-icon>
-    </v-btn>
-    <v-btn @click='deleteAll'>Print 3
-      <v-icon color="block">print</v-icon>
-    </v-btn>
-    <div id='selectLabels'>
-      <v-select
-          :items="labels"
-          v-model="selectedLabels"
-          label="Label"
-          multiple
-          chips
-          item-avatar='search'
-        >
-          <template slot='item' scope='label'>
-            <v-list-tile-avatar>
-              <div class='greenlabel'></div>
-            </v-list-tile-avatar>
-            <v-checkbox></v-checkbox>
-            <v-list-tile-content>
-              <v-list-tile-title v-html="label.item.text"></v-list-tile-title>
-            </v-list-tile-content>
-          </template>
-        </v-select>
+    <div  v-show='areAllChecked'>
+      <v-btn @click='deleteAll'>Delete all
+            <v-icon color="red">delete</v-icon>
+      </v-btn>
+      <v-btn @click='deleteAll'>Print 1
+        <v-icon color="block">print</v-icon>
+      </v-btn>
+      <v-btn @click='deleteAll'>Print 2
+        <v-icon color="block">print</v-icon>
+      </v-btn>
+      <v-btn @click='deleteAll'>Print 3
+        <v-icon color="block">print</v-icon>
+      </v-btn>
+      <div id='selectLabels'>
+        <select-labels v-on:selected='selectLabels' store-name="<%=toLower(name)%>"></select-labels>
+      </div>
     </div>
-  </div>
  <delete-dialog store-name="<%=toLower(name)%>"></delete-dialog>
  <v-data-table
     :headers="headers"
@@ -53,22 +39,25 @@
     class="elevation-1"
     :pagination.sync='pagination'
     :total-items='totalItems'
-    :rows-per-page-items="[10,20,50]"
+    :rows-per-page-items="[1,10,20,50]"
     select-all
   >
     <template slot="headers" slot-scope="props">
       <product-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></product-table-head>
     </template>
     <template slot="items" slot-scope="props">
-        <product-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></product-table-body>
+        <product-table-body :headers = 'headers' :items = 'props' store-name="product"></product-table-body>
     </template>
   </v-data-table>
+
   </v-app>
 </template>
 
 <script>
   import table from '../../mixins/Table'
   import {createStore} from '../../../storex/'
+  import SelectLabels from '../../common/SelectLabels.vue'
+  import FilterLabels from '../../common/FilterLabels.vue'
 
 	export default {
       mixins: [table("<%=toLower(name)%>")],
@@ -82,11 +71,29 @@
           <% }%>
           { text: 'Actions', value: 'actions', sortable: false }
         ],
-
+        labels: [
+          {text:'completed', value:1},
+          {text:'in progress', value:2}
+        ],
+        selectedLabels: [],
       }),
+      computed: {
+        checkedDeleted() {
+          return this.$store.state.table.product.checkedDeleted
+        },
+      },
+      methods: {
+        selectLabels(labels) {
+          this.getData({labels})
+        }
+      },
       beforeCreate() {
         this.$store = createStore('<%=toLower(name)%>', '')
       },
+      components: {
+        SelectLabels,
+        FilterLabels,
+      }
 	}
 </script>
 <style>

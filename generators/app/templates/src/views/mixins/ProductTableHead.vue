@@ -1,6 +1,6 @@
 <template>
 	<tr>
-	<th>
+	<th width='10px'>
 	  <v-checkbox
 	  	:input-value = 'allChecked'
 	    :indeterminate="indeterminite"
@@ -9,6 +9,7 @@
 	    @change="$store.commit('toggleAll')"
 	  ></v-checkbox>
 	</th>
+	<th width='10px'>Label</th>
 	<th
 	  v-for="header in data.headers"
 	  :key="header.text"

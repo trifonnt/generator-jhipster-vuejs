@@ -36,6 +36,9 @@ export function deleteAllItems(items) {
 	let promises = items.map(id=>axios.delete('vendors/'+id).then(data=>data.data));
 	return Promise.all(promises)
 }
+export function saveLabels(data) {
+	return axios.post('<%=addS(toDashed(name))%>/labels', data);
+}
 
 
 <% for(relationship of relationships) { 

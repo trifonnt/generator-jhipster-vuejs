@@ -13,7 +13,7 @@
 
               </v-toolbar>
                             <v-card-text>
-                <v-form>
+                <v-form @submit.prevent='create'>
                   <% 
                   fields[0].focus = true;
                   fields.forEach(field=>{
