@@ -97,11 +97,22 @@
 	}
 </script>
 <style>
+  #toptable {
+    display: flex;
+  }
   #createnew {
     display: inline-block;
+    align-self: center;
   }
   #selectLabels {
     display: inline-block;
+  }
+  #filterlabels {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  #filterlabels .v-select.v-select--chips .v-select__selections  {
+    min-height: initial;
   }
   .greenlabel {
     background: green;
