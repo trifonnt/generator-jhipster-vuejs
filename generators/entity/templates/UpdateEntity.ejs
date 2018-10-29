@@ -36,7 +36,7 @@
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
                   %>
-                    <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double', 'String'].includes(fType)) {%>
+                    <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double', 'String'].includes(fType) && field.fieldValues == undefined) {%>
                       <v-text-field <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
@@ -69,10 +69,16 @@
                         </v-menu>
                         <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
-                    <% if(fType == "Enumeration") {%>
+                    <% if(fType == "String" && field.fieldValues != undefined) {%>
                       <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" v-model="<%=fName%>"></v-select>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
+                  <% if(fType == 'Html') {%>
+                      <quill-editor ref="quillEditor<%=fName%>"
+                        v-model="<%=fName%>"
+                        :options="editorOptions">
+                      </quill-editor>
+                  <% } %>
                   <%})%>
                   <% for(relationship of relationships) { 
                     let validate = {};
@@ -125,18 +131,50 @@
 		export default {
     inject: ['$validator'],
     data: () => ({
+      editorOptions: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'font': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['clean'],
+          ],
+        }
+      },
       registered: null,
       <% fields.forEach(field=>{%>
         <%
           let fType = field.fieldType;
-          let val = '""';
+          let val;
           if(fType == 'String') val = '""';
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
             val = '""';
-          }
-          if(fType == 'Enumeration') val = [];
         %>
+
         <%=field.fieldName%>: <%-val%>,
+        <%
+          }
+          if(fType == 'String' && field.fieldValues != undefined) {
+            val = field.fieldValues.split(',')
+        %>
+        <%=field.fieldName%> : [],
+        <%=addS(field.fieldName)%>: [
+          <%for(val of field.fieldValues.split(',')) {%>
+            "<%=val%>",
+          <% } %>
+        ],
+        <%
+          }
+        %>
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
@@ -144,6 +182,7 @@
           <%=relationship.relationshipName%>: '',
         <% } %>
       <% } %>
+
 		}),
     created() {
       this.getData();

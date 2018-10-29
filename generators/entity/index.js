@@ -149,6 +149,11 @@ module.exports = class extends BaseGenerator {
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./Search.ejs'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/Search.vue'),
+                obj
+            )
+            this.fs.copyTpl(
                 this.templatePath('./entityIndex.js'),
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}

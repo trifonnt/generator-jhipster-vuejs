@@ -32,6 +32,27 @@
             delete
           </v-icon>
         </a>
+        <v-menu>
+          <v-btn
+            slot="activator"
+            dark
+            icon
+          >
+            <v-icon class='mr-2' color='rgba(0,0,0,.54)'>more_vert</v-icon>
+          </v-btn>
+
+          <v-list>
+            <v-list-tile>
+              <v-list-tile-title>Action</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-title>Action</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-title>Action</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </td>
       </tr>
 </template>

@@ -36,10 +36,21 @@ export function deleteAllItems(items) {
 	let promises = items.map(id=>axios.delete('vendors/'+id).then(data=>data.data));
 	return Promise.all(promises)
 }
-export function saveLabels(data) {
-	return axios.post('<%=addS(toDashed(name))%>/labels', data);
+export function getLabels() {
+	return axios.get('products/getLabels');
 }
-
+export function saveLabels(data) {
+	return axios.post('products/labels', data);
+}
+export function saveItemOrder(left, right) {
+	return axios.post('products/saveItemOrder', {left, right})
+}
+export function getItemOrder() {
+	return axios.get('itemorder');
+}
+export function saveSearch(searchBy, values) {
+	return axios.post('savesearch', {searchBy, values}).then(data=>data.data);
+}
 
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))

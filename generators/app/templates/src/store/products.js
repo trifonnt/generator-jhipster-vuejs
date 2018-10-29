@@ -31,8 +31,23 @@ export default((name) => {
 		async deleteAll(items) {
 			return fetcher.deleteAllItems(items)
 		},
+		async getLabels() {
+			return fetcher.getLabels();
+		},
 		async saveLabels(fields, labels) {
 			return fetcher.saveLabels({ids: fields, labels})
+		},
+		async saveItemOrder(left, right) {
+			return fetcher.saveItemOrder(left, right)
+		},
+		async getItemOrder() {
+			return fetcher.getItemOrder();
+		},
+		async searchAdvanced(searchBy, values) {
+			return fetcher.searchAdvanced(searchBy, values);
+		},
+		async saveSearch(searchBy, values) {
+			return fetcher.saveSearch(searchBy, values);
 		},
 	}
 })

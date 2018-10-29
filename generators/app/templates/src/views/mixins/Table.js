@@ -2,7 +2,6 @@ import {objtourl, urltoobj} from '../../utils/url'
 import ProductTableBody from './ProductTableBody.vue'
 import ProductTableHead from './ProductTableHead.vue'
 import DeleteDialog from './DeleteDialog.vue'
-import Search from './Search.vue'
 
 import {mapState, mapMutations} from 'vuex'
   
@@ -123,7 +122,6 @@ export default (name) => {
       ProductTableBody,
       ProductTableHead,
       DeleteDialog,
-      Search,
     }
   }
 }

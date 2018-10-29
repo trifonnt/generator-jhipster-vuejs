@@ -83,6 +83,8 @@
     </v-navigation-drawer>
     <v-toolbar
       app
+      scroll-off-screen
+      :scroll-threshold='30'
       :clipped-left="clipped"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>

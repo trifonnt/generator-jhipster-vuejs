@@ -14,7 +14,15 @@
               </v-toolbar>
               <v-card-text>
                 <% for(field of fields) { %>
+                  <% if(field.fieldType == 'Html') { %>
+                    <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip><div v-html="<%=field.fieldName%>"></div></div>
+                  <% } 
+                  else if(field.fieldType == 'String' && field.fieldValues != undefined) { %>
+                    <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip><div>{{<%=field.fieldName%>}}</div></div>
+                  <% }
+                  else { %>
                   <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip>{{<%=field.fieldName%>}}</div>
+                  <% } %>
                 <% }%>
                 <% for(relationship of relationships) { %>
                   <div><v-chip label><%=toSpaced(relationship.relationshipName)%></v-chip>{{<%=relationship.relationshipName%>}}</div>
@@ -40,10 +48,10 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean'].includes(fType)) {
             val = '""';
           }
-          if(fType == 'Enumeration') val = [];
+          if(fType == 'String' && field.fieldValues != undefined) val = [];
         %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>

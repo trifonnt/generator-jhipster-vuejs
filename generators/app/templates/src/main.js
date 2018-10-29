@@ -11,6 +11,13 @@ import Datatable from 'vue2-datatable-component'
 
 import VueI18n from 'vue-i18n'
 
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 import messages from './lang/';
 
 
@@ -32,6 +39,9 @@ Vue.use(VeeValidate, {
 Vue.use(Datatable)
 
 Vue.use(VueI18n)
+
+Vue.use(VueQuillEditor, /* { default global options } */)
+
 let lang = localStorage.getItem('langkey') || 'en';
 
 const i18n = new VueI18n({

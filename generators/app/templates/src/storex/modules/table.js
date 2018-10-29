@@ -37,37 +37,55 @@ export default((name, name2)=> {
 	}
 
 	const actions = {
-		async getData({state, commit}, {page, sort, search, rowsPerPage}) {
+		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values}) {
 	        try {
-	          let sort = '';
-	          let page = state.product.pagination.page;
-	          let search = state.product.search;
-	          let rowsPerPage = state.product.pagination.rowsPerPage;
+	          let sort = sort || '';
+	          let page = page || state.product.pagination.page;
+	          let search = search || state.product.search;
+	          let rowsPerPage = rowsPerPage || state.product.pagination.rowsPerPage;
+	          let labels = labels || state.product.pagination.labels;
 	          if(state.product.pagination.sortBy != null) {
 	          	console.log(state.product.pagination, "PAGEs")
 	          	sort = state.product.pagination.sortBy+',';
 	          	let asc = state.product.pagination.descending;
+	          	console.log(state.product.pagination.descending, "SORTME")
 	         	if(state.product.pagination.descending === true || state.product.pagination.descending === "true") 
 	         		sort+='desc';
 	         	else sort+='asc';
 	          }
 	          console.log(sort,"SRT")
 	          commit('changeLoading', true)
-	          let [headers, response] = await Promise.all([store.getCountEntity(search),store.getData(page-1, sort, search, rowsPerPage)]);
+	          let [headers, response] = await Promise.all([store.getCountEntity(search, options, values),store.getData(page-1, sort, search, rowsPerPage, labels, options, values)]);
 	          commit('changeLoading', false)
 			  commit('getHeaders', +headers['x-total-count'])
 	          response = response.data;
 	          response.map(vendor=>vendor.value=false)
 	          commit('getProducts', response)
-	          history.pushState({}, null, '#'+objtourl(state.product.pagination))
+	          console.log(state.product.pagination)
+	          history.pushState(state.product.pagination, null, '#'+objtourl(state.product.pagination))
 
 	        }
 	        catch(err) {console.log(err)}
 		},
+/*		async searchAdvanced({state, commit}, {options, values}) {
+			commit('changeLoading', true)
+        	let [headers, response] = await Promise.all([store.searchAdvanced(page-1, sort, search, rowsPerPage, labels)]);
+			commit('changeLoading', false)
+			commit('getHeaders', +headers['x-total-count'])
+	        response = response.data;
+	        response.map(vendor=>vendor.value=false)
+	        commit('getProducts', response)
+			commit('getHeaders', +headers['x-total-count'])
+
+		},*/
 		updateChecked({state, commit}, val) {
 			if(val.checked)  commit('addToDeleted', val.value);
 			else commit('removeFromDeleted', val.value)
 			commit('checkIndeterminite')
+		},
+		checkCheckbox({state, commit}, vals) {
+			commit('clearDeleted');
+			for(val of vals) commit('addToDeleted', val);
 		},
 		changeSort ({state, commit, dispatch}, column) {
 			let pagination = {};

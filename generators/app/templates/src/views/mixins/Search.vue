@@ -1,6 +1,6 @@
 <template>
-	<div class='searchbox'>
-	  	<v-autocomplete
+<div class='searchbox'>
+		  <v-autocomplete
 		  :allow-overflow='false'
 		    v-model="model"
 		    :items="items"
@@ -18,16 +18,116 @@
 			</template>
 
 		  </v-autocomplete>
-	</div>
+		  <v-btn color='primary' flat @click='dialog=!dialog'>Advanced search</v-btn>
+		  <v-dialog v-model="dialog" max-width="700px">
+		  	<v-card>
+	          <v-card-title>
+	            Advanced search
+	          </v-card-title>
+	          <v-card-text>
+	          	<v-form>
+	          	<v-container>
+	          	<v-layout row wrap>
+	          		<v-flex md12>
+						<v-select
+							v-model = 'savedSearch'
+							:items="savedSearches"
+							label="Saved searches"
+						></v-select>
+	          		</v-flex>
+	          		<v-flex md3>
+			      	    <v-select
+			      	      v-model = 'advancedValues.selected'
+				          :items="advanced.selectItems"
+				          label="Label"
+				        ></v-select>
+			    	</v-flex>
+			    	<v-flex md9>
+	              	<v-text-field v-validate='{"alpha_dash":true}' name="code" label="Code" type="text" v-model="advancedValues2.code"></v-text-field>
+	              </v-flex>
+					<v-flex md3>
+						<v-select
+						  v-model = 'advancedValues.selected2'
+						:items="advanced.selectItems2"
+						label="Label"
+						></v-select>
+					</v-flex>
+						<v-flex fluid>
+						<v-text-field v-validate='{"alpha_dash":true}' name="code" label="Code" type="text" v-model="advancedValues2.code2"></v-text-field>
+					</v-flex>
+              </v-layout>
+              </v-container>
+          </v-form>
+	          </v-card-text>
+	          <v-card-actions>
+	          	<v-btn color='success' flat icon @click='searchAdvanced'><v-icon>search</v-icon></v-btn>
+	            <v-btn color="primary" flat @click='saveSearch'>Save search</v-btn>
+	            <v-btn color="error" flat @click="dialog=false">Close</v-btn>
+	          </v-card-actions>
+	        </v-card>
+		  </v-dialog>
+
+</div>
+
+<!--       <v-container>
+        <v-layout row wra>
+          <v-flex md4 justif>
+          	<v-card>
+				<v-card-text>
+					{{model}}
+				  <v-autocomplete
+				  :allow-overflow='false'
+				    v-model="model"
+				    :items="items"
+				    placeholder="Search"
+				    prepend-icon="search"
+				    :search-input.sync="searchQuery"
+				    cache-items
+				    return-object
+				    :async-loading='loading'
+				    :filter="v => v"
+				  >
+
+					<template slot="item" slot-scope="{item}">
+						<div class='leftcol'>{{item.text.substr(0,20)}}</div> <div class='rightcol'>{{item._id}}</div>
+					</template>
+
+				  </v-autocomplete>
+				</v-card-text>
+			</v-card>
+		</v-flex>
+	</v-layout>
+</v-container> -->
 </template>
 
 <script>
+	import axios from 'axios'
+	let store = require('../../store/products').default('product');
 	export default {
+		created() {
+			//this.getData();
+		},
 		data: () =>  ({
+			advanced: [
+				{selectItems: [{text: 'greater than', value: 1}, {text:'less than', value: 2}]},
+				{selectItems2: [{text: 'equal', value: 1}, {text:'right*', value: 2},{text:'*left', value: 3}],},
+			],
+			advancedValues: {selected: 1, selected2: 2},
+			advancedValues2: {code: '', code2: '',},
+			savedSearch: null,
+			savedSearches: [],
+			dialog: false,
 			model: null,
 			items: [],
 			loading: false,
+			itemsOne: [],
+			headers: [
+				{text: "id", value:'id1'},
+				{text: "text", value:'id2'},
+				{text: "text2", value:'id3'},
+			]
 		}),
+
 		computed: {
 			searchQuery: {
 				get() {return this.$store.state.table.product.search},
@@ -35,9 +135,30 @@
 			}
 		},
 		methods: {
+		  async getData() {
+		  	try {
+		  		let response = await getSavedSearches();
+		  		this.advancedValues = response.advancedValues;
+		  		this.advancedValues2 = response.advancedValues2;
+		  	}
+		  	catch(err) {
+		  		console.log(err)
+		  	}
+		  },
 	      search() {
 	        if(!this.searchQuery) return false;
 	        this.$store.dispatch('search', this.searchQuery)
+	      },
+	      searchAdvanced() {
+	      	this.$store.dispatch('getData', {options: this.advancedValues, values: this.advancedValues2})
+	      },
+	      async saveSearch() {
+	      	try {
+	      		await store.saveSearch(this.advancedValues, this.advancedValues2)
+	      	}
+	      	catch(err) {
+	      		console.log(err)
+	      	}
 	      },
 	      deleteQuery() {
 	        this.$store.dispatch('search', '')
@@ -98,5 +219,5 @@
 			width: 90%;
 		}
 	}
-	
+
 </style>

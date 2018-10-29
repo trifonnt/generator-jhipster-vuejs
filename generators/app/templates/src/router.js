@@ -86,7 +86,10 @@ let routes = [
   let context = require('./views/entities').default;
   let views = {};
   if(context.length) {
-    routes.push(...context[0]);
+    console.log(context)
+    context.forEach(c=> {
+      routes.push(...c); 
+    });
   }
 Vue.use(Router)
 const router = new Router({

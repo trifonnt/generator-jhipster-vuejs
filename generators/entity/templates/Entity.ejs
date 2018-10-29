@@ -2,16 +2,17 @@
 
 <template>
  <v-app id="inspire">
+  <div class='margin'></div>
   <div id='toptable'>
     <div id='createnew'>
       <v-btn to='/entities/Product/new'  color="primary">
           <v-icon>add</v-icon>
-          Create new Product
+          Create new <%=name%>
       </v-btn>
     </div>
    <search></search>
    <div id='filterlabels'>
-    <filter-labels :change='getData'></filter-labels>
+    <filter-labels :change='getData' store-name="<%=toLower(name)%>"></filter-labels>
    </div>
   </div>
     <div  v-show='areAllChecked'>
@@ -58,6 +59,7 @@
   import {createStore} from '../../../storex/'
   import SelectLabels from '../../common/SelectLabels.vue'
   import FilterLabels from '../../common/FilterLabels.vue'
+  import Search from './Search.vue'
 
 	export default {
       mixins: [table("<%=toLower(name)%>")],
@@ -97,8 +99,14 @@
 	}
 </script>
 <style>
+<style>
   #toptable {
     display: flex;
+    position: sticky;
+    top: 0;
+    background: #f5f5f5;
+    width: 100%;
+    z-index: 1;
   }
   #createnew {
     display: inline-block;
@@ -118,5 +126,7 @@
     background: green;
     width: 30px;
     height: 30px;
+  }
+  .margin {
   }
 </style>

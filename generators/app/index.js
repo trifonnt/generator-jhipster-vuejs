@@ -191,6 +191,7 @@ let destPath = this.options.env.cwd+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/
             "vuex": "^3.0.1",
             "material-design-icons-iconfont": "^3.0.3",
             "vuedraggable": "^2.16.0",
+            "vue-quill-editor": "^3.0.6",
 
           },
           devDependencies: {
