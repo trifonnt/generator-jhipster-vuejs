@@ -51,7 +51,7 @@
                           :close-on-content-click="false"
                           v-model="menu<%=fName%>"
                           :nudge-right="40"
-                          :return-value.sync="date"
+                          :return-value.sync="<%=fName%>"
                           lazy
                           transition="scale-transition"
                           offset-y
@@ -65,7 +65,7 @@
                             prepend-icon="event"
                             readonly
                           ></v-text-field>
-                          <v-date-picker v-model="date" @input="$refs.menu<%=fName%>.save(date)"></v-date-picker>
+                          <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(date)"></v-date-picker>
 
                         </v-menu>
                         <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -156,11 +156,15 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'String','Boolean'].includes(fType)) {
             val = '""';
         %>
-
-        <%=field.fieldName%>: <%-val%>,
+          <% 
+            if(['LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
+          %>
+            menu<%=field.fieldName%>: '',
+          <% } %>
+          <%=field.fieldName%>: <%-val%>,
         <%
           }
           if(fType == 'String' && field.fieldValues != undefined) {

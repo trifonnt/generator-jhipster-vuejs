@@ -86,7 +86,7 @@
 	                          :close-on-content-click="false"
 	                          v-model="menu<%=fName%>"
 	                          :nudge-right="40"
-	                          :return-value.sync="date"
+	                          :return-value.sync="<%=fName%>"
 	                          lazy
 	                          transition="scale-transition"
 	                          offset-y
@@ -95,12 +95,11 @@
 	                        >
 	                          <v-text-field
 	                            slot="activator"
-	                            v-model="<%=fName%>"
 	                            label="<%=toSpaced(fName)%>"
 	                            prepend-icon="event"
 	                            readonly
 	                          ></v-text-field>
-	                          <v-date-picker v-model="date" @input="$refs.menu<%=fName%>.save(date)"></v-date-picker>
+	                          <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(<%=fName%>)"></v-date-picker>
 
 	                        </v-menu>
 	                        <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -194,6 +193,7 @@
 	import axios from 'axios'
 	let store = require('../../../store/products').default('product');
 	export default {
+		inject: ['$validator'],
 		created() {
 			//this.getData();
 		},
@@ -206,9 +206,14 @@
 	          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean'].includes(fType)) {
 	            val = '""';
 	          }
-	          if(fType == 'Enumeration') val = [];
+	          if(fType == 'String' && field.fieldValues !=undefined) val = '';
 	          obj[field.fieldName] = val;
 	        %>
+	        <% 
+	        	if(['LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
+	        %>
+	        	menu<%=field.fieldName%>: '',
+	        <% } %>
 	        <%=field.fieldName%>: <%-val%>,
 	      <%})%>
 		  <% if(relationships.length) { %>

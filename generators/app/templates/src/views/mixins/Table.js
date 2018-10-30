@@ -1,5 +1,4 @@
 import {objtourl, urltoobj} from '../../utils/url'
-import ProductTableBody from './ProductTableBody.vue'
 import ProductTableHead from './ProductTableHead.vue'
 import DeleteDialog from './DeleteDialog.vue'
 
@@ -119,7 +118,6 @@ export default (name) => {
       },
     },
     components: {
-      ProductTableBody,
       ProductTableHead,
       DeleteDialog,
     }
