@@ -163,7 +163,33 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
-            try {
+            let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name}, (err, str) => {
+                this.log(this._spliceString(temp.indexOf("<!--insertlinkshere-->"), 0, str, temp));
+                jhipsterUtils.rewriteFile(
+                    {
+                        file: destPath + '/views/MenuLeft.vue',
+                        needle: 'insertlinkshere',
+                        splicable: [
+                            str
+                        ]
+                    },
+                    this
+                );
+            });
+            let template2 = ejs.renderFile(this.templatePath('./MenuUp.ejs'), {name}, (err, str) => {
+                this.log(this._spliceString(temp.indexOf("<!--insertlinkshere-->"), 0, str, temp));
+                jhipsterUtils.rewriteFile(
+                    {
+                        file: destPath + '/views/MenuUp.vue',
+                        needle: 'insertlinkshere',
+                        splicable: [
+                            str
+                        ]
+                    },
+                    this
+                );
+            });
+/*            try {
                 let temp = await fs.readFileAsync(this.destinationPath(destPath + '/views/MenuLeft.vue'), "utf8");
                 let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name}, (err, str) => {
                     this.log(this._spliceString(temp.indexOf("<!--insertlinkshere-->"), 0, str, temp));
@@ -178,7 +204,7 @@ module.exports = class extends BaseGenerator {
             }
             catch(err) {
                 this.log(err)
-            }
+            }*/
             
             /*this.template('dummy.txt', 'dummy.txt', this, {});*/
 

@@ -1,18 +1,18 @@
-<% include fns.ejs %>
+
 
 <template>
  <v-app id="inspire">
   <div class='margin'></div>
   <div id='toptable'>
     <div id='createnew'>
-      <v-btn to='/entities/<%=toLower(name)%>/new'  color="primary">
+      <v-btn to='/entities/userx/new'  color="primary">
           <v-icon>add</v-icon>
-          Create new <%=name%>
+          Create new User
       </v-btn>
     </div>
    <search></search>
    <div id='filterlabels'>
-    <filter-labels :change='getData' store-name="<%=toLower(name)%>"></filter-labels>
+    <filter-labels :change='getData' store-name="userx"></filter-labels>
    </div>
   </div>
     <div  v-show='areAllChecked'>
@@ -29,10 +29,10 @@
         <v-icon color="block">print</v-icon>
       </v-btn>
       <div id='selectLabels'>
-        <select-labels v-on:selected='selectLabels' store-name="<%=toLower(name)%>"></select-labels>
+        <select-labels v-on:selected='selectLabels' store-name="userx"></select-labels>
       </div>
     </div>
- <delete-dialog store-name="<%=toLower(name)%>"></delete-dialog>
+ <delete-dialog store-name="userx"></delete-dialog>
  <v-data-table
     :headers="headers"
     :items="products"
@@ -47,13 +47,7 @@
       <product-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></product-table-head>
     </template>
     <template slot="items" slot-scope="props">
-        <product-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></product-table-body>
-    </template>
-    <template slot='footer'>
-      <tr v-for='row in footer'>
-        <td>{{row.header}}</td>
-        <td colspan='100%' class='rightalign'>{{row.value}}</td>
-      </tr>
+        <product-table-body :headers = 'headers' :items = 'props' store-name="userx"></product-table-body>
     </template>
   </v-data-table>
 
@@ -69,16 +63,35 @@
   import ProductTableBody from './ProductTableBody.vue'
 
 	export default {
-      mixins: [table("<%=toLower(name)%>")],
+      mixins: [table("userx")],
       data: () => ({
-        footer: [],
         headers: [
-          <% fields.forEach(field=>{%>
-            { text: "<%=toSpaced(field.fieldName)%>", value: "<%=field.fieldName%>" },
-          <%})%>
-          <% for(relationship of relationships) { %>
-            { text: "<%=toSpaced(relationship.relationshipName)%>", value: "<%=relationship.relationshipName%>" },
-          <% }%>
+          
+            { text: "Login", value: "login" },
+          
+            { text: "Activated", value: "activated" },
+          
+            { text: "Authorities", value: "authorities" },
+          
+            { text: "Created By", value: "createdBy" },
+          
+            { text: "Created Date", value: "createdDate" },
+          
+            { text: "Email", value: "email" },
+          
+            { text: "First Name", value: "firstName" },
+          
+            { text: "Image Url", value: "imageUrl" },
+          
+            { text: "Lang Key", value: "langKey" },
+          
+            { text: "Last Modified By", value: "lastModifiedBy" },
+          
+            { text: "Last Modified Date", value: "lastModifiedDate" },
+          
+            { text: "Last Name", value: "lastName" },
+          
+          
           { text: 'Actions', value: 'actions', sortable: false }
         ],
         labels: [
@@ -98,7 +111,7 @@
         }
       },
       beforeCreate() {
-        this.$store = createStore('<%=toLower(name)%>', '')
+        this.$store = createStore('userx', '')
       },
       components: {
         SelectLabels,
@@ -138,8 +151,5 @@
     height: 30px;
   }
   .margin {
-  }
-  .rightalign {
-    text-align: right;
   }
 </style>

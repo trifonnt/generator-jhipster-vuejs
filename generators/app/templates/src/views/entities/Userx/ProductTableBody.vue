@@ -2,11 +2,14 @@
 	<tr  :class="{visible: visibleHeader}">
 	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
     <td><div class='label'></div></td>
-    <% for(field of fields) { 
-      if(field.fieldType == 'String' && field.fieldValues != undefined) {
-    %>
-      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(field.fieldName)%>'>
-        <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Login' v-text="items.item['login']"></td>
+      
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='First Name' v-text="items.item['firstName']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Activated' v-text="items.item['activated']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Authorities'>
+        <v-chip small class='chipenum' label style='display: inline-block' v-for="val in items.item['authorities'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
           <v-btn class='morechips'
             slot="activator"
@@ -15,18 +18,30 @@
             <v-icon>more_horiz</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="val2 in items.item['<%=field.fieldName%>'].slice(2)">
+            <v-list-tile v-for="val2 in items.item['authorities'].slice(2)">
               <v-chip label color='primary'>{{val2}}</v-chip>
             </v-list-tile>
           </v-list>
         </v-menu>
       </td>
-    <%
-      }
-      else {
-    %>
-      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(field.fieldName)%>' v-text="items.item['<%=field.fieldName%>']"></td>
-    <% } } %>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Created By' v-text="items.item['createdBy']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Created Date' v-text="items.item['createdDate']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Email' v-text="items.item['email']"></td>
+    
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Image Url' v-text="items.item['imageUrl']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Lang Key' v-text="items.item['langKey']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Last Modified By' v-text="items.item['lastModifiedBy']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Last Modified Date' v-text="items.item['lastModifiedDate']"></td>
+    
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Last Name' v-text="items.item['lastName']"></td>
+    
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">
           <v-icon
@@ -118,7 +133,7 @@
 </script>
 
 <style scoped>
-  .label {
+	.label {
     width: 7px;
     height: 30px;
     background: red;

@@ -8,6 +8,10 @@ import ResetPass from './views/ResetPass.vue'
 import AccSettings from './views/AccSettings.vue'
 import ChangePass from './views/ChangePass.vue'
 
+import Userx from './views/entities/Userx/User.vue'
+import CreateUserx from './views/entities/Userx/CreateUser.vue'
+import UpdateUserx from './views/entities/Userx/UpdateUser.vue'
+import ViewUserx from './views/entities/Userx/ViewUser.vue'
 //import Detail from './views/entities/mDetail/Detail.vue'
 
 /*import Vendor from './views/entities/vendor/Vendor.vue'
@@ -81,7 +85,26 @@ let routes = [
       name: 'changepass',
       component: ChangePass,
     },
-
+    {
+      path: '/admin/userx',
+      name: 'Userx',
+      component: Userx,
+    },
+    {
+      path: '/admin/userx/new',
+      name: 'newUserx',
+      component: CreateUserx,
+    },
+    {
+      path: '/admin/userx/edit/:id',
+      name: 'editUserx',
+      component: UpdateUserx,
+    },    
+    {
+      path: '/admin/userx/view/:id',
+      name: 'viewUserx',
+      component: ViewUserx,
+    },
   ];
   let context = require('./views/entities').default;
   let views = {};

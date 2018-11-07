@@ -166,6 +166,17 @@
     </v-btn>
     <menu-up></menu-up>
   </v-menu>
+    <v-menu offset-y v-show='user.auth'>
+    <v-btn flat
+      slot="activator"
+      color="primary"
+      dark
+    >
+      Admin
+      <v-icon dark>arrow_drop_down</v-icon>
+    </v-btn>
+      <v-list-tile><v-list-tile-title><router-link to='/admin/userx'>User management</router-link></v-list-tile-title></v-list-tile>
+  </v-menu>  
       <v-menu offset-y v-show='user.auth'>
       <v-btn flat
         slot="activator"

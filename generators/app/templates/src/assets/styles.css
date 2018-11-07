@@ -62,8 +62,12 @@
     }
     tr > td:nth-of-type(2) {
       display: table-cell;
+      width: 30px;
     }
     tr > td:nth-of-type(3) {
+      display: table-cell;
+    }
+    tr > td:nth-of-type(4) {
       display: table-cell;
     }
     tr.visible {
