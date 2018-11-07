@@ -37,13 +37,13 @@ export function deleteAllItems(items) {
 	return Promise.all(promises)
 }
 export function getLabels() {
-	return axios.get('products/getLabels');
+	return axios.get('<%=addS(toDashed(name))%>/getLabels');
 }
 export function saveLabels(data) {
-	return axios.post('products/labels', data);
+	return axios.post('<%=addS(toDashed(name))%>/labels', data);
 }
 export function saveItemOrder(left, right) {
-	return axios.post('products/saveItemOrder', {left, right})
+	return axios.post('<%=addS(toDashed(name))%>/saveItemOrder', {left, right})
 }
 export function getItemOrder() {
 	return axios.get('itemorder');

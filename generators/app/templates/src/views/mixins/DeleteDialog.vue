@@ -21,19 +21,19 @@
 
 	export default {
 		beforeCreate() {
-  			store = require('../../store/products').default(this.$options.propsData.storeName);
+  			store = require('../../store/entity').default(this.$options.propsData.storeName);
   			deleteItemById = store.deleteItemById;
 			//this.$store = createStore(this.$options.propsData.storeName, '')
     	},
     	created() {
-    		console.log(this.$store.state.table.product)
+    		console.log(this.$store.state.table.entity)
     	},
 		computed: {
 			deletedItem() {
-			  return this.$store.state.table.product.deletedItem;
+			  return this.$store.state.table.entity.deletedItem;
 			},
 		    dialog() {
-		      return this.$store.state.table.product.dialog;
+		      return this.$store.state.table.entity.dialog;
 		    }
 		},
 		methods: {

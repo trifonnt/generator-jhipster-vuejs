@@ -7,10 +7,10 @@ export default((name, name2)=> {
 	else store = require('../../store/'+name).default;
 	console.warn(store)
 	const state = {
-		product: {
+		entity: {
 			indeterminite: false,
 			checkedDeleted: [],
-			products: [],
+			entitys: [],
 			pagination: {
 				page: 1,
 				rowsPerPage: 10,
@@ -28,11 +28,11 @@ export default((name, name2)=> {
 
 	const getters = {
 		isChecked: (state)=>(id)=>{
-			return state.product.checkedDeleted.find(pid=>pid==id) || false;
+			return state.entity.checkedDeleted.find(pid=>pid==id) || false;
 		},
 		allChecked(state) {
-			return state.product.checkedDeleted.length;
-			//return state.product.length == state.product.checkedDeleted.length
+			return state.entity.checkedDeleted.length;
+			//return state.entity.length == state.entity.checkedDeleted.length
 		}
 	}
 
@@ -40,16 +40,16 @@ export default((name, name2)=> {
 		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values}) {
 	        try {
 	          let sort = sort || '';
-	          let page = page || state.product.pagination.page;
-	          let search = search || state.product.search;
-	          let rowsPerPage = rowsPerPage || state.product.pagination.rowsPerPage;
-	          let labels = labels || state.product.pagination.labels;
-	          if(state.product.pagination.sortBy != null) {
-	          	console.log(state.product.pagination, "PAGEs")
-	          	sort = state.product.pagination.sortBy+',';
-	          	let asc = state.product.pagination.descending;
-	          	console.log(state.product.pagination.descending, "SORTME")
-	         	if(state.product.pagination.descending === true || state.product.pagination.descending === "true") 
+	          let page = page || state.entity.pagination.page;
+	          let search = search || state.entity.search;
+	          let rowsPerPage = rowsPerPage || state.entity.pagination.rowsPerPage;
+	          let labels = labels || state.entity.pagination.labels;
+	          if(state.entity.pagination.sortBy != null) {
+	          	console.log(state.entity.pagination, "PAGEs")
+	          	sort = state.entity.pagination.sortBy+',';
+	          	let asc = state.entity.pagination.descending;
+	          	console.log(state.entity.pagination.descending, "SORTME")
+	         	if(state.entity.pagination.descending === true || state.entity.pagination.descending === "true") 
 	         		sort+='desc';
 	         	else sort+='asc';
 	          }
@@ -60,9 +60,9 @@ export default((name, name2)=> {
 			  commit('getHeaders', +headers['x-total-count'])
 	          response = response.data;
 	          response.map(vendor=>vendor.value=false)
-	          commit('getProducts', response)
-	          console.log(state.product.pagination)
-	          history.pushState(state.product.pagination, null, '#'+objtourl(state.product.pagination))
+	          commit('getEntitys', response)
+	          console.log(state.entity.pagination)
+	          history.pushState(state.entity.pagination, null, '#'+objtourl(state.entity.pagination))
 
 	        }
 	        catch(err) {console.log(err)}
@@ -74,7 +74,7 @@ export default((name, name2)=> {
 			commit('getHeaders', +headers['x-total-count'])
 	        response = response.data;
 	        response.map(vendor=>vendor.value=false)
-	        commit('getProducts', response)
+	        commit('getentitys', response)
 			commit('getHeaders', +headers['x-total-count'])
 
 		},*/
@@ -89,8 +89,8 @@ export default((name, name2)=> {
 		},
 		changeSort ({state, commit, dispatch}, column) {
 			let pagination = {};
-	        if (state.product.pagination.sortBy === column) {
-	          pagination.descending = !state.product.pagination.descending
+	        if (state.entity.pagination.sortBy === column) {
+	          pagination.descending = !state.entity.pagination.descending
 	        } else {
 	          pagination.sortBy = column
 	          pagination.descending = false
@@ -109,58 +109,58 @@ export default((name, name2)=> {
 	}
 
 	const mutations = {
-		toggleAll(state, products) {
-			state.product.indeterminite = false;
-			if (state.product.checkedDeleted.filter(Number).length == state.product.products.length) {
-	          return state.product.checkedDeleted = []
+		toggleAll(state, entitys) {
+			state.entity.indeterminite = false;
+			if (state.entity.checkedDeleted.filter(Number).length == state.entity.entitys.length) {
+	          return state.entity.checkedDeleted = []
 	        }
-	        if(state.product.checkedDeleted.filter(Number).length == 0) {
-	          state.product.checkedDeleted = state.product.products.map(p=>p.id)
+	        if(state.entity.checkedDeleted.filter(Number).length == 0) {
+	          state.entity.checkedDeleted = state.entity.entitys.map(p=>p.id)
 	        }
 	        else {
-	     	   return state.product.checkedDeleted = [];
+	     	   return state.entity.checkedDeleted = [];
 	    	}
 		},
 		deleteAllChecked(state) {
-			state.product.checkDeleted = [];
+			state.entity.checkDeleted = [];
 		},
 		clearDeleted(state) {
 			state.checkedDeleted = [];
 		},
-		getProducts(state, products) {
-			state.product.products = products;
-			state.product.length = products.length
+		getEntitys(state, entitys) {
+			state.entity.entitys = entitys;
+			state.entity.length = entitys.length
 		},
 		getHeaders(state, count) {
-			state.product.totalItems = count;
+			state.entity.totalItems = count;
 		},
 		addToDeleted(state, val) {
-			state.product.checkedDeleted.push(val);
+			state.entity.checkedDeleted.push(val);
 
 		},
 		checkIndeterminite(state) {
-			state.product.indeterminite = true;
-			if(state.product.checkedDeleted.length == state.product.products.length || state.product.checkedDeleted.length == 0) state.product.indeterminite = false;
+			state.entity.indeterminite = true;
+			if(state.entity.checkedDeleted.length == state.entity.entitys.length || state.entity.checkedDeleted.length == 0) state.entity.indeterminite = false;
 		},
 		removeFromDeleted(state, val) {
-			state.product.checkedDeleted = state.product.checkedDeleted.filter(id=>{return id!=val})
+			state.entity.checkedDeleted = state.entity.checkedDeleted.filter(id=>{return id!=val})
 		},
 		changePagination(state, pagination) {
-			state.product.pagination = Object.assign({}, state.product.pagination, pagination);
+			state.entity.pagination = Object.assign({}, state.entity.pagination, pagination);
 			console.log(pagination)
 		},
 		deleteItem(state, item) {
-			state.product.deletedItem = Object.assign({}, state.product.deletedItem, item);
-			state.product.dialog = true;
+			state.entity.deletedItem = Object.assign({}, state.entity.deletedItem, item);
+			state.entity.dialog = true;
 		},
 		changeDialog(state, val) {
-			state.product.dialog = val;
+			state.entity.dialog = val;
 		},
 		changeLoading(state, val) {
-			state.product.loading = val;
+			state.entity.loading = val;
 		},
 		setSearch(state, query) {
-			state.product.search = query;
+			state.entity.search = query;
 		}
 	}
 	return {

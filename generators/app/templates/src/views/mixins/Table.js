@@ -1,5 +1,5 @@
 import {objtourl, urltoobj} from '../../utils/url'
-import ProductTableHead from './ProductTableHead.vue'
+import EntityTableHead from './EntityTableHead.vue'
 import DeleteDialog from './DeleteDialog.vue'
 
 import {mapState, mapMutations} from 'vuex'
@@ -7,7 +7,7 @@ import {mapState, mapMutations} from 'vuex'
 
 
 export default (name) => {
-  let store = require('../../store/products').default(name);
+  let store = require('../../store/entity').default(name);
   let getData = store.getData;
   let deleteItemById = store.deleteItemById;
   let getCountEntity = store.getCountEntity;
@@ -50,14 +50,14 @@ export default (name) => {
   },*/
   computed: {
     pagination: {
-      get() {return this.$store.state.table.product.pagination},
+      get() {return this.$store.state.table.entity.pagination},
       set(val) {console.warn(val);this.$store.dispatch('changePaginationWatcher', val)}
     },
     pages: function() {
       return Math.ceil(this.totalItems/this.pagination.rowsPerPage) || 0;
     },
     page: {
-      get() {return this.$store.state.table.product.pagination.page},
+      get() {return this.$store.state.table.entity.pagination.page},
       set(val) {console.log("H2");this.$store.dispatch('changePaginationWatcher', {page:val})},
     },
 
@@ -70,19 +70,19 @@ export default (name) => {
       return this.$store.getters.allChecked
     },
     loading() {
-      return this.$store.state.table.product.loading
+      return this.$store.state.table.entity.loading
     },
     totalItems() {
-      return this.$store.state.table.product.totalItems
+      return this.$store.state.table.entity.totalItems
     },
     indeterminite() {
-      return this.$store.state.table.product.indeterminite
+      return this.$store.state.table.entity.indeterminite
     },
     checkedDeleted() {
-      return this.$store.state.table.product.checkedDeleted
+      return this.$store.state.table.entity.checkedDeleted
     },
-    products() {
-      return this.$store.state.table.product.products
+    entitys() {
+      return this.$store.state.table.entity.entitys
     },
   },
     methods: {
@@ -118,7 +118,7 @@ export default (name) => {
       },
     },
     components: {
-      ProductTableHead,
+      EntityTableHead,
       DeleteDialog,
     }
   }

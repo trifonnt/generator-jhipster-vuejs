@@ -343,7 +343,7 @@
 
 <script>
 	import axios from 'axios'
-	let store = require('../../../store/products').default('product');
+	let store = require('../../../store/entity').default('userx');
 	export default {
 		inject: ['$validator'],
 		created() {
@@ -426,7 +426,7 @@
 
 		computed: {
 			searchQuery: {
-				get() {return this.$store.state.table.product.search},
+				get() {return this.$store.state.table.entity.search},
 				set(val) {this.$store.commit('setSearch', val)}
 			}
 		},

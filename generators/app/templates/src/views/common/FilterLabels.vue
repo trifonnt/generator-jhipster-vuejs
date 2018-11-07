@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  let store = require('../../store/products').default('product')
+  let store;
   export default {
     data: ()=>({
       labels: [
@@ -45,19 +45,20 @@
         }
       }
     },
+    beforeCreate() {
+      store = require('../../store/entity').default(this.$options.propsData.storeName);
+    },
     created() {
       //this.getLabelData();
     },
     watch: {
-      watch: {
-        async filterLabels(vals) {
-          this.$emit('change')
-        }
-      },
+      async filterLabels(vals) {
+        this.$emit('change')
+      }
     },
     props: {
       storeName: String,
-    }
+    },
   }
 </script>
 

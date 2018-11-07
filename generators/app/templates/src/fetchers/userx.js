@@ -4,11 +4,11 @@ import axios from 'axios'
 
 export function getEntityData(page=0, sort='id,asc', search='', size=10) {
 	if(!search) return axios.get('users', {params: {paged: true, page, size, sort}});
-	return axios.get('_search/user1s', {params: {paged: true, page, size, sort, query: search}});
+	return axios.get('_search/users', {params: {paged: true, page, size, sort, query: search}});
 }
 export function getEntityCount(search='') {
 	if(!search) return axios.get('users').then(data=>data.headers);
-	return axios.get('_search/user1s', {params: {query: search}}).then(data=>data.headers);	
+	return axios.get('_search/users', {params: {query: search}}).then(data=>data.headers);	
 }
 export function createEntity(obj) {
   
@@ -25,17 +25,17 @@ export function deleteId(id) {
 	return axios.delete('users/'+id).then(data=>data.data)
 }
 export function deleteAllItems(items) {
-	let promises = items.map(id=>axios.delete('vendors/'+id).then(data=>data.data));
+	let promises = items.map(id=>axios.delete('users/'+id).then(data=>data.data));
 	return Promise.all(promises)
 }
 export function getLabels() {
-	return axios.get('products/getLabels');
+	return axios.get('users/getLabels');
 }
 export function saveLabels(data) {
-	return axios.post('products/labels', data);
+	return axios.post('users/labels', data);
 }
 export function saveItemOrder(left, right) {
-	return axios.post('products/saveItemOrder', {left, right})
+	return axios.post('users/saveItemOrder', {left, right})
 }
 export function getItemOrder() {
 	return axios.get('itemorder');

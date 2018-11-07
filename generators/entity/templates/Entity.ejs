@@ -35,7 +35,7 @@
  <delete-dialog store-name="<%=toLower(name)%>"></delete-dialog>
  <v-data-table
     :headers="headers"
-    :items="products"
+    :items="entitys"
     :loading='loading'
     class="elevation-1"
     :pagination.sync='pagination'
@@ -44,10 +44,10 @@
     select-all
   >
     <template slot="headers" slot-scope="props">
-      <product-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></product-table-head>
+      <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></entity-table-head>
     </template>
     <template slot="items" slot-scope="props">
-        <product-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></product-table-body>
+        <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></entity-table-body>
     </template>
     <template slot='footer'>
       <tr v-for='row in footer'>
@@ -66,7 +66,7 @@
   import SelectLabels from '../../common/SelectLabels.vue'
   import FilterLabels from '../../common/FilterLabels.vue'
   import Search from './Search.vue'
-  import ProductTableBody from './ProductTableBody.vue'
+  import EntityTableBody from './EntityTableBody.vue'
 
 	export default {
       mixins: [table("<%=toLower(name)%>")],
@@ -89,7 +89,7 @@
       }),
       computed: {
         checkedDeleted() {
-          return this.$store.state.table.product.checkedDeleted
+          return this.$store.state.table.entity.checkedDeleted
         },
       },
       methods: {
@@ -104,7 +104,7 @@
         SelectLabels,
         FilterLabels,
         Search,
-        ProductTableBody,
+        EntityTableBody,
       }
 	}
 </script>

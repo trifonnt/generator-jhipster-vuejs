@@ -6,7 +6,7 @@ import {
 	<% } %>
 } from '../fetchers/<%=toLower(name)%>'
 
-let store = require('./products').default('<%=toLower(name)%>');
+let store = require('./entity').default('<%=toLower(name)%>');
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
 %>

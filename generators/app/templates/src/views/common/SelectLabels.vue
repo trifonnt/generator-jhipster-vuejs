@@ -24,7 +24,7 @@
 
 <script>
 
-	let store = require('../../store/products').default('product')
+	let store;
 	export default {
 		data: () => ({
 	        labels: [
@@ -33,6 +33,9 @@
 	        ],
 	        selectedLabels: [],
 		}),
+	    beforeCreate() {
+	      store = require('../../store/entity').default(this.$options.propsData.storeName);
+	    },
 		created() {
 			//this.getLabelData();
 		},
@@ -58,8 +61,8 @@
 				}
 	        },
 	    },
-	    props: {
-	    	storeName: String,
-	    }
+		props: {
+			storeName: String,
+		},
 	}
 </script>

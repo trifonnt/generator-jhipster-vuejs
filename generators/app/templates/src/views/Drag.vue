@@ -44,7 +44,7 @@
 
 <script>
   import draggable from 'vuedraggable'
-  let store = require('../store/products').default('product')
+  let store = require('../store/entity').default('userx')
 
   export default {
   	data: () => ({
