@@ -1,8 +1,8 @@
 const chalk = require('chalk');
 const packagejs = require('../../package.json');
 const semver = require('semver');
-const BaseGenerator = require('generator-jhipster/generators/generator-base');
-const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
+const BaseGenerator = require('generator-jhipsterx/generators/generator-base');
+const jhipsterConstants = require('generator-jhipsterx/generators/generator-constants');
 const extend = require('deep-extend');
 const ejs = require('ejs')
 
@@ -15,10 +15,10 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.jhipsterAppConfig = this.getJhipsterAppConfig();
+/*                this.jhipsterAppConfig = this.getJhipsterAppConfig();
                 if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
-                }
+                }*/
             },
             displayLogo() {
                 // it's here to show that you can use functions from generator-jhipster
@@ -68,7 +68,7 @@ module.exports = class extends BaseGenerator {
         };
 
         // read config from .yo-rc.json
-        this.baseName = this.jhipsterAppConfig.baseName;
+/*        this.baseName = this.jhipsterAppConfig.baseName;
         this.packageName = this.jhipsterAppConfig.packageName;
         this.packageFolder = this.jhipsterAppConfig.packageFolder;
         this.clientFramework = this.jhipsterAppConfig.clientFramework;
@@ -81,7 +81,7 @@ module.exports = class extends BaseGenerator {
         // use constants from generator-constants.js
         const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
-        const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
+        const webappDir = 'src/main/webapp/';
 
         // variable from questions
         // this.message = this.props.message;
@@ -103,30 +103,30 @@ module.exports = class extends BaseGenerator {
         this.log(`webappDir=${webappDir}`);
 
         this.log('\n--- variables from questions ---');
-        this.log(`\nmessage=${this.message}`);
+        this.log(`\nmessage=${this.message}`);*/
         this.log('------\n');
         const Promise = require('bluebird');
         const fs = Promise.promisifyAll(require('fs'));
         const mkdirp = require('mkdirp-promise')
         await mkdirp(this.options.env.cwd+'/src/main/webapp');
-        await Promise.all(['src','public','build'].map(f=>mkdirp(this.destinationPath(jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/'+f))));
+        await Promise.all(['src','public','build'].map(f=>mkdirp(this.destinationPath('src/main/webapp/'+'/'+f))));
 
         this.log( this)
 
         this.fs.copy(
           this.templatePath('./src'),
-          this.destinationPath(jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/src')
+          this.destinationPath('src/main/webapp/'+'/src')
         );
 
         this.fs.copy(
           this.templatePath('./public'),
-          this.destinationPath(jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/public')
+          this.destinationPath('src/main/webapp/'+'/public')
         );
         
         this.fs.copyTpl(
             this.templatePath('vue.config.ejs'),
             this.destinationPath(this.options.env.cwd+'/vue.config.js'),
-            {srcdir: this.options.env.cwd+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR}
+            {srcdir: this.options.env.cwd+'/'+'src/main/webapp/'}
         )
 
         this.fs.copyTpl(
@@ -155,11 +155,11 @@ module.exports = class extends BaseGenerator {
 
 /*        this.fs.copyTpl(
             this.templatePath('.gitignore'),
-            this.destinationPath(jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/'+'.gitignore'),
+            this.destinationPath('src/main/webapp/'+'/'+'.gitignore'),
             {}
         )*/
 
-let destPath = this.options.env.cwd+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/src';
+let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
         this.fs.copyTpl(
             this.templatePath('./src/store/entity.js'),
             this.destinationPath(destPath+'/store/entity.js'),
