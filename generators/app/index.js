@@ -1,8 +1,8 @@
 const chalk = require('chalk');
 const packagejs = require('../../package.json');
 const semver = require('semver');
-const BaseGenerator = require('generator-jhipsterx/generators/generator-base');
-const jhipsterConstants = require('generator-jhipsterx/generators/generator-constants');
+const BaseGenerator = require('generator-jhipster-x/generators/generator-base');
+const jhipsterConstants = require('generator-jhipster-x/generators/generator-constants');
 const extend = require('deep-extend');
 const ejs = require('ejs')
 
