@@ -12,6 +12,9 @@ import Userx from './views/entities/Userx/User.vue'
 import CreateUserx from './views/entities/Userx/CreateUser.vue'
 import UpdateUserx from './views/entities/Userx/UpdateUser.vue'
 import ViewUserx from './views/entities/Userx/ViewUser.vue'
+
+import AdminDocs from './views/admin/Docs.vue'
+
 //import Detail from './views/entities/mDetail/Detail.vue'
 
 /*import Vendor from './views/entities/vendor/Vendor.vue'
@@ -104,6 +107,11 @@ let routes = [
       path: '/admin/userx/view/:id',
       name: 'viewUserx',
       component: ViewUserx,
+    },
+    {
+      path: '/admin/docs',
+      name: 'admindocs',
+      component: AdminDocs,
     },
   ];
   let context = require('./views/entities').default;

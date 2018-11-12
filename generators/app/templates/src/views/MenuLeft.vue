@@ -38,6 +38,15 @@
             <v-list-tile-title><router-link to='/admin/userx'>User management</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile v-show='user.auth'>
+          <v-list-tile-action>
+            <v-icon>user</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title><router-link to='/admin/docs'>Docs</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
 
       </v-list-group>
       <v-list-group
