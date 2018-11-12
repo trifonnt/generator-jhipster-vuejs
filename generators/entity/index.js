@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const packagejs = require('../../package.json');
-const BaseGenerator = require('generator-jhipster/generators/generator-base');
-const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
+const BaseGenerator = require('generator-jhipster-x/generators/generator-base');
+const jhipsterConstants = require('generator-jhipster-x/generators/generator-constants');
 const ejs = require('ejs')
 
 module.exports = class extends BaseGenerator {
