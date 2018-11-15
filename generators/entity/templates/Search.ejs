@@ -191,7 +191,7 @@
 
 <script>
 	import axios from 'axios'
-	let store = require('../../../store/entitys').default('entity');
+	let store = require('../../../store/entity').default('<%=toLower(name)%>');
 	export default {
 		inject: ['$validator'],
 		created() {

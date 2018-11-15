@@ -3,6 +3,7 @@ const packagejs = require('../../package.json');
 const BaseGenerator = require('generator-jhipster-x/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster-x/generators/generator-constants');
 const ejs = require('ejs')
+const jhipsterUtils = require('generator-jhipster/generators/utils');
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -164,10 +165,10 @@ module.exports = class extends BaseGenerator {
                 {}
             )
             let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name}, (err, str) => {
-                this.log(this._spliceString(temp.indexOf("<!--insertlinkshere-->"), 0, str, temp));
                 jhipsterUtils.rewriteFile(
                     {
-                        file: destPath + '/views/MenuLeft.vue',
+                        path: '/',
+                        file: this.destinationPath(destPath + '/views/MenuLeft.vue'),
                         needle: 'insertlinkshere',
                         splicable: [
                             str
@@ -177,10 +178,10 @@ module.exports = class extends BaseGenerator {
                 );
             });
             let template2 = ejs.renderFile(this.templatePath('./MenuUp.ejs'), {name}, (err, str) => {
-                this.log(this._spliceString(temp.indexOf("<!--insertlinkshere-->"), 0, str, temp));
                 jhipsterUtils.rewriteFile(
                     {
-                        file: destPath + '/views/MenuUp.vue',
+                        path: '/',
+                        file: this.destinationPath(destPath + '/views/MenuUp.vue'),
                         needle: 'insertlinkshere',
                         splicable: [
                             str
