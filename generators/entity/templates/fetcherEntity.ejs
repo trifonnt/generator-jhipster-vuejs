@@ -2,13 +2,13 @@
 
 import axios from 'axios'
 
-export function getEntityData(page=0, sort='id,asc', search='', size=10) {
-	if(!search) return axios.get('<%=addS(toDashed(name))%>', {params: {paged: true, page, size, sort}});
-	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {paged: true, page, size, sort, query: search}});
+export function getEntityData(page=0, sort='id,asc', search='', size=10,invoiceId='') {
+	if(!search) return axios.get('<%=addS(toDashed(name))%>', {params: {paged: true, page, size, sort, 'invoiceId.equals': invoiceId}});
+	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {paged: true, page, size, sort, query: search, 'invoiceId.equals': invoiceId}});
 }
-export function getEntityCount(search='') {
-	if(!search) return axios.get('<%=addS(toDashed(name))%>').then(data=>data.headers);
-	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {query: search}}).then(data=>data.headers);	
+export function getEntityCount(search='',invoiceId='') {
+	if(!search) return axios.get('<%=addS(toDashed(name))%>/count').then(data=>data.headers);
+	return axios.get('_search/<%=addS(toDashed(name))%>', {params: {query: search, 'invoiceId.equals': invoiceId}}).then(data=>data.headers);	
 }
 export function createEntity(obj) {
   <% for(field of fields) {

@@ -35,8 +35,8 @@ export default (name) => {
       else {
         url = urltoobj(url);
         url.page = +url.page;
-        if(url.pagination.descending == "false") url.pagination = false;
-        if(url.pagination.descending == "true") url.pagination = true;
+        if(url.descending == "false") url.pagination = false;
+        if(url.descending == "true") url.pagination = true;
         url.rowsPerPage = +url.rowsPerPage;
         this.pagination = url;
       }
@@ -51,14 +51,14 @@ export default (name) => {
   computed: {
     pagination: {
       get() {return this.$store.state.table.entity.pagination},
-      set(val) {console.warn(val);this.$store.dispatch('changePaginationWatcher', val)}
+      set(val) {console.warn(val);this.$store.dispatch('changePaginationWatcher', {page:val, masterId: this.$route.params.id})}
     },
     pages: function() {
       return Math.ceil(this.totalItems/this.pagination.rowsPerPage) || 0;
     },
     page: {
       get() {return this.$store.state.table.entity.pagination.page},
-      set(val) {console.log("H2");this.$store.dispatch('changePaginationWatcher', {page:val})},
+      set(val) {console.log("H2");this.$store.dispatch('changePaginationWatcher', {page:val, masterId: this.$route.params.id})},
     },
 
     sortBy() {

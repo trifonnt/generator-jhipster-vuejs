@@ -3,7 +3,7 @@ const packagejs = require('../../package.json');
 const BaseGenerator = require('generator-jhipster-x/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster-x/generators/generator-constants');
 const ejs = require('ejs')
-const jhipsterUtils = require('generator-jhipster/generators/utils');
+const jhipsterUtils = require('generator-jhipster-x/generators/utils');
 
 module.exports = class extends BaseGenerator {
     get initializing() {

@@ -6,7 +6,7 @@ export function urltoobj(url) {
 }
 export function pushUrl(url) {
 	let state = window.location.href.split('#')[1];
-	if(state) url = state + '&'+url;
+	if(state) url = '#' + state + '&'+url;
 	else url = '#'+url;
 	history.pushState({}, null, url);
 }

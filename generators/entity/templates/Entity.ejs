@@ -47,7 +47,7 @@
       <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></entity-table-head>
     </template>
     <template slot="items" slot-scope="props">
-        <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=toLower(name)%>"></entity-table-body>
+        <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=name%>"></entity-table-body>
     </template>
     <template slot='footer'>
       <tr v-for='row in footer'>

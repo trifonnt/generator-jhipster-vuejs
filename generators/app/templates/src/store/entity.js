@@ -3,8 +3,8 @@ import _ from 'lodash'
 export default((name) => {
 	let fetcher = require('../fetchers/'+name)
 	return {
-		async getData(page=0, sort="id,asc", search='', size=10) {
-			return fetcher.getEntityData(page, sort, search, size);
+		async getData(page=0, sort="id,asc", search='', size=10,options='',values='',masterId='') {
+			return fetcher.getEntityData(page, sort, search, size,masterId);
 		},
 		async getManagers() {
 			try {
@@ -25,8 +25,8 @@ export default((name) => {
 		async deleteItemById(id) {
 			return fetcher.deleteId(id);
 		},
-		async getCountEntity(search='') {
-			return fetcher.getEntityCount(search)
+		async getCountEntity(search='', options='', values='',masterId='') {
+			return fetcher.getEntityCount(search,masterId)
 		},
 		async deleteAll(items) {
 			return fetcher.deleteAllItems(items)

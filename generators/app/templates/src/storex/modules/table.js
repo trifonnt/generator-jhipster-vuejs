@@ -37,7 +37,7 @@ export default((name, name2)=> {
 	}
 
 	const actions = {
-		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values}) {
+		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values, masterId}) {
 	        try {
 	          let sort = sort || '';
 	          let page = page || state.entity.pagination.page;
@@ -55,9 +55,9 @@ export default((name, name2)=> {
 	          }
 	          console.log(sort,"SRT")
 	          commit('changeLoading', true)
-	          let [headers, response] = await Promise.all([store.getCountEntity(search, options, values),store.getData(page-1, sort, search, rowsPerPage, labels, options, values)]);
+	          let [headers, response] = await Promise.all([store.getCountEntity(search, options, values, masterId),store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId)]);
 	          commit('changeLoading', false)
-			  commit('getHeaders', +headers['x-total-count'])
+			  commit('getHeaders', +headers['x-total-count'] || headers)
 	          response = response.data;
 	          response.map(vendor=>vendor.value=false)
 	          commit('getEntitys', response)
