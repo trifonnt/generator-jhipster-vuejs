@@ -217,9 +217,9 @@
 	        <%=field.fieldName%>: <%-val%>,
 	      <%})%>
 		  <% if(relationships.length) { %>
-			<% for(relationship of relationships) { %>
+			<% for(relationship of relationships) {
 			  obj[relationship.relationshipName] = '';
-			<% } %>
+			} %>
 		  <% } %>
 			advanced: [
 				{selectItems: [{text: 'greater than', value: 1}, {text:'less than', value: 2}]},
