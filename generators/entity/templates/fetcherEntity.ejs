@@ -54,9 +54,10 @@ export function saveSearch(searchBy, values) {
 
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
+	if(!(relationship.type == 'many-to-many' && relationship.ownerSide==false)) {
 %>
 	export function get<%=thename%>Data() {
 		return axios.get('<%=addS(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
 	}
 
-<% }%>
+<% } } %>
