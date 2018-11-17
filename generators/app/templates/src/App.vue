@@ -175,7 +175,7 @@
       EntitiesX
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
-    <menu-entitesx></menu-entitiesx>
+    <menu-entitiesx></menu-entitiesx>
   </v-menu>
     <v-menu offset-y>
     <v-btn flat
