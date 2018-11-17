@@ -8,7 +8,7 @@ context.keys().forEach(function (key) {
 
 export default [
 	{
-      path: '/entities/<%=toLower(name)%>/:masterId?',
+      path: '/entities/<%=toLower(name)%>/table/:masterId?',
       name: '<%=name%>',
       component: views.<%=firstToUpper(name)%>,
     },
