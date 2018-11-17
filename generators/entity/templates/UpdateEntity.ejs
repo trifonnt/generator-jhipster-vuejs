@@ -87,6 +87,8 @@
                   <% } %>
                   <%})%>
                   <% for(relationship of relationships) { 
+                    if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+
                     let validate = {};
                     let fName = relationship.relationshipName;
                     let fType = relationship.relationshipType;
@@ -108,7 +110,7 @@
                   %>
                       <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(toLower(fName))%>' solo v-validate='<%-validate%>' name="<%=toLower(fName)%>" label="<%=toSpaced(fName)%>" v-model="<%=toLower(fName)%>"></v-select>
                       <v-alert :value="errors.has('<%=toLower(fName)%>')" type="error">{{ errors.first('<%=toLower(fName)%>') }}</v-alert>
-                  <% } %>
+                  <% } } %>
         
              <!--    <v-alert type='success' :value="registered==true">You successfully created a vendor</v-alert>
                 <v-alert type='error' :value="registered==false">Please try again, server error</v-alert>  -->               
