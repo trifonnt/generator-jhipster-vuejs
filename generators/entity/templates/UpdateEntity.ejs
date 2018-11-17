@@ -110,7 +110,9 @@
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
                   %>
-                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple <%}%> :items='<%=addS(toLower(fName))%>' solo v-validate='<%-validate%>' name="<%=toLower(fName)%>" label="<%=toSpaced(fName)%>" v-model="<%=toLower(fName)%>"></v-select>
+                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(toLower(fName))%>' solo v-validate='<%-validate%>' name="<%=toLower(fName)%>" label="<%=toSpaced(fName)%>" v-model="<%=toLower(fName)%>"
+                        item-text='<%=relationship.otherEntityField%>' item-value='id'
+                        ></v-select>
                       <v-alert :value="errors.has('<%=toLower(fName)%>')" type="error">{{ errors.first('<%=toLower(fName)%>') }}</v-alert>
                   <% } } %>
         

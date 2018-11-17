@@ -14,7 +14,8 @@ let store = require('./entity').default('<%=toLower(name)%>');
 	store.get<%=thename%> = async function() {
 		try {
 			let response = await get<%=thename%>Data();
-			return response.map(u=>({value: u.id, text: u.<%=relationship.otherEntityField%>})) 
+			return response;
+			//return response.map(u=>({id: u.id, <%=relationship.otherEntityField%>: u.<%=relationship.otherEntityField%>})) 
 		}
 		catch(err) {
 			console.log(err)
