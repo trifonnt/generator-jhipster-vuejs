@@ -166,6 +166,17 @@
     </v-btn>
     <menu-up></menu-up>
   </v-menu>
+  <v-menu offset-y v-show='user.auth'>
+    <v-btn flat
+      slot="activator"
+      color="primary"
+      dark
+    >
+      EntitiesX
+      <v-icon dark>arrow_drop_down</v-icon>
+    </v-btn>
+    <menu-entitesx></menu-entitiesx>
+  </v-menu>
     <v-menu offset-y>
     <v-btn flat
       slot="activator"
@@ -226,6 +237,7 @@
   import {user,logout} from './store/identity'
   import MenuLeft from './views/MenuLeft.vue'
   import MenuUp from './views/MenuUp.vue'
+  import MenuEntitiesx from './views/MenuEntitiesx.vue'
 
   export default {
     name: 'App',
@@ -266,6 +278,7 @@
     components: {
       MenuLeft,
       MenuUp,
+      MenuEntitiesx,
     }
   }
 </script>

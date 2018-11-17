@@ -8,7 +8,7 @@ context.keys().forEach(function (key) {
 
 export default [
 	{
-      path: '/entities/<%=toLower(name)%>',
+      path: '/entities/<%=toLower(name)%>/:masterId?',
       name: '<%=name%>',
       component: views.<%=firstToUpper(name)%>,
     },
@@ -18,7 +18,7 @@ export default [
       component: views.Create<%=firstToUpper(name)%>,
     },
     {
-      path: '/entities/<%=toLower(name)%>/edit/:id',
+      path: '/entities/<%=toLower(name)%>/edit/:id/:masterId?',
       name: 'edit<%=name%>',
       component: views.Update<%=firstToUpper(name)%>,
     },    

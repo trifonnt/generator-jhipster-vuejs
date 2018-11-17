@@ -37,7 +37,7 @@
           >remove_red_eye
           </v-icon>
           </router-link>
-          <router-link :to="{name: 'edit'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">
+          <router-link :to="{name: 'edit'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id, masterId: $route.params.masterId}}">
           <v-icon
           size='20px'
             
