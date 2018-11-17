@@ -87,6 +87,7 @@
                   <% } %>
                   <%})%>
                   <% for(relationship of relationships) { 
+                    let multiple = false;
                     if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                     if(relationship.relationshipType == 'multiple') multiple=true;
 
@@ -218,7 +219,7 @@
               <%
                 if(relationship.relationshipType=='many-to-many') {
               %>
-              <%=adds(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>
+              <%=addS(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>,
               <% } %>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
