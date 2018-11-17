@@ -9,7 +9,7 @@ import {
 let store = require('./entity').default('<%=toLower(name)%>');
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
-	if(!(relationship.type == 'many-to-many' && relationship.ownerSide==false)) {
+	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 %>
 	store.get<%=thename%> = async function() {
 		try {
