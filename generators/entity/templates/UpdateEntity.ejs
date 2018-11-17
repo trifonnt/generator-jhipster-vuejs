@@ -89,7 +89,7 @@
                   <% for(relationship of relationships) { 
                     let multiple = false;
                     if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-                    if(relationship.relationshipType == 'multiple') multiple=true;
+                    if(relationship.relationshipType == 'many-to-many') multiple=true;
 
                     let validate = {};
                     let fName = relationship.relationshipName;
@@ -239,21 +239,27 @@
       async getData() {
         try {
           let [
-            <% for(relationship of relationships) {%>
+            <% for(relationship of relationships) {
+              if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+            %>
               <%=relationship.relationshipName%>,
-            <% } %> entity] = await Promise.all([
-                <% for(relationship of relationships) {%>
+            <% } } %> entity] = await Promise.all([
+                <% for(relationship of relationships) {
+                  if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+                %>
                   get<%=addS(firstToUpper(relationship.relationshipName))%>(),
-                <% } %> 
+                <% } }%> 
                 getEntityById(this.$route.params.id)
               ]);
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
           <% } %>
-          <% for(relationship of relationships) { %>
-            this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
-            this.<%=addS(relationship.relationshipName)%> = <%=relationship.relationshipName%>
-          <% } %>
+          <% for(relationship of relationships) { 
+            if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+          %>
+              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
+              this.<%=addS(relationship.relationshipName)%> = <%=relationship.relationshipName%>
+          <% } } %>
         }
         catch(err) {console.log(err)}
       },
