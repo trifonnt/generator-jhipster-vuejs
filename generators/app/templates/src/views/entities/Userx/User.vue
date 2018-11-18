@@ -5,7 +5,7 @@
   <div class='margin'></div>
   <div id='toptable'>
     <div id='createnew'>
-      <v-btn to='/entities/userx/new'  color="primary">
+      <v-btn to='/admin/userx/new'  color="primary">
           <v-icon>add</v-icon>
           Create new User
       </v-btn>

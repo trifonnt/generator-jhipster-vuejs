@@ -10,21 +10,21 @@ export default [
 	{
       path: '/admin/userx',
       name: 'User1',
-      component: views.Userx,
+      component: views.User,
     },
     {
       path: '/admin/userx/new',
       name: 'newUser1',
-      component: views.CreateUserx,
+      component: views.CreateUser,
     },
     {
       path: '/admin/userx/edit/:id',
       name: 'editUser1',
-      component: views.UpdateUserx,
+      component: views.UpdateUser,
     },    
     {
       path: '/admin/userx/view/:id',
       name: 'viewUser1',
-      component: views.ViewUserx,
+      component: views.ViewUser,
     },
 ]
