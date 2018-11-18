@@ -26,9 +26,16 @@
                   <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip>{{<%=field.fieldName%>}}</div>
                   <% } %>
                 <% }%>
-                <% for(relationship of relationships) { %>
+                <% for(relationship of relationships) { 
+                  if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+                    if(relationship.relationshipType == 'many-to-many') {
+                %>
+                  <div><v-chip label><%=toSpaced(relationship.relationshipName)%></v-chip>
+                        <v-chip color="primary" text-color="white" v-for='i of <%=relationship.relationshipName%>'>{{i.<%=relationship.otherEntityField%>}}</v-chip>
+                  </div>
+                <% } else { %>
                   <div><v-chip label><%=toSpaced(relationship.relationshipName)%></v-chip>{{<%=relationship.relationshipName%>}}</div>
-                <% }%>   
+                <% } } }%>   
                 <v-btn @click='back'><v-icon right dark>arrow_back</v-icon> Back</v-btn>
               </v-card-text>
             </v-card>
