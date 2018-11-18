@@ -71,9 +71,17 @@
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
           <% } %>
-          <% for(relationship of relationships) { %>
-            this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
-          <% } %>
+            <% for(relationship of relationships) {
+              if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+            %>
+              <%
+                if(relationship.relationshipType == 'many-to-many') {
+              %>
+                this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>s
+              <% } else  { %>
+              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
+              <%= } %>
+            <% } } %> 
         }
         catch(err) {console.log(err)}
       },

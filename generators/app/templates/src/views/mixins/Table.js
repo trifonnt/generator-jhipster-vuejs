@@ -1,5 +1,4 @@
 import {objtourl, urltoobj} from '../../utils/url'
-import EntityTableHead from './EntityTableHead.vue'
 import DeleteDialog from './DeleteDialog.vue'
 
 import {mapState, mapMutations} from 'vuex'
@@ -118,7 +117,6 @@ export default (name) => {
       },
     },
     components: {
-      EntityTableHead,
       DeleteDialog,
     }
   }

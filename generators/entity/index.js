@@ -160,6 +160,11 @@ module.exports = class extends BaseGenerator {
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./EntityTableHead.ejs'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableHead.vue'),
+                obj
+            )
+            this.fs.copyTpl(
                 this.templatePath('./entityIndex.js'),
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
