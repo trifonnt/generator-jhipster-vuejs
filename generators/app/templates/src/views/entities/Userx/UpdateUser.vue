@@ -37,47 +37,12 @@
                     
                     
                     
-                      <v-select   :items='authoritiess' solo v-validate='{"alpha_dash":true}' name="authorities" label="Authorities" v-model="authorities"></v-select>
+                      <v-select  multiple :items='authoritiess' solo v-validate='{"alpha_dash":true}' name="authorities" label="Authorities" v-model="authorities"></v-select>
                       <v-alert :value="errors.has('authorities')" type="error">{{ errors.first('authorities') }}</v-alert>
                     
                   
                   
-                    
-                      <v-text-field   v-validate='{"alpha_dash":true}' name="createdBy" label="Created By" type="text" v-model="createdBy"></v-text-field>
-                      <v-alert :value="errors.has('createdBy')" type="error">{{ errors.first('createdBy') }}</v-alert>  
-                    
-                    
-                    
-                    
-                  
-                  
-                    
-                    
-                    
-                      <v-menu
-                          ref="menucreatedDate"
-                          :close-on-content-click="false"
-                          v-model="menucreatedDate"
-                          :nudge-right="40"
-                          :return-value.sync="createdDate"
-                          lazy
-                          transition="scale-transition"
-                          offset-y
-                          full-width
-                          min-width="290px"
-                        >
-                          <v-text-field
-                            slot="activator"
-                            v-model="createdDate"
-                            label="Created Date"
-                            prepend-icon="event"
-                            readonly
-                          ></v-text-field>
-                          <v-date-picker v-model="createdDate" @input="$refs.menucreatedDate.save(date)"></v-date-picker>
 
-                        </v-menu>
-                        <v-alert :value="errors.has('createdDate')" type="error">{{ errors.first('createdDate') }}</v-alert>
-                    
                     
                   
                   
@@ -117,43 +82,7 @@
                     
                   
                   
-                    
-                      <v-text-field   v-validate='{"alpha_dash":true}' name="lastModifiedBy" label="Last Modified By" type="text" v-model="lastModifiedBy"></v-text-field>
-                      <v-alert :value="errors.has('lastModifiedBy')" type="error">{{ errors.first('lastModifiedBy') }}</v-alert>  
-                    
-                    
-                    
-                    
-                  
-                  
-                    
-                    
-                    
-                      <v-menu
-                          ref="menulastModifiedDate"
-                          :close-on-content-click="false"
-                          v-model="menulastModifiedDate"
-                          :nudge-right="40"
-                          :return-value.sync="lastModifiedDate"
-                          lazy
-                          transition="scale-transition"
-                          offset-y
-                          full-width
-                          min-width="290px"
-                        >
-                          <v-text-field
-                            slot="activator"
-                            v-model="lastModifiedDate"
-                            label="Last Modified Date"
-                            prepend-icon="event"
-                            readonly
-                          ></v-text-field>
-                          <v-date-picker v-model="lastModifiedDate" @input="$refs.menulastModifiedDate.save(date)"></v-date-picker>
 
-                        </v-menu>
-                        <v-alert :value="errors.has('lastModifiedDate')" type="error">{{ errors.first('lastModifiedDate') }}</v-alert>
-                    
-                    
                   
                   
                     
@@ -224,9 +153,7 @@
         
       
         
-          
-        authorities: "",
-        
+
         authorities : [],
         authoritiess: [
           
@@ -237,19 +164,7 @@
         ],
         
       
-        
-          
-        createdBy: "",
-        
-      
-        
-          
-            menucreatedDate: '',
-          
-        createdDate: "",
-        
-      
-        
+
           
         email: "",
         
@@ -268,19 +183,7 @@
           
         langKey: "",
         
-      
-        
-          
-        lastModifiedBy: "",
-        
-      
-        
-          
-            menulastModifiedDate: '',
-          
-        lastModifiedDate: "",
-        
-      
+
         
           
         lastName: "",
@@ -303,10 +206,7 @@
               activated:this.activated, 
             
               authorities:this.authorities, 
-            
-              createdBy:this.createdBy, 
-            
-              createdDate:this.createdDate, 
+
             
               email:this.email, 
             
@@ -316,9 +216,7 @@
             
               langKey:this.langKey, 
             
-              lastModifiedBy:this.lastModifiedBy, 
-            
-              lastModifiedDate:this.lastModifiedDate, 
+
             
               lastName:this.lastName, 
             
