@@ -15,7 +15,7 @@
 	<th width='10px'>Label</th>
 	<% for(field of fields) { %>
 		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=field.fieldName%>'' === pagination.sortBy ? 'active' : '']"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=field.fieldName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort(<%=field.fieldName%>)"
 		  data-label='<%=firstToUpper(toSpaced(field.fieldName))%>'
 		>
@@ -27,7 +27,7 @@
   		if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 	%>
 		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>'' === pagination.sortBy ? 'active' : '']"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort(<%=relationship.relationshipName%>)"
 		  data-label='<%=firstToUpper(toSpaced(relationship.relationshipName))%>'
 		>
