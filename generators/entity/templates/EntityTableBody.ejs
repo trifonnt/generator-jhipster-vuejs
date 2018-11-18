@@ -1,3 +1,7 @@
+<% include fns.ejs %>
+
+
+
 <template>
 	<tr  :class="{visible: visibleHeader}">
 	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
