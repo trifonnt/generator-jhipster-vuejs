@@ -35,14 +35,14 @@
 	  		<%=firstToUpper(toSpaced(relationship.relationshipName))%>
 		</th>
 	<% } } %>
-	<th
+<!-- 	<th
 	  v-for="header in data.headers"
 	  :key="header.text"
 	  :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
 	  @click="changeSort(header.value)"
 	  :data-label='header.text'
 
-	>
+	> -->
 	</tr>
 </template>
 
