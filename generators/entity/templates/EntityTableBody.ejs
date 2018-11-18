@@ -27,6 +27,40 @@
     %>
       <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(field.fieldName)%>' v-text="items.item['<%=field.fieldName%>']"></td>
     <% } } %>
+
+    <% for(relationship of relationships) { 
+      if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+
+      if(relationship.relationshipType == 'many-to-many') {
+    %>
+
+
+
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(relationship.relationshipName)%>'>
+        <v-chip v-for="val in items.item['<%=relationship.relationshipName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
+        <v-menu offset-y>
+          <v-btn class='morechips'
+            slot="activator"
+            depressed
+          >
+            <v-icon>more_horiz</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="val2 in items.item['<%=relationship.relationshipName%>'].slice(2)">
+              <v-chip label color='primary'>{{val2}}</v-chip>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </td>
+    <%
+      }
+      else {
+    %>
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(relationship.relationshipName)%>' v-text="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"></td>
+
+
+
+    <% } } } %>
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">
           <v-icon

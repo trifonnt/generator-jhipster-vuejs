@@ -86,7 +86,7 @@
               %>
                 this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>s
               <% } else  { %>
-              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
+              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>
               <% } %>
             <% } } %> 
         }
