@@ -1,14 +1,14 @@
 module.exports = {
   lintOnSave: true,
-  outputDir: "<%=srcdir+'/dist'%>",
+  outputDir: "<%='./dist'%>",
   configureWebpack: {
     resolve: {
       alias: {
-        '@': "<%=srcdir+'src'%>"
+        '@': "<%='./src'%>"
       }
     },
     entry: {
-      app: "<%=srcdir+'src'+'/main.js'%>"
+      app: "<%='./src'+'/main.js'%>"
     }
   }
 }

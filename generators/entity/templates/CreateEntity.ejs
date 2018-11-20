@@ -70,7 +70,7 @@
                             prepend-icon="event"
                             readonly
                           ></v-text-field>
-                          <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(date)"></v-date-picker>
+                          <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(<%=fName%>)"></v-date-picker>
 
                         </v-menu>
                         <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
