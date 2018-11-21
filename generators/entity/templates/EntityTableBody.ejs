@@ -27,6 +27,14 @@
       </td>
     <%
       }
+      else if(field.fieldType == 'byte[]') {
+
+      }
+    %>
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(field.fieldName)%>'>
+        <a href="items.item['<%=field.fieldName%>']" download>Download</a>
+      </td>
+    <%
       else {
     %>
       <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='<%=toSpaced(field.fieldName)%>' v-text="items.item['<%=field.fieldName%>']"></td>

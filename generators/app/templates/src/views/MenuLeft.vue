@@ -24,13 +24,13 @@
         <!--insertlinkshere-->
 
       </v-list-group>
-      <v-list-group
+      <v-list-group v-show='user.auth'
         prepend-icon="list"
       >
         <v-list-tile slot="activator">
           <v-list-tile-title>Admin</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-show='user.auth'>
+        <v-list-tile>
           <v-list-tile-action>
             <v-icon>user</v-icon>
           </v-list-tile-action>

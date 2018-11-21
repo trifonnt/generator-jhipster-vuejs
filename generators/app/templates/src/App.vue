@@ -216,7 +216,7 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-          <v-btn flat @click.stop='rightDrawer=!rightDrawer'
+          <v-btn flat @click.stop='rightDrawer=!rightDrawer' v-show='user.auth'
         color="primary"
       >
         <v-icon dark>messages</v-icon>

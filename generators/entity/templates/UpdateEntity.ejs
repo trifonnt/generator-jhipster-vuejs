@@ -45,7 +45,11 @@
                       <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
-
+                    <% if(fType=="byte[]") { %>
+                        <input :name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
+                        <v-alert :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
+                        <v-chip><a :href='<%=fName%>' download>Download file</a> <v-btn icon @click='<%=fName%>=""'><v-icon>delete</v-icon></v-btn></v-chip>
+                    <% } %>
                     <% if(fType == "Boolean") {%>
                       <v-checkbox <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' label='<%=toSpaced(fName)%>' v-validate='<%-validate%>' name='active' ></v-checkbox>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -168,7 +172,7 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'Boolean'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'Boolean', 'byte[]'].includes(fType)) {
             val = '""';
         %>
           <% 
@@ -210,6 +214,14 @@
       this.getData();
     },
 		methods: {
+      upload(e) {
+        let files = e.target.files;
+        let p = Promise.resolve();
+        let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
+        Promise.all(parr).then(result=>{
+          this[e.target.name] = result;
+        })
+      },
 			async edit() {
 				try {
 					await edit({
