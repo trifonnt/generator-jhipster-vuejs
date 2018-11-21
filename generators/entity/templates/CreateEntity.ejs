@@ -46,7 +46,7 @@
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]") { %>
-                        <input :name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
+                        <input name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
                         <v-alert :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
                     <% } %>
                     <% if(fType == "Boolean") {%>

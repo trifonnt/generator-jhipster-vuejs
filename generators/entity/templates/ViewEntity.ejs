@@ -17,7 +17,7 @@
                   <% if(field.fieldType == 'Html') { %>
                     <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip><div v-html="<%=field.fieldName%>"></div></div>
                   <% } 
-                  <% if(field.fieldType == 'byte[]') { %> 
+                  if(field.fieldType == 'byte[]') { %> 
                     <a :href='<%=field.fieldName%>' download>Download file</a> 
                   <% } 
                   else if(field.fieldType == 'String' && field.fieldValues != undefined) { %>

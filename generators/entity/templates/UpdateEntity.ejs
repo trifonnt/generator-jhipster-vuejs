@@ -46,7 +46,7 @@
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]") { %>
-                        <input :name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
+                        <input name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
                         <v-alert :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
                         <v-chip><a :href='<%=fName%>' download>Download file</a> <v-btn icon @click='<%=fName%>=""'><v-icon>delete</v-icon></v-btn></v-chip>
                     <% } %>
