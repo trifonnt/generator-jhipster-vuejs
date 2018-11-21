@@ -16,6 +16,11 @@
 		return str+'s';
 	}
 
+	pluralize = function pluralize(str) {
+		if(str.slice(-1) == 's') return str+'es'
+		return str+'s'
+	}
+
 	firstToUpper = function firstToUpper(str) {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}

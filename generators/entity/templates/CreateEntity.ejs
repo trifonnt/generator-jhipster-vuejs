@@ -37,12 +37,12 @@
                     validate = JSON.stringify(validate)
                   %>
                     <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
-                      <v-text-field <%if(field.focus){%> autofocus <%}%> v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> v-validate='<%-validate%>' name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
 
                     <% if(fType=="String" && field.fieldValues == undefined) {%>
-                      <v-text-field <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%>  autofocus <%}%> name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
 
