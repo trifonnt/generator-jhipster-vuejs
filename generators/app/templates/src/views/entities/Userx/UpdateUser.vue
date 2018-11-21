@@ -47,7 +47,7 @@
                   
                   
                     
-                      <v-text-field   v-validate='{"min":"5","max":"254","email":true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
+                      <v-text-field   v-validate='{"min":"5","max":"254","email":true, required: true,}' name="email" label="Email" type="text" v-model="email"></v-text-field>
                       <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
                     
                     
@@ -74,8 +74,10 @@
                   
                   
                     
-                      <v-text-field   v-validate='{"min":"2","max":"6","alpha_dash":true}' name="langKey" label="Lang Key" type="text" v-model="langKey"></v-text-field>
-                      <v-alert :value="errors.has('langKey')" type="error">{{ errors.first('langKey') }}</v-alert>  
+
+                      <v-select    :items="[{text: 'English', value: 'en'}, {text: 'Deutsch', value: 'de'}, {text: 'Български', value: 'bg'}]" solo v-validate='{"required":true}' name="document" label="Language" v-model="langKey" 
+                        ></v-select>
+                      <v-alert :value="errors.has('document')" type="error">{{ errors.first('document') }}</v-alert>
                     
                     
                     
@@ -118,7 +120,7 @@
    
     let edit = store.edit;
     let getEntityById = store.getEntityById;    
-		export default {
+    export default {
     inject: ['$validator'],
     data: () => ({
       editorOptions: {
@@ -191,14 +193,14 @@
       
       
 
-		}),
+    }),
     created() {
       this.getData();
     },
-		methods: {
-			async edit() {
-				try {
-					await edit({
+    methods: {
+      async edit() {
+        try {
+          await edit({
             id: this.$route.params.id,
             
               login:this.login, 
@@ -225,12 +227,12 @@
           this.$store.dispatch('snackShowAction', {text: "Edit successfull", val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
-				}
-				catch(err) {
+        }
+        catch(err) {
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})          
-					this.registered = false
-				}
-			},
+          this.registered = false
+        }
+      },
       cancel() {
         this.$router.go(-1);
       },
@@ -270,9 +272,9 @@
         }
         catch(err) {console.log(err)}
       },
-		}
-	}
+    }
+  }
 </script>
 <style scoped>
-	
+  
 </style>

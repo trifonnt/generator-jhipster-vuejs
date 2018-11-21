@@ -1,6 +1,6 @@
 <template>
-	<tr  :class="{visible: visibleHeader}">
-	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
+  <tr  :class="{visible: visibleHeader}">
+    <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
     <td><div class='label'></div></td>
       <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Login' v-text="items.item['login']"></td>
       
@@ -34,7 +34,7 @@
     
       <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Image Url' v-text="items.item['imageUrl']"></td>
     
-      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Lang Key' v-text="items.item['langKey']"></td>
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Lang Key'>{{langKeyHuman}}</td>
     
       <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-right' data-label='Last Modified By' v-text="items.item['lastModifiedBy']"></td>
     
@@ -98,9 +98,9 @@
 <script>
   import {createStore} from '../../../storex/'
 
-	export default {
-		data: () => ({
-    	visibleHeader: false,
+  export default {
+    data: () => ({
+      visibleHeader: false,
     }),
     created() {
     },
@@ -112,9 +112,16 @@
         get: function() {
           return this.$store.getters.isChecked(this.items.item.id);
         },
+      },
+      langKeyHuman() {
+        let key = this.items.item['langKey']
+        if(key == 'en') return 'English'
+        if(key == 'de') return 'Deutsch'
+        if(key == 'bg') return 'Български'
+
       }
     },
-		methods: {
+    methods: {
       deleteItem() {
         this.$store.commit('deleteItem', this.items.item)
       },
@@ -122,18 +129,18 @@
         let e = {value:this.items.item.id, checked: event!=null}
         this.$store.dispatch('updateChecked', e);
       },
-		},
-		props: {
-			items: Object,
-			headers: Array,
+    },
+    props: {
+      items: Object,
+      headers: Array,
       storeName: String,
-		},
+    },
 
-	}
+  }
 </script>
 
 <style scoped>
-	.label {
+  .label {
     width: 7px;
     height: 30px;
     background: red;

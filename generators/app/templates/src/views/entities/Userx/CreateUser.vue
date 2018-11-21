@@ -56,7 +56,7 @@
                   
                   
                     
-                      <v-text-field  v-validate='{"min":"5","max":"254","email":true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
+                      <v-text-field  v-validate='{"min":"5","max":"254","email":true, required: true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
                       <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
                     
 
