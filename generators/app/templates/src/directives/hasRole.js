@@ -4,7 +4,7 @@ import {getProfile} from '../store/identity'
 
 Vue.directive('hasRole', {
 	inserted: function(el, b) {
-		console.log(getProfile())
-		if(!getProfile().roles.includes(b.value)) el.style.display = 'none'; 
+		if(!getProfile().jwt) el.style.display = 'none'
+		if(getProfile().jwt && !getProfile().roles.includes(b.value)) el.style.display = 'none'
 	}
 })
