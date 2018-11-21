@@ -15,7 +15,7 @@
             <v-list-tile-title><router-link to="home">Home</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-group
+        <v-list-group v-show='user.auth'
         prepend-icon="list"
       >
         <v-list-tile slot="activator">

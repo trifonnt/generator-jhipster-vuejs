@@ -5,11 +5,12 @@ export async function login(username, password, remember) {
 	try {
 		let response = await auth(username, password, remember);
 		let jwt = response.id_token;
-		let roles = response.roles;
 		axios.defaults.headers.common['Authorization'] = 
                                 'Bearer ' + jwt;
         if(!remember) jwt = null;
         console.log(jwt)
+        let account = await getAccount();
+        let roles = account.authorities;
         identity.user.auth = true;
 		identity.setProfile({username, jwt, roles});
 	}

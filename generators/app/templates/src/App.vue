@@ -177,7 +177,7 @@
     </v-btn>
     <menu-entitiesx></menu-entitiesx>
   </v-menu>
-    <v-menu offset-y>
+    <v-menu offset-y v-hasRole="'ROLE_ADMIN'" v-show='user.auth'>
     <v-btn flat
       slot="activator"
       color="primary"

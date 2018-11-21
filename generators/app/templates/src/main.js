@@ -30,7 +30,7 @@ import storex from './storex'
 window.$ = require('jquery')
 window.JQuery = require('jquery')
 
-axios.defaults.baseURL = "http://localhost:8080/api"
+axios.defaults.baseURL = "/api"
 
 Vue.use(VeeValidate, {
 	inject: false,
