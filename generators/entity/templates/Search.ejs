@@ -203,7 +203,7 @@
 	          let fType = field.fieldType;
 	          let val;
 	          if(fType == 'String') val = '""';
-	          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean'].includes(fType)) {
+	          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean', 'byte[]'].includes(fType)) {
 	            val = '""';
 	          }
 	          if(fType == 'String' && field.fieldValues !=undefined) val = '';

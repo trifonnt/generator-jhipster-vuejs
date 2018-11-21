@@ -18,8 +18,8 @@
                     <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip><div v-html="<%=field.fieldName%>"></div></div>
                   <% } 
                   <% if(field.fieldType == 'byte[]') { %> 
-                    <a :href='<%=fName%>' download>Download file</a> 
-                  <% } %>
+                    <a :href='<%=field.fieldName%>' download>Download file</a> 
+                  <% } 
                   else if(field.fieldType == 'String' && field.fieldValues != undefined) { %>
                     <div><v-chip label><%=toSpaced(field.fieldName)%></v-chip><div>
                       <v-chip v-for='val in <%=field.fieldName%>' :key='val' color="primary" text-color="white">{{val}}</v-chip>
@@ -60,7 +60,7 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean', 'byte[]'].includes(fType)) {
             val = '""';
           }
           if(fType == 'String' && field.fieldValues != undefined) val = [];
