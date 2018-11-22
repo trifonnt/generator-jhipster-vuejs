@@ -4,6 +4,7 @@ const BaseGenerator = require('generator-jhipster-x/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster-x/generators/generator-constants');
 const ejs = require('ejs')
 const jhipsterUtils = require('generator-jhipster-x/generators/utils');
+const pluralize = require('pluralize')
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -111,6 +112,7 @@ module.exports = class extends BaseGenerator {
             await mkdirp(this.destinationPath('src/views/entities/'+name));
             let data = await fs.readFileAsync(jsonPath);
             let obj = JSON.parse(data);
+            obj.pluralize = pluralize;
             obj.name = name;
             let destPath = this.entityConfig.rootDir+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/src';
             this.log(obj)
