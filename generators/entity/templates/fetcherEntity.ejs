@@ -53,7 +53,7 @@ export function saveSearch(searchBy, values) {
 }
 
 <% for(relationship of relationships) { 
-	let thename = pluralize(firstToUpper(relationship.relationshipName))
+	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 %>
 	export function get<%=thename%>Data() {
