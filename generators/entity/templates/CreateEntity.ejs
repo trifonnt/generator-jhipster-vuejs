@@ -45,7 +45,7 @@
                       <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%>  autofocus <%}%> name="<%=fName%>" label="<%=toSpaced(fName)%>" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
-                    <% if(fType=="byte[]" && !fType.blobContent) { %>
+                    <% if(fType=="byte[]" && field.fieldTypeBlobContent == 'any') { %>
                         <input name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
                         <v-alert :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
                     <% } %>
@@ -82,7 +82,7 @@
                       <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo name="<%=fName%>" label="<%=toSpaced(fName)%>" v-model="<%=fName%>"></v-select>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
-                  <% if(fType == 'Html' || fType =='byte[]' && field.blobContent == 'text') {%>
+                  <% if(fType == 'Html' || fType =='byte[]' && field.fieldTypeBlobContent == 'text') {%>
                       <quill-editor ref="quillEditor<%=fName%>"
                         v-model="<%=fName%>"
                         :options="editorOptions">
