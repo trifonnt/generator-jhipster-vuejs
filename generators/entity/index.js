@@ -80,7 +80,7 @@ module.exports = class extends BaseGenerator {
                 const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
 
                 const entityName = this.entityConfig.entityClass;
-
+                console.log(this)
                 // show all variables
                 this.log('\n--- some const ---');
                 this.log(`javaDir=${javaDir}`);

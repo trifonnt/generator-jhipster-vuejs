@@ -147,6 +147,21 @@ module.exports = class extends BaseGenerator {
             this.destinationPath(this.options.env.cwd+'/'+'.postcssrc.js'),
             {}
         )
+        const yorc = this.fs.readJSON(this.destinationPath('.yo-rc.json'), {});
+
+        this.fs.copyTpl(
+            this.templatePath('./src/i18n/index.ejs'),
+            this.destinationPath(this.options.env.cwd+'/'+'/src/i18n/index.js'),
+            {languages: yorc['generator-jhipster-x'].languages}
+        )
+
+        for(lang of yorc['generator-jhipster-x'].languages) {
+            this.fs.copyTpl(
+                this.templatePath('./src/i18n/langIndex.ejs'),
+                this.destinationPath(this.options.env.cwd+'/'+'/src/'+lang+'/index.js'),
+                {}
+            )
+        }
 
 /*        this.fs.copyTpl(
             this.templatePath('.gitignore'),

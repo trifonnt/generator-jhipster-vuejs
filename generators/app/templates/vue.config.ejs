@@ -5,7 +5,16 @@ module.exports = {
     if(process.env.NODE_ENV != 'production') {
       console.log(config)
       config.devServer = {};
-        config.devServer.proxy = {'/api': {
+        config.devServer.proxy = {
+          '/api': {
+            target: 'http://127.0.0.1:8080',
+            changeOrigin: true,
+          },
+          '/swagger-resources': {
+            target: 'http://127.0.0.1:8080',
+            changeOrigin: true,
+          },
+          '/v2/api-docs': {
             target: 'http://127.0.0.1:8080',
             changeOrigin: true,
           }

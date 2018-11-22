@@ -8,7 +8,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Create new <%= name %></v-toolbar-title>
+                <v-toolbar-title>{{$t('<%=name%>.home.createLabel')}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
               </v-toolbar>
@@ -125,7 +125,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='create'>Create</v-btn>
+                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='create'>$t('<%=name%>.home.createLabel')</v-btn>
                 <v-btn @click='cancel'>Cancel</v-btn>
               </v-card-actions>
             </v-card>
@@ -252,7 +252,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: "Successfully created", val: true, color: "success"})
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=name%>.created'), val: true, color: "success"})
           this.registered = true
           this.$router.go(-1);
         }

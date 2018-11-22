@@ -17,10 +17,10 @@
 		<th
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=field.fieldName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort(<%=field.fieldName%>)"
-		  data-label='<%=firstToUpper(toSpaced(field.fieldName))%>'
+		  data-label='$t("<%=name%>.<%=field.fieldName%>")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		<%=firstToUpper(toSpaced(field.fieldName))%>
+	  		{{$t("<%=name%>.<%=field.fieldName%>")}}
 		</th>
 	<% } %>
 	<% for(relationship of relationships) { 
@@ -29,10 +29,10 @@
 		<th
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort(<%=relationship.relationshipName%>)"
-		  data-label='<%=firstToUpper(toSpaced(relationship.relationshipName))%>'
+		  data-label='$t("<%=name%>.<%=relationship.relationshipName%>")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		<%=firstToUpper(toSpaced(relationship.relationshipName))%>
+	  		{{$t("<%=name%>.<%=relationship.relationshipName%>")}}
 		</th>
 	<% } } %>
 <!-- 	<th
