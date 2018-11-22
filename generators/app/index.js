@@ -151,14 +151,14 @@ module.exports = class extends BaseGenerator {
 
         this.fs.copyTpl(
             this.templatePath('./src/i18n/index.ejs'),
-            this.destinationPath(this.options.env.cwd+'/'+'/src/i18n/index.js'),
+            this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/src/i18n/index.js'),
             {languages: yorc['generator-jhipster-x'].languages}
         )
 
         for(lang of yorc['generator-jhipster-x'].languages) {
             this.fs.copyTpl(
                 this.templatePath('./src/i18n/langIndex.ejs'),
-                this.destinationPath(this.options.env.cwd+'/'+'/src/'+lang+'/index.js'),
+                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/src/i18n/'+lang+'/index.js'),
                 {}
             )
         }
