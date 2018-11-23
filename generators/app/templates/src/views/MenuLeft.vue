@@ -12,7 +12,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to="home">Home</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to="home">{{$t('app.home')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-group v-show='user.auth'
@@ -28,14 +28,14 @@
         prepend-icon="list"
       >
         <v-list-tile slot="activator">
-          <v-list-tile-title>Admin</v-list-tile-title>
+          <v-list-tile-title>{{$t('app.admin.admin')}}</v-list-tile-title>
         </v-list-tile>
         <v-list-tile>
           <v-list-tile-action>
             <v-icon>user</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/admin/userx'>User management</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/admin/userx'>{{$t('app.admin.user')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
@@ -43,7 +43,7 @@
             <v-icon>user</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/admin/docs'>Docs</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/admin/docs'>{{$t('app.admin.docs')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -53,14 +53,14 @@
         prepend-icon="person"
       >
         <v-list-tile slot="activator">
-          <v-list-tile-title>Account</router-link></v-list-tile-title>
+          <v-list-tile-title>{{$t('app.account.menu')}}</router-link></v-list-tile-title>
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/account'>Settings</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/account'>{{$t('app.account.password')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
@@ -68,7 +68,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/changepass'>Password</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/changepass'>{{$t('app.account.password')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
@@ -76,7 +76,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/logout'>Logout</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/logout'>{{$t('app.account.logout')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-show='!user.auth'>
@@ -84,7 +84,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/register'>Register</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/register'>{{$t('app.register.title')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-show='!user.auth'>
@@ -92,7 +92,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/login'>Login</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/login'>{{$t('app.login.title')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list-group>

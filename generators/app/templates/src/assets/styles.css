@@ -83,3 +83,7 @@
 .v-tabs__div {
   border-right: 3px solid yellow !important;
 }
+
+.borderField {
+  border-bottom: 3px solid lightgray;
+}

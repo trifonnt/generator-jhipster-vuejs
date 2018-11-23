@@ -6,19 +6,19 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Change account</v-toolbar-title>
+                <v-toolbar-title>{{$t('app.accountPage.title')}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field v-validate="{required: true, max: 50}" prepend-icon="person" name="fname" label="First name" type="text" v-model="fname"></v-text-field>
+                  <v-text-field v-validate="{required: true, max: 50}" prepend-icon="person" name="fname" :label="$t('app.accountPage.firstNameLabel')" type="text" v-model="fname"></v-text-field>
                   <v-alert :value="errors.has('fname')" type="error">{{ errors.first('fname') }}</v-alert>  
 
-                 <v-text-field v-validate="{required: true, max: 50}" prepend-icon="person" name="lname" label="Last name" type="text" v-model="lname"></v-text-field>
+                 <v-text-field v-validate="{required: true, max: 50}" prepend-icon="person" name="lname" :label="$t('app.accountPage.lastNameLabel')" type="text" v-model="lname"></v-text-field>
                   <v-alert :value="errors.has('lname')" type="error">{{ errors.first('lname') }}</v-alert>  
 
-                  <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" label="Email" type="text" v-model="email"></v-text-field>
+                  <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" :label="$t('app.accountPage.emailLabel)" type="text" v-model="email"></v-text-field>
                   <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>
 
                   <v-flex xs12 sm6 d-flex>
@@ -29,13 +29,13 @@
                     ></v-select>
                   </v-flex>
 
-                <v-alert type='success' :value="registered==true">You successfully changed your profile</v-alert>
-                <v-alert type='error' :value="registered==false">Please try again, server error</v-alert>                
+                <v-alert type='success' :value="registered==true">{{$t('app.success')}}</v-alert>
+                <v-alert type='error' :value="registered==false">{{$t('app.error')}}</v-alert>                
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='register'>Submit</v-btn>
+                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='register'>{{$t('app.submit')}}</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

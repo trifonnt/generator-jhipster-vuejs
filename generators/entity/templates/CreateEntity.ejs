@@ -8,7 +8,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>{{$t('<%=name%>.home.createLabel')}}</v-toolbar-title>
+                <v-toolbar-title>{{$t('<%=baseNameApp%>.<%=name%>.home.createLabel')}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
               </v-toolbar>
@@ -50,10 +50,10 @@
                         <v-alert :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
                     <% } %>
                     <% if(fType == "Boolean") {%>
-                      <v-checkbox <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' label='<%=toSpaced(fName)%>' v-validate='<%-validate%>' name='active' ></v-checkbox>
+                      <v-checkbox <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' label='<%=toSpaced(fName)%>' name='active' ></v-checkbox>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
-                    <% if(['LocalDate','ZonedDateTime','Instant'].includes(fType)) {%>
+                    <% if(['LocalDate','ZonedDateTime'].includes(fType)) {%>
                       <v-menu
                           ref="menu<%=fName%>"
                           :close-on-content-click="false"
@@ -77,6 +77,11 @@
 
                         </v-menu>
                         <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
+                    <% } %>
+                    <% if(fType == 'Instant') { %>
+                      <datetime type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
+                          <label for="<%=fName%>" slot="before"><%=toSpaced(fName)%></label>
+                      </datetime>   
                     <% } %>
                     <% if(fType == "String" && field.fieldValues != undefined) {%>
                       <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo name="<%=fName%>" label="<%=toSpaced(fName)%>" v-model="<%=fName%>"></v-select>
@@ -125,7 +130,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='create'>$t('<%=name%>.home.createLabel')</v-btn>
+                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='create'>$t('<%=baseNameApp%>.<%=name%>.home.createLabel')</v-btn>
                 <v-btn @click='cancel'>Cancel</v-btn>
               </v-card-actions>
             </v-card>
@@ -170,7 +175,8 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'String','Boolean','byte[]'].includes(fType)) {
+          if(fType == 'Boolean') val = false;
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'String','byte[]'].includes(fType)) {
             val = '""';
         %>
           <% 
@@ -252,7 +258,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=name%>.created'), val: true, color: "success"})
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=baseNameApp%>.<%=name%>.created'), val: true, color: "success"})
           this.registered = true
           this.$router.go(-1);
         }

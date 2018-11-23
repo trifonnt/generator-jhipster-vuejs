@@ -13,7 +13,7 @@
         flat
         @click="snackShow = false"
       >
-        Close
+        {{$t('app.close')}}
       </v-btn>
     </v-snackbar>
     <menu-left :miniVariant='miniVariant' :drawer='drawer'></menu-left>
@@ -152,9 +152,9 @@
         </v-list>
     </v-menu>
 
-    <v-btn flat><router-link to="home">Home</router-link></v-btn>
-    <v-btn flat v-show='!user.auth'><router-link to="/login">Login</router-link></v-btn>
-    <v-btn flat v-show='!user.auth'><router-link to="/register">Register</router-link></v-btn>
+    <v-btn flat><router-link to="home">{{$t('app.home')}}</router-link></v-btn>
+    <v-btn flat v-show='!user.auth'><router-link to="/login">{{$t('app.login.title')}}</router-link></v-btn>
+    <v-btn flat v-show='!user.auth'><router-link to="/register">{{$t('app.register.title')}}</router-link></v-btn>
     <v-menu offset-y v-show='user.auth'>
     <v-btn flat
       slot="activator"
@@ -183,11 +183,11 @@
       color="primary"
       dark
     >
-      Admin
+      {{$t('app.admin.admin')}}
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
-      <v-list-tile><v-list-tile-title><router-link to='/admin/userx'>User management</router-link></v-list-tile-title></v-list-tile>
-      <v-list-tile><v-list-tile-title><router-link to='/admin/docs'>Docs</router-link></v-list-tile-title></v-list-tile>
+      <v-list-tile><v-list-tile-title><router-link to='/admin/userx'>{{$t('app.admin.user')}}</router-link></v-list-tile-title></v-list-tile>
+      <v-list-tile><v-list-tile-title><router-link to='/admin/docs'>{{$t('app.admin.docs')}}</router-link></v-list-tile-title></v-list-tile>
   </v-menu>  
       <v-menu offset-y v-show='user.auth'>
       <v-btn flat
@@ -195,24 +195,24 @@
         color="primary"
         dark
       >
-        Account
+        {{$t('app.account.menu')}}
         <v-icon dark>arrow_drop_down</v-icon>
       </v-btn>
       <v-list >
         <v-list-tile
           @click=""
         >
-          <v-list-tile-title><router-link to='/account'>Account</router-link></v-list-tile-title>
+          <v-list-tile-title><router-link to='/account'>{{$t('app.account.login')}}</router-link></v-list-tile-title>
         </v-list-tile>        
         <v-list-tile
           @click=""
         >
-          <v-list-tile-title><router-link to='/changepass'>Password</router-link></v-list-tile-title>
+          <v-list-tile-title><router-link to='/changepass'>{{$t('app.password.password')}}</router-link></v-list-tile-title>
         </v-list-tile>        
         <v-list-tile
           @click=""
         >
-          <v-list-tile-title><a href='#' @click='logout'>Logout</a></v-list-tile-title>
+          <v-list-tile-title><a href='#' @click='logout'>{{$t('app.cpassword.logout')}}</a></v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
