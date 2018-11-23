@@ -114,8 +114,7 @@ module.exports = class extends BaseGenerator {
             let obj = JSON.parse(data);
             obj.pluralize = pluralize;
             obj.name = name;
-            let baseNameApp;
-            baseNameApp = this.baseNameApp = obj.baseNameApp = this.baseName + 'App';
+            this.baseNameApp = obj.baseNameApp = this.baseName + 'App';
             let destPath = this.entityConfig.rootDir+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/src';
             this.log(obj)
             this.fs.copyTpl(
@@ -173,6 +172,7 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
+            let baseNameApp = this.baseName + 'App';
             let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name, baseNameApp}, (err, str) => {
                 jhipsterUtils.rewriteFile(
                     {
