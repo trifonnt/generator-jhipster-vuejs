@@ -114,8 +114,8 @@ module.exports = class extends BaseGenerator {
             let obj = JSON.parse(data);
             obj.pluralize = pluralize;
             obj.name = name;
-            let baseName;
-            baseName = this.baseNameApp = obj.baseNameApp = this.baseName + 'App';
+            let baseNameApp;
+            baseNameApp = this.baseNameApp = obj.baseNameApp = this.baseName + 'App';
             let destPath = this.entityConfig.rootDir+'/'+jhipsterConstants.CLIENT_MAIN_SRC_DIR+'/src';
             this.log(obj)
             this.fs.copyTpl(
