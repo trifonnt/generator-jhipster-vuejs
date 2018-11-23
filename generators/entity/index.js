@@ -172,7 +172,7 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
-            let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name}, (err, str) => {
+            let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name, baseNameApp}, (err, str) => {
                 jhipsterUtils.rewriteFile(
                     {
                         path: '/',
@@ -185,7 +185,7 @@ module.exports = class extends BaseGenerator {
                     this
                 );
             });
-            let template2 = ejs.renderFile(this.templatePath('./MenuUp.ejs'), {name}, (err, str) => {
+            let template2 = ejs.renderFile(this.templatePath('./MenuUp.ejs'), {name, baseNameApp}, (err, str) => {
                 jhipsterUtils.rewriteFile(
                     {
                         path: '/',
