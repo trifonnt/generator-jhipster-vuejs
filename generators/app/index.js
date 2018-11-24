@@ -161,6 +161,12 @@ module.exports = class extends BaseGenerator {
             )
 
             this.fs.copyTpl(
+                this.templatePath('./src/i18n/validations.json.ejs'),
+                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/validations.json'),
+                {}
+            )
+
+            this.fs.copyTpl(
                 this.templatePath('./src/i18n/langIndex.ejs'),
                 this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/index.js'),
                 {}

@@ -32,9 +32,6 @@ window.JQuery = require('jquery')
 
 axios.defaults.baseURL = "/api"
 
-Vue.use(VeeValidate, {
-	inject: false,
-});
 
 Vue.use(Datatable)
 
@@ -48,6 +45,12 @@ const i18n = new VueI18n({
 	locale: lang,
 	messages
 })
+
+Vue.use(VeeValidate, {
+	inject: false,
+	i18n,
+	i18nRootKey: 'validations',
+});
 
 import * as test from './utils/test'
 Vue.config.productionTip = false
