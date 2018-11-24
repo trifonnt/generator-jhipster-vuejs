@@ -7,7 +7,7 @@
     <div id='createnew'>
       <v-btn to='/entities/<%=toLower(name)%>/new'  color="primary">
           <v-icon>add</v-icon>
-          $t('<%=name%>.<%=baseNameApp%>.<%=name%>.home.createLabel')
+          {{$t('<%=toLower(name)%>.<%=baseNameApp%>.<%=toLower(name)%>.home.createLabel')}}
       </v-btn>
     </div>
    <search></search>
