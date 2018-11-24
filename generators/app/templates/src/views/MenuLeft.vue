@@ -19,7 +19,7 @@
         prepend-icon="list"
       >
         <v-list-tile slot="activator">
-          <v-list-tile-title>Entities</v-list-tile-title>
+          <v-list-tile-title>{{$t('app.entities')}}</v-list-tile-title>
         </v-list-tile>
         <!--insertlinkshere-->
 

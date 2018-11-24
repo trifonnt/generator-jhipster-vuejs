@@ -8,7 +8,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>{{$t('<%=baseNameApp%>.<%=name%>.home.createOrEditLabel')}}</v-toolbar-title>
+                <v-toolbar-title>{{$t('<%=name%>.<%=baseNameApp%>.<%=name%>.home.createOrEditLabel')}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
               </v-toolbar>
@@ -37,12 +37,12 @@
                     validate = JSON.stringify(validate)
                   %>
                     <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
-                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=baseNameApp%>.<%=name%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=name%>.<%=baseNameApp%>.<%=name%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
 
                     <% if(fType=="String" && field.fieldValues == undefined) {%>
-                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=baseNameApp%>.<%=name%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=name%>.<%=baseNameApp%>.<%=name%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && field.fieldTypeBlobContent == 'any') { %>
@@ -51,7 +51,7 @@
                         <v-chip><a :href='<%=fName%>' download>Download file</a> <v-btn icon @click='<%=fName%>=""'><v-icon>delete</v-icon></v-btn></v-chip>
                     <% } %>
                     <% if(fType == "Boolean") {%>
-                      <v-checkbox <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label='$t('<%=baseNameApp%>.<%=name%>.<%=fName%>')' name='active' ></v-checkbox>
+                      <v-checkbox <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label='$t('<%=name%>.<%=baseNameApp%>.<%=name%>.<%=fName%>')' name='active' ></v-checkbox>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                     <% if(['LocalDate','ZonedDateTime'].includes(fType)) {%>
@@ -85,7 +85,7 @@
                       </datetime>   
                     <% } %>
                     <% if(fType == "String" && field.fieldValues != undefined) {%>
-                      <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=baseNameApp%>.<%=name%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
+                      <v-select <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=name%>.<%=baseNameApp%>.<%=name%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                   <% if(fType == 'Html' || fType == 'byte[]' && field.fieldTypeBlobContent == 'text') {%>
@@ -119,7 +119,7 @@
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
                   %>
-                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=baseNameApp%>.<%=name%>.<%=fName%>')" v-model="<%=fName%>"
+                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=name%>.<%=baseNameApp%>.<%=name%>.<%=fName%>')" v-model="<%=fName%>"
                         item-text='<%=relationship.otherEntityField%>' item-value='id'
                         ></v-select>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -131,7 +131,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :disabled="errors.any()" color="primary" @click='edit'>$t('<%=baseNameApp%>.<%=name%>.createOrEditLabel')</v-btn>
+                <v-btn :disabled="errors.any()" color="primary" @click='edit'>$t('<%=name%>.<%=baseNameApp%>.<%=name%>.createOrEditLabel')</v-btn>
                 <v-btn @click='cancel'>Cancel</v-btn>
               </v-card-actions>
             </v-card>
@@ -254,7 +254,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=baseNameApp%>.<%=name%>.home.createOrEditLabel'), val: true, color: "success"})          
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=name%>.<%=baseNameApp%>.<%=name%>.home.createOrEditLabel'), val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
 				}

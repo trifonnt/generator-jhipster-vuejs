@@ -17,10 +17,10 @@
 		<th
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=field.fieldName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort(<%=field.fieldName%>)"
-		  :data-label='$t("<%=baseNameApp%>.<%=name%>.<%=field.fieldName%>")'
+		  :data-label='$t("<%=name%>.<%=baseNameApp%>.<%=name%>.<%=field.fieldName%>")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("<%=baseNameApp%>.<%=name%>.<%=field.fieldName%>")}}
+	  		{{$t("<%=name%>.<%=baseNameApp%>.<%=name%>.<%=field.fieldName%>")}}
 		</th>
 	<% } %>
 	<% for(relationship of relationships) { 
@@ -29,10 +29,10 @@
 		<th
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort(<%=relationship.relationshipName%>)"
-		  :data-label='$t("<%=baseNameApp%>.<%=name%>.<%=relationship.relationshipName%>")'
+		  :data-label='$t("<%=name%>.<%=baseNameApp%>.<%=name%>.<%=relationship.relationshipName%>")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("<%=baseNameApp%>.<%=name%>.<%=relationship.relationshipName%>")}}
+	  		{{$t("<%=name%>.<%=baseNameApp%>.<%=name%>.<%=relationship.relationshipName%>")}}
 		</th>
 	<% } } %>
 <!-- 	<th

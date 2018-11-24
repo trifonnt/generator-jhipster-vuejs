@@ -161,7 +161,7 @@
       color="primary"
       dark
     >
-      Entities
+      {{$t('app.entities')}}
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
     <menu-up></menu-up>
@@ -172,7 +172,7 @@
       color="primary"
       dark
     >
-      EntitiesX
+      {{$t('app.entitiesx')}}
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
     <menu-entitiesx></menu-entitiesx>
@@ -207,12 +207,12 @@
         <v-list-tile
           @click=""
         >
-          <v-list-tile-title><router-link to='/changepass'>{{$t('app.password.password')}}</router-link></v-list-tile-title>
+          <v-list-tile-title><router-link to='/changepass'>{{$t('app.account.password')}}</router-link></v-list-tile-title>
         </v-list-tile>        
         <v-list-tile
           @click=""
         >
-          <v-list-tile-title><a href='#' @click='logout'>{{$t('app.cpassword.logout')}}</a></v-list-tile-title>
+          <v-list-tile-title><a href='#' @click='logout'>{{$t('app.account.logout')}}</a></v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
