@@ -18,7 +18,7 @@
                  <v-text-field v-validate="{required: true, max: 50}" prepend-icon="person" name="lname" :label="$t('app.accountPage.lastNameLabel')" type="text" v-model="lname"></v-text-field>
                   <v-alert :value="errors.has('lname')" type="error">{{ errors.first('lname') }}</v-alert>  
 
-                  <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" :label="$t('app.accountPage.emailLabel)" type="text" v-model="email"></v-text-field>
+                  <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" :label="$t('app.accountPage.emailLabel')" type="text" v-model="email"></v-text-field>
                   <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>
 
                   <v-flex xs12 sm6 d-flex>

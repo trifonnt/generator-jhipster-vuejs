@@ -99,14 +99,12 @@ module.exports = class extends BaseGenerator {
 
         this.log('\n--- variables from questions ---');
         this.log(`\nmessage=${this.message}`);*/
-        this.log('------\n');
+        this.log('------AAA\n');
         const Promise = require('bluebird');
         const fs = Promise.promisifyAll(require('fs'));
         const mkdirp = require('mkdirp-promise')
         await mkdirp(this.options.env.cwd+'/src/main/webapp');
         await Promise.all(['src','public','build'].map(f=>mkdirp(this.destinationPath('src/main/webapp/'+'/'+f))));
-
-        this.log( this)
 
         this.fs.copy(
           this.templatePath('./src'),
@@ -158,7 +156,7 @@ module.exports = class extends BaseGenerator {
         for(lang of yorc['generator-jhipster-x'].languages) {
             this.fs.copyTpl(
                 this.templatePath('./src/i18n/app.json.ejs'),
-                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n'+lang+'/app.json'),
+                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/app.json'),
                 {}
             )
 

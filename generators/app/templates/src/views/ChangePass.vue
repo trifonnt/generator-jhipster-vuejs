@@ -15,7 +15,7 @@
                   <v-text-field ref='password' v-validate="{required: true, min: 4, max: 100}" prepend-icon="lock" name="cpassword" :label="$t('app.cpassword.currentLabel')" type="password" v-model="cpassword"></v-text-field>
                     <v-alert :value="errors.has('cpassword')" type="error">{{ errors.first('cpassword') }}</v-alert>
 
-                    <v-text-field ref='password' v-validate="{required: true, min: 4, max: 100}" prepend-icon="lock" name="password" :label="$t('app.cpassword.passwordLabel')}" type="password" v-model="password"></v-text-field>
+                    <v-text-field ref='password' v-validate="{required: true, min: 4, max: 100}" prepend-icon="lock" name="password" :label="$t('app.cpassword.passwordLabel')" type="password" v-model="password"></v-text-field>
                     <v-alert :value="errors.has('password')" type="error">{{ errors.first('password') }}</v-alert>
 
                     <v-text-field v-validate="{confirmed:'password'} "prepend-icon="lock" name="password2" :label="$t('app.cpassword.passwordConfirmLabel')" type="password"></v-text-field>
