@@ -3,11 +3,11 @@
 <template>
  <v-app id="inspire">
   <div class='margin'></div>
-  <div id='toptable'>
+  <div id='toptable' style='display:flex'>
     <div id='createnew'>
       <v-btn to='/entities/<%=toLower(name)%>/new'  color="primary">
           <v-icon>add</v-icon>
-          {{$t('<%=toLower(name)%>.<%=baseNameApp%>.<%=toLower(name)%>.home.createLabel')}}
+          {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createLabel')}}
       </v-btn>
     </div>
    <search></search>
@@ -69,7 +69,7 @@
   import EntityTableBody from './EntityTableBody.vue'
   import EntityTableHead from './EntityTableHead.vue'
 
-	export default {
+  export default {
       mixins: [table("<%=toLower(name)%>")],
       data: () => ({
         footer: [],
@@ -108,7 +108,7 @@
         EntityTableBody,
         EntityTableHead,
       }
-	}
+  }
 </script>
 <style>
 <style>

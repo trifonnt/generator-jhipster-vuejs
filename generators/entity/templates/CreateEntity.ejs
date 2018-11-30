@@ -147,9 +147,9 @@
     let get<%=addS(firstToUpper(relationship.relationshipName))%> = store.get<%=addS(firstToUpper(relationship.relationshipName))%>
   <% } %> 
   let create = store.create;
-		export default {
+    export default {
     inject: ["$validator"],
-		data: () => ({
+    data: () => ({
       editorOptions: {
         modules: {
           toolbar: [
@@ -213,7 +213,7 @@
         <% } %>
       <% } %>
 
-		}), 
+    }), 
     created() {
       this.getData();
     },
@@ -224,7 +224,7 @@
         });
       }
     },
-		methods: {
+    methods: {
       readFile(file) {
         return new Promise((resolve, reject) => {
           let reader = new FileReader();
@@ -243,9 +243,9 @@
           this[e.target.name] = result;
         })
       },
-			async create() {
-				try {
-					await create({
+      async create() {
+        try {
+          await create({
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>, 
             <% } %>
@@ -258,7 +258,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=name%>.<%=baseNameApp%>.<%=name%>.created'), val: true, color: "success"})
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created'), val: true, color: "success"})
           this.registered = true
           this.$router.go(-1);
         }
@@ -266,7 +266,7 @@
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})
           this.registered = false
         }
-			},
+      },
       cancel() {
         this.$router.go(-1);
       },
@@ -294,9 +294,9 @@
           }
           catch(err) {console.log(err)}
       },
-		}
-	}
+    }
+  }
 </script>
 <style scoped>
-	
+  
 </style>

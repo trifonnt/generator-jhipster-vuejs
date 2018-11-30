@@ -46,20 +46,20 @@
 </template>
 
 <script>
-	import {getAcc, changeAcc} from '../store/login'
+  import {getAcc, changeAcc} from '../store/login'
   import * as identity from '../store/identity'
   import * as storage from '../utils/storage'
 
-		export default {
+    export default {
     inject: ['$validator'],
-		data: () => ({
-		  fname: '',
-		  lname: '',
+    data: () => ({
+      fname: '',
+      lname: '',
       email: '',
       lang: '',
-      languages: [{text:"Deutsch", value: 'de'},{text:"English", value:'en'},],
+      languages: [{text:"Deutsch", value: 'de'},{text:"English", value:'en'},{text:"Български", value:'bg'},],
       registered: null,
-		}),
+    }),
     created() {
       this.getData();
     },
@@ -70,20 +70,20 @@
         });
       }
     },
-		methods: {
-			async register() {
-				try {
+    methods: {
+      async register() {
+        try {
           await changeAcc(this.fname, this.lname, this.email, this.lang, identity.getProfile().username);
           localStorage.setItem('langkey', this.lang);
           this.$i18n.locale = this.lang;
 
           this.registered = true
-				}
-				catch(err) {
+        }
+        catch(err) {
           console.log(err)
-					this.registered = false
-				}
-			},
+          this.registered = false
+        }
+      },
       async getData() {
         try {
           let response = await getAcc();
@@ -94,9 +94,9 @@
         }
         catch(err) {}
       },
-		}
-	}
+    }
+  }
 </script>
 <style scoped>
-	
+  
 </style>

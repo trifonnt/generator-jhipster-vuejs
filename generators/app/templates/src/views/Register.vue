@@ -40,15 +40,15 @@
 </template>
 
 <script>
-	import {register} from '../store/login'
-		export default {
+  import {register} from '../store/login'
+    export default {
     inject: ['$validator'],
-		data: () => ({
-		  username: '',
-		  password: '',
+    data: () => ({
+      username: '',
+      password: '',
       email: '',
       registered: null,
-		}),
+    }),
     computed: {
       formValid() {
         return Object.keys(this.fields).every(field => {
@@ -56,19 +56,19 @@
         });
       }
     },
-		methods: {
-			async register() {
-				try {
-					await register(this.username, this.password, this.email);
+    methods: {
+      async register() {
+        try {
+          await register(this.username, this.password, this.email);
           this.registered = true
-				}
-				catch(err) {
-					this.registered = false
-				}
-			}
-		}
-	}
+        }
+        catch(err) {
+          this.registered = false
+        }
+      }
+    }
+  }
 </script>
 <style scoped>
-	
+  
 </style>
