@@ -86,10 +86,9 @@
                   
                   
                     
-                      <v-text-field  v-validate='{"min":"2","max":"6","alpha_dash":true}' name="langKey" label="Lang Key" type="text" v-model="langKey"></v-text-field>
-                      <v-alert :value="errors.has('langKey')" type="error">{{ errors.first('langKey') }}</v-alert>  
-                    
-
+                      <v-select :items="[{text: 'English', value: 'en'}, {text: 'Deutsch', value: 'de'}, {text: 'Български', value: 'bg'}]" solo v-validate='{"required":true}' name="document" label="Language" v-model="langKey" 
+                        ></v-select>
+                      <v-alert :value="errors.has('document')" type="error">{{ errors.first('document') }}</v-alert>
                     
                     
                     
