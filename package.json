@@ -37,8 +37,6 @@
     "bluebird": "^3.5.2",
     "chalk": "2.4.1",
     "deep-extend": "^0.6.0",
-    "generator-jhipster-vuejs2": "^0.3.55",
-    "generator-jhipster-x": "^5.7.0-t17",
     "global": "^4.3.2",
     "mkdirp": "0.5.1",
     "mkdirp-promise": "^5.0.1",
