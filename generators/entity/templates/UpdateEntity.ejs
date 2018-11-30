@@ -122,9 +122,24 @@
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
                   %>
-                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
+ <!--                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
                         item-text='<%=relationship.otherEntityField%>' item-value='id'
                         ></v-select>
+
+
+ -->
+                        <v-autocomplete
+                          <%if(multiple){%> multiple return-object <%}%> 
+                          :items='<%=addS(fName)%>'
+                          :search-input.sync="<%=fName%>search"
+                          v-validate='<%-validate%>' 
+                          name="<%=fName%>" 
+                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                          v-model="<%=fName%>"
+                          item-text='<%=relationship.otherEntityField%>' 
+                          item-value='id'
+                        ></v-autocomplete>
+
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                   <% } } %>
         
@@ -180,7 +195,7 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(fType == 'Boolean') val = false;
+          if(fType == 'Boolean') val = "''";
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]'].includes(fType)) {
             val = '""';
         %>
@@ -207,6 +222,7 @@
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
+          <%=relationship.relationshipName%>search: '',
           <%=addS(relationship.relationshipName)%>: [],
           <%
             if(relationship.relationshipType=='many-to-many') {

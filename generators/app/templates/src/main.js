@@ -13,10 +13,14 @@ import VueI18n from 'vue-i18n'
 
 import VueQuillEditor from 'vue-quill-editor'
 
+import Datetime from 'vue-datetime'
+
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+
+import 'vue-datetime/dist/vue-datetime.css'
 
 import messages from '../i18n/';
 
@@ -38,6 +42,8 @@ Vue.use(Datatable)
 Vue.use(VueI18n)
 
 Vue.use(VueQuillEditor, /* { default global options } */)
+
+Vue.use(Datetime)
 
 let lang = localStorage.getItem('langkey') || 'en';
 

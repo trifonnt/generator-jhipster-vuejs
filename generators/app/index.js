@@ -212,6 +212,9 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "material-design-icons-iconfont": "^3.0.3",
             "vuedraggable": "^2.16.0",
             "vue-quill-editor": "^3.0.6",
+            "luxon": "^1.8.2",
+            "vue-datetime": "^1.0.0-beta.8",
+            "weekstart": "^1.0.0"
 
           },
           devDependencies: {
