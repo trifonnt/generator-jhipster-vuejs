@@ -40,8 +40,8 @@ module.exports = class extends BaseGenerator {
             {
                 type: 'confirm',
                 name: 'runGen',
-                message: 'Do you want to run Vue generator version' + ver,
-                default: false
+                message: 'Do you want to run Vue generator version ' + ver,
+                default: true
             },
             {
                 type: 'confirm',

@@ -1,6 +1,6 @@
 module.exports = {
   lintOnSave: true,
-  outputDir: "./src/main/webapp//dist",
+  outputDir: "./target/www",
   configureWebpack: config => {
     if(process.env.NODE_ENV != 'production') {
       console.log(config)

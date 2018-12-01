@@ -34,25 +34,30 @@ module.exports = class extends BaseGenerator {
     }
 
     prompting() {
-/*        const prompts = [
+
+        let ver = this._globalConfig.name.split(':')[1];
+        const done = this.async();
+        const prompts = [
             {
-                type: 'input',
-                name: 'message',
-                message: 'Please put something',
-                default: 'hello world!'
-            }
+                type: 'confirm',
+                name: 'genMenu',
+                message: 'Do you want to generate the menu?',
+                default: true
+            },
         ];
 
-        const done = this.async();
         this.prompt(prompts).then((props) => {
             this.props = props;
             // To access props later use this.props.someOption;
 
             done();
-        });*/
+        });
     }
 
     async writing() {
+        if(!this.props.runGen) {
+            return false;
+        }
         // function to use directly template
         this.template = function (source, destination) {
             this.fs.copyTpl(
