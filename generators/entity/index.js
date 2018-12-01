@@ -34,15 +34,21 @@ module.exports = class extends BaseGenerator {
             this.yourOptionKey = this.entityConfig.data.yourOptionKey;
             return;
         }
-
+        let ver = this._globalConfig.name.split(':')[1];
         const done = this.async();
         const prompts = [
+            {
+                type: 'confirm',
+                name: 'runGen',
+                message: 'Do you want to run Vue generator version' + ver,
+                default: false
+            },
             {
                 type: 'confirm',
                 name: 'genMenu',
                 message: 'Do you want to generate the menu?',
                 default: false
-            }
+            },
         ];
 
         this.prompt(prompts).then((props) => {
@@ -92,11 +98,13 @@ module.exports = class extends BaseGenerator {
                 this.log(`\nentityName=${entityName}`);
 
                 this.log('------\n');
-                this.log(this.config);
                 // do your stuff here
             },
 
             async writeFiles() {
+                if(!this.props.runGen) {
+                    return false;
+                }
                 // function to use directly template
                 this.template = function (source, destination) {
                     this.fs.copyTpl(
