@@ -34,12 +34,13 @@ module.exports = class extends BaseGenerator {
             this.yourOptionKey = this.entityConfig.data.yourOptionKey;
             return;
         }
-/*        const done = this.async();
+
+        const done = this.async();
         const prompts = [
             {
                 type: 'confirm',
-                name: 'enableOption',
-                message: 'Some option here?',
+                name: 'genMenu',
+                message: 'Do you want to generate the menu?',
                 default: false
             }
         ];
@@ -49,7 +50,7 @@ module.exports = class extends BaseGenerator {
             // To access props later use this.props.someOption;
 
             done();
-        });*/
+        });
     }
     _firstToUpper(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -91,7 +92,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`\nentityName=${entityName}`);
 
                 this.log('------\n');
-                this.log(this);
+                this.log(this.config);
                 // do your stuff here
             },
 
@@ -172,33 +173,35 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
-            let baseNameApp = this.baseName + 'App';
-            let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name, baseNameApp}, (err, str) => {
-                jhipsterUtils.rewriteFile(
-                    {
-                        path: '/',
-                        file: this.destinationPath(destPath + '/views/MenuLeft.vue'),
-                        needle: 'insertlinkshere',
-                        splicable: [
-                            str
-                        ]
-                    },
-                    this
-                );
-            });
-            let template2 = ejs.renderFile(this.templatePath('./MenuUp.ejs'), {name, baseNameApp}, (err, str) => {
-                jhipsterUtils.rewriteFile(
-                    {
-                        path: '/',
-                        file: this.destinationPath(destPath + '/views/MenuUp.vue'),
-                        needle: 'insertlinkshere',
-                        splicable: [
-                            str
-                        ]
-                    },
-                    this
-                );
-            });
+            if(this.props.genMenu == 'y') {
+                let baseNameApp = this.baseName + 'App';
+                let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name, baseNameApp}, (err, str) => {
+                    jhipsterUtils.rewriteFile(
+                        {
+                            path: '/',
+                            file: this.destinationPath(destPath + '/views/MenuLeft.vue'),
+                            needle: 'insertlinkshere',
+                            splicable: [
+                                str
+                            ]
+                        },
+                        this
+                    );
+                });
+                let template2 = ejs.renderFile(this.templatePath('./MenuUp.ejs'), {name, baseNameApp}, (err, str) => {
+                    jhipsterUtils.rewriteFile(
+                        {
+                            path: '/',
+                            file: this.destinationPath(destPath + '/views/MenuUp.vue'),
+                            needle: 'insertlinkshere',
+                            splicable: [
+                                str
+                            ]
+                        },
+                        this
+                    );
+                });
+            }
 /*            try {
                 let temp = await fs.readFileAsync(this.destinationPath(destPath + '/views/MenuLeft.vue'), "utf8");
                 let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name}, (err, str) => {

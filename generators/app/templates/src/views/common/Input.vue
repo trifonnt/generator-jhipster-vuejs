@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <v-text-field v-validate="{required, min, max, regex: pattern,}" prepend-icon="person" :name="name" label="label" v-model="val"></v-text-field>
+	  <v-text-field v-validate="validate" prepend-icon="person" :name="name" :label="label" v-model="val"></v-text-field>
 	  <v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>  
 	</div>
 </template>
@@ -24,23 +24,32 @@
 				}
 			},
 			required() {
-				return this.validationd.required;
+				return this.field_validation && this.field_validation.required;
 			},
 			min() {
-				return this.validationd.min;
+				return this.field_validation && this.field_validation.minValue;
 			},
 			max() {
-				return this.validationd.max;
+				return this.field_validation && this.field_validation.maxValue;
 			},
 			pattern() {
-				return this.validationd.pattern;
+				return this.field_validation && this.field_validation.pattern;
 			},
+			validate() {
+				if(!this.field_validation) return null;
+				return {
+					required: this.field_validation.required,
+					min: this.field_validation.minValue,
+					max: this.field_validation.maxValue,
+					regex: this.field_validation.regex,
+				}
+			}
 		},
 		props: {
 			name: String,
 			label: String,
 			type: String,
-			validationd: Object,
+			field_validation: Object,
 			i: Number,
 		},
 	}

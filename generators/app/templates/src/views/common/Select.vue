@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<v-select :items='items' solo v-validate="{required, min, max, regex: pattern}" :data-vv-name="name" :name='name' :label="label" v-model="val"></v-select>
+		<v-select multiple :items='items' item-text='name' item-value='code' solo v-validate="validate" :data-vv-name="name" :name='name' :label="label" v-model="val" return-object></v-select>
+		{{val}}
 	  	<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
 	</div>
 </template>
@@ -15,26 +16,35 @@
 					this.$store.commit('setValue',{i: this.i, val})
 				},
 				get() {
-					return this.$store.state.detail.fields[this.i];
+					return this.$store.state.detail.fields[this.i].val || [];
 				}
 			},
 			required() {
-				return this.validationd.required;
+				return this.field_validation && this.field_validation.required;
 			},
 			min() {
-				return this.validationd.min;
+				return this.field_validation && this.field_validation.minValue;
 			},
 			max() {
-				return this.validationd.max;
+				return this.field_validation && this.field_validation.maxValue;
 			},
 			pattern() {
-				return this.validationd.pattern;
+				return this.field_validation && this.field_validation.pattern;
 			},
+			validate() {
+				if(!this.field_validation) return null;
+				return {
+					required: this.field_validation.required,
+					min: this.field_validation.minValue,
+					max: this.field_validation.maxValue,
+					regex: this.field_validation.regex,
+				}
+			}
 		},
 		inject: ['$validator'],
 		props: {
 			items: Array,
-			validationd: Object,
+			field_validation: Object,
 			label: String,
 			name: String,
 			i: Number,
