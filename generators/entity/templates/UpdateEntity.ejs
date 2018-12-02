@@ -110,7 +110,11 @@
                     let validate = {};
                     let fName = relationship.relationshipName;
                     let fType = relationship.relationshipType;
-                    if(relationship.relationshipValidateRules && relationship.relationshipValidateRules.includes('required')) validate.required = true;
+                    let req = false;
+                    if(relationship.relationshipValidateRules && relationship.relationshipValidateRules.includes('required')) {
+                      validate.required = true;
+                      req = true;
+                    }
                     if("relationshipValidateRulesMinlength" in relationship) {
                       validate.min=relationship.relationshipValidateRulesMinlength;
                     }
@@ -134,6 +138,7 @@
  -->
                         <v-autocomplete
                           <%if(multiple){%> multiple return-object <%}%> 
+                          <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=addS(fName)%>'
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 

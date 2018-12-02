@@ -100,6 +100,11 @@
     padding: 0 !important;
   }
   #toptable {
+    height: 0;
+    background: white;
+    display: none !important;
+  }
+  #toptable > * {
     display: none !important;
   }
   .v-datatable__actions {
