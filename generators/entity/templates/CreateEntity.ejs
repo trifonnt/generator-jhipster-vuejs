@@ -18,9 +18,13 @@
                   fields[0].focus = true;
                   for(field of fields) {
                     let validate = {};
+                    let req = false;
                     let fName = field.fieldName;
                     let fType = field.fieldType;
-                    if(field.fieldValidateRules && field.fieldValidateRules.includes('required')) validate.required = true;
+                    if(field.fieldValidateRules && field.fieldValidateRules.includes('required')) {
+                      validate.required = true;
+                      req = true;
+                    }
                     if("fieldValidateRulesMinlength" in field) {
                       validate.min=field.fieldValidateRulesMinlength;
                     }
@@ -37,12 +41,12 @@
                     validate = JSON.stringify(validate)
                   %>
                     <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
-                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
 
                     <% if(fType=="String" && field.fieldValues == undefined) {%>
-                      <v-text-field <%if(validate.required) {%> append-icon='*' <%}%> <%if(field.focus){%>  autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%>  autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && field.fieldTypeBlobContent == 'any') { %>

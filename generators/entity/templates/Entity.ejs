@@ -19,13 +19,7 @@
       <v-btn @click='deleteAll'>Delete all
             <v-icon color="red">delete</v-icon>
       </v-btn>
-      <v-btn @click='deleteAll'>Print 1
-        <v-icon color="block">print</v-icon>
-      </v-btn>
-      <v-btn @click='deleteAll'>Print 2
-        <v-icon color="block">print</v-icon>
-      </v-btn>
-      <v-btn @click='deleteAll'>Print 3
+      <v-btn @click='print'>Print
         <v-icon color="block">print</v-icon>
       </v-btn>
       <div id='selectLabels'>
@@ -96,6 +90,9 @@
       methods: {
         selectLabels(labels) {
           this.getData({labels})
+        },
+        print() {
+          window.print()
         }
       },
       beforeCreate() {

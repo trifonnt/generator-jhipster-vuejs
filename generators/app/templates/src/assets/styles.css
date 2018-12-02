@@ -88,6 +88,10 @@
   border-bottom: 3px solid lightgray;
 }
 
+.ql-editor {
+  min-height: 80px !important;
+}
+
 @media print {
   nav {
     display: none;
