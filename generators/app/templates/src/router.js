@@ -42,7 +42,7 @@ import ViewVendorBidP from './views/ViewVendorBidP.vue'
 
 import {getProfile} from './store/identity'
 
-import masterSlaveRoutes from '../masterSlaveRoutes'
+import masterSlaveRoutes from './masterSlaveRoutes'
 
 
 
