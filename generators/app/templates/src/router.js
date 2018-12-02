@@ -15,6 +15,7 @@ import ViewUserx from './views/entities/Userx/ViewUser.vue'
 
 import AdminDocs from './views/admin/Docs.vue'
 
+
 //import Detail from './views/entities/mDetail/Detail.vue'
 
 /*import Vendor from './views/entities/vendor/Vendor.vue'
@@ -41,6 +42,7 @@ import ViewVendorBidP from './views/ViewVendorBidP.vue'
 
 import {getProfile} from './store/identity'
 
+import masterSlaveRoutes from '../masterSlaveRoutes'
 
 
 
@@ -137,6 +139,9 @@ router.beforeEach((to, from, next) => {
   }
   if(!profile && to.fullPath.includes('entities')) {
     return next('login');
+  }
+  if(masterSlaveRoutes.filter(o=>to.path.toLowerCase().includes(o.value.toLowerCase()+'/edit'))) {
+    return next(to.path.replace(o.value, o.name))
   }
   return next();
 })

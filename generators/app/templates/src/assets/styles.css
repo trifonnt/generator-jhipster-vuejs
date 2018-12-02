@@ -87,3 +87,45 @@
 .borderField {
   border-bottom: 3px solid lightgray;
 }
+
+@media print {
+  nav {
+    display: none;
+  }
+  main {
+    padding: 0 !important;
+  }
+  #toptable {
+    display: none !important;
+  }
+  .v-datatable__actions {
+    display: none;
+  }
+  .v-datatable tr > td.justify-center.layout.px-0 {
+    display: none;
+  }
+  .container.fluid.fill-height {
+    padding: 3px;
+  }
+  .flex {
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .v-chip--label, .v-chip--label .v-chip__content {
+    width: 200px;
+  }
+  button {
+    display: none;
+  }
+  .elevation-12 {
+    box-shadow: none !important;
+  }
+  tr > th:first-child, tr > th: last-child {
+    display: none;
+  }
+  tr > td:first-child, tr > td: last-child {
+    display: none;
+  }
+}
