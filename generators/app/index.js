@@ -40,8 +40,8 @@ module.exports = class extends BaseGenerator {
         const prompts = [
             {
                 type: 'confirm',
-                name: 'genMenu',
-                message: 'Do you want to generate the menu?',
+                name: 'runGen',
+                message: 'Do you want to run Vue generator ' + ver,
                 default: true
             },
         ];
