@@ -131,10 +131,10 @@
   .elevation-12 {
     box-shadow: none !important;
   }
-  tr > th:first-child, tr > th: last-child {
+  tr > th:first-child, tr > th:last-child {
     display: none;
   }
-  tr > td:first-child, tr > td: last-child {
+  tr > td:first-child, tr > td:last-child {
     display: none;
   }
 }

@@ -35,6 +35,9 @@
     <%
       } 
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
+        %>
+        <td></td>
+        <%
       }
       else {
     %>
@@ -65,7 +68,7 @@
           </v-list>
         </v-menu>
       </td>
-      <td v-if="!items.item['<%=addS(relationship.relationshipName)%>']"></td>
+      <td v-if="!items.item['<%=addS(relationship.relationshipName)%>'].length"></td>
     <%
       }
       else {
