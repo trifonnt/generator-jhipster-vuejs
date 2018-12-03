@@ -73,7 +73,7 @@
       }
       else {
     %>
-      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=name%>.<%=baseNameApp%>.<%=name%>.<%=relationship.relationshipName%>")' v-text="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"></td>
+      <td @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")' v-text="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"></td>
 
 
 
