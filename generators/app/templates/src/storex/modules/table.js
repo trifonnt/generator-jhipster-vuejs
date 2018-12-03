@@ -146,7 +146,7 @@ export default((name, name2)=> {
 			state.entity.checkedDeleted = state.entity.checkedDeleted.filter(id=>{return id!=val})
 		},
 		changePagination(state, pagination) {
-			state.entity.pagination = Object.assign({}, state.entity.pagination, pagination);
+			state.entity.pagination = Object.assign({}, state.entity.pagination, pagination.page);
 			console.log(pagination)
 		},
 		deleteItem(state, item) {
