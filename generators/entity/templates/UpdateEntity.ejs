@@ -75,7 +75,7 @@
                           <v-text-field
                             slot="activator"
                             v-model="<%=fName%>"
-                            label="$t('<%=baseNameApp%>.<%=name%>.<%=fName%>')"
+                            label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
                             prepend-icon="event"
                             readonly
                           ></v-text-field>
