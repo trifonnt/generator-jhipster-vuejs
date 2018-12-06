@@ -136,6 +136,7 @@
 
 
  -->
+                      <%if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {%>
                         <v-autocomplete
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
@@ -148,6 +149,21 @@
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         ></v-autocomplete>
+                      <%} else {%>
+                        <v-autocomplete
+                          <%if(multiple){%> multiple return-object <%}%> 
+                          <%if(req) {%> prepend-inner-icon='*' <%}%>
+                          :items='<%=pluralize(fName)%>'
+                          :search-input.sync="<%=fName%>search"
+                          v-validate='<%-validate%>' 
+                          name="<%=fName%>" 
+                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                          v-model="<%=fName%>"
+                          item-text='<%=relationship.otherEntityField%>' 
+                          item-value='id'
+                        ></v-autocomplete>
+
+                      <% } %>
 
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                   <% } } %>
