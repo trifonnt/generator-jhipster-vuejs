@@ -318,7 +318,7 @@
               <%
                 if(relationship.relationshipType == 'many-to-many') {
               %>
-                this.pluralize(<%=relationship.relationshipName%>) = entity.<%=relationship.relationshipName%>s
+                this.<%=pluralize(relationship.relationshipName)%> = entity.<%=relationship.relationshipName%>s
               <% } else  { %>
               this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
               <% } %>
