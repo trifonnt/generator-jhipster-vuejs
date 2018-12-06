@@ -152,9 +152,9 @@
         </v-list>
     </v-menu>
 
-    <v-btn flat><router-link to="home">{{$t('app.home')}}</router-link></v-btn>
-    <v-btn flat v-show='!user.auth'><router-link to="/login">{{$t('app.login.title')}}</router-link></v-btn>
-    <v-btn flat v-show='!user.auth'><router-link to="/register">{{$t('app.register.title')}}</router-link></v-btn>
+    <v-btn flat to='/home'><router-link to="home">{{$t('app.home')}}</router-link></v-btn>
+    <v-btn flat v-show='!user.auth' to='/login'><router-link to="/login">{{$t('app.login.title')}}</router-link></v-btn>
+    <v-btn flat v-show='!user.auth' to='/register'><router-link to="/register">{{$t('app.register.title')}}</router-link></v-btn>
     <v-menu offset-y v-show='user.auth'>
     <v-btn flat
       slot="activator"

@@ -139,7 +139,7 @@
                         <v-autocomplete
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=addS(fName)%>'
+                          :items='<%=pluralize(fName)%>'
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
@@ -232,7 +232,7 @@
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
           <%=relationship.relationshipName%>search: '',
-          <%=addS(relationship.relationshipName)%>: [],
+          <%=pluralize(relationship.relationshipName)%>: [],
           <%
             if(relationship.relationshipType=='many-to-many') {
           %>
