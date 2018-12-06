@@ -145,7 +145,7 @@
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                          v-model="<%=fName%>"
+                          v-model="<%=fName%>Values"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         ></v-autocomplete>
@@ -158,7 +158,7 @@
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                          v-model="<%=fName%>"
+                          v-model="<%=fName%>Values"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         ></v-autocomplete>
@@ -253,6 +253,7 @@
             if(relationship.relationshipType=='many-to-many') {
           %>
           <%=relationship.relationshipName%>:[],
+          <%=relationship.relationshipName%>Values:[],
           <% } else {%>
           <%=relationship.relationshipName%>: '',
           <% } %>
@@ -293,7 +294,7 @@
               <%
                 if(relationship.relationshipType=='many-to-many') {
               %>
-              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>,
+              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values,
               <% } %>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
@@ -334,7 +335,7 @@
               <%
                 if(relationship.relationshipType == 'many-to-many') {
               %>
-                this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
+                this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
               this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
               <% } %>
