@@ -52,8 +52,8 @@
 
 
 
-      <td v-if="items.item['<%=addS(relationship.relationshipName)%>'] && items.item['<%=addS(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
-        <v-chip v-for="val in items.item['<%=addS(relationship.relationshipName)%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val.<%=relationship.otherEntityField%>}}</v-chip>
+      <td v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
+        <v-chip v-for="val in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val.<%=relationship.otherEntityField%>}}</v-chip>
         <v-menu offset-y>
           <v-btn class='morechips'
             slot="activator"
@@ -62,13 +62,13 @@
             <v-icon>more_horiz</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="val2 in items.item['<%=addS(relationship.relationshipName)%>'].slice(2)">
+            <v-list-tile v-for="val2 in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(2)">
               <v-chip label color='primary'>{{val2.<%=relationship.otherEntityField%>}}</v-chip>
             </v-list-tile>
           </v-list>
         </v-menu>
       </td>
-      <td v-if="!items.item['<%=addS(relationship.relationshipName)%>'].length"></td>
+      <td v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'].length"></td>
     <%
       }
       else {
