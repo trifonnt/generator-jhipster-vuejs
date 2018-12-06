@@ -107,6 +107,9 @@
   #toptable > * {
     display: none !important;
   }
+  #toptable + div {
+    display: none !important;
+  }
   .v-datatable__actions {
     display: none;
   }
