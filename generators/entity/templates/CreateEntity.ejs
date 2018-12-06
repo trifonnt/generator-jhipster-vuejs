@@ -84,7 +84,7 @@
                     <% } %>
                     <% if(fType == 'Instant') { %>
                       <datetime type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
-                          <label for="<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>" slot="before"><%=toSpaced(fName)%></label>
+                          <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
                       </datetime>   
                     <% } %>
                     <% if(fType == "String" && field.fieldValues != undefined) {%>
