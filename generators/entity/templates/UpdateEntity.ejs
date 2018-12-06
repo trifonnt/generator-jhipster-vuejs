@@ -293,7 +293,7 @@
               <%
                 if(relationship.relationshipType=='many-to-many') {
               %>
-              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>,
+              <%=pluralize(relationship.relationshipName)%>: this.<%=pluralize(relationship.relationshipName)%>,
               <% } %>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
