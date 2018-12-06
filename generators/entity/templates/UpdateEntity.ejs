@@ -145,7 +145,7 @@
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                          v-model="<%=pluralize(fName)%>"
+                          v-model="<%=fName%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         ></v-autocomplete>
@@ -293,7 +293,7 @@
               <%
                 if(relationship.relationshipType=='many-to-many') {
               %>
-              <%=pluralize(relationship.relationshipName)%>: this.<%=pluralize(relationship.relationshipName)%>,
+              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>,
               <% } %>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
@@ -334,7 +334,7 @@
               <%
                 if(relationship.relationshipType == 'many-to-many') {
               %>
-                this.<%=pluralize(relationship.relationshipName)%> = entity.<%=relationship.relationshipName%>s
+                this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
               this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
               <% } %>
