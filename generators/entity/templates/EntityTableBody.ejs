@@ -36,7 +36,23 @@
       } 
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
         %>
-        <td></td>
+        <td>
+         <v-bottom-sheet v-model="<%=field.fieldName%>sheet">
+          <v-btn
+            slot="activator"
+            color="primary"
+          >
+            {{$t('app.preview')}}
+          </v-btn>
+
+          <v-list>
+            <v-subheader>{{$t('app.preview')}}</v-subheader>
+            <v-list-tile>
+              <div v-html="items.item['<%=field.fieldName%>']"></div>
+            </v-list-tile>
+          </v-list>
+        </v-bottom-sheet>
+        </td>
         <%
       }
       else {
@@ -136,6 +152,11 @@
 
 	export default {
 		data: () => ({
+      <% for(field of fields) {
+        if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
+      %>
+        <%=field.fieldName%>sheet: false,
+      <% } } %>
     	visibleHeader: false,
     }),
     created() {
