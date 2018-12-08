@@ -87,7 +87,7 @@
               <%
                 if(relationship.relationshipType == 'many-to-many') {
               %>
-                this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>s
+                this.<%=relationship.relationshipName%> = entity.pluralize(<%=relationship.relationshipName%>)
               <% } else  { %>
               this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>
               <% } %>
