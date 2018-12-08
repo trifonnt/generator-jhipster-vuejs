@@ -15,6 +15,10 @@ As this is a [JHipster](http://jhipster.github.io/) module, we expect you have J
 
 - [Installing JHipster](https://jhipster.github.io/installation.html)
 
+
+	
+	For now if you want to use this module, you have to install the generator-jhipster-x module with yarn/npm which is a fork of generator-jhipster
+
 # Installation
 
 ## With Yarn
