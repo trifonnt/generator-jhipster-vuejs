@@ -46,10 +46,8 @@
           </v-btn>
 
           <v-list>
-            <v-subheader>{{$t('app.preview')}}</v-subheader>
-            <v-list-tile>
-              <div v-html="items.item['<%=field.fieldName%>']"></div>
-            </v-list-tile>
+            <v-subheader><p class='text-xs-center'>{{$t('app.preview')}}</p></v-subheader>
+            <div v-html="items.item['<%=field.fieldName%>']"></div>
           </v-list>
         </v-bottom-sheet>
         </td>
@@ -200,5 +198,9 @@
   }
   .morechips {
     height: 32px;
+  }
+  >>>.v-list {
+    max-height: 200px;
+    overflow: scroll;
   }
 </style>

@@ -39,6 +39,9 @@
                 <% } else { %>
                   <div><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>{{<%=relationship.relationshipName%>}}</div>
                 <% } } }%>   
+                <v-btn @click='print'>Print
+                  <v-icon color="block">print</v-icon>
+                </v-btn>
                 <v-btn @click='back'><v-icon right dark>arrow_back</v-icon> {{$t('app.back')}}</v-btn>
               </v-card-text>
             </v-card>
@@ -97,6 +100,9 @@
       },
       back() {
         this.$router.go(-1)
+      },
+      print() {
+        window.print()
       }
 		}
 	}
