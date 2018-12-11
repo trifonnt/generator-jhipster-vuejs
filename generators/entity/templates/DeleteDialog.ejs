@@ -44,8 +44,9 @@
 				console.log("HERE")
 		        this.$store.commit('changeDialog', false)
 		        try {
-		        	console.log("HERE2")
-		          let res = await deleteItemById(this.deletedItem.id);
+	        		console.log("HERE2")
+		       		let res = await deleteItemById(this.deletedItem.id);
+  					this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: this.deletedItem.id}), val: true, color: "success"})
 		        }
 		        catch(err) {
 		          this.$store.commit('snackShow', {text: "error", val: true})

@@ -228,6 +228,9 @@
             menu<%=field.fieldName%>: '',
           <% } %>
           <%=field.fieldName%>: <%-val%>,
+          <% if(fType == 'byte[]') { %>
+          <%=field.fieldName%>ContentType: '""',
+          <% } %>
         <%
           }
           if(fType == 'String' && field.fieldValues != undefined) {
@@ -284,12 +287,14 @@
         let p = Promise.resolve();
         let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
         Promise.all(parr).then(result=>{
-          this[e.target.name] = result;
+          let data = result.split(";base64,");
+          this[e.target.name] = data[1];
+          this[e.target.name+"ContentType"] = data[0].split(":")[1];
         })
       },
       async create() {
         try {
-          await create({
+          let res = await create({
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>, 
             <% } %>
@@ -302,7 +307,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created'), val: true, color: "success"})
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
           this.registered = true
           this.$router.go(-1);
         }

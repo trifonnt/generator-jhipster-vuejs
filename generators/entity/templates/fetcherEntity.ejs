@@ -16,7 +16,7 @@ export function createEntity(obj) {
    %>
    <%=field.fieldName%> = <%=field.fieldName%>.replace('/,/g','.');
    <% }} %>
-	return axios.post('<%=pluralize(toDashed(name))%>', obj)
+	return axios.post('<%=pluralize(toDashed(name))%>', obj).then(data=>data.data);
 }
 export function editEntity(obj) {
    <% for(field of fields) {
@@ -24,7 +24,7 @@ export function editEntity(obj) {
    %>
    <%=field.fieldName%> = <%=field.fieldName%>.replace('/,/g','.');
    <% }} %>
-	return axios.put('<%=pluralize(toDashed(name))%>', obj)
+	return axios.put('<%=pluralize(toDashed(name))%>', obj).then(data=>data.data);
 }
 export function getEntityId(id) {
 	return axios.get('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)

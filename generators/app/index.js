@@ -157,7 +157,6 @@ module.exports = class extends BaseGenerator {
             this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/index.js'),
             {languages: yorc['generator-jhipster-x'].languages}
         )
-        if()
         for(lang of yorc['generator-jhipster-x'].languages) {
             this.fs.copyTpl(
                 this.templatePath('./src/i18n/app.json.ejs'),

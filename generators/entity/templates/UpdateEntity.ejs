@@ -238,6 +238,9 @@
           %>
             menu<%=field.fieldName%>: '',
           <% } %>
+          <% if(fType == 'byte[]') { %>
+          <%=field.fieldName%>ContentType: '""',
+          <% } %>
         <%=field.fieldName%>: <%-val%>,
         <%
           }
@@ -289,12 +292,14 @@
         let p = Promise.resolve();
         let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
         Promise.all(parr).then(result=>{
-          this[e.target.name] = result;
+          let data = result.split(";base64,");
+          this[e.target.name] = data[1];
+          this[e.target.name+"ContentType"] = data[0].split(":")[1];
         })
       },
 			async edit() {
 				try {
-					await edit({
+					let res = await edit({
             id: this.$route.params.id,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>, 
@@ -308,7 +313,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel'), val: true, color: "success"})          
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel', {id: this.$route.params.id}), val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
 				}
@@ -337,6 +342,9 @@
               ]);
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
+            <% if(field.fieldType == 'byte[]') { %>
+            this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+            <% } %>
           <% } %>
           <% for(relationship of relationships) { 
             if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {

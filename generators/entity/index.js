@@ -172,6 +172,11 @@ module.exports = class extends BaseGenerator {
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./DeleteDialog.ejs'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/DeleteDialog.vue'),
+                obj
+            )
+            this.fs.copyTpl(
                 this.templatePath('./EntityTableHead.ejs'),
                 this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableHead.vue'),
                 obj

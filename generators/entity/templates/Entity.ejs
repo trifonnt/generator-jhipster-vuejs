@@ -62,6 +62,7 @@
   import Search from './Search.vue'
   import EntityTableBody from './EntityTableBody.vue'
   import EntityTableHead from './EntityTableHead.vue'
+  import DeleteDialog from './DeleteDialog.vue'
 
   export default {
       mixins: [table("<%=toLower(name)%>")],
@@ -104,6 +105,7 @@
         Search,
         EntityTableBody,
         EntityTableHead,
+        DeleteDialog,
       }
   }
 </script>

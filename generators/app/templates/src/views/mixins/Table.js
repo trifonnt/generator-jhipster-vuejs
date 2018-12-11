@@ -1,5 +1,4 @@
 import {objtourl, urltoobj} from '../../utils/url'
-import DeleteDialog from './DeleteDialog.vue'
 
 import {mapState, mapMutations} from 'vuex'
   
@@ -117,7 +116,7 @@ export default (name) => {
       },
     },
     components: {
-      DeleteDialog,
+      
     }
   }
 }
