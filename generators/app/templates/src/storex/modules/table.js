@@ -95,12 +95,16 @@ export default((name, name2)=> {
 	          pagination.sortBy = column
 	          pagination.descending = false
 	        }
-	        dispatch('changePaginationWatcher', pagination)
+	        dispatch('changeSortWatcher', pagination)
 	    },
 	    changePaginationWatcher({state, commit, dispatch}, pagination) {
 	    	commit('changePagination', pagination)
 	    	dispatch('getData', {})
-	    },    
+	    },
+	    changeSortWatcher({state, commit, dispatch}, pagination) {
+	    	commit('changeSort', pagination)
+	    	dispatch('getData', {})
+	    },      
 	    search({state, commit, dispatch}, query) {
 	    	commit('setSearch', query);
 	    	dispatch('getData', {search: query})
@@ -148,6 +152,10 @@ export default((name, name2)=> {
 		changePagination(state, pagination) {
 			state.entity.pagination = Object.assign({}, state.entity.pagination, pagination.page);
 			console.log(pagination)
+		},
+		changeSort(state, pagination) {
+			console.log(pagination,"PAAAAAAAAAAAAGE")
+			state.entity.pagination = Object.assign({}, state.entity.pagination, pagination);
 		},
 		deleteItem(state, item) {
 			state.entity.deletedItem = Object.assign({}, state.entity.deletedItem, item);
