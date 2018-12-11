@@ -17,11 +17,11 @@
 <script>
 	let store;
 	let deleteItemById;
-	import {createStore} from '../../storex/'
+	import {createStore} from '../../../storex/'
 
 	export default {
 		beforeCreate() {
-  			store = require('../../store/entity').default(this.$options.propsData.storeName);
+  			store = require('../../../store/entity').default(this.$options.propsData.storeName);
   			deleteItemById = store.deleteItemById;
 			//this.$store = createStore(this.$options.propsData.storeName, '')
     	},
