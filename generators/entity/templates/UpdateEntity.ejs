@@ -129,6 +129,10 @@
                     if(['Integer', 'BigDecimal', 'Long'].includes(fType)) validate.integer = true;
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
+                    let model = fName;
+                    if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
+                      model = fName+'Values';
+                    }
                   %>
  <!--                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
                         item-text='<%=relationship.otherEntityField%>' item-value='id'
@@ -136,33 +140,38 @@
 
 
  -->
-                      <%if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {%>
+                        <%if(relationship.otherEntityName2) {%>
                         <v-autocomplete
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=pluralize(fName)%>'
+                          :items='<%=addS(fName)%>'
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                          v-model="<%=fName%>Values"
-                          item-text='<%=relationship.otherEntityField%>' 
-                          item-value='id'
-                        ></v-autocomplete>
-                      <%} else {%>
-                        <v-autocomplete
-                          <%if(multiple){%> multiple return-object <%}%> 
-                          <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=pluralize(fName)%>'
-                          :search-input.sync="<%=fName%>search"
-                          v-validate='<%-validate%>' 
-                          name="<%=fName%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                          v-model="<%=fName%>"
-                          item-text='<%=relationship.otherEntityField%>' 
-                          item-value='id'
-                        ></v-autocomplete>
+                          v-model="<%=model%>"
+<!--                           item-text='<%=relationship.otherEntityField%>' 
+                          item-value='id' -->
+                          :filter="v => v"
+                        >
+                        <template slot="item" slot-scope="{item}">
+                          <div class='leftcol'>{{item.<%=relationship.otherEntityName%>.substr(0,20)}}</div> <div class='rightcol'>{{item.<%=relationship.otherEntityName2%>}}</div>
+                        </template>
 
+                        </v-autocomplete>
+                      <% } else { %>
+                        <v-autocomplete
+                          <%if(multiple){%> multiple return-object <%}%> 
+                          <%if(req) {%> prepend-inner-icon='*' <%}%>
+                          :items='<%=addS(fName)%>'
+                          :search-input.sync="<%=fName%>search"
+                          v-validate='<%-validate%>' 
+                          name="<%=fName%>" 
+                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                          v-model="<%=model%>"
+                          item-text='<%=relationship.otherEntityField%>' 
+                          item-value='id'
+                        ></v-autocomplete>
                       <% } %>
 
                       <v-alert :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -348,5 +357,12 @@
 	}
 </script>
 <style scoped>
-	
+	.leftcol {
+    width:200px;
+    float: left;
+  }
+  .rightcol {
+    width: 200px;
+    float: right;
+  }
 </style>

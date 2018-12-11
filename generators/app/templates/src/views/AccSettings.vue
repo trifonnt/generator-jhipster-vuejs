@@ -49,6 +49,8 @@
   import {getAcc, changeAcc} from '../store/login'
   import * as identity from '../store/identity'
   import * as storage from '../utils/storage'
+  
+  import { Settings } from 'luxon'
 
     export default {
     inject: ['$validator'],
@@ -76,6 +78,9 @@
           await changeAcc(this.fname, this.lname, this.email, this.lang, identity.getProfile().username);
           localStorage.setItem('langkey', this.lang);
           this.$i18n.locale = this.lang;
+
+          //vue datetime luxon locale
+          Settings.defaultLocale = this.lang
 
           this.registered = true
         }

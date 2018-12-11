@@ -15,6 +15,10 @@ import VueQuillEditor from 'vue-quill-editor'
 
 import Datetime from 'vue-datetime'
 
+import { Settings } from 'luxon'
+
+import VueImg from 'v-img';
+
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -45,7 +49,12 @@ Vue.use(VueQuillEditor, /* { default global options } */)
 
 Vue.use(Datetime)
 
+Vue.use(VueImg);
+
 let lang = localStorage.getItem('langkey') || 'en';
+
+//vue datetime luxon locale
+Settings.defaultLocale = lang
 
 const i18n = new VueI18n({
 	locale: lang,

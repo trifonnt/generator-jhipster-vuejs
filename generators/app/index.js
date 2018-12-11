@@ -157,7 +157,7 @@ module.exports = class extends BaseGenerator {
             this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/index.js'),
             {languages: yorc['generator-jhipster-x'].languages}
         )
-
+        if()
         for(lang of yorc['generator-jhipster-x'].languages) {
             this.fs.copyTpl(
                 this.templatePath('./src/i18n/app.json.ejs'),
@@ -219,8 +219,8 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "vue-quill-editor": "^3.0.6",
             "luxon": "^1.8.2",
             "vue-datetime": "^1.0.0-beta.8",
-            "weekstart": "^1.0.0"
-
+            "weekstart": "^1.0.0",
+            "v-img": "^0.2.0"
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",
