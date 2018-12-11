@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-vuejs2",
-  "version": "0.4.20",
+  "version": "0.4.21",
   "description": "jHipster generator for vuejs client side",
   "keywords": [
     "yeoman-generator",
