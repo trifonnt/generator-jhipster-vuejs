@@ -29,11 +29,14 @@ export function editEntity(obj) {
 export function getEntityId(id) {
 	return axios.get('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
 }
+export function getEntityTemplate() {
+	return axios.get('<%=pluralize(toDashed(name))%>/template').then(data=>data.data)
+}
 export function deleteId(id) {
 	return axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
 }
 export function deleteAllItems(items) {
-	let promises = items.map(id=>axios.delete('vendors/'+id).then(data=>data.data));
+	let promises = items.map(id=>axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data));
 	return Promise.all(promises)
 }
 export function getLabels() {

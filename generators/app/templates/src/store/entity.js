@@ -16,6 +16,9 @@ export default((name) => {
 		async getEntityById(id) {
 			return fetcher.getEntityId(id)
 		},
+		async getEntityByTemplate() {
+			return fetcher.getEntityTemplate();
+		},
 		async create(obj) { //eid, code, name, desc, active, ean, qty
 			return fetcher.createEntity(obj);
 		},

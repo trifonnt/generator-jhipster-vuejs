@@ -103,7 +103,7 @@ export default (name) => {
       async deleteAll() {
         try {
           console.log(this.checkedDeleted)
-          //await deleteAll(this.checkedDeleted)
+          await deleteAll(this.checkedDeleted)
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})
         }
         catch(err) {
