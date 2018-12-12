@@ -267,7 +267,7 @@
       changeLeftDrawer() {
         this.$store.commit('changeLeftDrawer');
       }
-    }
+    },
     computed: {
       snackText() {
         return this.$store.state.app.snackText
