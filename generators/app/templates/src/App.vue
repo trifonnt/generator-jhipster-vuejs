@@ -265,7 +265,7 @@
     },
     methods: {
       changeLeftDrawer() {
-        $this.store.commit('changeLeftDrawer');
+        this.$store.commit('changeLeftDrawer');
       }
     }
     computed: {
