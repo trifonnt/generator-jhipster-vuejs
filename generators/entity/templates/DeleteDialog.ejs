@@ -49,7 +49,7 @@
   					this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.deleted', {id: this.deletedItem.id}), val: true, color: "success"})
 		        }
 		        catch(err) {
-		          this.$store.commit('snackShow', {text: "error", val: true})
+		          this.$store.commit('snackShow', {text: res.title, val: true})
 		          console.log(err, "ERROR")
 		        }
 		        this.$store.dispatch('changePaginationWatcher', {page:1})
