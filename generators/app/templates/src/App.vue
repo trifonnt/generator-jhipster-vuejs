@@ -16,7 +16,7 @@
         {{$t('app.close')}}
       </v-btn>
     </v-snackbar>
-    <menu-left :miniVariant='miniVariant' :drawer='drawer'></menu-left>
+    <menu-left :miniVariant='miniVariant'></menu-left>
     <v-navigation-drawer right fixed temporary v-model='rightDrawer'>
       
 
@@ -87,7 +87,7 @@
       :scroll-threshold='30'
       :clipped-left="clipped"
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="changeLeftDrawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
@@ -263,6 +263,11 @@
         title: 'Vuetify.js'
       }
     },
+    methods: {
+      changeLeftDrawer() {
+        $this.store.commit('changeLeftDrawer');
+      }
+    }
     computed: {
       snackText() {
         return this.$store.state.app.snackText

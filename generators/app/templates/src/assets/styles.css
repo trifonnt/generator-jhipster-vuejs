@@ -140,4 +140,7 @@
   tr > td:first-child, tr > td:last-child {
     display: none;
   }
+  .viewbuttons {
+    display: none;
+  }
 }

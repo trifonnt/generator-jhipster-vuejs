@@ -44,10 +44,10 @@
                 <% } else { %>
                   <div v-hasRole="'<%=relationship.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>{{<%=relationship.relationshipName%>}}</div>
                 <% } } }%>   
-                <v-btn @click='print'>Print
+                <v-btn @click='print' class='viewbuttons'>Print
                   <v-icon color="block">print</v-icon>
                 </v-btn>
-                <v-btn @click='back'><v-icon right dark>arrow_back</v-icon> {{$t('app.back')}}</v-btn>
+                <v-btn @click='back' class='viewbuttons'><v-icon right dark>arrow_back</v-icon> {{$t('app.back')}}</v-btn>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -107,7 +107,12 @@
         this.$router.go(-1)
       },
       print() {
+        let status = this.$store.state.app.leftDrawer;
+        this.$store.commit('setLeftDrawer', false);
         window.print()
+        window.onafterprint = function() {
+           this.$store.commit('setLeftDrawer', status)
+        }
       }
 		}
 	}

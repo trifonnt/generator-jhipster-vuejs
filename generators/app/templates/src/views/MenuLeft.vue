@@ -110,16 +110,15 @@ export default {
   computed: {
     leftDrawer: {
       get() {
-        return this.drawer;
+        return this.$store.state.app.leftDrawer;
       },
-      set() {
-        
+      set(val) {
+        this.$store.commit('setLeftDrawer', val)
       }
     }
   },
   props: {
     miniVariant: Boolean,
-    drawer: Boolean
   },
 
 }
