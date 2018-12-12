@@ -109,9 +109,9 @@
       print() {
         let status = this.$store.state.app.leftDrawer;
         this.$store.commit('setLeftDrawer', false);
-        window.print()
+        this.$nextTick(()=>window.print());
         window.onafterprint = function() {
-           this.$store.commit('setLeftDrawer', status)
+          this.$store.commit('setLeftDrawer', status)
         }
       }
 		}

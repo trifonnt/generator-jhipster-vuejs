@@ -245,7 +245,10 @@
       logout() {
         logout();
         this.$router.push('/')
-      }
+      },
+      changeLeftDrawer() {
+        this.$store.commit('changeLeftDrawer');
+      },
     },
     data () {
       return {
@@ -261,11 +264,6 @@
         right: true,
         rightDrawer: false,
         title: 'Vuetify.js'
-      }
-    },
-    methods: {
-      changeLeftDrawer() {
-        this.$store.commit('changeLeftDrawer');
       }
     },
     computed: {
