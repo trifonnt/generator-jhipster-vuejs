@@ -3,7 +3,7 @@
 <template>
  <v-app id="inspire">
   <div class='margin'></div>
-  <div id='toptable'>
+  <div id='toptable' style='display:flex'>
     <div id='createnew'>
       <v-btn to='/admin/userx/new'  color="primary">
           <v-icon>add</v-icon>
@@ -19,13 +19,7 @@
       <v-btn @click='deleteAll'>Delete all
             <v-icon color="red">delete</v-icon>
       </v-btn>
-      <v-btn @click='deleteAll'>Print 1
-        <v-icon color="block">print</v-icon>
-      </v-btn>
-      <v-btn @click='deleteAll'>Print 2
-        <v-icon color="block">print</v-icon>
-      </v-btn>
-      <v-btn @click='deleteAll'>Print 3
+      <v-btn @click='print'>Print
         <v-icon color="block">print</v-icon>
       </v-btn>
       <div id='selectLabels'>
@@ -44,7 +38,7 @@
     select-all
   >
     <template slot="headers" slot-scope="props">
-      <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></entity-table-head>
+      <!--entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked'></entity-table-head-->
     </template>
     <template slot="items" slot-scope="props">
         <entity-table-body :headers = 'headers' :items = 'props' store-name="userx"></entity-table-body>
@@ -61,6 +55,7 @@
   import FilterLabels from '../../common/FilterLabels.vue'
   import Search from './Search.vue'
   import EntityTableBody from './EntityTableBody.vue'
+  import EntityTableHead from './EntityTableHead.vue'
 
 	export default {
       mixins: [table("userx")],
@@ -108,6 +103,9 @@
       methods: {
         selectLabels(labels) {
           this.getData({labels})
+        },
+        print() {
+          window.print()
         }
       },
       beforeCreate() {
@@ -118,6 +116,7 @@
         FilterLabels,
         Search,
         EntityTableBody,
+        EntityTableHead,
       }
 	}
 </script>
@@ -151,5 +150,8 @@
     height: 30px;
   }
   .margin {
+  }
+  .rightalign {
+    text-align: right;
   }
 </style>
