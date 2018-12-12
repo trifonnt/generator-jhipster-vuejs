@@ -313,7 +313,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.updated', {id: this.$route.params.id}), val: true, color: "success"})          
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.updated', {id: this.$route.params.id}), val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
 				}
