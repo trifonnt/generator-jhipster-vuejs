@@ -40,7 +40,7 @@
             <v-dialog v-model="dialogImage<%=field.fieldName%>" fullscreen hide-overlay transition="dialog-bottom-transition">
               <v-btn slot="activator" color="primary" dark>Preview</v-btn>
               <v-card>
-                <img src="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']"/>
+                <img :src="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']"/>
               </v-card>
             </v-dialog>
       </td>    

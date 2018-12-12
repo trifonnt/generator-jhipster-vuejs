@@ -50,7 +50,7 @@
                       <v-text-field v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
-                    <% if(fType=="byte[]" && field.fieldTypeBlobContent == 'any') { %>
+                    <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
                         <input v-hasRole="'<%=field.visibleForRole%>'" name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
                         <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
                         <v-chip v-hasRole="'<%=field.visibleForRole%>'"><a :href='<%=fName%>' download>Download file</a> <v-btn icon @click='<%=fName%>=""'><v-icon>delete</v-icon></v-btn></v-chip>
@@ -326,7 +326,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel', {id: this.$route.params.id}), val: true, color: "success"})          
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.created', {id: res.id}), val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
         }

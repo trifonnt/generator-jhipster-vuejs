@@ -22,7 +22,7 @@
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
                   %>
-                    <img v-img src='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>'/>
+                    <img v-img :src='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>'/>
                   <%
                   }
                   else if(field.fieldType == 'String' && field.fieldValues != undefined) { %>
