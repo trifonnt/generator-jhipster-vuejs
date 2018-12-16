@@ -302,7 +302,7 @@
         let p = Promise.resolve();
         let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
         Promise.all(parr).then(result=>{
-          let data = result.split(";base64,");
+          let data = result[0].split(";base64,");
           this[e.target.name] = data[1];
           this[e.target.name+"ContentType"] = data[0].split(":")[1];
         })
@@ -325,7 +325,10 @@
           });*/
           let res = await create({
             <% for(field of fields) { %>
-              <%=field.fieldName%>:this.<%=field.fieldName%>, 
+              <%=field.fieldName%>:this.<%=field.fieldName%>,
+              <% if(field.fieldType == 'byte[]') { %>
+                <%=field.fieldName%>ContentType = this.<%=field.fieldName%>ContentType
+              <% } %>
             <% } %>
             <% for(relationship of relationships) { %>
               <%
