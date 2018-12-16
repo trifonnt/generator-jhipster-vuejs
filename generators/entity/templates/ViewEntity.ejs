@@ -18,7 +18,7 @@
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div v-html="<%=field.fieldName%>"></div></div>
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
-                    <a :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' download>Download file</a> 
+                    <a :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>Download {{<%=field.fieldName%>FileName}}</a> 
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
                   %>
