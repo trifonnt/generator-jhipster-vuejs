@@ -53,8 +53,8 @@
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
                         <input :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
                         <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
-                        <v-chip>
-                          <a v-show='<%=field.fieldName%>.length>0' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a> 
+                        <v-chip v-show='<%=field.fieldName%>.length>0'>
+                          <a :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a> 
                           <v-btn v-show='<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>=""'><v-icon>delete</v-icon></v-btn>
                         </v-chip>
                     <% } %>
