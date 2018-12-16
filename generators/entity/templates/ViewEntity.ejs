@@ -73,6 +73,10 @@
           }
           if(fType == 'String' && field.fieldValues != undefined) val = [];
         %>
+        <% if(fType == 'byte[]') { %>
+          <%=field.fieldName%>ContentType: "",
+          <%=field.fieldName%>FileName: "",
+        <% } %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>
       <% for(relationship of relationships) { %>
@@ -89,8 +93,8 @@
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
-              <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType
-              <%=field.fieldName%>FileName: this.<%=field.fieldName%>FileName
+              <%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+              <%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
             <% } %>
           <% } %>
             <% for(relationship of relationships) {
