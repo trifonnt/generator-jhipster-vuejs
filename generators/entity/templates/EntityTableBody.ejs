@@ -30,7 +30,7 @@
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') {
     %>
       <td v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
-        <a :href="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']" :download="items.item['<%=field.fieldName%>FileName']">{{$t('app.download')}} {{items.item['<%=field.fieldName%>FileName']}}</a>
+        <a :href="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']" :download="items.item['<%=field.fieldName%>FileName']">{{items.item['<%=field.fieldName%>FileName']}}</a>
       </td>
     <%
       } 

@@ -18,7 +18,10 @@
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div v-html="<%=field.fieldName%>"></div></div>
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
-                    <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label><%=field.fieldName%></v-chip><a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a></div>
+                    <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label><%=field.fieldName%></v-chip>
+                      <a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a>
+                      <span v-show='!<%=field.fieldName%>'>No file attached</span>
+                    </div>
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
                   %>
@@ -93,8 +96,8 @@
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
-              <%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
-              <%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
+              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+              this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
             <% } %>
           <% } %>
             <% for(relationship of relationships) {
