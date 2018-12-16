@@ -89,8 +89,8 @@
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
-              <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType,
-              <%=field.fieldName%>FileName: this.<%=field.fieldName%>FileName,
+              <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType
+              <%=field.fieldName%>FileName: this.<%=field.fieldName%>FileName
             <% } %>
           <% } %>
             <% for(relationship of relationships) {
