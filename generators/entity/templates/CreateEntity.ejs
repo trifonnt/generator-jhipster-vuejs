@@ -241,8 +241,8 @@
             menu<%=field.fieldName%>: '',
           <% } %>
           <% if(fType == 'byte[]') { %>
-            <%=field.fieldName%>ContentType: '""',
-            <%=field.fieldName%>FileName: '""',
+            <%=field.fieldName%>ContentType: "",
+            <%=field.fieldName%>FileName: "",
           <% } %>
         <%=field.fieldName%>: <%-val%>,
         <%
@@ -303,8 +303,8 @@
         let p = Promise.resolve();
         let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
         Promise.all(parr).then(result=>{
-          let name = result.name;
-          let data = result.result[0].split(";base64,");
+          let name = result[0].name;
+          let data = result[0].result.split(";base64,");
           this[e.target.name] = data[1];
           this[e.target.name+"ContentType"] = data[0].split(":")[1];
           this[e.target.name+"FileName"] = name;
