@@ -36,7 +36,7 @@ export function deleteId(id) {
 	return axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
 }
 export function deleteAllItems(items) {
-	return axios.delete(<%=pluralize(toDashed(name))%>, {ids: items})
+	return axios.delete('<%=pluralize(toDashed(name))%>', {data: {ids: items}})
 	/* let promises = items.map(id=>axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data));
 	return Promise.all(promises) */
 }
