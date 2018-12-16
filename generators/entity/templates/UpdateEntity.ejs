@@ -134,7 +134,7 @@
                       model = fName+'Values';
                     }
                   %>
- <!--                      <v-select <%if(field.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
+ <!--                      <v-select <%if(relationship.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
                         item-text='<%=relationship.otherEntityField%>' item-value='id'
                         ></v-select>
 
