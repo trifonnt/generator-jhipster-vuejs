@@ -327,7 +327,7 @@
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
               <% if(field.fieldType == 'byte[]') { %>
-                <%=field.fieldName%>ContentType = this.<%=field.fieldName%>ContentType,
+                <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType,
               <% } %>
             <% } %>
             <% for(relationship of relationships) { %>
