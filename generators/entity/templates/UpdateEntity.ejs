@@ -241,7 +241,8 @@
             menu<%=field.fieldName%>: '',
           <% } %>
           <% if(fType == 'byte[]') { %>
-          <%=field.fieldName%>ContentType: '""',
+            <%=field.fieldName%>ContentType: '""',
+            <%=field.fieldName%>FileName: '""',
           <% } %>
         <%=field.fieldName%>: <%-val%>,
         <%
@@ -291,7 +292,7 @@
         return new Promise((resolve, reject) => {
           let reader = new FileReader();
           reader.onload = () => {
-            resolve(reader.result);
+            resolve({result: reader.result, name: file.name});
           };
           reader.onerror = reject;
           reader.readAsDataURL(file)
@@ -302,9 +303,11 @@
         let p = Promise.resolve();
         let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
         Promise.all(parr).then(result=>{
-          let data = result[0].split(";base64,");
+          let name = result.name;
+          let data = result.result[0].split(";base64,");
           this[e.target.name] = data[1];
           this[e.target.name+"ContentType"] = data[0].split(":")[1];
+          this[e.target.name+"FileName"] = name;
         })
       },
 			async edit() {
@@ -312,7 +315,11 @@
 					let res = await edit({
             id: this.$route.params.id,
             <% for(field of fields) { %>
-              <%=field.fieldName%>:this.<%=field.fieldName%>, 
+              <%=field.fieldName%>:this.<%=field.fieldName%>,
+              <% if(field.fieldType == 'byte[]') { %>
+                <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType,
+                <%=field.fieldName%>FileName: this.<%=field.fieldName%>FileName,
+              <% } %>
             <% } %>
             <% for(relationship of relationships) { %>
               <%
@@ -354,6 +361,7 @@
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
             this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+            this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
             <% } %>
           <% } %>
           <% for(relationship of relationships) { 
