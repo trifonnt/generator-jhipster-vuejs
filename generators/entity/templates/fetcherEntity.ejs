@@ -36,8 +36,9 @@ export function deleteId(id) {
 	return axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
 }
 export function deleteAllItems(items) {
-	let promises = items.map(id=>axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data));
-	return Promise.all(promises)
+	return axios.delete(<%=pluralize(toDashed(name))%>, {ids: items})
+	/* let promises = items.map(id=>axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data));
+	return Promise.all(promises) */
 }
 export function getLabels() {
 	return axios.get('<%=pluralize(toDashed(name))%>/getLabels');
