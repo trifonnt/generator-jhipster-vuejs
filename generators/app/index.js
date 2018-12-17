@@ -15,7 +15,7 @@ module.exports = class extends BaseGenerator {
             },
             readConfig() {
                 this.jhipsterAppConfig = this.getJhipsterAppConfig();
-                this.log(jhipsterAppConfig)
+                this.log(this.jhipsterAppConfig)
                 if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
                 }
@@ -155,7 +155,7 @@ module.exports = class extends BaseGenerator {
         this.fs.copyTpl(
             this.templatePath('./src/views/mixins/Table.ejs'),
             this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/views/mixins/Table.js'),
-            {baseName: this.baseName}
+            {baseName}
         )
         const yorc = this.fs.readJSON(this.destinationPath('.yo-rc.json'), {});
 
