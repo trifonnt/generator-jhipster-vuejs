@@ -90,8 +90,8 @@ class CustomFormatter {
      //   - array included VNode object, when is using `i18n` functional component.
      // 
      interpolate (message, values) {
+		if(!values) return [message];
 		Object.keys(values).forEach(function(k) {
-			if(!values) return [message];
 			let val = values[k]
 	        if(Array.isArray(val)) val = values[k].join()
 	        var find = '{{ '+k+' }}';
