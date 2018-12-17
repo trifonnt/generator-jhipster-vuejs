@@ -56,9 +56,55 @@ let lang = localStorage.getItem('langkey') || 'en';
 //vue datetime luxon locale
 Settings.defaultLocale = lang
 
+class CustomFormatter {
+     constructor (options) {
+       // ...
+     }
+    
+     //
+     // interpolate
+     //
+     // @param {string} message
+     //   string of list or named format.
+     //   e.g.
+     //   - named formatting: 'Hi {name}'
+     //   - list formatting: 'Hi {0}'
+     //
+     // @param {Object | Array} values
+     //   values of `message` interpolation.
+     //   passed values with `$t`, `$tc` and `i18n` functional component.
+     //   e.g. 
+     //   - $t('hello', { name: 'kazupon' }) -> passed values: Object `{ name: 'kazupon' }` 
+     //   - $t('hello', ['kazupon']) -> passed values: Array `['kazupon']`
+     //   - `i18n` functional component (component interpolation)
+     //     <i18n path="hello">
+     //       <p>kazupon</p>
+     //       <p>how are you?</p>
+     //     </i18n>
+     //     -> passed values: Array (included VNode):
+     //        `[VNode{ tag: 'p', text: 'kazupon', ...}, VNode{ tag: 'p', text: 'how are you?', ...}]`
+     //
+     // @return {Array<any>}
+     //   interpolated values. you need to return the following:
+     //   - array of string, when is using `$t` or `$tc`.
+     //   - array included VNode object, when is using `i18n` functional component.
+     // 
+     interpolate (message, values) {
+		Object.keys(values).forEach(function(k) {
+			let val = obj[k]
+	        if(Array.isArray(val)) val = obj[k].join()
+	        var find = '{{ '+k+' }}';
+			var re = new RegExp(find, 'g');
+			message = message.replace(re, val);
+		});
+       return message
+     }
+}
+
 const i18n = new VueI18n({
 	locale: lang,
-	messages
+	messages,
+	formatter: new CustomFormatter(),
 })
 
 Vue.use(VeeValidate, {

@@ -110,7 +110,7 @@ module.exports = class extends BaseGenerator {
         const fs = Promise.promisifyAll(require('fs'));
         const mkdirp = require('mkdirp-promise')
         await mkdirp(this.options.env.cwd+'/src/main/webapp');
-        await Promise.all(['src','public','build'].map(f=>mkdirp(this.destinationPath('src/main/webapp/'+'/'+f))));
+        //await Promise.all(['src','public','build'].map(f=>mkdirp(this.destinationPath('src/main/webapp/'+'/'+f))));
 
         this.fs.copy(
           this.templatePath('./src'),

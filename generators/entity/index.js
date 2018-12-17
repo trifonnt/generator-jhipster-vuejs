@@ -118,7 +118,7 @@ module.exports = class extends BaseGenerator {
             const mkdirp = require('mkdirp-promise')
             let name = this.entityConfig.name;
             let jsonPath = this.entityConfig.rootDir+'/'+this.entityConfig.filename;
-            await mkdirp(this.destinationPath('src/views/entities/'+name));
+            //await mkdirp(this.destinationPath('src/views/entities/'+name));
             let data = await fs.readFileAsync(jsonPath);
             let obj = JSON.parse(data);
             obj.pluralize = pluralize;
