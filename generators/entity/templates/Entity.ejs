@@ -16,10 +16,10 @@
    </div>
   </div>
     <div  v-show='areAllChecked'>
-      <v-btn @click='deleteAll'>Delete all
+      <v-btn @click='deleteAll'>{{$t('app.deleteAll')}}
             <v-icon color="red">delete</v-icon>
       </v-btn>
-      <v-btn @click='print'>Print
+      <v-btn @click='print'>{{$t('app.print')}}
         <v-icon color="block">print</v-icon>
       </v-btn>
       <div id='selectLabels'>

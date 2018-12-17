@@ -18,9 +18,9 @@
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div v-html="<%=field.fieldName%>"></div></div>
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
-                    <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label><%=field.fieldName%></v-chip>
+                    <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                       <a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a>
-                      <span v-show='!<%=field.fieldName%>'>No file attached</span>
+                      <span v-show='!<%=field.fieldName%>'>{{$t('app.noFileAttached')}}</span>
                     </div>
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
@@ -47,7 +47,7 @@
                 <% } else { %>
                   <div v-hasRole="'<%=relationship.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>{{<%=relationship.relationshipName%>}}</div>
                 <% } } }%>   
-                <v-btn @click='print' class='viewbuttons'>Print
+                <v-btn @click='print' class='viewbuttons'>{{$t('app.print')}}
                   <v-icon color="block">print</v-icon>
                 </v-btn>
                 <v-btn @click='back' class='viewbuttons'><v-icon right dark>arrow_back</v-icon> {{$t('app.back')}}</v-btn>
