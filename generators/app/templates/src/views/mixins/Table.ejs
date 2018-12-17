@@ -104,11 +104,11 @@ export default (name) => {
         try {
           console.log(this.checkedDeleted)
           let headers = await deleteAll(this.checkedDeleted);
-          let key = headers['x-'+<%=baseName%>+'alert'];
+          let key = headers['x-'+'<%=baseName%>app-'+'alert'];
           let keyentity = key.split('.')[1];
-          let ids = headers['x-'+<%=baseName%>+'params'];
+          let ids = headers['x-'+'<%=baseName%>app-'+'params'];
           this.getData()
-          this.$store.dispatch('snackShowAction', {text: this.$t(key+keyentity, {params: ids}), val: true, color: "success"})
+          this.$store.dispatch('snackShowAction', {text: this.$t(keyentity+'.'+key, {id: ids}), val: true, color: "success"})
         }
         catch(err) {
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})

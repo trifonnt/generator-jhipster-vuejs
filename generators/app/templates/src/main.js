@@ -91,13 +91,14 @@ class CustomFormatter {
      // 
      interpolate (message, values) {
 		Object.keys(values).forEach(function(k) {
-			let val = obj[k]
-	        if(Array.isArray(val)) val = obj[k].join()
+			if(!values) return [message];
+			let val = values[k]
+	        if(Array.isArray(val)) val = values[k].join()
 	        var find = '{{ '+k+' }}';
 			var re = new RegExp(find, 'g');
 			message = message.replace(re, val);
 		});
-       return message
+       return [message]
      }
 }
 

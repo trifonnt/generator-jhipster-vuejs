@@ -314,8 +314,9 @@
         })
       },
 			async edit() {
+        let res;
 				try {
-					let res = await edit({
+					res = await edit({
             id: this.$route.params.id,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,

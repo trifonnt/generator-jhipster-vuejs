@@ -311,6 +311,7 @@
         })
       },
       async edit() {
+        let res;
         try {
 /*          let res = await edit({
             id: this.$route.params.id,
@@ -326,7 +327,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
             <% } %>
           });*/
-          let res = await create({
+          res = await create({
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
               <% if(field.fieldType == 'byte[]') { %>

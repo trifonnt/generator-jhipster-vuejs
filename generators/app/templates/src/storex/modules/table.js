@@ -126,7 +126,7 @@ export default((name, name2)=> {
 	    	}
 		},
 		deleteAllChecked(state) {
-			state.entity.checkDeleted = [];
+			state.entity.checkedDeleted = [];
 		},
 		clearDeleted(state) {
 			state.checkedDeleted = [];
