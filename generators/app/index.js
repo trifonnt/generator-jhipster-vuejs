@@ -66,7 +66,7 @@ module.exports = class extends BaseGenerator {
                 this
             );
         };
-        this.baseName = this.jhipsterAppConfig.baseName;
+        let baseName = this.jhipsterAppConfig.baseName;
         // read config from .yo-rc.json
 /*        this.baseName = this.jhipsterAppConfig.baseName;
         this.packageName = this.jhipsterAppConfig.packageName;
