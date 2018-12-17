@@ -103,8 +103,12 @@ export default (name) => {
       async deleteAll() {
         try {
           console.log(this.checkedDeleted)
-          await deleteAll(this.checkedDeleted)
-          this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})
+          let headers = await deleteAll(this.checkedDeleted);
+          let key = headers['x-'+<%=baseName%>+'alert'];
+          let keyentity = key.split('.')[1];
+          let ids = headers['x-'+<%=baseName%>+'params'];
+          this.getData()
+          this.$store.dispatch('snackShowAction', {text: this.$t(key+keyentity, {params: ids}), val: true, color: "success"})
         }
         catch(err) {
           this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})

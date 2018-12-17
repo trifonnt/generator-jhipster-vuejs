@@ -150,6 +150,12 @@ module.exports = class extends BaseGenerator {
             this.destinationPath(this.options.env.cwd+'/'+'.postcssrc.js'),
             {}
         )
+
+        this.fs.copyTpl(
+            this.templatePath('./src/mixins/Table.ejs'),
+            this.destinationPath('src/main/webapp/src/views/mixins/Table.js'),
+            {baseName: this.baseName}
+        )
         const yorc = this.fs.readJSON(this.destinationPath('.yo-rc.json'), {});
 
         this.fs.copyTpl(
