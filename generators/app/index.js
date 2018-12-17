@@ -14,10 +14,10 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-/*                this.jhipsterAppConfig = this.getJhipsterAppConfig();
+                this.jhipsterAppConfig = this.getJhipsterAppConfig();
                 if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
-                }*/
+                }
             },
             displayLogo() {
                 // it's here to show that you can use functions from generator-jhipster
