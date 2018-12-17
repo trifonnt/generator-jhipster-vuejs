@@ -53,7 +53,7 @@
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
                         <input :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
                         <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
-                        <v-btn v-show='<%=field.fieldName%>.length>0' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
+                        <v-btn v-show='<%=field.fieldName%> && <%=field.fieldName%>.length>0' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
                     <% } %>
                     <% if(fType == "Boolean") {%>
                       <v-checkbox :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
