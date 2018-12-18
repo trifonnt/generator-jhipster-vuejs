@@ -308,9 +308,9 @@
         Promise.all(parr).then(result=>{
           let name = result[0].name;
           let data = result[0].result.split(";base64,");
-          this[e.target.name] = data[1];
-          this[e.target.name+"ContentType"] = data[0].split(":")[1];
-          this[e.target.name+"FileName"] = name;
+          this[fieldName] = data[1];
+          this[fieldName+"ContentType"] = data[0].split(":")[1];
+          this[fieldName+"FileName"] = name;
         })
       },
       async edit() {
