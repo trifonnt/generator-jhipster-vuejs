@@ -18,7 +18,7 @@
                   <v-text-field v-validate="{required: true, min: 4, max: 100}" id="password" prepend-icon="lock" name="password" :label="$t('app.login.passwordLabel')" type="password" v-model="password"></v-text-field>
                    <v-alert :value="errors.has('password')" type="error">{{ errors.first('password') }}</v-alert>
                    <v-checkbox
-				      label="Remember me"
+				      :label="$t('app.login.rememberMeLabel')"
 				      v-model="remember"
 				    ></v-checkbox>
                 </v-form>
