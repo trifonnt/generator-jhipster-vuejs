@@ -2,14 +2,14 @@
 	<div>
     <input :name="name" :id='name' type="file" :multiple="multiple" @input="upload($event)" class='fileinput' :ref='name'/>
     <v-btn @click='chooseFile'>Upload</v-btn>
-    <div v-show='files.length'><v-chip v-for='file in files'>{{file.name}} <v-icon @click='remove(file)'>delete</v-icon></v-chip></div>
+    <span v-show='files.length'><v-chip v-for='file in files'>{{file.name}} <v-icon @click='remove(file)'>delete</v-icon></v-chip></span>
 </div>
 </template>
 
 <script>
 	export default {
 		data: () => ({
-			files: [],
+
 		}),
 		methods: {
 			upload(e) {
@@ -31,6 +31,7 @@
 				default: false,
 			},
 			name: String,
+			files: Object,
 		}
 	}
 </script>
