@@ -51,9 +51,7 @@
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
-                        <input :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" name="<%=fName%>" type="file" multiple="multiple" @input="upload($event)">
-                        <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has(<%=fName%>)" type="error">{{ errors.first(name) }}</v-alert>
-                        <v-btn v-show='<%=field.fieldName%> && <%=field.fieldName%>.length>0' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
+                        <input-file @upload='upload' name='<%=field.fieldName%>'></input-file>
                     <% } %>
                     <% if(fType == "Boolean") {%>
                       <v-checkbox :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
@@ -196,7 +194,8 @@
 
 <script>
   import {getProfile} from '../../../store/identity'
-  
+  import InputFile from '../common/InputFile.vue'
+
   let store = require('../../../store/<%=toLower(name)%>').default;
   <% for(relationship of relationships) {%>
     let get<%=addS(firstToUpper(relationship.relationshipName))%> = store.get<%=addS(firstToUpper(relationship.relationshipName))%>
@@ -205,6 +204,9 @@
     let getEntityByTemplate = store.getEntityByTemplate;    
     export default {
     inject: ['$validator'],
+    components: {
+      InputFile,
+    },
     data: () => ({
       editorOptions: {
         modules: {
@@ -299,7 +301,8 @@
         })
       },
       upload(e) {
-        let files = e.target.files;
+        let files = e.files;
+        let fieldName = e.name;
         let p = Promise.resolve();
         let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
         Promise.all(parr).then(result=>{
