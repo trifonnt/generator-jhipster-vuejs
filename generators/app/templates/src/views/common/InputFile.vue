@@ -18,10 +18,9 @@
 				this.uploadedFiles = [...e.target.files];
 				this.$emit('upload', {files: e.target.files, name: e.target.name})
 			},
-
 			removeUploaded(file) {
 				var index = this.uploadedFiles.indexOf(file);
-				this.$emit('removeUpload', {name: file.name})
+				this.$emit('removeUpload', {field: file.field})
 				this.uploadedFiles.splice(index, 1)
 			},
 			chooseFile() {
