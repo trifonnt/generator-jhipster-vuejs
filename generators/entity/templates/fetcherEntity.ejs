@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export function getEntityData(page=0, sort='id,asc', search='', size=10,invoiceId='') {
 	if(!search) return axios.get('<%=pluralize(toDashed(name))%>', {params: {paged: true, page, size, sort, 'invoiceId.equals': invoiceId}});
-	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: {paged: true, page, size, sort, query: search, 'invoiceId.equals': invoiceId}});
+	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: {paged: true, page, size, query: search, 'invoiceId.equals': invoiceId}});
 }
 export function getEntityCount(search='',invoiceId='') {
 	if(!search) return axios.get('<%=pluralize(toDashed(name))%>/count').then(data=>data.data);
