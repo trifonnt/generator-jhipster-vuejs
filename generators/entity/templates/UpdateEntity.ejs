@@ -14,7 +14,7 @@
 
               </v-toolbar>
                             <v-card-text>
-                <v-form @submit.prevent='edit'>
+                <v-form @submit.prevent='edit' @keyup.native.enter='enterForm'>
                   <% 
                   fields[0].focus = true;
                   fields.forEach(field=>{
@@ -286,6 +286,9 @@
       this.getData();
     },
 		methods: {
+      enterForm() {
+        if(!this.errors.any()) this.edit()
+      },
       isReadOnly(roles) {
         if(roles == "false" || !roles) return false;
         if(!roles.length) return roles;
