@@ -90,14 +90,18 @@
         }
       },
       async getData() {
+        let response;
         try {
-          let response = await getAcc();
+          response = await getAcc();
           this.fname = response.firstName;
           this.lname = response.lastName;
           this.email = response.email;
           this.lang = response.langKey;
+          this.$store.dispatch('snackShowAction', {text: this.$t('app.accountUpdated'), val: true, color: "success"})
         }
-        catch(err) {}
+        catch(err) {
+          this.$store.dispatch('snackShowAction', {text: response.title, val: true, color: "error"})
+        }
       },
     }
   }

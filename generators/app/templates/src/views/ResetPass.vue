@@ -57,14 +57,19 @@
     },
     methods: {
       async reset() {
+        let res;
         try {
-          await reset(this.$route.query.key, this.password);
+          res = await reset(this.$route.query.key, this.password);
           this.reset = true
+          this.$store.dispatch('snackShowAction', {text: this.$t('app.resetReset'), val: true, color: "success"})
+
         }
         catch(err) {
           console.log(err)
 
           this.reset = false
+          this.$store.dispatch('snackShowAction', {text: res.title, val: true, color: "error"})
+
         }
       }
     }

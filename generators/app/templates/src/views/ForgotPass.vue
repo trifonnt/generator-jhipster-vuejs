@@ -51,14 +51,18 @@
     },
     methods: {
       async register() {
+        let res;
         try {
-          await forgot(this.email);
+          res = await forgot(this.email);
           this.registered = true
+          this.$store.dispatch('snackShowAction', {text: this.$t('app.forgotPass'), val: true, color: "success"})
         }
         catch(err) {
           console.log(err)
 
           this.registered = false
+          this.$store.dispatch('snackShowAction', {text: res.title, val: true, color: "error"})
+
         }
       }
     }

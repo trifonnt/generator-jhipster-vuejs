@@ -58,12 +58,15 @@
     },
     methods: {
       async register() {
+        let res;
         try {
-          await register(this.username, this.password, this.email);
+          res = await register(this.username, this.password, this.email);
           this.registered = true
+          this.$store.dispatch('snackShowAction', {text: this.$t('app.registered'), val: true, color: "success"})
         }
         catch(err) {
           this.registered = false
+          this.$store.dispatch('snackShowAction', {text: res.title, val: true, color: "error"})
         }
       }
     }

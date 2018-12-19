@@ -59,12 +59,16 @@
     },
     methods: {
       async change() {
+        let res;
         try {
-          await changePass(this.cpassword, this.password);
+          res = await changePass(this.cpassword, this.password);
+          this.$store.dispatch('snackShowAction', {text: this.$t('app.changePass'), val: true, color: "success"})
           this.reset = true
         }
         catch(err) {
           this.reset = false
+          this.$store.dispatch('snackShowAction', {text: res.title, val: true, color: "error"})
+
         }
       }
     }
