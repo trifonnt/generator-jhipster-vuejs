@@ -304,6 +304,11 @@
           reader.readAsDataURL(file)
         })
       },
+      removeUpload(name) {
+        this[name] = "";
+        this[name+"ContentType"] = ""
+        this[name+"FileName"] = ""
+      },
       upload(e) {
         let files = e.files;
         let fieldName = e.name;
