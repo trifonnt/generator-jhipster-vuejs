@@ -9,11 +9,7 @@
 <script>
 	export default {
 		data() {
-			let localFiles = [];
-			if(this.files.length) localFiles = this.files;
-			return {
-				localFiles: this.files
-			}
+			return {}
 		},
 		methods: {
 			upload(e) {
@@ -29,6 +25,11 @@
 				this.$refs[this.name].click();
 			},
 		},
+		computed: {
+			localFiles() {
+				return this.files;
+			}
+		}
 		props: {
 			multiple: {
 				type: Boolean,
