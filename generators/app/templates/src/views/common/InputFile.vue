@@ -2,34 +2,36 @@
 	<div>
     <input :name="name" :id='name' type="file" :multiple="multiple" @input="upload($event)" class='fileinput' :ref='name'/>
     <v-btn @click='chooseFile'>Upload</v-btn>
-    <span v-show='localFiles && localFiles.length'><v-chip v-for='file in localFiles'>{{file.name}} <v-icon @click='remove(file)'>delete</v-icon></v-chip></span>
+    <div v-show='uploadedFiles && uploadedFiles.length'><v-chip v-for='file in uploadedFiles'>{{file.name}} <v-icon @click='removeUploaded(file)'>delete</v-icon></v-chip></div>
 </div>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {}
+			return {
+				uploadedFiles: [],
+			}
 		},
 		methods: {
 			upload(e) {
-				this.localFiles.push(...e.target.files);
+				this.uploadedFiles = [...e.target.files];
 				this.$emit('upload', {files: e.target.files, name: e.target.name})
 			},
-			remove(file) {
-				var index = this.localFiles.indexOf(file);
-				this.localFiles.splice(index, 1)
-				if(this.localFiles.length == 0) this.$refs[this.name].value='';
+
+			removeUploaded(file) {
+				var index = this.uploadedFiles.indexOf(file);
+				this.uploadedFiles.splice(index, 1)
 			},
 			chooseFile() {
 				this.$refs[this.name].click();
 			},
 		},
-		computed: {
-			localFiles() {
-				return this.files;
+		watch: {
+			files(val) {
+				this.uploadedFiles = val;
 			}
-		}
+		},
 		props: {
 			multiple: {
 				type: Boolean,
