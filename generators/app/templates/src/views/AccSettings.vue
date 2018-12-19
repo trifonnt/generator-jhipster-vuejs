@@ -27,10 +27,7 @@
                       label="Language"
                       solo
                     ></v-select>
-                  </v-flex>
-
-                <v-alert type='success' :value="registered==true">{{$t('app.success')}}</v-alert>
-                <v-alert type='error' :value="registered==false">{{$t('app.error')}}</v-alert>                
+                  </v-flex>               
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -74,33 +71,34 @@
     },
     methods: {
       async register() {
+        let res;
         try {
-          await changeAcc(this.fname, this.lname, this.email, this.lang, identity.getProfile().username);
+          res = await changeAcc(this.fname, this.lname, this.email, this.lang, identity.getProfile().username);
           localStorage.setItem('langkey', this.lang);
           this.$i18n.locale = this.lang;
 
           //vue datetime luxon locale
           Settings.defaultLocale = this.lang
 
+          this.$store.dispatch('snackShowAction', {text: this.$t('app.accountUpdated'), val: true, color: "success"})
           this.registered = true
         }
         catch(err) {
           console.log(err)
           this.registered = false
+          this.$store.dispatch('snackShowAction', {text: response.title, val: true, color: "error"})
         }
       },
       async getData() {
-        let response;
         try {
-          response = await getAcc();
+          let response = await getAcc();
           this.fname = response.firstName;
           this.lname = response.lastName;
           this.email = response.email;
           this.lang = response.langKey;
-          this.$store.dispatch('snackShowAction', {text: this.$t('app.accountUpdated'), val: true, color: "success"})
         }
         catch(err) {
-          this.$store.dispatch('snackShowAction', {text: response.title, val: true, color: "error"})
+          console.log(err)
         }
       },
     }

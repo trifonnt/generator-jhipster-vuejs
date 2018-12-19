@@ -15,9 +15,7 @@
 
                   <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" :label="$t('app.rPassword.email')" type="text" v-model="email"></v-text-field>
                   <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>
-
-                <v-alert type='success' :value="registered==true">{{$t('app.success')}}</v-alert>
-                <v-alert type='error' :value="registered==false">{{$t('app.error')}}</v-alert>                
+              
                 </v-form>
               </v-card-text>
               <v-card-actions>

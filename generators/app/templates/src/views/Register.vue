@@ -23,8 +23,7 @@
 
                   <v-text-field v-validate="{confirmed:'password'} "prepend-icon="lock" name="password2" :label="$t('app.register.passwordConfirmationLabel')" type="password"></v-text-field>
                   <v-alert :value="errors.has('password2')" type="error">{{ errors.first('password2') }}</v-alert>
-                <v-alert type='success' :value="registered==true">{{$t('app.success')}}</v-alert>
-                <v-alert type='error' :value="registered==false">{{$t('app.error')}}</v-alert>                
+                              
                 </v-form>
               </v-card-text>
               <v-card-actions>
