@@ -2,6 +2,8 @@
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > JHipster module, jHipster generator for vuejs client side
 
+<3
+
 # For now if you want to use this module, you have to install the generator-jhipster-x module with yarn/npm which is a fork of generator-jhipster
 
 
