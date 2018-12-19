@@ -8,9 +8,13 @@
 
 <script>
 	export default {
-		data: () => ({
-			localFiles: this.files
-		}),
+		data() {
+			let localFiles = [];
+			if(this.files.length) localFiles = this.files;
+			return {
+				localFiles: this.files
+			}
+		},
 		methods: {
 			upload(e) {
 				this.localFiles.push(...e.target.files);
@@ -19,6 +23,7 @@
 			remove(file) {
 				var index = this.localFiles.indexOf(file);
 				this.localFiles.splice(index, 1)
+				if(this.localFiles.length == 0) this.$refs[this.name].value='';
 			},
 			chooseFile() {
 				this.$refs[this.name].click();
@@ -30,7 +35,7 @@
 				default: false,
 			},
 			name: String,
-			files: Object,
+			files: Array,
 		}
 	}
 </script>

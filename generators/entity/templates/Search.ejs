@@ -280,8 +280,8 @@
 
 		watch: {
 			async searchQuery(val) {
-		    	//this.search();
-			    try {
+		    	this.search();
+/*			    try {
 			    	let response = await axios.get('https://cat-fact.herokuapp.com/facts');
 			    	this.items = response.data.all;
 			    	this.items.splice(0,0,{_id:'aa', text:'yy', disabled: true})
@@ -289,7 +289,7 @@
 			    }
 			    catch(err) {
 			    	console.log(err)
-			    }
+			    }*/
 			}
 		}
 	}
