@@ -51,7 +51,7 @@
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
-                        <input-file @upload='upload' name='<%=field.fieldName%>' :files='[{name:<%=field.fieldName%>FileName}]'></input-file>
+                        <input-file @upload='upload' name='<%=field.fieldName%>' :files='[{name:<%=field.fieldName%>FileName}]' @removeUpload='removeUpload'></input-file>
 <!--                         <v-chip v-show='<%=field.fieldName%> && <%=field.fieldName%>.length>0'>
                           <a :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a> 
                           <v-btn v-show='<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
