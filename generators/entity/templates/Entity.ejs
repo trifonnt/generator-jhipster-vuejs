@@ -32,7 +32,8 @@
     :items="entitys"
     :loading='loading'
     class="elevation-1"
-    :pagination.sync='pagination'
+    :pagination='pagination'
+    v-on:update:pagination='updatePagination'
     :total-items='totalItems'
     :rows-per-page-items="[1,10,20,50]"
     select-all
@@ -63,6 +64,8 @@
   import EntityTableBody from './EntityTableBody.vue'
   import EntityTableHead from './EntityTableHead.vue'
   import DeleteDialog from './DeleteDialog.vue'
+  
+  import _ from 'lodash';
 
   export default {
       mixins: [table("<%=toLower(name)%>")],
@@ -99,6 +102,9 @@
           window.onafterprint = () => {
             this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
           }
+        },
+        updatePagination(pagination) {
+          if(!_.isEqual(pagination,this.pagination)) this.pagination = pagination
         }
       },
       beforeCreate() {
