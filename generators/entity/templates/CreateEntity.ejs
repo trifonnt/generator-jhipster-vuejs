@@ -139,37 +139,48 @@
 
  -->
                         <%if(relationship.otherEntityName2) {%>
-                        <v-autocomplete :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
+                        <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=addS(fName)%>'
                           :search-input.sync="<%=fName%>search"
-                          v-validate='<%-validate%>' 
-                          name="<%=fName%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                          v-model="<%=model%>"
-<!--                           item-text='<%=relationship.otherEntityField%>' 
-                          item-value='id' -->
-                          :filter="v => v"
-                        >
-                        <template slot="item" slot-scope="{item}">
-                          <div class='leftcol'>{{item.<%=relationship.otherEntityName%>.substr(0,20)}}</div> <div class='rightcol'>{{item.<%=relationship.otherEntityName2%>}}</div>
-                        </template>
-
-                        </v-autocomplete>
-                      <% } else { %>
-                        <v-autocomplete :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
-                          <%if(multiple){%> multiple return-object <%}%> 
-                          <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=addS(fName)%>'
-                          :search-input.sync="<%=fName%>search"
+                          cache-items
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
-                        ></v-autocomplete>
+                          :filter="v => v"
+                        >
+                          <v-pagination slot='append-item'
+                            v-model="currentPage"
+                            :length="pageLength"
+                          ></v-pagination>
+                        <template slot="item" slot-scope="{item}">
+                          <div class='leftcol'>{{item.<%=relationship.otherEntityName%>.substr(0,20)}}</div> <div class='rightcol'>{{item.<%=relationship.otherEntityName2%>}}</div>
+                        </template>
+
+                        </v-autocomplete>
+                      <% } else { %>
+                        <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
+                          <%if(multiple){%> multiple return-object <%}%> 
+                          <%if(req) {%> prepend-inner-icon='*' <%}%>
+                          :items='<%=addS(fName)%>'
+                          :search-input.sync="<%=fName%>search"
+                          cache-items
+                          v-validate='<%-validate%>' 
+                          name="<%=fName%>" 
+                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                          v-model="<%=model%>"
+                          item-text='<%=relationship.otherEntityField%>' 
+                          item-value='id'
+                        >
+                          <v-pagination slot='append-item'
+                            v-model="currentPage"
+                            :length="pageLength"
+                          ></v-pagination>
+                        </v-autocomplete>
                       <% } %>
 
                       <v-alert v-hasRole="'<%=relationship.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -198,9 +209,13 @@
 
   let store = require('../../../store/<%=toLower(name)%>').default;
   <% for(relationship of relationships) {%>
-    let get<%=addS(firstToUpper(relationship.relationshipName))%> = store.get<%=addS(firstToUpper(relationship.relationshipName))%>
+    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=addS(firstToUpper(relationship.relationshipName))%>').default;
   <% } %> 
     let create = store.create;
+    let relationStores = {};
+    <% for(relationship of relationships) {%>
+      relationStores.<%=relationship.relationshipName%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
+    <% } %> 
     let getEntityByTemplate = store.getEntityByTemplate;    
     export default {
     inject: ['$validator'],
@@ -208,6 +223,8 @@
       InputFile,
     },
     data: () => ({
+      currentPage: 1,
+      pageLength: 0,
       editorOptions: {
         modules: {
           toolbar: [
@@ -281,7 +298,30 @@
     created() {
       this.getData();
     },
+    watch: {
+      <% for(relationship of relationships) { %>
+        <%=relationship.relationshipName%>search(val) {
+          try {
+            let res = await store.getData(0, "id,asc", val);
+            this.<%addS(relationship.relationshipName)%> = res;
+          }
+        },
+      <% } %>
+    },
     methods: {
+      newDropdown(event) {
+        this.currentPage = 1;
+        this.pageLength = 0;
+        try {
+          let relation,count;
+          let [relation, count] = await Promise.all([this.relationStores[event.target.name].getData(),this.relationStores[event.target.name].getCountEntity()])
+          this[event.target.name] = relation;
+          this[event.target.name+'Count'] = count;
+        }
+        catch(err) {
+          console.error(err)
+        }
+      },
       enterForm() {
         if(!this.errors.any()) this.edit()
       },
@@ -369,11 +409,13 @@
               if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
             %>
               <%=relationship.relationshipName%>,
+              <%=relationship.relationshipName%>Count,
             <% } } %> entity] = await Promise.all([
                 <% for(relationship of relationships) {
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                 %>
-                  get<%=addS(firstToUpper(relationship.relationshipName))%>(),
+                  <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
+                  <%=addS(firstToUpper(relationship.relationshipName))%>getCountEntity(),
                 <% } }%> 
                 getEntityByTemplate()
               ]);

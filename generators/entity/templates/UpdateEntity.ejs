@@ -285,6 +285,16 @@
     created() {
       this.getData();
     },
+    watch: {
+      <% for(relationship of relationships) { %>
+        <%=relationship.relationshipName%>search(val) {
+          try {
+            let res = await store.getData(0, "id,asc", val);
+            this.<%addS(relationship.relationshipName)%> = res;
+          }
+        },
+      <% } %>
+    },
 		methods: {
       enterForm() {
         if(!this.errors.any()) this.edit()

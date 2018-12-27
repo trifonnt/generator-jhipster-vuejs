@@ -140,9 +140,11 @@ router.beforeEach((to, from, next) => {
   if(!profile && to.fullPath.includes('entities')) {
     return next('login');
   }
-  let mc = masterSlaveRoutes.filter(o=>to.path.toLowerCase());
-  if(mc.includes(o.value.toLowerCase()+'/edit')) {
-    return next(to.path.replace(mc[0].value, mc[0].name))
+  if(masterSlaveRoutes.length) {
+    let mc = masterSlaveRoutes.filter(o=>to.path.toLowerCase());
+    if(mc.includes(o.value.toLowerCase()+'/edit')) {
+      return next(to.path.replace(mc[0].value, mc[0].name))
+    }
   }
   return next();
 })
