@@ -29,10 +29,10 @@
 		<th v-hasRole="'<%=relationship.visibleForRole%>'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('<%=relationship.relationshipName%>')"
-		  :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'
+		  :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=pluralize(relationship.relationshipName)%>")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")}}
+	  		{{$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=pluralize(relationship.relationshipName)%>")}}
 		</th>
 	<% } } %>
 <!-- 	<th
