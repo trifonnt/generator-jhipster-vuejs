@@ -55,9 +55,9 @@ export default((name, name2)=> {
 	          }
 	          console.log(sort,"SRT")
 	          commit('changeLoading', true)
-	          let [headers, response] = await Promise.all([store.getCountEntity(search, options, values, masterId),store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId)]);
+	          let [count, response] = await Promise.all([store.getCountEntity(search, options, values, masterId),store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId)]);
 	          commit('changeLoading', false)
-			  commit('getHeaders', +headers['x-total-count'] || headers)
+			  commit('getHeaders', count)
 	          response = response.data;
 	          response.map(vendor=>vendor.value=false)
 	          commit('getEntitys', response)

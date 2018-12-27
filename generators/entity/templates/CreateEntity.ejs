@@ -153,7 +153,7 @@
                           item-value='id'
                           :filter="v => v"
                         >
-                          <v-pagination slot='append-item'
+                          <v-pagination @input='changePage' slot='append-item'
                             v-model="currentPage"
                             :length="pageLength"
                           ></v-pagination>
@@ -176,7 +176,7 @@
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         >
-                          <v-pagination slot='append-item'
+                          <v-pagination @input='changePage' slot='append-item'
                             v-model="currentPage"
                             :length="pageLength"
                           ></v-pagination>
@@ -223,6 +223,7 @@
       InputFile,
     },
     data: () => ({
+      activeDropdown: '',
       currentPage: 1,
       pageLength: 0,
       editorOptions: {
@@ -302,25 +303,24 @@
       <% for(relationship of relationships) { %>
         <%=relationship.relationshipName%>search(val) {
           try {
-            let res = await store.getData(0, "id,asc", val);
-            this.<%addS(relationship.relationshipName)%> = res;
+          this.getDropdownData();
           }
         },
       <% } %>
     },
     methods: {
+      async getDropdownData() {
+        let relation,count;
+        let search = this[this.activeDropdown+'search']
+        let [relation, count] = await Promise.all([this.relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),this.relationStores[this.activeDropdown].getCountEntity()])
+        this[this.activeDropdown] = relation;
+        this[this.activeDropdown+'Count'] = count;
+      },
+      changePage() {
+        this.getDropdownData();
+      },
       newDropdown(event) {
-        this.currentPage = 1;
-        this.pageLength = 0;
-        try {
-          let relation,count;
-          let [relation, count] = await Promise.all([this.relationStores[event.target.name].getData(),this.relationStores[event.target.name].getCountEntity()])
-          this[event.target.name] = relation;
-          this[event.target.name+'Count'] = count;
-        }
-        catch(err) {
-          console.error(err)
-        }
+        this.activeDropdown = event.target.name;
       },
       enterForm() {
         if(!this.errors.any()) this.edit()
