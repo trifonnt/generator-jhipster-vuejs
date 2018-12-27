@@ -312,7 +312,7 @@
       async getDropdownData() {
         let relation,count;
         let search = this[this.activeDropdown+'search']
-        let [relation, count] = await Promise.all([this.relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),this.relationStores[this.activeDropdown].getCountEntity()])
+        [relation, count] = await Promise.all([this.relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),this.relationStores[this.activeDropdown].getCountEntity()])
         this[this.activeDropdown] = relation;
         this[this.activeDropdown+'Count'] = count;
       },
