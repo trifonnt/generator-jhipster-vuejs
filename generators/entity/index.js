@@ -186,7 +186,7 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
-            if(this.props.genMenu == 'y' || obj.generateMenuItem) {
+            if(this.props.genMenu == true || obj.generateMenuItem) {
                 let baseNameApp = this.baseName + 'App';
                 let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name, baseNameApp}, (err, str) => {
                     jhipsterUtils.rewriteFile(
