@@ -213,10 +213,14 @@
   
   let store = require('../../../store/<%=toLower(name)%>').default;
   <% for(relationship of relationships) {%>
-    let get<%=addS(firstToUpper(relationship.relationshipName))%> = store.get<%=addS(firstToUpper(relationship.relationshipName))%>
+    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=addS(firstToUpper(relationship.relationshipName))%>').default;
   <% } %> 
     let edit = store.edit;
-    let getEntityById = store.getEntityById;    
+    let relationStores = {};
+    <% for(relationship of relationships) {%>
+      relationStores.<%=relationship.relationshipName%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
+    <% } %> 
+    let getEntityByTemplate = store.getEntityByTemplate; 
 		export default {
     inject: ['$validator'],
     components: {

@@ -209,7 +209,7 @@
 
   let store = require('../../../store/<%=toLower(name)%>').default;
   <% for(relationship of relationships) {%>
-    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=addS(firstToUpper(relationship.relationshipName))%>').default;
+    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=firstToUpper(relationship.relationshipName)%>').default;
   <% } %> 
     let create = store.create;
     let relationStores = {};
@@ -326,7 +326,7 @@
         this.activeDropdown = event.target.name;
       },
       enterForm() {
-        if(!this.errors.any()) this.edit()
+        if(!this.errors.any()) this.create()
       },
       isReadOnly(roles) {
         if(roles == "false" || !roles) return false;
