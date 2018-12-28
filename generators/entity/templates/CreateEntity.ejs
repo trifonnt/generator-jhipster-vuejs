@@ -282,7 +282,7 @@
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
-          <%=relationship.relationshipName%>search: '',
+          <%=pluralize(relationship.relationshipName)%>search: '',
           <%=pluralize(relationship.relationshipName)%>: [],
           <%
             if(relationship.relationshipType=='many-to-many') {
@@ -317,6 +317,7 @@
         let relation,count;
         let search = this[this.activeDropdown+'search']
         [relation, count] = await Promise.all([relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),relationStores[this.activeDropdown].getCountEntity()])
+        relation = relation.data
         this[this.activeDropdown] = relation;
         this[this.activeDropdown+'Count'] = count;
       },
