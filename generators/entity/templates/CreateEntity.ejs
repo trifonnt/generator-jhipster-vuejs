@@ -214,7 +214,7 @@
     let create = store.create;
     let relationStores = {};
     <% for(relationship of relationships) {%>
-      relationStores.pluralize(<%=relationship.relationshipName%>) = <%=addS(firstToUpper(relationship.relationshipName))%>store;
+      relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <% } %> 
     let getEntityByTemplate = store.getEntityByTemplate;    
     export default {
