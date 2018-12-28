@@ -107,7 +107,7 @@
                   <% for(relationship of relationships) { 
                     let multiple = false;
                     if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-                    if(relationship.relationshipType == 'many-to-many') multiple=true;
+                    if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') multiple=true;
 
                     let validate = {};
                     let fName = relationship.relationshipName;

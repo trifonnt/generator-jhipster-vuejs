@@ -104,7 +104,7 @@
               if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
             %>
               <%
-                if(relationship.relationshipType == 'many-to-many') {
+                if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
               %>
                 this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
