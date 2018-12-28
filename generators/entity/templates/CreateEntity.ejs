@@ -144,7 +144,6 @@
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=addS(fName)%>'
                           :search-input.sync="<%=fName%>search"
-                          cache-items
                           v-validate='<%-validate%>' 
                           name="<%=pluralize(fName)%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
@@ -168,7 +167,6 @@
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=addS(fName)%>'
                           :search-input.sync="<%=fName%>search"
-                          cache-items
                           v-validate='<%-validate%>' 
                           name="<%=pluralize(fName)%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
