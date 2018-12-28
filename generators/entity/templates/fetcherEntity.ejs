@@ -6,8 +6,7 @@ export function getEntityData(page=0, sort='id,asc', search='', size=10,invoiceI
 	if(!search) return axios.get('<%=pluralize(toDashed(name))%>', {params: {paged: true, page, size, sort, 'invoiceId.equals': invoiceId}});
 	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: {paged: true, page, size, query: search, 'invoiceId.equals': invoiceId}});
 }
-export function getEntityCount(search='',invoiceId='') {
-	if(!search) return axios.get('<%=pluralize(toDashed(name))%>/count').then(data=>data.data);
+export function getEntityCount(search='*',invoiceId='') {
 	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: {query: search, 'invoiceId.equals': invoiceId}}).then(data=>data.headers['x-total-count']);	
 }
 export function createEntity(obj) {

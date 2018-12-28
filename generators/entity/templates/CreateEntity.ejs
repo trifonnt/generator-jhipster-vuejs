@@ -282,7 +282,7 @@
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
-          <%=pluralize(relationship.relationshipName)%>search: '',
+          <%=pluralize(relationship.relationshipName)%>search: '*',
           <%=pluralize(relationship.relationshipName)%>: [],
           <%
             if(relationship.relationshipType=='many-to-many') {
@@ -316,12 +316,13 @@
         if(!this.activeDropdown) return;
         let relation,count;
         let prop = this.activeDropdown + 'search';
-        [relation, count] = await Promise.all([relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", this[prop]),relationStores[this.activeDropdown].getCountEntity()])
+        [relation, count] = await Promise.all([relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", this[prop]),relationStores[this.activeDropdown].getCountEntity(this[prop], '', this.currentPage-1)])
         relation = relation.data
         this[this.activeDropdown] = relation;
         this.pageLength = count;
       },
-      changePage() {
+      changePage(val) {
+        this.currentPage = val;
         this.getDropdownData();
       },
       newDropdown(event) {
