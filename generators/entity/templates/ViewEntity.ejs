@@ -39,7 +39,7 @@
                 <% }%>
                 <% for(relationship of relationships) { 
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-                    if(relationship.relationshipType == 'many-to-many') {
+                    if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
                 %>
                   <div v-hasRole="'<%=relationship.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>
                         <v-chip color="primary" text-color="white" v-for='i of <%=relationship.relationshipName%>'>{{i.<%=relationship.otherEntityField%>}}</v-chip>

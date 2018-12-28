@@ -146,18 +146,17 @@
                         <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=addS(fName)%>'
+                          :items='<%=pluralize(fName)%>'
                           :search-input.sync="<%=fName%>search"
-                          cache-items
                           v-validate='<%-validate%>' 
-                          name="<%=fName%>" 
+                          name="<%=pluralize(fName)%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                           :filter="v => v"
                         >
-                          <v-pagination @input='changePage' slot='append-item'
+                          <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item'
                             v-model="currentPage"
                             :length="pageLength"
                           ></v-pagination>
@@ -170,17 +169,16 @@
                         <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=addS(fName)%>'
+                          :items='<%=pluralize(fName)%>'
                           :search-input.sync="<%=fName%>search"
-                          cache-items
                           v-validate='<%-validate%>' 
-                          name="<%=fName%>" 
+                          name="<%=pluralize(fName)%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         >
-                          <v-pagination @input='changePage' slot='append-item'
+                          <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item'
                             v-model="currentPage"
                             :length="pageLength"
                           ></v-pagination>
@@ -210,23 +208,26 @@
 <script>
   import {getProfile} from '../../../store/identity'
   import InputFile from '../../common/InputFile.vue'
-  
+
   let store = require('../../../store/<%=toLower(name)%>').default;
   <% for(relationship of relationships) {%>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=relationship.relationshipName%>').default;
   <% } %> 
-    let edit = store.edit;
+    let create = store.create;
     let relationStores = {};
     <% for(relationship of relationships) {%>
-      relationStores.<%=relationship.relationshipName%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
+      relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <% } %> 
-    let getEntityByTemplate = store.getEntityByTemplate; 
-		export default {
+    let getEntityByTemplate = store.getEntityByTemplate;    
+    export default {
     inject: ['$validator'],
     components: {
       InputFile,
     },
     data: () => ({
+      activeDropdown: '',
+      currentPage: 1,
+      pageLength: 0,
       editorOptions: {
         modules: {
           toolbar: [
@@ -262,8 +263,8 @@
             menu<%=field.fieldName%>: '',
           <% } %>
           <% if(fType == 'byte[]') { %>
-            <%=field.fieldName%>ContentType: '""',
-            <%=field.fieldName%>FileName: '""',
+            <%=field.fieldName%>ContentType: "",
+            <%=field.fieldName%>FileName: "",
           <% } %>
         <%=field.fieldName%>: <%-val%>,
         <%
@@ -283,10 +284,10 @@
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
-          <%=relationship.relationshipName%>search: '',
+          <%=pluralize(relationship.relationshipName)%>search: '*',
           <%=pluralize(relationship.relationshipName)%>: [],
           <%
-            if(relationship.relationshipType=='many-to-many') {
+            if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
           %>
           <%=relationship.relationshipName%>:[],
           <%=relationship.relationshipName%>Values:[],
@@ -296,7 +297,7 @@
         <% } %>
       <% } %>
 
-		}),
+    }),
     created() {
       this.getData();
     },
@@ -314,17 +315,22 @@
     },
     methods: {
       async getDropdownData() {
+        if(!this.activeDropdown) return;
         let relation,count;
-        let search = this[this.activeDropdown+'search']
-        [relation, count] = await Promise.all([this.relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),this.relationStores[this.activeDropdown].getCountEntity()])
+        let prop = this.activeDropdown + 'search';
+        relation = await relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", this[prop])
+        count = relation.headers['x-total-count']
+        relation = relation.data
         this[this.activeDropdown] = relation;
-        this[this.activeDropdown+'Count'] = count;
+        this.pageLength = Math.ceil(count/10);
       },
-      changePage() {
+      changePage(val) {
+        this.currentPage = val;
         this.getDropdownData();
       },
       newDropdown(event) {
         this.activeDropdown = event.target.name;
+        this.getDropdownData();
       },
       enterForm() {
         if(!this.errors.any()) this.edit()
@@ -379,7 +385,7 @@
             <% } %>
             <% for(relationship of relationships) { %>
               <%
-                if(relationship.relationshipType=='many-to-many') {
+                if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               %>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values,
               <% } %>
