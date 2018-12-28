@@ -213,7 +213,7 @@
   <% for(relationship of relationships) {%>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=relationship.relationshipName%>').default;
   <% } %> 
-    let create = store.create;
+    let edit = store.edit;
     let relationStores = {};
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
