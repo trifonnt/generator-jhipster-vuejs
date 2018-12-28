@@ -415,7 +415,8 @@
                 <% for(relationship of relationships) {
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                 %>
-                  get<%=addS(firstToUpper(relationship.relationshipName))%>(),
+                  <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
+                  <%=addS(firstToUpper(relationship.relationshipName))%>getCountEntity(),
                 <% } }%> 
                 getEntityById(this.$route.params.id)
               ]);
