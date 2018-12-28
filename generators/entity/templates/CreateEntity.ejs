@@ -315,6 +315,7 @@
         let relation,count;
         let prop = this.activeDropdown + 'search';
         [relation, count] = await relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", this[prop])
+        count = relation.count
         relation = relation.data
         this[this.activeDropdown] = relation;
         this.pageLength = Math.ceil(count/10);
