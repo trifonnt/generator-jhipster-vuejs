@@ -103,7 +103,7 @@
                   <% for(relationship of relationships) { 
                     let multiple = false;
                     if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-                    if(relationship.relationshipType == 'many-to-many') multiple=true;
+                    if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') multiple=true;
 
                     let validate = {};
                     let fName = relationship.relationshipName;
@@ -283,7 +283,7 @@
           <%=pluralize(relationship.relationshipName)%>search: '*',
           <%=pluralize(relationship.relationshipName)%>: [],
           <%
-            if(relationship.relationshipType=='many-to-many') {
+            if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
           %>
           <%=relationship.relationshipName%>:[],
           <%=relationship.relationshipName%>Values:[],
@@ -389,7 +389,7 @@
             <% } %>
             <% for(relationship of relationships) { %>
               <%
-                if(relationship.relationshipType=='many-to-many') {
+                if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               %>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>,
               <% } %>
