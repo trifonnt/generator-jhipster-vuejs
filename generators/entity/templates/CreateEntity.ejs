@@ -146,7 +146,7 @@
                           :search-input.sync="<%=fName%>search"
                           cache-items
                           v-validate='<%-validate%>' 
-                          name="<%=fName%>" 
+                          name="<%=pluralize(fName)%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
@@ -170,7 +170,7 @@
                           :search-input.sync="<%=fName%>search"
                           cache-items
                           v-validate='<%-validate%>' 
-                          name="<%=fName%>" 
+                          name="<%=pluralize(fName)%>" 
                           :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
