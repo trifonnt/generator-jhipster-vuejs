@@ -436,7 +436,7 @@
               <% } else  { %>
               this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
               <% } %>
-              this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>
+              this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
           <% } } %>
         }
         catch(err) {console.log(err)}
