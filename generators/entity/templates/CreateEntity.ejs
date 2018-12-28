@@ -313,9 +313,10 @@
     },
     methods: {
       async getDropdownData() {
+        if(!this.activeDropdown) return;
         let relation,count;
         let search = this[this.activeDropdown+'search']
-        [relation, count] = await Promise.all([this.relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),this.relationStores[this.activeDropdown].getCountEntity()])
+        [relation, count] = await Promise.all([relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),relationStores[this.activeDropdown].getCountEntity()])
         this[this.activeDropdown] = relation;
         this[this.activeDropdown+'Count'] = count;
       },
@@ -324,6 +325,7 @@
       },
       newDropdown(event) {
         this.activeDropdown = event.target.name;
+        this.getDropdownData();
       },
       enterForm() {
         if(!this.errors.any()) this.create()
