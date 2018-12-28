@@ -316,7 +316,7 @@
         if(!this.activeDropdown) return;
         let relation,count;
         let search = this[this.activeDropdown+'search']
-        [relation, count] = await Promise.all([relationStores[this.activeDropdown].getData(this.currentPage, "id,asc", search),relationStores[this.activeDropdown].getCountEntity()])
+        [relation, count] = await Promise.all([relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", search),relationStores[this.activeDropdown].getCountEntity()])
         relation = relation.data
         this[this.activeDropdown] = relation;
         this[this.activeDropdown+'Count'] = count;
