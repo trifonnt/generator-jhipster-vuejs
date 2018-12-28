@@ -147,7 +147,7 @@
                           cache-items
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
@@ -171,7 +171,7 @@
                           cache-items
                           v-validate='<%-validate%>' 
                           name="<%=fName%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
