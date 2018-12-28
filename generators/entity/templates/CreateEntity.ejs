@@ -142,7 +142,7 @@
                         <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=addS(fName)%>'
+                          :items='<%=pluralize(fName)%>'
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 
                           name="<%=pluralize(fName)%>" 
@@ -165,7 +165,7 @@
                         <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=addS(fName)%>'
+                          :items='<%=pluralize(fName)%>'
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 
                           name="<%=pluralize(fName)%>" 

@@ -55,9 +55,10 @@ export default((name, name2)=> {
 	          }
 	          console.log(sort,"SRT")
 	          commit('changeLoading', true)
-	          let [count, response] = await Promise.all([store.getCountEntity(search, options, values, masterId),store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId)]);
+	          //let [count, response] = await Promise.all([store.getCountEntity(search, options, values, masterId),store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId)]);
+	          let response = await store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId);
 	          commit('changeLoading', false)
-			  commit('getHeaders', count)
+			  commit('getHeaders', response.headers['x-total-count'])
 	          response = response.data;
 	          response.map(vendor=>vendor.value=false)
 	          commit('getEntitys', response)
