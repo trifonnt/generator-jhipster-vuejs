@@ -415,13 +415,11 @@
               if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
             %>
               <%=relationship.relationshipName%>,
-              <%=relationship.relationshipName%>Count,
             <% } } %> entity] = await Promise.all([
                 <% for(relationship of relationships) {
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                 %>
                   <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
-                  <%=addS(firstToUpper(relationship.relationshipName))%>getCountEntity(),
                 <% } }%> 
                 getEntityByTemplate()
               ]);

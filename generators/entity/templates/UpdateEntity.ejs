@@ -218,7 +218,7 @@
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <% } %> 
-    let getEntityByTemplate = store.getEntityByTemplate;    
+    let getEntityById = store.getEntityById;    
     export default {
     inject: ['$validator'],
     components: {
@@ -416,7 +416,6 @@
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                 %>
                   <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
-                  <%=addS(firstToUpper(relationship.relationshipName))%>getCountEntity(),
                 <% } }%> 
                 getEntityById(this.$route.params.id)
               ]);
