@@ -206,8 +206,8 @@
   import InputFile from '../../common/InputFile.vue'
 
   let store = require('../../../store/<%=toLower(name)%>').default;
-  <% for(relationship of relationships) {%>
-    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=relationship.relationshipName%>').default;
+  <% for(relationship of relationships) { %>
+    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=relationship.otherEntityName%>').default;
   <% } %> 
     let create = store.create;
     let relationStores = {};
