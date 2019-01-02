@@ -207,7 +207,7 @@
 
   let store = require('../../../store/<%=toLower(name)%>').default;
   <% for(relationship of relationships) { %>
-    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=relationship.otherEntityName%>').default;
+    let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
   <% } %> 
     let create = store.create;
     let relationStores = {};
