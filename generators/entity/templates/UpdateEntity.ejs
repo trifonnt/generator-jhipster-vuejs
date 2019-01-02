@@ -426,11 +426,11 @@
             this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
             <% } %>
           <% } %>
-          <% for(relationship of relationships) { 
+          <% for(relationship of relationships) {
             if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
           %>
               <%
-                if(relationship.relationshipType == 'many-to-many') {
+                if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
               %>
                 this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
