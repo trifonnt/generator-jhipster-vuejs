@@ -401,7 +401,8 @@
           this.$router.go(-1);
         }
         catch(err) {
-          this.$store.dispatch('snackShowAction', {text: res.title, val: true, color: "error"})          
+          let msg = err.response.data.title;
+          this.$store.dispatch('snackShowAction', {text: msg, val: true, color: "error"})          
           this.registered = false
         }
       },
