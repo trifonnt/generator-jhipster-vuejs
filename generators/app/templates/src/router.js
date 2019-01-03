@@ -141,8 +141,8 @@ router.beforeEach((to, from, next) => {
     return next('login');
   }
   if(masterSlaveRoutes.length) {
-    let mc = masterSlaveRoutes.filter(o=>to.path.toLowerCase());
-    if(mc.includes(o.value.toLowerCase()+'/edit')) {
+    let mc = masterSlaveRoutes.filter(o=>to.path.toLowerCase().includes(o.value.toLowerCase()+'/edit'));
+    if(mc.length) {
       return next(to.path.replace(mc[0].value, mc[0].name))
     }
   }
