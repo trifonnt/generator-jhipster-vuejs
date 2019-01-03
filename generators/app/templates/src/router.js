@@ -142,7 +142,7 @@ router.beforeEach((to, from, next) => {
   }
   if(masterSlaveRoutes.length) {
     let mc = masterSlaveRoutes.filter(o=>to.path.toLowerCase().includes(o.value.toLowerCase()+'/edit'));
-    if(mc.length) {
+    if(mc.length && !to.path.includes(mc[0].name)) {
       return next(to.path.replace(mc[0].value, mc[0].name))
     }
   }
