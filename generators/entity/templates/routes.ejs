@@ -18,6 +18,11 @@ export default [
       component: views.Create<%=firstToUpper(name)%>,
     },
     {
+      path: '/entities/<%=toLower(name)%>/prefilled',
+      name: 'new<%=name%>',
+      component: views.CreatePrefilled<%=firstToUpper(name)%>,
+    },
+    {
       path: '/entities/<%=toLower(name)%>/edit/:id/:masterId?',
       name: 'edit<%=name%>',
       component: views.Update<%=firstToUpper(name)%>,

@@ -138,7 +138,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./CreatePrefilled.ejs'),
-                this.destinationPath(destPath+'/views/entities/'+name+'/Create'+this._firstToUpper(name)+'.vue'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/CreatePrefilled'+this._firstToUpper(name)+'.vue'),
                 obj
             )
             this.fs.copyTpl(
