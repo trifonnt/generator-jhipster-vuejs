@@ -407,6 +407,7 @@
           });
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
           this.registered = true
+          this.dialog = false;
           this.$emit('closeDialog', true)
         }
         catch(err) {
@@ -416,6 +417,7 @@
         }
       },
       cancel() {
+        this.dialog = false;
         this.$emit('closeDialog', false)
       },
       async getData() {
