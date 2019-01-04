@@ -7,7 +7,7 @@
         <v-layout justify-center>
           <v-flex xs12 sm8 md4>
           <v-dialog v-model="dialog" persistent>
-          <v-btn slot="activator" color="primary" dark>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-btn>
+          <v-btn @click='getData' slot="activator" color="primary" dark>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-btn>
 
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
@@ -304,7 +304,7 @@
       prefillName: String,
     },
     created() {
-      this.getData();
+
     },
     watch: {
       <% for(relationship of relationships) { %>
@@ -421,6 +421,25 @@
         this.$emit('closeDialog', false)
       },
       async getData() {
+        <% for(field of fields) { %>
+            this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
+            <% if(field.fieldType == 'byte[]') { %>
+            this.<%=field.fieldName%>ContentType = ''
+            this.<%=field.fieldName%>FileName = ''
+            <% } %>
+          <% } %>
+          <% for(relationship of relationships) { 
+            if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+          %>
+              <%
+                if(relationship.relationshipType == 'many-to-many') {
+              %>
+                this.<%=relationship.relationshipName%>Values = ''
+              <% } else  { %>
+              this.<%=relationship.relationshipName%> = ''
+              <% } %>
+              this.<%=pluralize(relationship.relationshipName)%> = ''
+          <% } } %>
         try {
           let [
             <% for(relationship of relationships) {
