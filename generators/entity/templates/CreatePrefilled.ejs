@@ -6,10 +6,13 @@
       <v-container fluid fill-height>
         <v-layout justify-center>
           <v-flex xs12 sm8 md4>
+          <v-dialog v-model="dialog" persistent>
+          <v-btn slot="activator" color="primary" dark>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-btn>
+
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
 
-                <v-toolbar-title>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel')}}</v-toolbar-title>
+                <v-toolbar-title>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
               </v-toolbar>
@@ -194,6 +197,9 @@
                 <v-btn @click='cancel'>{{$t('app.cancel')}}</v-btn>
               </v-card-actions>
             </v-card>
+            <v-btn color="blue darken-1" flat @click="dialog = false">{{$t('app.close')}}</v-btn>
+            <v-btn color="blue darken-1" flat @click="dialog = false">{{$t('app.submit')}}</v-btn>
+          </v-dialog>
           </v-flex>
         </v-layout>
       </v-container>
@@ -221,6 +227,7 @@
       InputFile,
     },
     data: () => ({
+      dialog: false,
       activeDropdown: '',
       currentPage: 1,
       pageLength: 0,
