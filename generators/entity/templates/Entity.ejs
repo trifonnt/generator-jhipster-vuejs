@@ -64,7 +64,9 @@
   import EntityTableBody from './EntityTableBody.vue'
   import EntityTableHead from './EntityTableHead.vue'
   import DeleteDialog from './DeleteDialog.vue'
-  
+
+  import EventBus from '../../common/EventBus.js'
+
   import _ from 'lodash';
 
   export default {
@@ -86,6 +88,11 @@
         ],
         selectedLabels: [],
       }),
+      created() {
+        EventBus.$on('getData', ()=> {
+          this.getData()
+        })
+      },
       computed: {
         checkedDeleted() {
           return this.$store.state.table.entity.checkedDeleted

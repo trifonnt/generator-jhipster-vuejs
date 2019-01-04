@@ -197,8 +197,6 @@
                 <v-btn @click='cancel'>{{$t('app.cancel')}}</v-btn>
               </v-card-actions>
             </v-card>
-            <v-btn color="blue darken-1" flat @click="dialog = false">{{$t('app.close')}}</v-btn>
-            <v-btn color="blue darken-1" flat @click="dialog = false">{{$t('app.submit')}}</v-btn>
           </v-dialog>
           </v-flex>
         </v-layout>
@@ -409,7 +407,7 @@
           });
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
           this.registered = true
-          this.$router.go(-1);
+          this.$emit('closeDialog', true)
         }
         catch(err) {
           let msg = err.response.data.title;
@@ -418,7 +416,7 @@
         }
       },
       cancel() {
-        this.$router.go(-1);
+        this.$emit('closeDialog', false)
       },
       async getData() {
         try {
