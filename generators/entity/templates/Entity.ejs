@@ -71,6 +71,13 @@
 
   export default {
       mixins: [table("<%=toLower(name)%>")],
+      props: {
+        filterName: String,
+        masterId: {
+          type: Number,
+          default: '',
+        }
+      },
       data: () => ({
         footer: [],
         headers: [

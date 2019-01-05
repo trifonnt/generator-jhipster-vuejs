@@ -49,14 +49,14 @@ export default (name) => {
   computed: {
     pagination: {
       get() {return this.$store.state.table.entity.pagination},
-      set(val) {console.warn(val);this.$store.dispatch('changePaginationWatcher', {page:val, masterId: this.$route.params.id})}
+      set(val) {console.warn(val);this.$store.dispatch('changePaginationWatcher', {page:val, masterId: this.$route.params.masterId, filterName: this.filterName})}
     },
     pages: function() {
       return Math.ceil(this.totalItems/this.pagination.rowsPerPage) || 0;
     },
     page: {
       get() {return this.$store.state.table.entity.pagination.page},
-      set(val) {console.log("H2");this.$store.dispatch('changePaginationWatcher', {page:val, masterId: this.$route.params.id})},
+      set(val) {console.log("H2");this.$store.dispatch('changePaginationWatcher', {page:val, masterId: this.$route.params.masterId, filterName: this.filterName})},
     },
 
     sortBy() {

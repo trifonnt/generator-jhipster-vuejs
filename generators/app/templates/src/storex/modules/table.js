@@ -37,7 +37,7 @@ export default((name, name2)=> {
 	}
 
 	const actions = {
-		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values, masterId}) {
+		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values, masterId, filterName}) {
 	        try {
 	          let sort = sort || '';
 	          let page = page || state.entity.pagination.page;
@@ -45,7 +45,7 @@ export default((name, name2)=> {
 	          let rowsPerPage = rowsPerPage || state.entity.pagination.rowsPerPage;
 	          let labels = labels || state.entity.pagination.labels;
 	          if(state.entity.pagination.sortBy != null) {
-	          	console.log(state.entity.pagination, "PAGEs")
+f	          	console.log(state.entity.pagination, "PAGEs")
 	          	sort = state.entity.pagination.sortBy+',';
 	          	let asc = state.entity.pagination.descending;
 	          	console.log(state.entity.pagination.descending, "SORTME")
@@ -56,7 +56,7 @@ export default((name, name2)=> {
 	          console.log(sort,"SRT")
 	          commit('changeLoading', true)
 	          //let [count, response] = await Promise.all([store.getCountEntity(search, options, values, masterId),store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId)]);
-	          let response = await store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId);
+	          let response = await store.getData(page-1, sort, search, rowsPerPage, labels, options, values, masterId, filterName);
 	          commit('changeLoading', false)
 			  commit('getHeaders', response.headers['x-total-count'])
 	          response = response.data;
@@ -100,11 +100,11 @@ export default((name, name2)=> {
 	    },
 	    changePaginationWatcher({state, commit, dispatch}, pagination) {
 	    	commit('changePagination', pagination)
-	    	dispatch('getData', {})
+	    	dispatch('getData', pagination)
 	    },
 	    changeSortWatcher({state, commit, dispatch}, pagination) {
 	    	commit('changeSort', pagination)
-	    	dispatch('getData', {})
+	    	dispatch('getData', pagination)
 	    },      
 	    search({state, commit, dispatch}, query) {
 	    	commit('setSearch', query);

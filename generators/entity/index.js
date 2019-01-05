@@ -121,6 +121,7 @@ module.exports = class extends BaseGenerator {
             //await mkdirp(this.destinationPath('src/views/entities/'+name));
             let data = await fs.readFileAsync(jsonPath);
             let obj = JSON.parse(data);
+            obj.entityName = this.entityConfig.name;
             obj.pluralize = pluralize;
             obj.name = name;
             this.baseNameApp = obj.baseNameApp = this.baseName + 'App';
