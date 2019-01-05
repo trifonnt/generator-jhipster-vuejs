@@ -446,7 +446,7 @@
                 <% } }%> 
                 getEntityPrefilled(this.prefillId, this.prefillName)
               ]);
-            this.hiddenFields = entity['X-'<%=baseNameApp%>+'-hidden-fields'];
+            this.hiddenFields = entity['X-'+<%=baseNameApp%>+'-hidden-fields'];
             entity = entity.data;
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
