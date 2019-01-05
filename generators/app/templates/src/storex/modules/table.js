@@ -45,7 +45,7 @@ export default((name, name2)=> {
 	          let rowsPerPage = rowsPerPage || state.entity.pagination.rowsPerPage;
 	          let labels = labels || state.entity.pagination.labels;
 	          if(state.entity.pagination.sortBy != null) {
-f	          	console.log(state.entity.pagination, "PAGEs")
+	          	console.log(state.entity.pagination, "PAGEs")
 	          	sort = state.entity.pagination.sortBy+',';
 	          	let asc = state.entity.pagination.descending;
 	          	console.log(state.entity.pagination.descending, "SORTME")
