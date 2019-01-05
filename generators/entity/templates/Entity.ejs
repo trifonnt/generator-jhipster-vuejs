@@ -5,7 +5,7 @@
   <div class='margin'></div>
   <div id='toptable' style='display:flex'>
     <div id='createnew'>
-      <v-btn to='/entities/<%=toLower(name)%>/new'  color="primary">
+      <v-btn :to='/entities/<%=toLower(name)%>/new/$route.params.masterId'  color="primary">
           <v-icon>add</v-icon>
           {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createLabel')}}
       </v-btn>

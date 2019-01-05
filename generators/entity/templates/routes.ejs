@@ -13,7 +13,7 @@ export default [
       component: views.<%=firstToUpper(name)%>,
     },
     {
-      path: '/entities/<%=toLower(name)%>/new',
+      path: '/entities/<%=toLower(name)%>/new/:masterId?',
       name: 'new<%=name%>',
       component: views.Create<%=firstToUpper(name)%>,
     },
