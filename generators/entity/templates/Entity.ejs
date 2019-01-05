@@ -4,7 +4,7 @@
  <v-app id="inspire">
   <div class='margin'></div>
   <div id='toptable' style='display:flex'>
-    <div id='createnew'>
+    <div id='createnew' v-show='!filterName'>
       <v-btn v-show='!$route.params.masterId' to='/entities/<%=toLower(name)%>/new/'  color="primary">
       <v-btn v-show='$route.params.masterId' :to='"/entities/<%=toLower(name)%>/new/"+$route.params.masterId'  color="primary">
 
