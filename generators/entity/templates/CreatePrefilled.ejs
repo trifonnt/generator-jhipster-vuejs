@@ -41,23 +41,23 @@
                     validate = JSON.stringify(validate)
                   %>
                     <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
-                      <v-text-field v-show='!hiddenFields.includes(<%=fName%>)' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
 
                     <% if(fType=="String" && field.fieldValues == undefined) {%>
-                      <v-text-field v-show='!hiddenFields.includes(<%=fName%>)' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
-                        <input-file v-show='!hiddenFields.includes(<%=fName%>)' @upload='upload' name='<%=field.fieldName%>'></input-file>
+                        <input-file v-show='!hiddenFields.includes("<%=fName%>")' @upload='upload' name='<%=field.fieldName%>'></input-file>
                     <% } %>
                     <% if(fType == "Boolean") {%>
-                      <v-checkbox v-show='!hiddenFields.includes(<%=fName%>)' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
+                      <v-checkbox v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                     <% if(['LocalDate','ZonedDateTime'].includes(fType)) {%>
-                      <v-menu v-show='!hiddenFields.includes(<%=fName%>)' :disabled='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'"
+                      <v-menu v-show='!hiddenFields.includes("<%=fName%>")' :disabled='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'"
                           ref="menu<%=fName%>"
                           :close-on-content-click="false"
                           v-model="menu<%=fName%>"
@@ -82,18 +82,18 @@
                         <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                     <% if(fType == 'Instant') { %>
-                      <datetime v-show='!hiddenFields.includes(<%=fName%>)' v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
+                      <datetime v-show='!hiddenFields.includes("<%=fName%>")' v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
                           <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
                       </datetime>   
                     <% } %>
                     <% if(fType == "String" && field.fieldValues != undefined) {%>
-                      <v-select v-show='!hiddenFields.includes(<%=fName%>)' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
+                      <v-select v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                   <% if(fType == 'Html' || fType == 'byte[]' && field.fieldTypeBlobContent == 'text') {%>
                       {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
                       <br/>
-                      <quill-editor v-show='!hiddenFields.includes(<%=fName%>)' v-hasRole="'<%=field.visibleForRole%>'" ref="quillEditor<%=fName%>"
+                      <quill-editor v-show='!hiddenFields.includes("<%=fName%>")' v-hasRole="'<%=field.visibleForRole%>'" ref="quillEditor<%=fName%>"
                         v-model="<%=fName%>"
                         :options="editorOptions">
                       </quill-editor>
@@ -138,7 +138,7 @@
 
  -->
                         <%if(relationship.otherEntityName2) {%>
-                        <v-autocomplete v-show='!hiddenFields.includes(<%=fName%>)' @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
+                        <v-autocomplete v-show='!hiddenFields.includes("<%=fName%>")' @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=pluralize(fName)%>'
@@ -161,7 +161,7 @@
 
                         </v-autocomplete>
                       <% } else { %>
-                        <v-autocomplete v-show='!hiddenFields.includes(<%=fName%>)' @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
+                        <v-autocomplete v-show='!hiddenFields.includes("<%=fName%>")' @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=pluralize(fName)%>'
@@ -446,7 +446,7 @@
                 <% } }%> 
                 getEntityPrefilled(this.prefillId, this.prefillName)
               ]);
-            this.hiddenFields = entity['x-'+<%=baseNameApp%>+'-hidden-fields'];
+            this.hiddenFields = entity['x-<%=toLowerCase(baseNameApp)%>-hidden-fields'];
             entity = entity.data;
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
