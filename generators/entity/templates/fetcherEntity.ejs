@@ -32,7 +32,7 @@ export function getEntityTemplate() {
 	return axios.get('<%=pluralize(toDashed(name))%>/template').then(data=>data.data)
 }
 export function getEntityPrefilled(id,name) {
-	return axios.get('<%=pluralize(toDashed(name))%>/'+id+'/'+name.toLowerCase()+'/template').then(data=>data.data)
+	return axios.get('<%=pluralize(toDashed(name))%>/'+id+'/'+name.toLowerCase()+'/template')
 }
 export function deleteId(id) {
 	return axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
