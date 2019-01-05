@@ -35,11 +35,20 @@ import './assets/styles.css'
 
 import storex from './storex'
 
+import {setProfile} from './store/identity'
+
 window.$ = require('jquery')
 window.JQuery = require('jquery')
 
 axios.defaults.baseURL = "/api"
 
+axios.interceptors.response.use(function (response) {
+    
+    return response;
+  }, function (error) {
+    if(error.status == 401) setProfile({})
+    return Promise.reject(error);
+  });
 
 Vue.use(Datatable)
 
