@@ -97,7 +97,7 @@
       }),
       created() {
         EventBus.$on('getData', ()=> {
-          this.getData()
+          this.getData({masterId: this.$route.params.masterId, filterName: this.filterName})
         })
       },
       computed: {
