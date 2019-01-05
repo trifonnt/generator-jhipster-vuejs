@@ -4,17 +4,19 @@
  <v-app id="inspire">
   <div class='margin'></div>
   <div id='toptable' style='display:flex'>
-    <div id='createnew' v-show='!filterName'>
-      <v-btn v-show='!$route.params.masterId' to='/entities/<%=toLower(name)%>/new/'  color="primary">
-          <v-icon>add</v-icon>
-          {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createLabel')}}
-      </v-btn>
-      <v-btn v-show='$route.params.masterId' :to='"/entities/<%=toLower(name)%>/new/"+$route.params.masterId'  color="primary">
+    <slot name="createButton">
+      <div id='createnew' v-show='!filterName'>
+        <v-btn v-show='!$route.params.masterId' to='/entities/<%=toLower(name)%>/new/'  color="primary">
+            <v-icon>add</v-icon>
+            {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createLabel')}}
+        </v-btn>
+        <v-btn v-show='$route.params.masterId' :to='"/entities/<%=toLower(name)%>/new/"+$route.params.masterId'  color="primary">
 
-          <v-icon>add</v-icon>
-          {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createLabel')}}
-      </v-btn>
-    </div>
+            <v-icon>add</v-icon>
+            {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createLabel')}}
+        </v-btn>
+      </div>
+    </slot>
    <search></search>
    <div id='filterlabels'>
     <filter-labels :change='getData' store-name="<%=toLower(name)%>"></filter-labels>
