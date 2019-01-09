@@ -9,7 +9,7 @@
     <% for(field of fields) { 
       if(field.fieldType == 'String' && field.fieldValues != undefined) {
     %>
-      <td v-show='hideName!=<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
+      <td :v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
           <v-btn class='morechips'
@@ -29,14 +29,14 @@
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') {
     %>
-      <td v-show='hideName!=<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
+      <td :v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <a :href="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']" :download="items.item['<%=field.fieldName%>FileName']">{{items.item['<%=field.fieldName%>FileName']}}</a>
       </td>
     <%
       } 
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
     %>
-      <td v-show='hideName!=<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
+      <td :v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
             <v-dialog v-model="dialogImage<%=field.fieldName%>" fullscreen hide-overlay transition="dialog-bottom-transition">
               <v-btn slot="activator" color="primary" dark>Preview</v-btn>
               <v-card>
@@ -48,7 +48,7 @@
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
         %>
-        <td v-show='hideName!=<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'">
+        <td :v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'">
          <v-bottom-sheet v-model="<%=field.fieldName%>sheet">
           <v-btn
             slot="activator"
@@ -67,7 +67,7 @@
       }
       else {
     %>
-      <td v-show='hideName!=<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")' v-text="items.item['<%=field.fieldName%>']"></td>
+      <td :v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")' v-text="items.item['<%=field.fieldName%>']"></td>
     <% } } %>
 
     <% for(relationship of relationships) { 
@@ -78,7 +78,7 @@
 
 
 
-      <td v-show='hideName!=<%=relationship.relationshipName%>' v-hasRole="'<%=relationship.visibleForRole%>'" v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
+      <td :v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
         <v-chip v-for="val in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val.<%=relationship.otherEntityField%>}}</v-chip>
         <v-menu offset-y>
           <v-btn class='morechips'
@@ -94,7 +94,7 @@
           </v-list>
         </v-menu>
       </td>
-      <td v-show='hideName!=<%=relationship.relationshipName%>' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'].length"></td>
+      <td :v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'].length"></td>
     <%
       }
       else {
