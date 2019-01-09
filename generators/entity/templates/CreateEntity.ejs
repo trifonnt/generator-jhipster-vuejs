@@ -138,7 +138,7 @@
 
 
  -->
-                        <%if(relationship.otherEntityName2) {%>
+                        <%if(relationship.otherEntityField2) {%>
                           <multiselect
                             :internal-search="false"
                             :searchable = "true"
@@ -153,6 +153,10 @@
                             :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                             track-by='id'
                           >
+                          <template slot="option" slot-scope="props">
+                            <div class='leftcol'>{{props.option.<%=relationship.otherEntityField%>}}</div>
+                            <div class='rightcol'>{{props.option.<%=relationship.otherEntityField2%>}}</div>
+                          </template>
                           <template slot='afterList'>
                             <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
                               v-model="currentPage"
