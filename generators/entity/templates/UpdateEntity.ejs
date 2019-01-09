@@ -143,64 +143,39 @@
 
  -->
                         <%if(relationship.otherEntityName2) {%>
-                        <v-autocomplete @click.native='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
-                          <%if(multiple){%> multiple return-object <%}%> 
-                          <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=pluralize(fName)%>'
-                          :search-input.sync="<%=fName%>search"
-                          v-validate='<%-validate%>' 
-                          name="<%=pluralize(fName)%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
-                          v-model="<%=model%>"
-                          item-text='<%=relationship.otherEntityField%>' 
-                          item-value='id'
-                          :filter="v => v"
-                        >
-                          <template
-                            slot="selection"
-                            slot-scope="data"
+                          <multiselect @open='newDropdown'
+                            :multiple = '<%=multiple%>'
+                            id='<%=pluralize(fName)%>'
+                            label='name'
+                            v-model = '<%=model%>'
+                            :options = '<%=pluralize(fName)%>'
+                            :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                            track-by='id'
                           >
-                            <span title='<%=pluralize(fName)%>'
-                            >
-                              {{ data.item.<%=relationship.otherEntityField%> }} &nbsp;
-                            </span>
+                          <template slot='afterList'>
+                            <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
+                              v-model="currentPage"
+                              :length="pageLength"
+                            ></v-pagination>
                           </template>
-                          <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
-                            v-model="currentPage"
-                            :length="pageLength"
-                          ></v-pagination>
-                        <template slot="item" slot-scope="{item}">
-                          <div class='leftcol'>{{item.<%=relationship.otherEntityName%>.substr(0,20)}}</div> <div class='rightcol'>{{item.<%=relationship.otherEntityName2%>}}</div>
-                        </template>
-
-                        </v-autocomplete>
+                          </multiselect>
                       <% } else { %>
-                        <v-autocomplete @click.native='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
-                          <%if(multiple){%> multiple return-object <%}%> 
-                          <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=pluralize(fName)%>'
-                          :search-input.sync="<%=fName%>search"
-                          v-validate='<%-validate%>' 
-                          name="<%=pluralize(fName)%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
-                          v-model="<%=model%>"
-                          item-text='<%=relationship.otherEntityField%>' 
-                          item-value='id'
-                        >
-                          <template
-                            slot="selection"
-                            slot-scope="data"
+                          <multiselect @open='newDropdown'
+                            :multiple = '<%=multiple%>'
+                            id='<%=pluralize(fName)%>'
+                            label='name'
+                            v-model = '<%=model%>'
+                            :options = '<%=pluralize(fName)%>'
+                            :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                            track-by='id'
                           >
-                            <span title='<%=pluralize(fName)%>'
-                            >
-                              {{ data.item.<%=relationship.otherEntityField%> }} &nbsp;
-                            </span>
+                          <template slot='afterList'>
+                            <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
+                              v-model="currentPage"
+                              :length="pageLength"
+                            ></v-pagination>
                           </template>
-                          <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
-                            v-model="currentPage"
-                            :length="pageLength"
-                          ></v-pagination>
-                        </v-autocomplete>
+                          </multiselect>
                       <% } %>
 
                       <v-alert v-hasRole="'<%=relationship.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
@@ -347,7 +322,7 @@
         this.getDropdownData();
       },
       newDropdown(event) {
-        this.activeDropdown = event.target.title;
+        this.activeDropdown = event;
         this.getDropdownData();
       },
       enterForm() {

@@ -19,6 +19,8 @@ import { Settings } from 'luxon'
 
 import VueImg from 'v-img';
 
+import Multiselect from 'vue-multiselect'
+
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -32,6 +34,8 @@ import messages from '../i18n/';
 import './directives/hasRole'
 
 import './assets/styles.css'
+
+import "vue-multiselect/dist/vue-multiselect.min.css"
 
 import storex from './storex'
 
@@ -59,6 +63,8 @@ Vue.use(VueQuillEditor, /* { default global options } */)
 Vue.use(Datetime)
 
 Vue.use(VueImg);
+
+Vue.component('multiselect', Multiselect)
 
 let lang = localStorage.getItem('langkey') || 'en';
 

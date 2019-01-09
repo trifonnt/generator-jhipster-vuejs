@@ -227,7 +227,9 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "vue-datetime": "^1.0.0-beta.8",
             "weekstart": "^1.0.0",
             "v-img": "^0.2.0",
-            "swagger-ui": "^3.20.4"
+            "swagger-ui": "^3.20.4",
+            "vue-multiselect": "^2.1.3"
+
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",

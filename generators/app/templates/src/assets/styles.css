@@ -144,3 +144,8 @@
     display: none;
   }
 }
+
+.multiselect__tag, .multiselect__option--highligh, .multiselect__option--highlight:after {
+  background: #1976d2;
+}
+
