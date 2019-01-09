@@ -168,7 +168,7 @@
                           <multiselect
                             :internal-search="false"
                             :searchable = "true"
-                            @search-change = 'cahngeSearch'
+                            @search-change = 'changeSearch'
                             :limit = '10'
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
@@ -306,7 +306,7 @@
     },
     watch: {
       <% for(relationship of relationships) { %>
-        <%=relationship.relationshipName%>search(val) {
+        <%=pluralize(relationship.relationshipName)%>search(val) {
           try {
           this.getDropdownData();
           }
