@@ -162,7 +162,7 @@
                           >
                             <span title='<%=pluralize(fName)%>'
                             >
-                              {{ data.item.<%=relationship.otherEntityField%> }}
+                              {{ data.item.<%=relationship.otherEntityField%> }} &nbsp;
                             </span>
                           </template>
                           <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
@@ -193,7 +193,7 @@
                           >
                             <span title='<%=pluralize(fName)%>'
                             >
-                              {{ data.item.<%=relationship.otherEntityField%> }}
+                              {{ data.item.<%=relationship.otherEntityField%> }} &nbsp;
                             </span>
                           </template>
                           <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
