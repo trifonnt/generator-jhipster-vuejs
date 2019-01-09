@@ -143,7 +143,7 @@
 
  -->
                         <%if(relationship.otherEntityName2) {%>
-                        <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
+                        <v-autocomplete @click.native='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=pluralize(fName)%>'
@@ -162,7 +162,7 @@
                           >
                             <span title='<%=pluralize(fName)%>'
                             >
-                              {{ data.item.<%=relationship.otherEntityField%> }}<span v-show='data.index != <%=pluralize(fName)%>.length-1'>, &nbsp;</span>
+                              {{ data.item.<%=relationship.otherEntityField%> }}
                             </span>
                           </template>
                           <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
@@ -175,7 +175,7 @@
 
                         </v-autocomplete>
                       <% } else { %>
-                        <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
+                        <v-autocomplete @click.native='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
                           <%if(multiple){%> multiple return-object <%}%> 
                           <%if(req) {%> prepend-inner-icon='*' <%}%>
                           :items='<%=pluralize(fName)%>'
@@ -193,7 +193,7 @@
                           >
                             <span title='<%=pluralize(fName)%>'
                             >
-                              {{ data.item.<%=relationship.otherEntityField%> }}<span v-show='data.index != <%=pluralize(fName)%>.length-1'>, &nbsp;</span>
+                              {{ data.item.<%=relationship.otherEntityField%> }}
                             </span>
                           </template>
                           <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
