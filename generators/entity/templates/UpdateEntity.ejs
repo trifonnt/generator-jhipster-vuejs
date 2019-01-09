@@ -156,6 +156,15 @@
                           item-value='id'
                           :filter="v => v"
                         >
+                          <template
+                            slot="selection"
+                            slot-scope="data"
+                          >
+                            <span title='<%=pluralize(fName)%>'
+                            >
+                              {{ data.item.<%=relationship.otherEntityField%> }}<span v-show='data.index != <%=pluralize(fName)%>.length-1'>, &nbsp;</span>
+                            </span>
+                          </template>
                           <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
                             v-model="currentPage"
                             :length="pageLength"
@@ -178,6 +187,15 @@
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
                         >
+                          <template
+                            slot="selection"
+                            slot-scope="data"
+                          >
+                            <span title='<%=pluralize(fName)%>'
+                            >
+                              {{ data.item.<%=relationship.otherEntityField%> }}<span v-show='data.index != <%=pluralize(fName)%>.length-1'>, &nbsp;</span>
+                            </span>
+                          </template>
                           <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
                             v-model="currentPage"
                             :length="pageLength"
@@ -329,7 +347,7 @@
         this.getDropdownData();
       },
       newDropdown(event) {
-        this.activeDropdown = event.target.name;
+        this.activeDropdown = event.target.title;
         this.getDropdownData();
       },
       enterForm() {
