@@ -139,30 +139,34 @@
 
  -->
                         <%if(relationship.otherEntityName2) {%>
-                        <v-autocomplete @click='newDropdown' :readonly='isReadOnly("<%=relationship.readonlyForRoles%>")' v-hasRole="'<%=relationship.visibleForRole%>'"
-                          <%if(multiple){%> multiple return-object <%}%> 
-                          <%if(req) {%> prepend-inner-icon='*' <%}%>
-                          :items='<%=pluralize(fName)%>'
-                          :search-input.sync="<%=fName%>search"
-                          v-validate='<%-validate%>' 
-                          name="<%=pluralize(fName)%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
-                          v-model="<%=model%>"
-                          item-text='<%=relationship.otherEntityField%>' 
-                          item-value='id'
-                          :filter="v => v"
-                        >
-                          <v-pagination :total-visible='pageLength' @input='changePage' slot='append-item' v-show='pageLength'
-                            v-model="currentPage"
-                            :length="pageLength"
-                          ></v-pagination>
-                        <template slot="item" slot-scope="{item}">
-                          <div class='leftcol'>{{item.<%=relationship.otherEntityName%>.substr(0,20)}}</div> <div class='rightcol'>{{item.<%=relationship.otherEntityName2%>}}</div>
-                        </template>
-
-                        </v-autocomplete>
+                          <multiselect
+                            :internal-search="false"
+                            :searchable = "true"
+                            @search-change = 'changeSearch'
+                            :limit = '10'
+                            @open='newDropdown'
+                            :multiple = '<%=multiple%>'
+                            id='<%=pluralize(fName)%>'
+                            label='name'
+                            v-model = '<%=model%>'
+                            :options = '<%=pluralize(fName)%>'
+                            :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                            track-by='id'
+                          >
+                          <template slot='afterList'>
+                            <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
+                              v-model="currentPage"
+                              :length="pageLength"
+                            ></v-pagination>
+                          </template>
+                          </multiselect>
                       <% } else { %>
-                          <multiselect @open='newDropdown'
+                          <multiselect
+                            :internal-search="false"
+                            :searchable = "true"
+                            @search-change = 'cahngeSearch'
+                            :limit = '10'
+                            @open='newDropdown'
                             :multiple = '<%=multiple%>'
                             id='<%=pluralize(fName)%>'
                             label='name'
@@ -322,6 +326,10 @@
       changePage(val) {
         this.currentPage = val;
         this.getDropdownData();
+      },
+      changeSearch(val) {
+        let prop = this.activeDropdown + 'search';
+        this[prop] = val
       },
       newDropdown(event) {
         this.activeDropdown = event;
