@@ -1,6 +1,6 @@
 import {objtourl, urltoobj} from '../../utils/url'
 
-export default((name, name2)=> {
+export default((name, name2, filterName)=> {
 	let store;
 	console.warn(name,name2)
 	if(name2) store = require('../../store/'+name).default(name2);

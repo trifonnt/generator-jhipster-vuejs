@@ -143,6 +143,7 @@
 
  -->
                         <%if(relationship.otherEntityField2) {%>
+                            <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect
                             :internal-search="false"
                             :searchable = "true"
@@ -151,6 +152,7 @@
                             :show-labels="false"
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
+                            :close-on-select="false" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'
@@ -170,6 +172,7 @@
                           </template>
                           </multiselect>
                       <% } else { %>
+                          <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect
                             :internal-search="false"
                             :searchable = "true"
@@ -177,6 +180,7 @@
                             :limit = '10'
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
+                            :close-on-select="false" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'

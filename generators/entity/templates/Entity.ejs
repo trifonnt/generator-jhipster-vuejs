@@ -46,10 +46,10 @@
     select-all
   >
     <template slot="headers" slot-scope="props">
-      <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked' name='hideName'></entity-table-head>
+      <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked' hideName='hideName'></entity-table-head>
     </template>
     <template slot="items" slot-scope="props">
-        <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=name%>" name='hideName'></entity-table-body>
+        <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=name%>" hideName='hideName'></entity-table-body>
     </template>
     <template slot='footer'>
       <tr v-for='row in footer'>
@@ -133,7 +133,7 @@
         }
       },
       beforeCreate() {
-        this.$store = createStore('<%=toLower(name)%>', '')
+        this.$store = createStore('<%=toLower(name)%>', '', this.$options.propsData.filterName)
       },
       components: {
         SelectLabels,

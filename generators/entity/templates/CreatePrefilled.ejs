@@ -5,7 +5,7 @@
           <v-dialog v-model="dialog" persistent>
           <v-btn @click.native='getData' slot="activator" color="primary" dark>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-btn>
 
-            <v-card class="elevation-12">
+            <v-card class="elevation-12 createPrefilled">
               <v-toolbar dark color="primary">
 
                 <v-toolbar-title>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-toolbar-title>
@@ -309,6 +309,12 @@
           }
         },
       <% } %>
+      dialog(val) {
+        if(!val) return;
+        requestAnimationFrame(() => {
+          document.querySelector('.createPrefilled input').focus()
+        })
+      }
     },
     methods: {
       async getDropdownData() {
