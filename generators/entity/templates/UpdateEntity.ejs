@@ -152,7 +152,7 @@
                             :show-labels="false"
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
-                            :close-on-select="<%=multiple%>" 
+                            :close-on-select="<%=!multiple%>" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'
@@ -180,7 +180,7 @@
                             :limit = '10'
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
-                            :close-on-select="<%=multiple%>" 
+                            :close-on-select="<%=!multiple%>" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'
@@ -446,14 +446,14 @@
           <% for(relationship of relationships) {
             if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
           %>
+              this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
               <%
                 if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
               %>
                 this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
-              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
+              this.<%=relationship.relationshipName%> = this.<%=pluralize(relationship.relationshipName)%>.filter(o=>o.id == entity.<%=relationship.relationshipName%>Id)
               <% } %>
-              this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
           <% } } %>
         }
         catch(err) {console.log(err)}
