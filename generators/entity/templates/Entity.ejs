@@ -133,7 +133,7 @@
         }
       },
       beforeCreate() {
-        this.$store = createStore('<%=toLower(name)%>', '', this.$options.propsData.filterName)
+        this.$store = createStore('<%=toLower(name)%>', '', this.$options.propsData.filterName, this.$route.params.masterId)
       },
       components: {
         SelectLabels,

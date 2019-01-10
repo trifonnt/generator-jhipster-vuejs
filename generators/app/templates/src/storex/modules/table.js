@@ -1,6 +1,6 @@
 import {objtourl, urltoobj} from '../../utils/url'
 
-export default((name, name2, filterName)=> {
+export default((name, name2, filterName, masterId)=> {
 	let store;
 	console.warn(name,name2)
 	if(name2) store = require('../../store/'+name).default(name2);
@@ -37,7 +37,7 @@ export default((name, name2, filterName)=> {
 	}
 
 	const actions = {
-		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values, masterId, filterName}) {
+		async getData({state, commit}, {page, sort, search, rowsPerPage, labels, options, values}) {
 	        try {
 	          let sort = sort || '';
 	          let page = page || state.entity.pagination.page;

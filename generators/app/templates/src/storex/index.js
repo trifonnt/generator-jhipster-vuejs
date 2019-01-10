@@ -19,8 +19,8 @@ export default new Vuex.Store({
 	strict: debug,
 })
 
-export function createStore(name, name2, filterName='') {
-	let table = require('./modules/table').default(name, name2, filterName);
+export function createStore(name, name2, filterName='', masterId = '') {
+	let table = require('./modules/table').default(name, name2, filterName, masterId);
     return new Vuex.Store({
         modules: {
             table: table, //_.cloneDeep?
