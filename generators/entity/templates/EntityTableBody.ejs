@@ -81,7 +81,7 @@
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
         <v-chip v-for="val in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val.<%=relationship.otherEntityField%>}}</v-chip>
         <v-menu offset-y>
-          <v-btn class='morechips' v-show="items.item['<%=field.fieldName%>'].length > 2"
+          <v-btn class='morechips' v-show="items.item['<%=pluralize(relationship.relationshipName)%>'].length > 2"
             slot="activator"
             depressed
           >
