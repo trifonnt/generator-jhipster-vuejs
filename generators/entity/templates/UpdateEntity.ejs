@@ -403,9 +403,9 @@
               <%
                 if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               %>
-              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values,
+              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>o.id),
               <% } %>
-              <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
+              <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
             <% } %>
           });
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.updated', {id: this.$route.params.id}), val: true, color: "success"})          
