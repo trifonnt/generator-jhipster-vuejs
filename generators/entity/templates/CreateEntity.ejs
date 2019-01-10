@@ -148,7 +148,7 @@
                             :show-labels="false"
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
-                            :close-on-select="false" 
+                            :close-on-select="<%=multiple%>" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'
@@ -176,7 +176,7 @@
                             :limit = '10'
                             @open='newDropdown'
                             :multiple = '<%=multiple%>'
-                            :close-on-select="false" 
+                            :close-on-select="<%=multiple%>" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'
