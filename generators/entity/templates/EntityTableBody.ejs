@@ -12,12 +12,13 @@
       <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
-          <v-btn class='morechips' v-show="items.item['<%=field.fieldName%>'].length > 2"
+          <v-chip color='primary' class='morechips' v-show="items.item['<%=field.fieldName%>'].length > 2"
+            style='padding: 0;'
             slot="activator"
-            depressed
+            outline
           >
-            <v-icon>more_horiz</v-icon>
-          </v-btn>
+            <v-icon>more_vert</v-icon>
+          </v-chip>
           <v-list>
             <v-list-tile v-for="val2 in items.item['<%=field.fieldName%>'].slice(2)">
               <v-chip label color='primary'>{{val2}}</v-chip>
@@ -133,7 +134,7 @@
           </v-icon>
         </router-link>
         <a href='#'>
-          <v-icon
+          <v-icon style='margin-right: 0 !important;'
           size='20px'
             class='mr-2'
             @click="deleteItem"
@@ -141,8 +142,8 @@
             delete
           </v-icon>
         </a>
-        <v-menu>
-          <v-btn
+        <v-menu style='margin-left: 0;'>
+          <v-btn style='margin-left: 0;'
             slot="activator"
             dark
             icon

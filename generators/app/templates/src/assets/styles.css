@@ -154,3 +154,7 @@
 .multiselect__tag-icon:after {
   color: white !important;
 }
+
+th {
+  font-weight: bold !important;
+}
