@@ -143,7 +143,7 @@
 
  -->
                         <%if(relationship.otherEntityField2) {%>
-                            <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
+                            <div v-show="$route.params.hideName != '<%=fName%>'">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
                             :internal-search="false"
                             :searchable = "true"
@@ -172,7 +172,7 @@
                           </template>
                           </multiselect>
                       <% } else { %>
-                          <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
+                          <div v-show="$route.params.hideName != '<%=fName%>'">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
                             :internal-search="false"
                             :searchable = "true"
