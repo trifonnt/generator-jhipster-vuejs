@@ -3,8 +3,9 @@ import Vue from 'vue'
 import {getProfile} from '../store/identity'
 
 Vue.directive('hasRole', {
-	inserted: function(el, b) {
+	update: function(el, b) {
 		if(b.value != '') {
+			console.log(getProfile(), "PROFILE")
 			if(!getProfile().jwt) el.style.display = 'none'
 			else if(b.value.includes(',') 
 				&& getProfile().jwt 
