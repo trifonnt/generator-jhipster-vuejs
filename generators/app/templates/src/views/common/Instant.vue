@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <datetime type='datetime' v-model="val" :input-id="name" input-class='borderField'>
+	  <datetime type='datetime' v-model="val" :input-id="name" input-class='borderField' v-validate="validate" :data-vv-name="name" :name='name'>
 	      <label slot="before">{{label}}</label>
 	  </datetime>  
   	</div>

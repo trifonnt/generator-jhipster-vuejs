@@ -2,12 +2,28 @@
 	<div>
 		<v-select multiple :items='items' item-text='name' item-value='code' solo v-validate="validate" :data-vv-name="name" :name='name' :label="label" v-model="val" return-object></v-select>
 	  	<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
-	</div>
+
+
+        <v-autocomplete
+          multiple return-object 
+          prepend-inner-icon="validate.required ? '*'' : false "
+          :items='items'
+          v-validate='validate' 
+          :name="name" 
+          :label="label"
+          v-model="val"
+          item-text='name' 
+          item-value='code'
+        >
+        </v-autocomplete>
+
+	  	<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>	</div>
 </template>
 
 <script>
 	export default {
 		data: () => ({
+			
 		}),
 		computed: {
 			val: {
