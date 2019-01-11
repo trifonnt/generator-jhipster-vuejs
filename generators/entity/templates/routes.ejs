@@ -23,7 +23,7 @@ export default [
       component: views.CreatePrefilled<%=firstToUpper(name)%>,
     },
     {
-      path: '/entities/<%=toLower(name)%>/edit/:id/:masterId?',
+      path: '/entities/<%=toLower(name)%>/edit/:id/:masterId?/:hideName?',
       name: 'edit<%=name%>',
       component: views.Update<%=firstToUpper(name)%>,
     },    
