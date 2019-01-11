@@ -24,7 +24,7 @@
         <!--insertlinkshere-->
 
       </v-list-group>
-      <v-list-group v-show='user.auth'
+      <v-list-group v-hasRole="'ROLE_ADMIN'" v-show='user.auth'
         prepend-icon="list"
       >
         <v-list-tile slot="activator">
