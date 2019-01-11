@@ -114,7 +114,16 @@
           >remove_red_eye
           </v-icon>
           </router-link>
-          <router-link :to="{name: 'edit'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id, masterId: $route.params.masterId, hideName: hideName}}">
+          <router-link v-show='!hideName' :to="{name: 'edit'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id, masterId: $route.params.masterId}}">
+          <v-icon
+          size='20px'
+            
+            class='mr-2'
+          >
+            edit
+          </v-icon>
+        </router-link>
+        <router-link v-show='hideName' :to="{name: 'edit'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id, masterId: $route.params.masterId, hideName: hideName}}">
           <v-icon
           size='20px'
             
@@ -197,7 +206,10 @@
 			items: Object,
 			headers: Array,
       storeName: String,
-      hideName: String,
+      hideName: {
+        type: String,
+        default: '',
+      },
 		},
 
 	}
