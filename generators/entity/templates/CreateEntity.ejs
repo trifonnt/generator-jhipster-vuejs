@@ -142,6 +142,9 @@
                           <br>                        
                           <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect
+                            v-validate = '<%-validate%>'
+                            data-vv-name = 'id'
+                            data-vv-value-path = 'id'
                             :internal-search="false"
                             :searchable = "true"
                             @search-change = 'changeSearch'
@@ -172,6 +175,9 @@
                           <br>
                           <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect
+                            v-validate = '<%-validate%>'
+                            data-vv-name = 'id'
+                            data-vv-value-path = 'id'
                             :internal-search="false"
                             :searchable = "true"
                             @search-change = 'changeSearch'
