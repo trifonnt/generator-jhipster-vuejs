@@ -209,7 +209,8 @@
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <% } %> 
-    let getEntityPrefilled = <%=addS(firstToUpper(relationship.relationshipName))%>store.getEntityPrefilled;    
+    let detailStoreName = pluralize(this.name).toLowerCase();
+    let getEntityPrefilled = relationStores[detailStoreName].getEntityPrefilled;    
     export default {
     inject: ['$validator'],
     components: {
@@ -294,6 +295,7 @@
     props: {
       prefillId: Number,
       prefillName: String,
+      name: String,
     },
     created() {
 
