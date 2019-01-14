@@ -198,6 +198,7 @@
 			//this.getData();
 		},
 		data: () =>  ({
+		  touchedSearch: false,
 	      <% fields.forEach(field=>{%>
 	        <%
 	          let fType = field.fieldType;
@@ -280,6 +281,7 @@
 
 		watch: {
 			async searchQuery(val) {
+				if(!val && !this.touchedSearch) return false;
 		    	this.search();
 /*			    try {
 			    	let response = await axios.get('https://cat-fact.herokuapp.com/facts');
