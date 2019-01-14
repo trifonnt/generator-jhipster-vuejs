@@ -391,11 +391,11 @@
       },
 			async edit() {
         let res;
-        let countryId = this.$route.params.hideName+'Id';
-				try {
-					res = await edit({
+        let masterId = this.$route.params.hideName+'Id';
+        let masterIdVal = this.$router.params.masterId;
+        let obj =  {           
             id: this.$route.params.id,
-            [countryId]: this.$route.params.masterId,
+            [masterId]: this.$route.params.masterId,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
               <% if(field.fieldType == 'byte[]') { %>
@@ -410,8 +410,10 @@
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>({id:o.id})),
               <% } %>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
-            <% } %>
-          });
+            <% } %> }
+        if(masterIdVal) obj[masterId] = masterIdVal;
+        try {
+          res = await edit(obj);
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.updated', {id: this.$route.params.id}), val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
