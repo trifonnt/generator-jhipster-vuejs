@@ -391,9 +391,11 @@
       },
 			async edit() {
         let res;
+        let countryId = this.$route.params.hideName+'Id';
 				try {
 					res = await edit({
             id: this.$route.params.id,
+            [countryId]: this.$route.params.masterId,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
               <% if(field.fieldType == 'byte[]') { %>
