@@ -395,7 +395,6 @@
         let masterIdVal = this.$router.params.masterId;
         let obj =  {           
             id: this.$route.params.id,
-            [masterId]: this.$route.params.masterId,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
               <% if(field.fieldType == 'byte[]') { %>
@@ -459,6 +458,7 @@
                 this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
               this.<%=relationship.relationshipName%> = this.<%=pluralize(relationship.relationshipName)%>.filter(o=>o.id == entity.<%=relationship.relationshipName%>Id)
+              if(this.<%=relationship.relationshipName%>.length == 1) this.<%=relationship.relationshipName%> = this.<%=relationship.relationshipName%>[0]
               <% } %>
           <% } } %>
         }
