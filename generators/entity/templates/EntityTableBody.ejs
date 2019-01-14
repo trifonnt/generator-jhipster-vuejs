@@ -92,7 +92,7 @@
           </v-chip>
           <v-list>
             <v-list-tile v-for="val2 in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(2)">
-              <v-chip label color='primary'>{{val2.<%=relationship.otherEntityField%>}}</v-chip>
+              <v-chip color='primary' class='white--text'>{{val2.<%=relationship.otherEntityField%>}}</v-chip>
             </v-list-tile>
           </v-list>
         </v-menu>
