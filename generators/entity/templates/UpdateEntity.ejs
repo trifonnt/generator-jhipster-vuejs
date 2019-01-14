@@ -408,7 +408,7 @@
               %>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>({id:o.id})),
               <% } %>
-              <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
+              <%=relationship.relationshipName%>Id:(this.<%=relationship.relationshipName%> && this.<%=relationship.relationshipName%>.id) || '', 
             <% } %> }
         if(masterIdVal) obj[masterId] = masterIdVal;
         try {
