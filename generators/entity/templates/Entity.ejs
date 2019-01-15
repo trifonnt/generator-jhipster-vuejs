@@ -107,7 +107,8 @@
         selectedLabels: [],
       }),
       created() {
-        EventBus.$on('getData', ()=> {
+        this.$on('closeDialog', (makeRequest) => {
+          if(!makeRequest) return false;
           this.getData({masterId: this.$route.params.masterId, filterName: this.filterName})
         })
       },
