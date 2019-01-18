@@ -1,67 +1,4 @@
 <template>
-	<div>
-    <input :name="name" :id='name' type="file" :multiple="multiple" @input="upload($event)" class='fileinput' :ref='name'/>
-    <v-btn @click='chooseFile'>Upload</v-btn>
-    <div v-show='uploadedFiles && uploadedFiles.length'><v-chip v-for='file in uploadedFiles'>{{file.name}} <v-icon @click='removeUploaded(file)'>delete</v-icon></v-chip></div>
-</div>
-</template>
-
-<script>
-	export default {
-		data() {
-			return {
-				uploadedFiles: [],
-			}
-		},
-		methods: {
-			upload(e) {
-				this.uploadedFiles = [...e.target.files];
-				this.$emit('upload', {files: e.target.files, name: e.target.name})
-			},
-			removeUploaded(file) {
-				var index = this.uploadedFiles.indexOf(file);
-				this.$emit('removeUpload', {field: file.field})
-				this.uploadedFiles.splice(index, 1)
-			},
-			chooseFile() {
-				this.$refs[this.name].click();
-			},
-		},
-		watch: {
-			files(val) {
-				this.uploadedFiles = val;
-			}
-		},
-		props: {
-			multiple: {
-				type: Boolean,
-				default: false,
-			},
-			name: String,
-			files: Array,
-		}
-	}
-</script>
-
-<style>
-	.fileinput {
-		width: 0.1px;
-		height: 0.1px;
-		opacity: 0;
-		overflow: hidden;
-		position: absolute;
-		z-index: -1;
-	}
-
-</style>
-
-
-
-
-
-
-
-<template>
 		<div id='dropzoneContainer'>
 			<div>
 				<vue-dropzone ref="myVueDropzone" id="dropzone"  :useCustomSlot='true' :options="dropzoneOptions" :duplicateCheck="true" @vdropzone-file-added='addedFile'
@@ -93,6 +30,12 @@ export default {
   components: {
     vueDropzone: vue2Dropzone
   },
+  mounted() {
+  	for(file of this.files) {
+  		let fileObj = {name: file.fileName, size: file.fileSize, type: file.contentType}
+  		this.$refs.myVueDropzone.manuallyAddFile(fileObj, url);
+  	}
+  }
   created() {
   	this.$nextTick(()=> {
   		this.$refs.myVueDropzone.dropzone.__proto__.submitRequest = (xhr, formData, file) => {
@@ -112,7 +55,6 @@ export default {
           camera: 'true',
           autoProcessQueue: false,
           addRemoveLinks: true,
-          headers: { "My-Awesome-Header": "header value" },
       }
     }
   },
@@ -128,11 +70,12 @@ export default {
   	},
   	files: Array,
   	loading: Boolean,
+  	name: String,
   }
 }
 </script>
 
-<style>
+<style scoped>
 	#dropzoneContainer {
 		display: flex;
 		justify-content: center;

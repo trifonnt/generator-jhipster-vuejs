@@ -52,6 +52,9 @@
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
                         <input-file v-show="$route.params.hideName != '<%=fName%>'" @upload='upload' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' @removeUpload='removeUpload'></input-file>
+                        
+                        <input-file @uploadFile='uploadFile' name='<%=field.fieldName%>' :files=''></input-file>
+
 <!--                         <v-chip v-show='<%=field.fieldName%> && <%=field.fieldName%>.length>0'>
                           <a :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a> 
                           <v-btn v-show='<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
@@ -368,33 +371,13 @@
         else if(!roles.includes(',') && getProfile().jwt && getProfile().roles[0]!=roles) return false;
         return true
       },
-      readFile(file) {
-        return new Promise((resolve, reject) => {
-          let reader = new FileReader();
-          reader.onload = () => {
-            resolve({result: reader.result, name: file.name});
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(file)
-        })
-      },
-      removeUpload(field) {
-        name = field.field;
-        this[name] = "";
-        this[name+"ContentType"] = ""
-      },
-      upload(e) {
-        let files = e.files;
-        let fieldName = e.name;
-        let p = Promise.resolve();
-        let parr = Object.keys(files).map(file=>p.then(()=>this.readFile(files[file])));
-        Promise.all(parr).then(result=>{
-          let name = result[0].name;
-          let data = result[0].result.split(";base64,");
-          this[fieldName] = data[1];
-          this[fieldName+"ContentType"] = data[0].split(":")[1];
-          this[fieldName+"FileName"] = name;
-        })
+      async uploadFile(file) {
+        try {
+          let res = await store.uploadFile(file[0])
+        }
+        catch(err) {
+          console.error(err)
+        }
       },
 			async edit() {
         let res;
