@@ -52,10 +52,7 @@
         <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=name%>" :hideName='hideName'></entity-table-body>
     </template>
     <template slot='footer'>
-      <tr v-for='row in footer'>
-        <td>{{row.header}}</td>
-        <td colspan='100%' class='rightalign'>{{row.value}}</td>
-      </tr>
+      <slot name='tableFooter'></slot>
     </template>
   </v-data-table>
 

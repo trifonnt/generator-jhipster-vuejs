@@ -228,7 +228,8 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "weekstart": "^1.0.0",
             "v-img": "^0.2.0",
             "swagger-ui": "^3.20.4",
-            "vue-multiselect": "^2.1.3"
+            "vue-multiselect": "^2.1.3",
+            "vue2-dropzone": "^3.5.2",
 
           },
           devDependencies: {
