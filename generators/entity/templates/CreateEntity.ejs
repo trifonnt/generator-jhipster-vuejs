@@ -51,7 +51,45 @@
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
-                        <input-file @uploadFile='uploadFile' name='<%=field.fieldName%>'></input-file>
+                       <v-dialog
+                          v-model="dialogFile<%fName%>"
+                          width="500"
+                        >
+                          <v-btn
+                            slot="activator"
+                            color="primary"
+                            dark
+                          >
+                            Upload a file
+                          </v-btn>
+
+                          <v-card>
+                            <v-card-title
+                              class="headline grey lighten-2"
+                              primary-title
+                            >
+                              Upload file
+                            </v-card-title>
+
+                            <v-card-text>
+                              {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                              <input-file @uploadFile='uploadFile' name='<%=field.fieldName%>'></input-file>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                color="gray"
+                                flat
+                                @click="dialogFile<%=fName%> = false"
+                              >
+                                Close
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                     <% } %>
                     <% if(fType == "Boolean") {%>
                       <v-checkbox :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
@@ -279,6 +317,9 @@
             menu<%=field.fieldName%>: '',
           <% } %>
           <% if(fType == 'byte[]') { %>
+            <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
+              dialogFile<%=field.fieldName%>: false,
+            <% } %>
             <%=field.fieldName%>ContentType: "",
             <%=field.fieldName%>FileName: "",
           <% } %>

@@ -51,10 +51,47 @@
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
-                        <input-file v-show="$route.params.hideName != '<%=fName%>'" @upload='upload' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' @removeUpload='removeUpload'></input-file>
-                        
-                        <input-file @uploadFile='uploadFile' name='<%=field.fieldName%>' :files=''></input-file>
+<!--                         <input-file v-show="$route.params.hideName != '<%=fName%>'" @upload='upload' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' @removeUpload='removeUpload'></input-file>
+                         -->
+                       <v-dialog
+                          v-model="dialogFile<%fName%>"
+                          width="500"
+                        >
+                          <v-btn
+                            slot="activator"
+                            color="primary"
+                            dark
+                          >
+                            Upload a file
+                          </v-btn>
 
+                          <v-card>
+                            <v-card-title
+                              class="headline grey lighten-2"
+                              primary-title
+                            >
+                              Upload file
+                            </v-card-title>
+
+                            <v-card-text>
+                              {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                              <input-file @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]'></input-file>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                color="gray"
+                                flat
+                                @click="dialogFile<%=fName%> = false"
+                              >
+                                Close
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
 <!--                         <v-chip v-show='<%=field.fieldName%> && <%=field.fieldName%>.length>0'>
                           <a :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a> 
                           <v-btn v-show='<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
@@ -287,6 +324,9 @@
             menu<%=field.fieldName%>: '',
           <% } %>
           <% if(fType == 'byte[]') { %>
+            <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
+              dialogFile<%=field.fieldName%>: false,
+            <% } %>
             <%=field.fieldName%>ContentType: "",
             <%=field.fieldName%>FileName: "",
           <% } %>
