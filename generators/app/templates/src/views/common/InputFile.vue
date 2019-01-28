@@ -35,7 +35,7 @@ export default {
   		let fileObj = {name: file.fileName, size: file.fileSize, type: file.contentType}
   		this.$refs.myVueDropzone.manuallyAddFile(fileObj, url);
   	}
-  }
+  },
   created() {
   	this.$nextTick(()=> {
   		this.$refs.myVueDropzone.dropzone.__proto__.submitRequest = (xhr, formData, file) => {
