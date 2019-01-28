@@ -58,7 +58,7 @@ export function saveSearch(searchBy, values) {
 	return axios.post('savesearch', {searchBy, values}).then(data=>data.data);
 }
 export function uploadFile(file) {
-	return axios.post('file', {base64: file.dataURL, fileName: file.name, contentType: file.type, fileSize: file.size})
+	return axios.post('files', {base64: file.dataURL, fileName: file.name, contentType: file.type, fileSize: file.size})
 }
 export function getFiles(ids) {
 	return axios.get('/files', {params: {ids}});

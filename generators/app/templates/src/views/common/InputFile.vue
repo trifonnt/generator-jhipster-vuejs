@@ -47,7 +47,7 @@ export default {
   computed: {
   	dropzoneOptions() {
   		let opts = {};
-  		Object.assign(opts, this.dropzoneOptionsDefault, {maxFilesize: this.maxFilesize, maxFiles: this.maxFiles, acceptedFiles: this.acceptedFiles});
+  		Object.assign(opts, this.dropzoneOptionsDefault, {maxFilesize: this.maxFilesize || 10, maxFiles: this.maxFiles || 20, acceptedFiles: this.acceptedFiles || 'image/*,.pdf'});
   		return opts;
   	}
   },
@@ -78,7 +78,10 @@ export default {
   		type: Boolean,
   		default: false,
   	},
-  	files: Array,
+  	files: {
+  		type: Array,
+  		default: [],
+  	},
   	loading: Boolean,
   	name: String,
   	maxFilesize: {

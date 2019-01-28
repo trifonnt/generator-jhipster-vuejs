@@ -53,7 +53,7 @@
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
                        <v-dialog
                           v-model="dialogFile<%fName%>"
-                          width="500"
+                          fullscreen
                         >
                           <v-btn
                             slot="activator"
