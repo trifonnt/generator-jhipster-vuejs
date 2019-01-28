@@ -39,7 +39,7 @@ export default {
   created() {
   	this.$nextTick(()=> {
   		this.$refs.myVueDropzone.dropzone.__proto__.submitRequest = (xhr, formData, file) => {
-  			this.$emit('uploadFile', file)
+  			this.$emit('uploadFile', {file, name: this.name})
   			//set loading as a prop
   		};
   	})

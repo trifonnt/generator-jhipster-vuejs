@@ -55,8 +55,8 @@ export default((name) => {
 		async saveSearch(searchBy, values) {
 			return fetcher.saveSearch(searchBy, values);
 		},
-		async uploadFile(file) {
-			return fetcher.uploadFile(file)
+		async uploadFile(file, name) {
+			return fetcher.uploadFile(file, name)
 		},
 		async getFiles(ids) {
 			return fetcher.getFiles(ids);

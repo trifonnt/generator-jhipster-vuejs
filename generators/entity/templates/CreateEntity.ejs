@@ -404,9 +404,9 @@
         else if(!roles.includes(',') && getProfile().jwt && getProfile().roles[0]!=roles) return false;
         return true
       },
-      async uploadFile(file) {
+      async uploadFile(obj) {
         try {
-          let res = await store.uploadFile(file[0])
+          let res = await store.uploadFile(obj.file[0], obj.name)
         }
         catch(err) {
           console.error(err)
