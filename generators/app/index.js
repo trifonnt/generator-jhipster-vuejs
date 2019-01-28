@@ -230,7 +230,8 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "swagger-ui": "^3.20.4",
             "vue-multiselect": "^2.1.3",
             "vue2-dropzone": "^3.5.2",
-
+            "v-click-outside": "^2.0.2",
+            "vue2-touch-events": "^1.1.2",
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",

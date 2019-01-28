@@ -60,6 +60,15 @@ export function saveSearch(searchBy, values) {
 export function uploadFile(file) {
 	return axios.post('file', {base64: file.dataURL, fileName: file.name, contentType: file.type, fileSize: file.size})
 }
+export function getFiles(ids) {
+	return axios.get('/files', {params: {ids}});
+}
+export function deleteImage(id) {
+	if(Array.isArray(id)) {
+		return axios.delete('/files/delete', {data: {ids: id }}).then(data=>data);
+	}
+	return axios.delete('/files/delete/'+id).then(data=>data.data)
+}
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {

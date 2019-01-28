@@ -21,6 +21,10 @@ import VueImg from 'v-img';
 
 import Multiselect from 'vue-multiselect'
 
+import vClickOutside from 'v-click-outside'
+
+import Vue2TouchEvents from 'vue2-touch-events'
+
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'

@@ -18,6 +18,49 @@
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div v-html="<%=field.fieldName%>"></div></div>
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
+
+
+                  <v-dialog v-show='<%=field.fieldName%>FileIds.length'
+                          v-model="dialogFile<%fName%>"
+                          width="500"
+                        >
+                          <v-btn v-hasRole="'<%=field.visibleForRole%>'"
+                            slot="activator"
+                            color="primary"
+                            dark
+                          >
+                            View files
+                          </v-btn>
+
+                          <v-card>
+                            <v-card-title
+                              class="headline grey lighten-2"
+                              primary-title
+                            >
+                              View gallery
+                            </v-card-title>
+
+                            <v-card-text>
+
+                              <gallery :images='galleryImages' @delete='deleteImage'>
+                              </gallery>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                color="gray"
+                                flat
+                                @click="dialogFile<%=fName%> = false"
+                              >
+                                Close
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                       <a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a>
                       <span v-show='!<%=field.fieldName%>'>{{$t('app.noFileAttached')}}</span>
@@ -63,7 +106,10 @@
 <script>
     let store = require('../../../store/<%=toLower(name)%>').default
     let getEntityById = store.getEntityById;
-    
+    let getFiles = store.getFiles;
+    let deleteImage = store.deleteImage;
+    import Gallery from '../../Gallery.vue'
+
 		export default {
 		data: () => ({
       <% fields.forEach(field=>{%>
@@ -77,8 +123,11 @@
           if(fType == 'String' && field.fieldValues != undefined) val = [];
         %>
         <% if(fType == 'byte[]') { %>
+          dialogFile<%=field.fieldName%>: false,
+          <%=field.fieldName%>FileIds: [],
           <%=field.fieldName%>ContentType: "",
           <%=field.fieldName%>FileName: "",
+          galleryImages: [],
         <% } %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>
@@ -96,8 +145,10 @@
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
-              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
-              this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
+/*              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+              this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName*/
+              this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
+              let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
             <% } %>
           <% } %>
             <% for(relationship of relationships) {
@@ -124,8 +175,19 @@
         window.onafterprint = () => {
           this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
         }
+      },
+      deleteImage(image) {
+        try {
+         await deleteImage(image);
+        }
+        catch(err) {
+          console.error(err)
+        }
       }
-		}
+		},
+    components: {
+      Gallery,
+    }
 	}
 </script>
 <style scoped>

@@ -57,6 +57,15 @@ export default((name) => {
 		},
 		async uploadFile(file) {
 			return fetcher.uploadFile(file)
-		}
+		},
+		async getFiles(ids) {
+			return fetcher.getFiles(ids);
+		},
+		async deleteImage(image) {
+			if(Array.isArray(image)) {
+				return fetcher.delete(image.map(o=>o.id))
+			}
+			return fetcher.deleteImage(image.id);
+		},
 	}
 })
