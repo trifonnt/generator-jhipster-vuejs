@@ -59,7 +59,9 @@ export function saveSearch(searchBy, values) {
 }
 export function uploadFile(file, name) {
 	let ct = name + 'ContentType';
-	return axios.post('files', {[name]: file.dataURL.split('base64,')[1], fileName: file.name, [ct]: file.type, fileSize: file.size})
+	let fn = name + 'FileName';
+	let fs = name + 'FileSize'
+	return axios.post('files', {[name]: file.dataURL.split('base64,')[1], [fn]: file.name, [ct]: file.type, [fs]: file.size})
 }
 export function getFiles(ids) {
 	return axios.get('/files', {params: {ids}});
