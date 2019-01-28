@@ -176,7 +176,7 @@
           this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
         }
       },
-      deleteImage(image) {
+      async deleteImage(image) {
         try {
          await deleteImage(image);
         }

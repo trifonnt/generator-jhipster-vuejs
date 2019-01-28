@@ -23,7 +23,6 @@ Vue.directive('hasRole', {
 	},
 	update: function(el, b) {
 		if(b.value != '') {
-			console.log(getProfile(), "PROFILE")
 			if(!getProfile().jwt) el.style.display = 'none'
 			else if(b.value.includes(',') 
 				&& getProfile().jwt 

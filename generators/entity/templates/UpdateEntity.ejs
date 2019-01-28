@@ -75,7 +75,8 @@
 
                             <v-card-text>
                               {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]'></input-file>
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]'></input-file>
+
                             </v-card-text>
 
                             <v-divider></v-divider>

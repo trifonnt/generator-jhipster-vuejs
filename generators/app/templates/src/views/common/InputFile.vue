@@ -44,11 +44,21 @@ export default {
   		};
   	})
   },
+  computed: {
+  	dropzoneOptions() {
+  		let opts = {};
+  		Object.assign(opts, this.dropzoneOptionsDefault, {maxFilesize: this.maxFilesize, maxFiles: this.maxFiles, acceptedFiles: this.acceptedFiles});
+  		return opts;
+  	}
+  },
   data: function () {
     return {
       files: [],
       loading: false,
-      dropzoneOptions: {
+      dropzoneOptionsDefault: {
+      	  maxFilesize: 10,
+      	  acceptedFiles: 'image/*,.pdf',
+      	  maxFiles: 20,
           url: 'https://httpbin.org/post',
           thumbnailWidth: 150,
           maxFilesize: 0.5,
@@ -71,6 +81,18 @@ export default {
   	files: Array,
   	loading: Boolean,
   	name: String,
+  	maxFilesize: {
+  		type: Number,
+  		default: 10,
+  	},
+  	acceptedFiles: {
+  		type: String,
+  		default: 'image/*,.pdf'
+  	},
+  	maxFiles: {
+  		type: Number,
+  		default: 20,
+  	}
   }
 }
 </script>
