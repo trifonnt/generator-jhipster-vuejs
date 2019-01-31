@@ -70,18 +70,7 @@
                               class="headline grey lighten-2"
                               primary-title
                             >
-                              Upload file
-                            </v-card-title>
-
-                            <v-card-text>
-                              {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true'></input-file>
-
-                            </v-card-text>
-
-                            <v-divider></v-divider>
-
-                            <v-card-actions>
+                              <h5>Upload file for {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</h5>
                               <v-spacer></v-spacer>
                               <v-btn
                                 color="gray"
@@ -90,7 +79,16 @@
                               >
                                 Close
                               </v-btn>
-                            </v-card-actions>
+                            </v-card-title>
+
+                            <v-card-text>
+                              {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{name:<%=field.fieldName%>FileName, size: <%=field.fieldName%>FileSize, type:<%=field.fieldName%>ContentType}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true'></input-file>
+
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
                           </v-card>
                         </v-dialog>
 <!--                         <v-chip v-show='<%=field.fieldName%> && <%=field.fieldName%>.length>0'>
@@ -276,6 +274,8 @@
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
   <% } %> 
     let edit = store.edit;
+    let getFiles = store.getFiles;
+    let deleteImage = store.deleteImage;
     let relationStores = {};
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
@@ -478,11 +478,18 @@
                 <% } }%> 
                 getEntityById(this.$route.params.id)
               ]);
+
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
-            this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
-            this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
+            this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
+            let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
+            if(!entityImages.length) entityImages = [entityImages]
+            for(image of entityImages) {
+              this["<%=field.fieldName%>FileName"] = image.["<%=field.fieldName%>FileName"];
+              this["<%=field.fieldName%>ContentType"] = image.["<%=field.fieldName%>ContentType"];
+              this["<%=field.fieldName%>FileSize"] = image.["<%=field.fieldName%>FileSize"];
+            }
             <% } %>
           <% } %>
           <% for(relationship of relationships) {
