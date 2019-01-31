@@ -49,10 +49,10 @@ export function saveLabels(data) {
 	return axios.post('<%=pluralize(toDashed(name))%>/labels', data);
 }
 export function saveItemOrder(left, right) {
-	return axios.post('<%=pluralize(toDashed(name))%>/saveItemOrder', {left, right})
+	return axios.post('<%=pluralize(toDashed(name))%>/saveItemOrder', {left, right}).then(data=>data.data)
 }
 export function getItemOrder() {
-	return axios.get('itemorder');
+	return axios.get('itemorder').then(data=>data.data);
 }
 export function saveSearch(searchBy, values) {
 	return axios.post('savesearch', {searchBy, values}).then(data=>data.data);
@@ -61,10 +61,10 @@ export function uploadFile(file, name) {
 	let ct = name + 'ContentType';
 	let fn = name + 'FileName';
 	let fs = name + 'FileSize'
-	return axios.post('files', {[name]: file.dataURL.split('base64,')[1], [fn]: file.name, [ct]: file.type, [fs]: file.size})
+	return axios.post('files', {order: file.previewElement.dataset, [name]: file.dataURL.split('base64,')[1], [fn]: file.name, [ct]: file.type, [fs]: file.size}).then(data=>data.data)
 }
 export function getFiles(ids) {
-	return axios.get('/files', {params: {ids}});
+	return axios.get('/files', {params: {ids}}).then(data=>data.data);
 }
 export function deleteImage(id) {
 	if(Array.isArray(id)) {

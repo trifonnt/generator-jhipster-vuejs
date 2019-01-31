@@ -25,6 +25,8 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import Dropzone from 'dropzone'
 
+import Sortable from 'sortablejs'
+
 export default {
   name: 'app',
   components: {
@@ -42,6 +44,12 @@ export default {
   			this.$emit('uploadFile', {file, name: this.name})
   			//set loading as a prop
   		};
+  		var el = document.getElementById('dropzone');
+		  var sortable = new Sortable(el, {
+        onEnd(e) {
+          e.item.dataset.order = e.newIndex;
+        }
+      })
   	})
   },
   computed: {

@@ -410,6 +410,8 @@
           let res = await store.uploadFile(obj.file[0], obj.name)
           let prop = 'loading'+obj.name;
           this[prop] = false;
+          prop = 'dialog'+ obj.name.charAt(0).toUpperCase() + obj.name.slice(1);
+          this[prop] = false
           this.$store.dispatch('snackShowAction', {text: this.$t('file.<%=baseNameApp%>.file.created', {id: res.id}), val: true, color: "success"})
 
         }
