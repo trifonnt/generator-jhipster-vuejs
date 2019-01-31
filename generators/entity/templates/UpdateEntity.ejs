@@ -486,9 +486,9 @@
             let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
             if(!entityImages.length) entityImages = [entityImages]
             for(image of entityImages) {
-              this["<%=field.fieldName%>FileName"] = image.["<%=field.fieldName%>FileName"];
-              this["<%=field.fieldName%>ContentType"] = image.["<%=field.fieldName%>ContentType"];
-              this["<%=field.fieldName%>FileSize"] = image.["<%=field.fieldName%>FileSize"];
+              this.<%=field.fieldName%>FileName = image["<%=field.fieldName%>FileName"];
+              this.<%=field.fieldName%>ContentType = image["<%=field.fieldName%>ContentType"];
+              this.<%=field.fieldName%>FileSize = image["<%=field.fieldName%>FileSize"];
             }
             <% } %>
           <% } %>
