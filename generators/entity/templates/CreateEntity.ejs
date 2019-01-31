@@ -68,17 +68,7 @@
                               class="headline grey lighten-2"
                               primary-title
                             >
-                              Upload file
-                            </v-card-title>
-
-                            <v-card-text>
-                              {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'></input-file>
-                            </v-card-text>
-
-                            <v-divider></v-divider>
-
-                            <v-card-actions>
+                              <h5>Upload file for {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</h5>
                               <v-spacer></v-spacer>
                               <v-btn
                                 color="gray"
@@ -87,7 +77,14 @@
                               >
                                 Close
                               </v-btn>
-                            </v-card-actions>
+                            </v-card-title>
+
+                            <v-card-text>
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'></input-file>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
                           </v-card>
                         </v-dialog>
                     <% } %>
