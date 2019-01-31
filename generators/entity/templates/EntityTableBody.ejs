@@ -97,7 +97,7 @@
           </v-list>
         </v-menu>
       </td>
-      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'] && !items.item['<%=pluralize(relationship.relationshipName)%>'].length"></td>
+      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && !items.item['<%=pluralize(relationship.relationshipName)%>'].length"></td>
     <%
       }
       else {
