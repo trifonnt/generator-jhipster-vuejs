@@ -75,7 +75,7 @@
 
                             <v-card-text>
                               {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]'></input-file>
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true'></input-file>
 
                             </v-card-text>
 
@@ -327,6 +327,7 @@
           <% if(fType == 'byte[]') { %>
             <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
               dialogFile<%=field.fieldName%>: false,
+              loading<%=field.fieldName%>: false,
             <% } %>
             <%=field.fieldName%>ContentType: "",
             <%=field.fieldName%>FileName: "",
@@ -412,9 +413,12 @@
         else if(!roles.includes(',') && getProfile().jwt && getProfile().roles[0]!=roles) return false;
         return true
       },
-      async uploadFile(file) {
+      async uploadFile(obj) {
         try {
-          let res = await store.uploadFile(file[0])
+          let res = await store.uploadFile(obj.file[0], obj.name)
+          let prop = 'loading'+obj.name;
+          this[prop] = false;
+          this.$store.dispatch('snackShowAction', {text: this.$t('file.<%=baseNameApp%>.file.created', {id: res.id}), val: true, color: "success"})
         }
         catch(err) {
           console.error(err)

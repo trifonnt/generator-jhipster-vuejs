@@ -11,7 +11,7 @@
 			        <div class="subtitle">Click, Drag and Drop to upload content!</div>
 			      </div>
 				</vue-dropzone>
-				<div v-show='files.length' @click = '$refs.myVueDropzone.processQueue();loading=true' class='center'>
+				<div v-show='files.length' @click = '$refs.myVueDropzone.processQueue();$emit("loading",true)' class='center'>
 					<v-btn :loading="loading"
 				      :disabled="loading"color="primary">Submit
 				  	</v-btn>
@@ -54,7 +54,6 @@ export default {
   data: function () {
     return {
       files: [],
-      loading: false,
       dropzoneOptionsDefault: {
       	  maxFilesize: 10,
       	  acceptedFiles: 'image/*,.pdf',

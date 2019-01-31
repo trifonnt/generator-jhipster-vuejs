@@ -73,7 +73,7 @@
 
                             <v-card-text>
                               {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>'></input-file>
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'></input-file>
                             </v-card-text>
 
                             <v-divider></v-divider>
@@ -319,6 +319,7 @@
           <% if(fType == 'byte[]') { %>
             <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
               dialogFile<%=field.fieldName%>: false,
+              loading<%=field.fieldName%>: false,
             <% } %>
             <%=field.fieldName%>ContentType: "",
             <%=field.fieldName%>FileName: "",
@@ -407,6 +408,10 @@
       async uploadFile(obj) {
         try {
           let res = await store.uploadFile(obj.file[0], obj.name)
+          let prop = 'loading'+obj.name;
+          this[prop] = false;
+          this.$store.dispatch('snackShowAction', {text: this.$t('file.<%=baseNameApp%>.file.created', {id: res.id}), val: true, color: "success"})
+
         }
         catch(err) {
           console.error(err)
