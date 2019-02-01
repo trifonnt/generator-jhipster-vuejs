@@ -261,6 +261,7 @@
                           >
                             Upload a file
                           </v-btn>
+                              {{fileFileName}
 
                           <v-card>
                             <v-card-title
@@ -279,7 +280,9 @@
                             </v-card-title>
 
                             <v-card-text>
-                              <input-file maxFilesize='<%=relationship.relationshipValidateRulesMaxFilesize%>' maxFiles='<%=relationship.relationshipValidateRulesMaxFiles%>' contentType='<%=relationship.relationshipValidateRulesContentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'></input-file>
+                              <input-file maxFilesize='<%=relationship.relationshipValidateRulesMaxFilesize%>' maxFiles='<%=relationship.relationshipValidateRulesMaxFiles%>' contentType='<%=relationship.relationshipValidateRulesContentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'
+                               :files='[{name:fileFileName, size: fileFileSize, type: fileContentType}]'></input-file>
+                              
                             </v-card-text>
 
                             <v-divider></v-divider>
@@ -532,7 +535,7 @@
 
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
-            <% if(field.fieldType == 'byte[]') { %>
+            <% if(field.fieldType == 'byte[]' && fieldTypeBlobContent == 'image') { %>
             this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
             let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
             if(!entityImages.length) entityImages = [entityImages]
@@ -544,6 +547,16 @@
             <% } %>
           <% } %>
           <% for(relationship of relationships) {
+            <% if(relationship.otherEntityName == 'file') { %>
+              this.<%=relationship.relationshipName%>FileIds = entity.<%=relationship.relationshipName%>FileIds;
+              let entityImages = await getFiles(entity.<%=relationship.relationshipName%>FileIds);
+              if(!entityImages.length) entityImages = [entityImages]
+              for(image of entityImages) {
+                this.<%=relationship.relationshipName%>FileName = image["fileFileName"];
+                this.<%=relationship.relationshipName%>ContentType = image["fileContentType"];
+                this.<%=relationship.relationshipName%>FileSize = image["fileFileSize"];
+              }
+            <% } %>
             if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
           %>
               this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
