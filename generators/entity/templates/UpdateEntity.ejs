@@ -181,7 +181,7 @@
 
 
  -->
-                        <%if(relationship.otherEntityField2) {%>
+                         <%if(relationship.otherEntityField2 && relationship.otherEntityName != 'file') {%>
                             <br>
                             <div v-show="$route.params.hideName != '<%=fName%>'">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
@@ -215,7 +215,7 @@
                           </template>
                           </multiselect>
 
-                      <% } else { %>
+                      <% } else if(relationship.otherEntityName != 'file') { %>
                           <br>
                           <div v-show="$route.params.hideName != '<%=fName%>'">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
@@ -243,6 +243,43 @@
                             ></v-pagination>
                           </template>
                           </multiselect>
+                      <% } else { %>
+                       <v-dialog
+                          v-model="dialogFile<%=fName%>"
+                          fullscreen
+                        >
+                          <v-btn
+                            slot="activator"
+                            color="primary"
+                            dark
+                          >
+                            Upload a file
+                          </v-btn>
+
+                          <v-card>
+                            <v-card-title
+                              class="headline grey lighten-2"
+                              primary-title
+                            >
+                              <h5>Upload file for {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</h5>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                color="gray"
+                                flat
+                                @click="dialogFile<%=fName%> = false"
+                              >
+                                Close
+                              </v-btn>
+                            </v-card-title>
+
+                            <v-card-text>
+                              <input-file maxFilesize='<%=relationship.relationshipValidateRulesMaxFilesize%>' maxFiles='<%=relationship.relationshipValidateRulesMaxFiles%>' contentType='<%=relationship.relationshipValidateRulesContentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'></input-file>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                          </v-card>
+                        </v-dialog>
                       <% } %>
 
                       <v-alert v-hasRole="'<%=relationship.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
