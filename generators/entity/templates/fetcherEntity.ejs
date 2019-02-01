@@ -61,7 +61,7 @@ export function uploadFile(file, name) {
 	let ct = name + 'ContentType';
 	let fn = name + 'FileName';
 	let fs = name + 'FileSize'
-	return axios.post('files', {order: file.previewElement.dataset, [name]: file.dataURL.split('base64,')[1], [fn]: file.name, [ct]: file.type, [fs]: file.size}).then(data=>data.data)
+	return axios.post('files', {order: file.previewElement.dataset, file: file.dataURL.split('base64,')[1], fileFileName: file.name, fileContentType: file.type, fileFileSize: file.size}).then(data=>data.data)
 }
 export function getFiles(ids) {
 	return axios.get('/files', {params: {ids}}).then(data=>data.data);
