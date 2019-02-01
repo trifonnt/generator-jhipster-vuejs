@@ -20,7 +20,7 @@
             <v-icon>more_vert</v-icon>
           </v-chip>
           <v-list>
-            <v-list-tile v-for="val2 in items.item['<%=field.fieldName%>'].slice(2)">
+            <v-list-tile v-for="val2 in items.item['<%=field.fieldName%>'].slice(2)" :key='val2'>
               <v-chip color='primary' class='white--text'>{{val2}}</v-chip>
             </v-list-tile>
           </v-list>
@@ -91,7 +91,7 @@
             <v-icon>more_vert</v-icon>
           </v-chip>
           <v-list>
-            <v-list-tile v-for="val2 in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(2)">
+            <v-list-tile v-for="val2 in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(2)" :key='val2'>
               <v-chip color='primary' class='white--text'>{{val2.<%=relationship.otherEntityField%>}}</v-chip>
             </v-list-tile>
           </v-list>
