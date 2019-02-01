@@ -535,7 +535,7 @@
 
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
-            <% if(field.fieldType == 'byte[]' && fieldTypeBlobContent == 'image') { %>
+            <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
             this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
             let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
             if(!entityImages.length) entityImages = [entityImages]
@@ -546,17 +546,18 @@
             }
             <% } %>
           <% } %>
-          <% for(relationship of relationships) {
-            <% if(relationship.otherEntityName == 'file') { %>
-              this.<%=relationship.relationshipName%>FileIds = entity.<%=relationship.relationshipName%>FileIds;
-              let entityImages = await getFiles(entity.<%=relationship.relationshipName%>FileIds);
-              if(!entityImages.length) entityImages = [entityImages]
-              for(image of entityImages) {
-                this.<%=relationship.relationshipName%>FileName = image["fileFileName"];
-                this.<%=relationship.relationshipName%>ContentType = image["fileContentType"];
-                this.<%=relationship.relationshipName%>FileSize = image["fileFileSize"];
-              }
+          <% for(relationship of relationships) { %>
+            <% if(field.fieldType == 'byte[]' && fieldTypeBlobContent == 'image') { %>
+            this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
+            let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
+            if(!entityImages.length) entityImages = [entityImages]
+            for(image of entityImages) {
+              this.<%=field.fieldName%>FileName = image["<%=field.fieldName%>FileName"];
+              this.<%=field.fieldName%>ContentType = image["<%=field.fieldName%>ContentType"];
+              this.<%=field.fieldName%>FileSize = image["<%=field.fieldName%>FileSize"];
+            }
             <% } %>
+            <%
             if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
           %>
               this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
