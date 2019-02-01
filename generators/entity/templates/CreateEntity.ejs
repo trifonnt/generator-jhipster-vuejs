@@ -376,6 +376,10 @@
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
+          <% if(relationship.otherEntityName == 'file') { %>
+              dialogFile<%=relationship.relationshipName%>: false,
+              loading<%=relationship.relationshipName%>: false,
+          <% } %>
           <%=pluralize(relationship.relationshipName)%>search: '*',
           <%=pluralize(relationship.relationshipName)%>: [],
           <%
