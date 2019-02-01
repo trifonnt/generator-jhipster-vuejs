@@ -496,7 +496,8 @@
                 else if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               %>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>({id:o.id})),
-              <% } else { %>
+              <% } %>
+              <% else { %>
               <%=relationship.relationshipName%>Id:(this.<%=relationship.relationshipName%> && this.<%=relationship.relationshipName%>.id) || '', 
             <% } } %> }
         if(masterIdVal) obj[masterId] = masterIdVal;
