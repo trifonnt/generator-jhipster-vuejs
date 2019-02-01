@@ -457,6 +457,7 @@
           prop = 'dialogFile'+ obj.name.charAt(0).toLowerCase() + obj.name.slice(1);
           this[prop] = false
           this.$store.dispatch('snackShowAction', {text: this.$t('file.<%=baseNameApp%>.file.created', {id: res.id}), val: true, color: "success"})
+          this[obj.name+'Id'] = res.id;
 
         }
         catch(err) {
@@ -489,6 +490,9 @@
               <% } %>
             <% } %>
             <% for(relationship of relationships) { %>
+              <% if(relationship.otherEntityName == 'file') { %>
+                <%=relationship.relationshipName%>Id: this.<%=relationship.relationshipName%>Id,
+              <% } %>
               <%
                 if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               %>

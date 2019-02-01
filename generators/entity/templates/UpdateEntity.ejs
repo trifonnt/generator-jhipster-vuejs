@@ -394,6 +394,7 @@
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
           <% if(relationship.otherEntityName == 'file') { %>
+              <%=relationship.relationshipName%>Id: null,
               dialogFile<%=relationship.relationshipName%>: false,
               loading<%=relationship.relationshipName%>: false,
           <% } %>
