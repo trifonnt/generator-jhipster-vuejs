@@ -247,6 +247,9 @@
                           </template>
                           </multiselect>
                       <% } else { %>
+                        <span class='grey--text'>
+                          {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                        </span>
                        <v-dialog
                           v-model="dialogFile<%=fName%>"
                           fullscreen
