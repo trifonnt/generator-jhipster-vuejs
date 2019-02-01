@@ -383,6 +383,7 @@
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
           <% if(relationship.otherEntityName == 'file') { %>
+              <%=relationship.relationshipName%>Id: null,
               dialogFile<%=relationship.relationshipName%>: false,
               loading<%=relationship.relationshipName%>: false,
           <% } %>
@@ -494,12 +495,12 @@
                 <%=relationship.relationshipName%>Id: this.<%=relationship.relationshipName%>Id,
               <% } %>
               <%
-                if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
+                else if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               %>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>o.id),
-              <% } %>
+              <% } else { %>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
-            <% } %>
+            <% } }%>
           });
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
           this.registered = true
