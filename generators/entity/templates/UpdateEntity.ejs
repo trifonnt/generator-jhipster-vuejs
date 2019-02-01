@@ -281,7 +281,7 @@
 
                             <v-card-text>
                               <input-file maxFilesize='<%=relationship.relationshipValidateRulesMaxFilesize%>' maxFiles='<%=relationship.relationshipValidateRulesMaxFiles%>' contentType='<%=relationship.relationshipValidateRulesContentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'
-                               :files='[{name:fileFileName, size: fileFileSize, type: fileContentType}]'></input-file>
+                               :files='[{name:<%=fName%>FileName, size: <%=fName%>FileSize, type: <%=fName%>ContentType}]'></input-file>
                               
                             </v-card-text>
 
@@ -398,6 +398,9 @@
         <% for(relationship of relationships) { %>
           <% if(relationship.otherEntityName == 'file') { %>
               <%=relationship.relationshipName%>Id: null,
+              <%=relationship.relationshipName%>FileName: null,
+              <%=relationship.relationshipName%>FileSize: null,
+              <%=relationship.relationshipName%>ContentType: null,
               dialogFile<%=relationship.relationshipName%>: false,
               loading<%=relationship.relationshipName%>: false,
           <% } %>
@@ -536,10 +539,10 @@
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
-            this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
-            let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
+            // this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>Id;
+            let entityImages = await getFiles(entity.<%=field.fieldName%>Id);
             if(!entityImages.length) entityImages = [entityImages]
-            for(image of entityImages) {
+            for(let image of entityImages) {
               this.<%=field.fieldName%>FileName = image["<%=field.fieldName%>FileName"];
               this.<%=field.fieldName%>ContentType = image["<%=field.fieldName%>ContentType"];
               this.<%=field.fieldName%>FileSize = image["<%=field.fieldName%>FileSize"];
@@ -548,10 +551,10 @@
           <% } %>
           <% for(relationship of relationships) { %>
             <% if(relationship.otherEntityName == 'file') { %>
-            this.<%=relationship.relationshipName%>FileIds = entity.<%=relationship.relationshipName%>FileIds;
-            let entityImages = await getFiles(entity.<%=relationship.relationshipName%>FileIds);
+            // this.<%=relationship.relationshipName%>FileIds = entity.<%=relationship.relationshipName%>Id;
+            let entityImages = await getFiles(entity.<%=relationship.relationshipName%>Id);
             if(!entityImages.length) entityImages = [entityImages]
-            for(image of entityImages) {
+            for(let image of entityImages) {
               this.<%=relationship.relationshipName%>FileName = image["fileFileName"];
               this.<%=relationship.relationshipName%>ContentType = image["fileContentType"];
               this.<%=relationship.relationshipName%>FileSize = image["fileFileSize"];

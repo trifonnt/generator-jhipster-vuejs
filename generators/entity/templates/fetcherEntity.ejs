@@ -64,7 +64,7 @@ export function uploadFile(file, name) {
 	return axios.post('files', {order: file.previewElement.dataset, file: file.dataURL.split('base64,')[1], fileFileName: file.name, fileContentType: file.type, fileFileSize: file.size}).then(data=>data.data)
 }
 export function getFiles(ids) {
-	return axios.get('/files', {params: {ids}}).then(data=>data.data);
+	return axios.get('/files/'+ids).then(data=>data.data);
 }
 export function deleteImage(id) {
 	if(Array.isArray(id)) {
