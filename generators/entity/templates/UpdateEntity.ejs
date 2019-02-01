@@ -53,6 +53,9 @@
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
 <!--                         <input-file v-show="$route.params.hideName != '<%=fName%>'" @upload='upload' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' @removeUpload='removeUpload'></input-file>
                          -->
+                        <span class='grey--text'>
+                          {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                        </span>
                        <v-dialog
                           v-model="dialogFile<%fName%>"
                           fullscreen
@@ -387,6 +390,10 @@
       <%})%>
       <% if(relationships.length) { %>
         <% for(relationship of relationships) { %>
+          <% if(relationship.otherEntityName == 'file') { %>
+              dialogFile<%=relationship.relationshipName%>: false,
+              loading<%=relationship.relationshipName%>: false,
+          <% } %>
           <%=pluralize(relationship.relationshipName)%>search: '*',
           <%=pluralize(relationship.relationshipName)%>: [],
           <%
@@ -455,7 +462,7 @@
           let res = await store.uploadFile(obj.file[0], obj.name)
           let prop = 'loading'+obj.name;
           this[prop] = false;
-          prop = 'dialog'+ obj.name.charAt(0).toUpperCase() + obj.name.slice(1);
+          prop = 'dialogFile'+ obj.name.charAt(0).toLowerCase() + obj.name.slice(1);
           this[prop] = false
           this.$store.dispatch('snackShowAction', {text: this.$t('file.<%=baseNameApp%>.file.created', {id: res.id}), val: true, color: "success"})
         }

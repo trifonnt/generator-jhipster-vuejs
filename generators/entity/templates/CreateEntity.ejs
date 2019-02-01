@@ -51,6 +51,9 @@
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
+                        <span class='grey--text'>
+                          {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                        </span>
                        <v-dialog
                           v-model="dialogFile<%=fName%>"
                           fullscreen
@@ -448,7 +451,7 @@
           let res = await store.uploadFile(obj.file[0], obj.name)
           let prop = 'loading'+obj.name;
           this[prop] = false;
-          prop = 'dialog'+ obj.name.charAt(0).toUpperCase() + obj.name.slice(1);
+          prop = 'dialogFile'+ obj.name.charAt(0).toLowerCase() + obj.name.slice(1);
           this[prop] = false
           this.$store.dispatch('snackShowAction', {text: this.$t('file.<%=baseNameApp%>.file.created', {id: res.id}), val: true, color: "success"})
 
