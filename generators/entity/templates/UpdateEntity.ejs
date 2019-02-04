@@ -86,7 +86,7 @@
 
                             <v-card-text>
                               {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :files='[{name:<%=field.fieldName%>FileName, size: <%=field.fieldName%>FileSize, type:<%=field.fieldName%>ContentType}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true'></input-file>
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :uploadedFiles='[{name:<%=field.fieldName%>FileName, size: <%=field.fieldName%>FileSize, type:<%=field.fieldName%>ContentType}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true'></input-file>
 
                             </v-card-text>
 

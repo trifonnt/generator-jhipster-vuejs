@@ -32,11 +32,13 @@ export default {
   components: {
     vueDropzone: vue2Dropzone
   },
-  mounted() {
-  	for(file of this.files) {
-  		let fileObj = {name: file.fileName, size: file.fileSize, type: file.contentType}
-  		this.$refs.myVueDropzone.manuallyAddFile(fileObj, url);
-  	}
+  watch: {
+    uploadedFiles() {
+      for(file of this.uploadedFiles) {
+        let fileObj = {name: file.fileName, size: file.fileSize, type: file.contentType}
+        this.$refs.myVueDropzone.manuallyAddFile(fileObj, '')
+      }
+    }
   },
   created() {
   	this.$nextTick(()=> {
@@ -85,7 +87,7 @@ export default {
   		type: Boolean,
   		default: false,
   	},
-  	files: {
+  	uploadedFiles: {
   		type: Array,
   		default: [],
   	},
