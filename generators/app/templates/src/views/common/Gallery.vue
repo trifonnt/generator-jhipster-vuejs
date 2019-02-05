@@ -18,13 +18,16 @@
 			</div>
 		</div>
 		<v-btn v-show='selected.length' @click='deleteAll'>Delete all <v-icon color='red'>delete</v-icon></v-btn>
-		<div id='gallery'>
-			<div class='image' v-for='(image, i) in images'>
-				<img :src='image.Contents' @click.stop='setImage(i)'/>
-				<div :class='{overlay: true, showAll: showAll}'><v-checkbox :value='i' v-model='selected'></v-checkbox></div>
-				<div class='filename'>{{image.FileName}}</div>
+		<slot name='gallery' :images='images' :setImage='setImage' :showAll='showAll' :selected='selected'>
+			<div id='gallery'>
+				<div class='image' v-for='(image, i) in images'>
+					<img :src='image.Contents' @click.stop='setImage(i)'/>
+					<div :class='{overlay: true, showAll: showAll}'><v-checkbox :value='i' v-model='selected'></v-checkbox></div>
+					<div class='filename'>{{image.FileName}}</div>
+				</div>
 			</div>
-		</div>
+		</slot>
+
 	</div>
 </template>
 

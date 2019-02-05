@@ -52,5 +52,7 @@
 </script>
 
 <style>
-	
+	.chart {
+		height: 1000px;
+	}
 </style>

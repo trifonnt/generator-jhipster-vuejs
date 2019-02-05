@@ -73,8 +73,22 @@
 
     <% for(relationship of relationships) { 
       if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-
-      if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
+      if(relationship.otherEntityName == 'file') {
+    %>
+      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
+        <gallery :images='images<%=relationship.relationshipName%>'>
+          <v-btn slot='gallery'
+            slot-scope='{setImage}' 
+            @click='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 
+            color='primary' v-show="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"
+          >
+            Preview image
+          </v-btn>
+        </gallery>
+      </td>
+    <%
+      }
+      else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
     %>
 
 
@@ -97,7 +111,7 @@
           </v-list>
         </v-menu>
       </td>
-      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && !items.item['<%=pluralize(relationship.relationshipName)%>'].length"></td>
+      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>']"></td>
     <%
       }
       else {
@@ -172,6 +186,9 @@
 <script>
   import {createStore} from '../../../storex/'
 
+  let store = require('../../../store/<%=toLower(name)%>').default;
+  let getFiles = store.getFiles;
+
 	export default {
 		data: () => ({
       <% for(field of fields) {
@@ -181,6 +198,11 @@
       <% } %>
       <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { %>
         dialogImage<%=field.fieldName%>: false,
+      <% } } %>
+      <% for(field of fields) {
+        if(relationship.otherEntityName == 'file') {
+      %>
+        images<%=relationship.relationshipName%>: [],
       <% } } %>
     	visibleHeader: false,
     }),
@@ -197,6 +219,19 @@
       }
     },
 		methods: {
+      <% for(field of fields) {
+        if(relationship.otherEntityName == 'file') {
+      %>
+        getImages<%=relationship.relationshipName%>(id) {
+          try {
+            let res = await store.getFiles(id);
+            let images<%=relationship.relationshipName%> = [res];
+          }
+          catch(err) {
+            console.log(err)
+          }
+        },
+      <% } } %>
       deleteItem() {
         this.$store.commit('deleteItem', this.items.item)
       },
