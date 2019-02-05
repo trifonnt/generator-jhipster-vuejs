@@ -42,7 +42,7 @@
 
                             <v-card-text>
 
-                              <gallery :images='galleryImages' @delete='deleteImage'>
+                              <gallery :images='<%=field.fieldName%>Images' @delete='deleteImage'>
                               </gallery>
                             </v-card-text>
 
@@ -82,7 +82,49 @@
                 <% }%>
                 <% for(relationship of relationships) { 
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-                    if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
+                    if(relationship.otherEntityName == 'file') { %>
+                        <v-dialog v-show='<%=relationship.relationshipName%>Id'
+                          v-model="dialogFile<%relationship.relationshipName%>"
+                          width="500"
+                        >
+                          <v-btn v-hasRole="'<%=relationship.visibleForRole%>'"
+                            slot="activator"
+                            color="primary"
+                            dark
+                          >
+                            View files
+                          </v-btn>
+
+                          <v-card>
+                            <v-card-title
+                              class="headline grey lighten-2"
+                              primary-title
+                            >
+                              View gallery
+                            </v-card-title>
+
+                            <v-card-text>
+
+                              <gallery :images='<%=relationship.relationshipName%>Images' @delete='deleteImage'>
+                              </gallery>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                color="gray"
+                                flat
+                                @click="dialogFile<%=relationship.relationshipName%> = false"
+                              >
+                                Close
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                    <%
+                    } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
                 %>
                   <div v-hasRole="'<%=relationship.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= pluralize(relationship.relationshipName) %>')}}</v-chip>
                         <v-chip color="primary" text-color="white" v-for='i in <%=relationship.relationshipName%>' :key='i'>{{i.<%=relationship.otherEntityField%>}}</v-chip>
@@ -154,8 +196,11 @@
             <% for(relationship of relationships) {
               if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
             %>
+              <% if(relationship.otherEntityName == 'file') { %>
+                let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
+                this.<%=relationship.relationshipName%>images = [res]
               <%
-                if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
+                } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
               %>
                 this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
