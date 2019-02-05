@@ -222,7 +222,7 @@
       <% for(field of fields) {
         if(relationship.otherEntityName == 'file') {
       %>
-        getImages<%=relationship.relationshipName%>(id) {
+        async getImages<%=relationship.relationshipName%>(id) {
           try {
             let res = await store.getFiles(id);
             let images<%=relationship.relationshipName%> = [res];
