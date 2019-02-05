@@ -43,7 +43,6 @@ import "vue-multiselect/dist/vue-multiselect.min.css"
 
 import storex from './storex'
 
-import {setProfile} from './store/identity'
 
 window.$ = require('jquery')
 window.JQuery = require('jquery')
@@ -54,7 +53,10 @@ axios.interceptors.response.use(function (response) {
     
     return response;
   }, function (error) {
-    if(error.status == 401) setProfile({})
+    if(error.response.status == 401) {
+       identity.setProfile({})
+       identity.user.auth = false;
+    }
     return Promise.reject(error);
   });
 
