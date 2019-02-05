@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../modules/axios'
 
 export function login(username, password, remember) {
 	return axios.post('authenticate',{username,password,rememberMe: remember}).then(data=>data.data);

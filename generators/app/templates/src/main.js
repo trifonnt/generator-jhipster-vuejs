@@ -3,7 +3,7 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-import axios from 'axios'
+import axios from './modules/axios'
 import * as identity from './store/identity'
 import VeeValidate from 'vee-validate';
 

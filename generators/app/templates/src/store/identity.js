@@ -1,6 +1,6 @@
 import * as storage from '../utils/storage'
 import cookie from 'cookies-js'
-import axios from 'axios'
+import axios from '../modules/axios'
 
 export const user = {
 	auth: false,

@@ -342,7 +342,7 @@
 </template>
 
 <script>
-	import axios from 'axios'
+	import axios from '../../../modules/axios'
 	let store = require('../../../store/entity').default('userx');
 	export default {
 		inject: ['$validator'],

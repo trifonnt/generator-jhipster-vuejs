@@ -1,6 +1,6 @@
 
 
-import axios from 'axios'
+import axios from '../modules/axios'
 
 export function getEntityData(page=0, sort='id,asc', search='', size=10) {
 	if(!search) return axios.get('users', {params: {paged: true, page, size, sort}});

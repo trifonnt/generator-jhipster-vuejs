@@ -1,6 +1,6 @@
 import {login as auth, register as sign, forgot as forgotten, reset as resetPass, getAccount, changeAccount, changePassword} from '../fetchers/login.js'
 import * as identity from './identity'
-import axios from 'axios'
+import axios from '../modules/axios'
 export async function login(username, password, remember) {
 	try {
 		let response = await auth(username, password, remember);

@@ -1,6 +1,6 @@
 <% include fns.ejs %>
 
-import axios from 'axios'
+import axios from '../modules/axios'
 
 export function getEntityData(page=0, sort='id,asc', search='', size=10, masterId='', filterName = '') {
 	if(!search) return axios.get('<%=pluralize(toDashed(name))%>', {params: {paged: true, page, size, sort, [filterName]: masterId}});
