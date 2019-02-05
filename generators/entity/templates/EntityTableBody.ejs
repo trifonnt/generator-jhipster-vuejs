@@ -199,7 +199,7 @@
       <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { %>
         dialogImage<%=field.fieldName%>: false,
       <% } } %>
-      <% for(field of fields) {
+      <% for(relationship of relationships) {
         if(relationship.otherEntityName == 'file') {
       %>
         images<%=relationship.relationshipName%>: [],
@@ -219,7 +219,7 @@
       }
     },
 		methods: {
-      <% for(field of fields) {
+      <% for(relationship of relationships) {
         if(relationship.otherEntityName == 'file') {
       %>
         async getImages<%=relationship.relationshipName%>(id) {
