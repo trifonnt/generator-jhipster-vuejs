@@ -76,7 +76,7 @@
       if(relationship.otherEntityName == 'file') {
     %>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
-        <gallery :images='images<%=relationship.relationshipName%>'>
+        <gallery :galleryImages='images<%=relationship.relationshipName%>'>
           <v-btn slot='gallery'
             slot-scope='{setImage}' 
             @click='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 
@@ -186,6 +186,8 @@
 <script>
   import {createStore} from '../../../storex/'
 
+  import Gallery from '../../common/Gallery.vue'
+
   let store = require('../../../store/<%=toLower(name)%>').default;
   let getFiles = store.getFiles;
 
@@ -225,7 +227,7 @@
         async getImages<%=relationship.relationshipName%>(id) {
           try {
             let res = await store.getFiles(id);
-            let images<%=relationship.relationshipName%> = [res];
+            this.images<%=relationship.relationshipName%> = [res];
           }
           catch(err) {
             console.log(err)
@@ -249,6 +251,9 @@
         default: '',
       },
 		},
+    components: {
+      Gallery,
+    },
 
 	}
 </script>

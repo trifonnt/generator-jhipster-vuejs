@@ -70,6 +70,8 @@ Vue.use(Datetime)
 
 Vue.use(VueImg);
 
+Vue.use(vClickOutside)
+
 Vue.component('multiselect', Multiselect)
 
 let lang = localStorage.getItem('langkey') || 'en';

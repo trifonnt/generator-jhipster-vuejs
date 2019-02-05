@@ -147,7 +147,7 @@
 			selected: [],
 			lightbox: false,
 			curImage: 0,
-			images: [{FileName: 'test1test1test1t est1tes t1te st1 tes t 1t e st1 ', Contents: 'https://via.placeholder.com/150'},{FileName: 'test1', Contents: 'https://via.placeholder.com/250'},{FileName: 'test1', Contents: 'https://via.placeholder.com/350'},{FileName: 'test1', Contents: 'https://via.placeholder.com/1350'},{FileName: 'test1', Contents: 'https://previews.123rf.com/images/blueringmedia/blueringmedia1502/blueringmedia150200178/36274214-a-big-potato-on-a-white-background.jpg'}],
+			images: [],
 		}),
 		created() {
 			window.addEventListener('keyup', e => {
@@ -159,6 +159,11 @@
 		computed: {
 			showAll() {
 				return this.selected.length > 0;
+			}
+		},
+		watch: {
+			galleryImages() {
+				this.images = this.galleryImages
 			}
 		},
 		methods: {
@@ -182,6 +187,9 @@
 			deleteAll() {
 				this.$emit(this.images)
 			},
-		}
+		},
+		props: {
+			galleryImages: Array,
+		},
 	}
 </script>
