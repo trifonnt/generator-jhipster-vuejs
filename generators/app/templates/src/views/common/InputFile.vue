@@ -51,7 +51,6 @@ export default {
         console.log(fileObj,"AAA")
       }
     }
-    }
   },
   created() {
   	this.$nextTick(()=> {

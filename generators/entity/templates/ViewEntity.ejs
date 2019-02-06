@@ -172,15 +172,17 @@
       <%})%>
       <% for(relationship of relationships) { 
         if(relationship.otherEntityName == 'file') {
-      %>
-        <%=relationship.relationshipName%>: '',
-      <% } else { %>
         dialogFile<%=relationship.relationshipName%>: false,
         <%=relationship.relationshipName%>FileIds: [],
         <%=relationship.relationshipName%>ContentType: "",
         <%=relationship.relationshipName%>FileName: "",
         <%=relationship.relationshipName%>File: "",  
-      <% } %>
+      %>
+      <% } else { %>
+
+        <%=relationship.relationshipName%>: '',
+
+      <% } } %>
 		}),
     created() {
       this.getData();
