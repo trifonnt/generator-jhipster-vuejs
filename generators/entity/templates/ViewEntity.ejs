@@ -20,7 +20,7 @@
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
 
                   <div v-hasRole="''" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
-                    <v-dialog v-show='<%=field.fieldName%>FileIds.length'
+                    <v-dialog fullscreen v-show='<%=field.fieldName%>FileIds.length'
                           v-model="dialogFile<%fName%>"
                           width="500"
                         >
@@ -79,7 +79,7 @@
                 <% for(relationship of relationships) { 
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                     if(relationship.otherEntityName == 'file') { %>
-                        <v-dialog v-show='<%=relationship.relationshipName%>Id'
+                        <v-dialog fullscreen v-show='<%=relationship.relationshipName%>Id'
                           v-model="dialogFile<%relationship.relationshipName%>"
                           width="500"
                         >
