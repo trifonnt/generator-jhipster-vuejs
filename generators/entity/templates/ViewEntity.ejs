@@ -160,7 +160,7 @@
           }
           if(fType == 'String' && field.fieldValues != undefined) val = [];
         %>
-        <% if(fType == 'byte[]' && fieldTypeBlobContent == 'image') { %>
+        <% if(fType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
           dialogFile<%=field.fieldName%>: false,
           <%=field.fieldName%>FileIds: [],
           <%=field.fieldName%>ContentType: "",
@@ -170,14 +170,13 @@
         <% } %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>
-      <% for(relationship of relationships) { 
-        if(relationship.otherEntityName == 'file') {
+      <% for(relationship of relationships) {
+        if(relationship.otherEntityName == 'file') { %>
         dialogFile<%=relationship.relationshipName%>: false,
         <%=relationship.relationshipName%>FileIds: [],
         <%=relationship.relationshipName%>ContentType: "",
         <%=relationship.relationshipName%>FileName: "",
         <%=relationship.relationshipName%>File: "",  
-      %>
       <% } else { %>
 
         <%=relationship.relationshipName%>: '',
