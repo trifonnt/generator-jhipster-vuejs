@@ -3,7 +3,7 @@
 		<div v-touch:swipe.left='nextImage' v-touch:swipe.right='prevImage' id='lightbox' v-show='lightbox'>
 			<div id='imgcontainer'>
 				<div id='menu'>
-					<v-icon large color='red' class='icon' @click="$emit('delete',images[curImage])">delete</v-icon>
+					<v-icon large color='red' class='icon' v-show='showDeleteButton' @click="$emit('delete',images[curImage])">delete</v-icon>
 					<span @click='close' class='icon'><v-icon large>close</v-icon></span>
 				</div>
 				<div id='leftarrow' @click='prevImage' class='arrows' v-show='curImage > 0'>
@@ -22,7 +22,7 @@
 			<div id='gallery'>
 				<div class='image' v-for='(image, i) in images'>
 					<img :src='image.Contents' @click.stop='setImage(i)'/>
-					<div :class='{overlay: true, showAll: showAll}'><v-checkbox :value='i' v-model='selected'></v-checkbox></div>
+					<div :class='{overlay: true, showAll: showAll}' v-show='showDeleteAll'><v-checkbox :value='i' v-model='selected'></v-checkbox></div>
 					<div class='filename'>{{image.FileName}}</div>
 				</div>
 			</div>
@@ -190,6 +190,14 @@
 		},
 		props: {
 			galleryImages: Array,
+			showDeleteButton: {
+				type: Boolean,
+				default: true,
+			},
+			showDeleteAll: {
+				type: Boolean,
+				default: true,
+			},
 		},
 	}
 </script>

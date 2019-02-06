@@ -34,10 +34,23 @@ export default {
   },
   watch: {
     uploadedFiles() {
-      for(file of this.uploadedFiles) {
-        let fileObj = {name: file.fileName, size: file.fileSize, type: file.contentType}
-        this.$refs.myVueDropzone.manuallyAddFile(fileObj, '')
+      for(let file of this.uploadedFiles) {
+        if(!file.name) return false;
+        let find = this.files.find(o=>{
+          return o.name == file.name && o.size == file.size && o.type == file.type && o.file == file.file;
+        });
+        if(find && find.name) {
+          return false;
+        }
+        else {
+          this.files.push(...this.uploadedFiles);
+        }
+        console.log("HERERE")
+        let fileObj = {name: file.fileName, size: file.size, type: file.contentType}
+        this.$refs.myVueDropzone.manuallyAddFile(fileObj, "data:" + file.contentType + ";base64," + file.file)
+        console.log(fileObj,"AAA")
       }
+    }
     }
   },
   created() {

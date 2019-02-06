@@ -19,8 +19,8 @@
                   <% } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
 
-
-                  <v-dialog v-show='<%=field.fieldName%>FileIds.length'
+                  <div v-hasRole="''" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
+                    <v-dialog v-show='<%=field.fieldName%>FileIds.length'
                           v-model="dialogFile<%fName%>"
                           width="500"
                         >
@@ -38,29 +38,25 @@
                               primary-title
                             >
                               View gallery
-                            </v-card-title>
-
-                            <v-card-text>
-
-                              <gallery :images='<%=field.fieldName%>Images' @delete='deleteImage'>
-                              </gallery>
-                            </v-card-text>
-
-                            <v-divider></v-divider>
-
-                            <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn
+                             <v-btn
                                 color="gray"
                                 flat
                                 @click="dialogFile<%=fName%> = false"
                               >
-                                Close
+                                <v-icon color='red'>close</v-icon>
                               </v-btn>
-                            </v-card-actions>
+                            </v-card-title>
+
+                            <v-card-text>
+
+                              <gallery :showDeleteButton='false' :showDeleteAll='false' :galleryImages='<%=field.fieldName%>Images' @delete='deleteImage'>
+                              </gallery>
+                            </v-card-text>
+
                           </v-card>
                         </v-dialog>
-
+                        </div>
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                       <a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a>
                       <span v-show='!<%=field.fieldName%>'>{{$t('app.noFileAttached')}}</span>
@@ -164,17 +160,26 @@
           }
           if(fType == 'String' && field.fieldValues != undefined) val = [];
         %>
-        <% if(fType == 'byte[]') { %>
+        <% if(fType == 'byte[]' && fieldTypeBlobContent == 'image') { %>
           dialogFile<%=field.fieldName%>: false,
           <%=field.fieldName%>FileIds: [],
           <%=field.fieldName%>ContentType: "",
           <%=field.fieldName%>FileName: "",
+          <%=field.fieldName%>File: "",
           galleryImages: [],
         <% } %>
         <%=field.fieldName%>: <%-val%>,
       <%})%>
-      <% for(relationship of relationships) { %>
+      <% for(relationship of relationships) { 
+        if(relationship.otherEntityName == 'file') {
+      %>
         <%=relationship.relationshipName%>: '',
+      <% } else { %>
+        dialogFile<%=relationship.relationshipName%>: false,
+        <%=relationship.relationshipName%>FileIds: [],
+        <%=relationship.relationshipName%>ContentType: "",
+        <%=relationship.relationshipName%>FileName: "",
+        <%=relationship.relationshipName%>File: "",  
       <% } %>
 		}),
     created() {
