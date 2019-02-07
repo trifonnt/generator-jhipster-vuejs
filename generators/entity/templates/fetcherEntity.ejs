@@ -68,9 +68,9 @@ export function getFiles(ids) {
 }
 export function deleteImage(id) {
 	if(Array.isArray(id)) {
-		return axios.delete('/files/delete', {data: {ids: id }}).then(data=>data);
+		return axios.delete('/files', {data: {ids: id }}).then(data=>data);
 	}
-	return axios.delete('/files/delete/'+id).then(data=>data.data)
+	return axios.delete('/files/'+id).then(data=>data.data)
 }
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))

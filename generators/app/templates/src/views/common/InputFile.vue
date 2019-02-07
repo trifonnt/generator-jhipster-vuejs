@@ -27,6 +27,8 @@ import Dropzone from 'dropzone'
 
 import Sortable from 'sortablejs'
 
+import fileStore from '../../store/file'
+
 export default {
   name: 'app',
   components: {
@@ -92,7 +94,12 @@ export default {
   methods: {
   	addedFile(file) {
   		this.files.push(file)
-  	}
+  	},
+    async removedFile(file) {
+      var indexes = this.files.map((e, i) => e.id === file.id ? i : '').filter(String)
+      for(let i of indexes) this.files.splice(i, 1)
+      await fileStore.deleteImage(file);
+    }
   },
   props: {
   	multiple: {
