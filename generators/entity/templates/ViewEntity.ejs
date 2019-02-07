@@ -20,6 +20,8 @@
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
 
                   <div v-hasRole="''" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
+                    <div v-hasRole="'<%=field.visibleForRole%>'">
+                    <v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                     <v-dialog fullscreen v-show='<%=field.fieldName%>FileIds.length'
                           v-model="dialogFile<%fName%>"
                           width="500"
@@ -56,6 +58,7 @@
 
                           </v-card>
                         </v-dialog>
+                      </div>
                         </div>
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                       <a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a>
@@ -79,8 +82,9 @@
                 <% for(relationship of relationships) { 
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                     if(relationship.otherEntityName == 'file') { %>
+                    <div v-hasRole="'<%=field.visibleForRole%>'"><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                         <v-dialog fullscreen v-show='<%=relationship.relationshipName%>Id'
-                          v-model="dialogFile<%relationship.relationshipName%>"
+                          v-model="dialogFile<%=relationship.relationshipName%>"
                           width="500"
                         >
                           <v-btn v-hasRole="'<%=relationship.visibleForRole%>'"
@@ -115,6 +119,7 @@
 
                           </v-card>
                         </v-dialog>
+                      </div>
                     <%
                     } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
                 %>
