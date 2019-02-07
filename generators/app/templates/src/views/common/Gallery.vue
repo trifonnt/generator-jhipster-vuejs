@@ -10,7 +10,7 @@
 					<
 				</div>
 				<div class='previewimg'>
-					<img v-click-outside="clickOutside" :src='images[curImage].Contents'/>
+					<img v-click-outside="clickOutside" :src='images[curImage] && "data:" + images[curImage].fileContentType + ";base64," + images[curImage].file'/>
 				</div>
 				<div id='rightarrow' @click='nextImage' class='arrows' v-show='curImage != images.length-1'>
 					>
@@ -18,10 +18,10 @@
 			</div>
 		</div>
 		<v-btn v-show='selected.length' @click='deleteAll'>Delete all <v-icon color='red'>delete</v-icon></v-btn>
-		<slot name='gallery' :images='images' :setImage='setImage' :showAll='showAll' :selected='selected'>
+		<slot class='preview' name='gallery' :images='images' :setImage='setImage' :showAll='showAll' :selected='selected'>
 			<div id='gallery'>
 				<div class='image' v-for='(image, i) in images'>
-					<img :src='image.Contents' @click.stop='setImage(i)'/>
+					<img :src='images[curImage]  && "data:" + images[curImage].fileContentType + ";base64," + images[curImage].file' @click.stop='setImage(i)'/>
 					<div :class='{overlay: true, showAll: showAll}' v-show='showDeleteAll'><v-checkbox :value='i' v-model='selected'></v-checkbox></div>
 					<div class='filename'>{{image.FileName}}</div>
 				</div>
@@ -67,7 +67,6 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		border: 1px solid red;
 	}
 	.previewimg img {
 		max-height: calc(100vh - 80px);
@@ -177,7 +176,7 @@
 				this.lightbox = false
 			},
 			clickOutside(e, el) {
-				if(e.target.parentNode.id == 'menu' || e.target.classList.contains('arrows')) return;
+				if(e.target.parentNode.id == 'menu' || e.target.classList.contains('arrows') || e.target.classList.contains('preview')) return;
 				this.lightbox = false;
 			},
 			setImage(i) {

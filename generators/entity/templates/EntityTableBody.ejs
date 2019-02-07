@@ -76,7 +76,7 @@
       if(relationship.otherEntityName == 'file') {
     %>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
-        <gallery :showDeleteButton='false' :galleryImages='imagesimage01' :galleryImages='images<%=relationship.relationshipName%>'>
+        <gallery :showDeleteButton='false' :galleryImages='images<%=relationship.relationshipName%>'>
           <v-btn slot='gallery'
             slot-scope='{setImage}' 
             @click='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 

@@ -280,7 +280,7 @@
 
                             <v-card-text>
                               <input-file maxFilesize='<%=relationship.relationshipValidateRulesMaxFilesize%>' maxFiles='<%=relationship.relationshipValidateRulesMaxFiles%>' contentType='<%=relationship.relationshipValidateRulesContentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'
-                               :files='[{name:<%=fName%>FileName, size: <%=fName%>FileSize, type: <%=fName%>ContentType, file: <%=fName%>File}]'></input-file>
+                               :uploadedFiles='[{name:<%=fName%>FileName, size: <%=fName%>FileSize, type: <%=fName%>ContentType, file: <%=fName%>File}]'></input-file>
                               
                             </v-card-text>
 

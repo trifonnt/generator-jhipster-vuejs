@@ -89,6 +89,13 @@
                             dark
                           >
                             View files
+                            <v-btn
+                              color="red"
+                              flat
+                              @click="dialogFile<%=relationship.relationshipName%> = false"
+                            >
+                              <v-icon>close</v-icon>
+                            </v-btn>
                           </v-btn>
 
                           <v-card>
@@ -101,22 +108,10 @@
 
                             <v-card-text>
 
-                              <gallery :images='<%=relationship.relationshipName%>Images' @delete='deleteImage'>
+                              <gallery :images='<%=relationship.relationshipName%>images' @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'>
                               </gallery>
                             </v-card-text>
 
-                            <v-divider></v-divider>
-
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn
-                                color="gray"
-                                flat
-                                @click="dialogFile<%=relationship.relationshipName%> = false"
-                              >
-                                Close
-                              </v-btn>
-                            </v-card-actions>
                           </v-card>
                         </v-dialog>
                     <%
@@ -177,6 +172,8 @@
         <%=relationship.relationshipName%>ContentType: "",
         <%=relationship.relationshipName%>FileName: "",
         <%=relationship.relationshipName%>File: "",  
+        <%=relationship.relationshipName%>images: '',
+        <%=relationship.relationshipName%>Id: '',
       <% } else { %>
 
         <%=relationship.relationshipName%>: '',
@@ -203,6 +200,7 @@
               if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
             %>
               <% if(relationship.otherEntityName == 'file') { %>
+                this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id;
                 let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
                 this.<%=relationship.relationshipName%>images = [res]
               <%
