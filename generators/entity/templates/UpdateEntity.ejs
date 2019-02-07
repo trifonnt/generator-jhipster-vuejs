@@ -493,7 +493,7 @@
             id: this.$route.params.id,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
-              <% if(field.fieldType == 'byte[]') { %>
+              <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
                 <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType,
                 <%=field.fieldName%>FileName: this.<%=field.fieldName%>FileName,
               <% } %>
