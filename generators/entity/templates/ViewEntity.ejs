@@ -190,7 +190,7 @@
           let entity = await getEntityById(this.$route.params.id);
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
-            <% if(field.fieldType == 'byte[]' && file.fieldTypeBlobContent == 'image') { %>
+            <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
 /*              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
               this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName*/
               this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
