@@ -79,7 +79,7 @@
         <gallery :showDeleteButton='false' :galleryImages='images<%=relationship.relationshipName%>'>
           <v-btn slot='gallery'
             slot-scope='{setImage}' 
-            @click='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 
+            @click.stop='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 
             color='primary' v-show="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"
           >
             Preview image

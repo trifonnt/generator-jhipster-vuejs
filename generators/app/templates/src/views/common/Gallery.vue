@@ -36,7 +36,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		background-color: rgba(0, 100, 200, 0.5);
+		background-color: #000000a3;
 		opacity: 1;
 		width: 100%;
 		height: 100%;
