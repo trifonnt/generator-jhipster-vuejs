@@ -89,13 +89,6 @@
                             dark
                           >
                             View files
-                            <v-btn
-                              color="red"
-                              flat
-                              @click="dialogFile<%=relationship.relationshipName%> = false"
-                            >
-                              <v-icon>close</v-icon>
-                            </v-btn>
                           </v-btn>
 
                           <v-card>
@@ -104,11 +97,19 @@
                               primary-title
                             >
                               View gallery
+                              <v-spacer></v-spacer>
+                            <v-btn
+                              color="red"
+                              flat
+                              @click="dialogFile<%=relationship.relationshipName%> = false"
+                            >
+                              <v-icon>close</v-icon>
+                            </v-btn>
                             </v-card-title>
 
                             <v-card-text>
 
-                              <gallery :images='<%=relationship.relationshipName%>images' @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'>
+                              <gallery :galleryImages='<%=relationship.relationshipName%>images' @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'>
                               </gallery>
                             </v-card-text>
 
