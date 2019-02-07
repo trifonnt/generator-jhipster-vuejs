@@ -86,7 +86,7 @@
 
                             <v-card-text>
                               {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
-                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :uploadedFiles='[{name:<%=field.fieldName%>FileName, size: <%=field.fieldName%>FileSize, type:<%=field.fieldName%>ContentType, file: <%=field.fieldName%>File, id: <%=field.fieldName%>Id}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true'></input-file>
+                              <input-file maxFilesize='<%=field.maxFilesize%>' maxFiles='<%=field.maxFiles%>' contentType='<%=field.contentType%>' @uploadFile='uploadFile' name='<%=field.fieldName%>' :uploadedFiles='[{name:<%=field.fieldName%>FileName, size: <%=field.fieldName%>FileSize, type:<%=field.fieldName%>ContentType, file: <%=field.fieldName%>File, id: <%=field.fieldName%>Id}]' :loading='loading<%=fName%>' @loading='loading<%=fName%> = true' @removedFile='removedFile'></input-file>
 
                             </v-card-text>
 
@@ -280,7 +280,7 @@
 
                             <v-card-text>
                               <input-file maxFilesize='<%=relationship.relationshipValidateRulesMaxFilesize%>' maxFiles='<%=relationship.relationshipValidateRulesMaxFiles%>' contentType='<%=relationship.relationshipValidateRulesContentType%>' @uploadFile='uploadFile' @loading='loading<%=fName%> = true' name='<%=fName%>' :loading='loading<%=fName%>'
-                               :uploadedFiles='[{name:<%=fName%>FileName, size: <%=fName%>FileSize, type: <%=fName%>ContentType, file: <%=fName%>File, id: <%=fName%>Id}]'></input-file>
+                               :uploadedFiles='[{name:<%=fName%>FileName, size: <%=fName%>FileSize, type: <%=fName%>ContentType, file: <%=fName%>File, id: <%=fName%>Id}]' @removedFile='removedFile'></input-file>
                               
                             </v-card-text>
 
@@ -434,6 +434,10 @@
       <% } %>
     },
     methods: {
+      removedFile(file) {
+        this[file.name+'Id'] = null;
+        this.edit()
+      },
       async getDropdownData() {
         if(!this.activeDropdown) return;
         let relation,count;

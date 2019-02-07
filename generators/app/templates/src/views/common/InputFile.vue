@@ -98,7 +98,8 @@ export default {
     async removedFile(file) {
       var indexes = this.files.map((e, i) => e.id === file.id ? i : '').filter(String)
       for(let i of indexes) this.files.splice(i, 1)
-      await fileStore.deleteImage(file);
+      //await fileStore.deleteImage(file);
+      this.$emit('removedFile', {file, name: this.name})
     }
   },
   props: {
