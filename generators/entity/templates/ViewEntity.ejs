@@ -83,7 +83,7 @@
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                     if(relationship.otherEntityName == 'file') { %>
                     <div v-hasRole="'<%=field.visibleForRole%>'"><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
-                        <v-dialog fullscreen v-show='<%=relationship.relationshipName%>Id'
+                        <v-dialog fullscreen v-show='<%=relationship.relationshipName%>Id.length'
                           v-model="dialogFile<%=relationship.relationshipName%>"
                           width="500"
                         >
@@ -91,6 +91,7 @@
                             slot="activator"
                             color="primary"
                             dark
+                            @click='viewFiles(<%=relationship.relationshipName)%>'
                           >
                             View files
                           </v-btn>
@@ -119,6 +120,13 @@
 
                           </v-card>
                         </v-dialog>
+                        <gallery v-show='Number.isInteger(<%=relationship.relationshipName%>Id)' :galleryImages='<%=relationship.relationshipName%>images' @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'>
+                        <img width='100px' height='100px' src='<%=relationship.relationshipName%>images[0]' slot='gallery'
+                          slot-scope='{setImage}' 
+                          @click.stop='setImage(0)' 
+                          color='primary'
+                        />
+                        </gallery>
                       </div>
                     <%
                     } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
@@ -207,8 +215,10 @@
             %>
               <% if(relationship.otherEntityName == 'file') { %>
                 this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id;
-                let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
-                this.<%=relationship.relationshipName%>images = [res]
+                if(Number.isInteger(entity.<%=relationship.relationshipName%>Id) || (Array.isArray(entity.<%=relationship.relationshipName%>Id) entity.<%=relationship.relationshipName%>Id.length > 1)) {
+                  let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
+                  this.<%=relationship.relationshipName%>images = [res]
+                }
               <%
                 } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
               %>
@@ -219,6 +229,11 @@
             <% } } %> 
         }
         catch(err) {console.log(err)}
+      },
+      viewFiles(name) {
+        //only works on relationships for now
+        let res = await getFiles(entity[name+'Id']);
+        this[name+'images'] = [res]
       },
       back() {
         this.$router.go(-1)

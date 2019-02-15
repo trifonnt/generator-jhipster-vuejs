@@ -9,7 +9,7 @@
     <% for(field of fields) { 
       if(field.fieldType == 'String' && field.fieldValues != undefined) {
     %>
-      <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
+      <td v-if="items.item['<%=pluralize(field.fieldName)%>'] && items.item['<%=pluralize(field.fieldName)%>'].length" v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
           <v-chip color='primary' class='morechips' v-show="items.item['<%=field.fieldName%>'] && items.item['<%=field.fieldName%>'].length > 2"
@@ -26,6 +26,7 @@
           </v-list>
         </v-menu>
       </td>
+      <td v-show='hideName!="<%=field.fieldName%>"' v-if="!items.item['<%=pluralize(field.fieldName)%>'] || items.item['<%=pluralize(field.relationshipName)%>'].length == 0"></td>
     <%
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') {
@@ -111,7 +112,7 @@
           </v-list>
         </v-menu>
       </td>
-      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>']"></td>
+      <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'] || items.item['<%=pluralize(relationship.relationshipName)%>'].length == 0"></td>
     <%
       }
       else {
