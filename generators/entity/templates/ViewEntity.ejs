@@ -91,7 +91,7 @@
                             slot="activator"
                             color="primary"
                             dark
-                            @click='viewFiles(<%=relationship.relationshipName)%>'
+                            @click='viewFiles(<%=relationship.relationshipName%>)'
                           >
                             View files
                           </v-btn>
@@ -120,13 +120,16 @@
 
                           </v-card>
                         </v-dialog>
-                        <gallery v-show='Number.isInteger(<%=relationship.relationshipName%>Id)' :galleryImages='<%=relationship.relationshipName%>images' @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'>
-                        <img width='100px' height='100px' src='<%=relationship.relationshipName%>images[0]' slot='gallery'
+                        <div class='flex' v-hasRole="'<%=field.visibleForRole%>'" v-show='Number.isInteger(<%=relationship.relationshipName%>Id)'>
+                        <v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>
+                        <gallery @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'  :galleryImages='<%=relationship.relationshipName%>images'>
+                        <img class='smallimage' :src='"data:" + <%=relationship.relationshipName%>images[0].fileContentType + ";base64," + <%=relationship.relationshipName%>images[0].file' slot='gallery'
                           slot-scope='{setImage}' 
                           @click.stop='setImage(0)' 
                           color='primary'
                         />
                         </gallery>
+                        </div>
                       </div>
                     <%
                     } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
@@ -157,8 +160,8 @@
     let deleteImage = store.deleteImage;
     import Gallery from '../../common/Gallery.vue'
 
-		export default {
-		data: () => ({
+    export default {
+    data: () => ({
       <% fields.forEach(field=>{%>
         <%
           let fType = field.fieldType;
@@ -193,11 +196,11 @@
         <%=relationship.relationshipName%>: '',
 
       <% } } %>
-		}),
+    }),
     created() {
       this.getData();
     },
-		methods: {
+    methods: {
       async getData() {
         try {
           let entity = await getEntityById(this.$route.params.id);
@@ -230,7 +233,7 @@
         }
         catch(err) {console.log(err)}
       },
-      viewFiles(name) {
+      async viewFiles(name) {
         //only works on relationships for now
         let res = await getFiles(entity[name+'Id']);
         this[name+'images'] = [res]
@@ -254,11 +257,11 @@
           console.error(err)
         }
       }
-		},
+    },
     components: {
       Gallery,
     }
-	}
+  }
 </script>
 <style scoped>
   .v-chip--label, .v-chip--label .v-chip__content {
@@ -266,5 +269,13 @@
   }
   >>>.v-chip--label, .v-chip--label .v-chip__content {
     width: 200px;
+  }
+  .smallimage {
+    width: 200px;
+    height: 100px;
+    object-fit: contain;
+  }
+  .flex {
+    display: flex;
   }
 </style>
