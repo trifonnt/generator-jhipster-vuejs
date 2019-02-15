@@ -215,7 +215,7 @@
             %>
               <% if(relationship.otherEntityName == 'file') { %>
                 this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id;
-                if(Number.isInteger(entity.<%=relationship.relationshipName%>Id) || (Array.isArray(entity.<%=relationship.relationshipName%>Id) entity.<%=relationship.relationshipName%>Id.length > 1)) {
+                if(Number.isInteger(entity.<%=relationship.relationshipName%>Id) || (Array.isArray(entity.<%=relationship.relationshipName%>Id) && entity.<%=relationship.relationshipName%>Id.length > 1)) {
                   let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
                   this.<%=relationship.relationshipName%>images = [res]
                 }
