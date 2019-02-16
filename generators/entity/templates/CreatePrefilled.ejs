@@ -3,12 +3,12 @@
 <template>
   
           <v-dialog v-model="dialog" persistent>
-          <v-btn @click.native='getData' slot="activator" color="primary" dark>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-btn>
+          <v-btn @click.native='getData' slot="activator" color="primary" dark>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.addLabel')}}</v-btn>
 
             <v-card class="elevation-12 createPrefilled">
               <v-toolbar dark color="primary">
 
-                <v-toolbar-title>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.addLabel')}}</v-toolbar-title>
+                <v-toolbar-title>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.addLabel')}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
               </v-toolbar>
@@ -41,19 +41,19 @@
                     validate = JSON.stringify(validate)
                   %>
                     <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
-                      <v-text-field v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
 
                     <% if(fType=="String" && field.fieldValues == undefined) {%>
-                      <v-text-field v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <% }%>
                     <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
                         <input-file v-show='!hiddenFields.includes("<%=fName%>")' @upload='upload' name='<%=field.fieldName%>'></input-file>
                     <% } %>
                     <% if(fType == "Boolean") {%>
-                      <v-checkbox v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
+                      <v-checkbox v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                     <% if(['LocalDate','ZonedDateTime'].includes(fType)) {%>
@@ -72,7 +72,7 @@
                           <v-text-field
                             slot="activator"
                             v-model="<%=fName%>"
-                            label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                            label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')"
                             prepend-icon="event"
                             readonly
                           ></v-text-field>
@@ -83,15 +83,15 @@
                     <% } %>
                     <% if(fType == 'Instant') { %>
                       <datetime v-show='!hiddenFields.includes("<%=fName%>")' v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
-                          <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
+                          <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')}}</label>
                       </datetime>   
                     <% } %>
                     <% if(fType == "String" && field.fieldValues != undefined) {%>
-                      <v-select v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
+                      <v-select v-show='!hiddenFields.includes("<%=fName%>")' :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <% } %>
                   <% if(fType == 'Html' || fType == 'byte[]' && field.fieldTypeBlobContent == 'text') {%>
-                      {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
+                      {{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')}}
                       <br/>
                       <quill-editor v-show='!hiddenFields.includes("<%=fName%>")' v-hasRole="'<%=field.visibleForRole%>'" ref="quillEditor<%=fName%>"
                         v-model="<%=fName%>"
@@ -131,7 +131,7 @@
                       model = fName+'Values';
                     }
                   %>
- <!--                      <v-select <%if(relationship.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
+ <!--                      <v-select <%if(relationship.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')" v-model="<%=fName%>"
                         item-text='<%=relationship.otherEntityField%>' item-value='id'
                         ></v-select>
 
@@ -145,7 +145,7 @@
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 
                           name="<%=pluralize(fName)%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                          :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
@@ -177,7 +177,7 @@
                             label='name'
                             v-model = '<%=model%>'
                             :options = '<%=pluralize(fName)%>'
-                            :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                            :placeholder="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                             track-by='id'
                           >
                           <template slot="option" slot-scope="props">
@@ -199,7 +199,7 @@
                           :search-input.sync="<%=fName%>search"
                           v-validate='<%-validate%>' 
                           name="<%=pluralize(fName)%>" 
-                          :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                          :label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                           v-model="<%=model%>"
                           item-text='<%=relationship.otherEntityField%>' 
                           item-value='id'
@@ -225,7 +225,7 @@
                             label='name'
                             v-model = '<%=model%>'
                             :options = '<%=pluralize(fName)%>'
-                            :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                            :placeholder="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                             track-by='id'
                           >
                           <template slot='afterList'>
@@ -246,7 +246,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :disabled="errors.any()" color="primary" @click='edit'>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel')}}</v-btn>
+                <v-btn :disabled="errors.any()" color="primary" @click='edit'>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.createOrEditLabel')}}</v-btn>
                 <v-btn @click='cancel'>{{$t('app.cancel')}}</v-btn>
               </v-card-actions>
             </v-card>
@@ -257,7 +257,7 @@
   import {getProfile} from '../../../store/identity'
   import InputFile from '../../common/InputFile.vue'
 
-  let store = require('../../../store/<%=toLower(name)%>').default;
+  let store = require('../../../store/<%=toLower(relationshipName)%>').default;
   <% for(relationship of relationships) { %>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
   <% } %> 
@@ -351,10 +351,10 @@
     props: {
       prefillId: Number,
       prefillName: String,
-      name: String,
+      relationshipName: String,
     },
     created() {
-      getEntityPrefilled = relationStores[this.name].getEntityPrefilled;    
+      getEntityPrefilled = relationStores[this.relationshipName].getEntityPrefilled;    
     },
     watch: {
       <% for(relationship of relationships) { %>
@@ -465,7 +465,7 @@
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
             <% } %>
           });
-          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
+          this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.created', {id: res.id}), val: true, color: "success"})
           this.registered = true
           this.dialog = false;
           this.$parent.$parent.$emit('closeDialog', true)
