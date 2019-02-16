@@ -462,7 +462,7 @@
               %>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values,
               <% } %>
-              <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>, 
+              <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
             <% } %>
           });
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
