@@ -233,6 +233,7 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "v-click-outside": "^2.0.2",
             "vue2-touch-events": "^1.1.2",
             "sortablejs": "^1.8.1",
+            "pluralize": "^7.0.0",
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",
