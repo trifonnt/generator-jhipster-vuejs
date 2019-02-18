@@ -257,7 +257,7 @@
   import {getProfile} from '../../../store/identity'
   import InputFile from '../../common/InputFile.vue'
   import pluralize from 'pluralize'
-  
+
   let store, create, getEntityPrefilled;
   <% for(relationship of relationships) { %>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
@@ -516,7 +516,7 @@
                 %>
                   <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
                 <% } }%> 
-                getEntityPrefilled(this.prefillId, pluralize(this.prefillName), this.masterEntity)
+                getEntityPrefilled(this.prefillId, pluralize(this.prefillName), pluralize(this.masterEntity))
               ]);
             this.hiddenFields = entity.headers['x-<%=toLower(baseNameApp)%>-hidden-fields'];
             entity = entity.data;
