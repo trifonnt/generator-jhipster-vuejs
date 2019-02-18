@@ -257,11 +257,10 @@
   import {getProfile} from '../../../store/identity'
   import InputFile from '../../common/InputFile.vue'
 
-  let store = require('../../../store/<%=toLower(relationshipOther)%>').default;
+  let store, create;
   <% for(relationship of relationships) { %>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
   <% } %> 
-    let create = store.create;
     let relationStores = {};
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
@@ -271,6 +270,10 @@
     inject: ['$validator'],
     components: {
       InputFile,
+    },
+    created() {
+      store = require('../../../store/+'this.relationshipOther).default;
+      create = store.create
     },
     data: () => ({
       hiddenFields: [],
