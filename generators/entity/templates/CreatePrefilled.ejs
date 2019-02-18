@@ -272,7 +272,7 @@
       InputFile,
     },
     created() {
-      store = require('../../../store/+'this.relationshipOther).default;
+      store = require('../../../store/'+this.relationshipOther).default;
       create = store.create
     },
     data: () => ({
