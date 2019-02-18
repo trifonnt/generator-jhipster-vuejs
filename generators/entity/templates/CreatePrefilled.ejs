@@ -256,8 +256,9 @@
 <script>
   import {getProfile} from '../../../store/identity'
   import InputFile from '../../common/InputFile.vue'
-
-  let store, create;
+  import pluralize from 'pluralize'
+  
+  let store, create, getEntityPrefilled;
   <% for(relationship of relationships) { %>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
   <% } %> 
@@ -265,15 +266,15 @@
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <% } %> 
-    let getEntityPrefilled = store.getEntityPrefilled;
     export default {
     inject: ['$validator'],
     components: {
       InputFile,
     },
     created() {
-      store = require('../../../store/'+this.relationshipOther).default;
+      store = require('../../../store/'+this.relationshipOther.toLowerCase()).default;
       create = store.create
+      getEntityPrefilled = store.getEntityPrefilled;
     },
     data: () => ({
       hiddenFields: [],
@@ -356,6 +357,7 @@
       prefillName: String,
       relationshipName: String,
       relationshipOther: String,
+      masterEntity: String,
     },
     watch: {
       <% for(relationship of relationships) { %>
@@ -482,6 +484,7 @@
         this.$parent.$parent.$emit('closeDialog', false)
       },
       async getData() {
+        console.log(getEntityPrefilled)
         <% for(field of fields) { %>
             this.<%=field.fieldName%> = '';
             <% if(field.fieldType == 'byte[]') { %>
@@ -513,7 +516,7 @@
                 %>
                   <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
                 <% } }%> 
-                getEntityPrefilled(this.prefillId, this.prefillName)
+                getEntityPrefilled(this.prefillId, pluralize(this.prefillName), this.masterEntity)
               ]);
             this.hiddenFields = entity.headers['x-<%=toLower(baseNameApp)%>-hidden-fields'];
             entity = entity.data;
