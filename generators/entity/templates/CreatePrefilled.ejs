@@ -257,7 +257,7 @@
   import {getProfile} from '../../../store/identity'
   import InputFile from '../../common/InputFile.vue'
 
-  let store = require('../../../store/<%=toLower(relationshipName)%>').default;
+  let store = require('../../../store/<%=toLower(relationshipOther)%>').default;
   <% for(relationship of relationships) { %>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
   <% } %> 
@@ -266,7 +266,7 @@
     <% for(relationship of relationships) {%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <% } %> 
-    let getEntityPrefilled;
+    let getEntityPrefilled = store.getEntityPrefilled;
     export default {
     inject: ['$validator'],
     components: {
@@ -352,9 +352,7 @@
       prefillId: Number,
       prefillName: String,
       relationshipName: String,
-    },
-    created() {
-      getEntityPrefilled = relationStores[this.relationshipName].getEntityPrefilled;    
+      relationshipOther: String,
     },
     watch: {
       <% for(relationship of relationships) { %>
