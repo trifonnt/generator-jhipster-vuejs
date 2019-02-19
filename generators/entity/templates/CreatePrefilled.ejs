@@ -161,7 +161,7 @@
 
                         </v-autocomplete>
  -->
-                          <multiselect v-show='!hiddenFields.includes("<%=fName%>")'
+                          <multiselect
                             v-validate = '<%-validate%>'
                             data-vv-name = '<%=relationship.otherEntityField%>'
                             data-vv-value-path = 'id'
@@ -209,7 +209,7 @@
                             :length="pageLength"
                           ></v-pagination>
                         </v-autocomplete> -->
-                          <multiselect v-show='!hiddenFields.includes("<%=fName%>")'
+                          <multiselect
                             v-validate = '<%-validate%>'
                             data-vv-name = '<%=relationship.otherEntityField%>'
                             data-vv-value-path = 'id'
@@ -518,7 +518,7 @@
                 <% } }%> 
                 getEntityPrefilled(this.prefillId, pluralize(this.prefillName), pluralize(this.masterEntity))
               ]);
-            this.hiddenFields = entity.headers['x-<%=toLower(baseNameApp)%>-hidden-fields'];
+            this.hiddenFields = JSON.parse(entity.headers['x-<%=toLower(baseNameApp)%>-hidden-fields']);
             entity = entity.data;
           <% for(field of fields) { %>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
@@ -535,7 +535,7 @@
               %>
                 this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
               <% } else  { %>
-              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%>Id
+              this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id
               <% } %>
               this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
           <% } } %>
