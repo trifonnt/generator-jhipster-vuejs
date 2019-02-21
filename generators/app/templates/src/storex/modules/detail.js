@@ -12,6 +12,7 @@ const mutations = {
 	},
 	setValues(state, data) {
 		state.fields = data;
+		state.fields[data.i].final = data.final ? true: false;
 	},
 	fillFields(state, fields) {
 		state.fields = [...Array(fields.length)].map((el, i)=>({name:fields[i].name, val: null}))

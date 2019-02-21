@@ -67,5 +67,8 @@ export default((name) => {
 			}
 			return fetcher.deleteImage(image.id);
 		},
+		async updateField(masterId, fieldName, val) {
+			return fetcher.updateField(masterId, fieldName, val)
+		},
 	}
 })

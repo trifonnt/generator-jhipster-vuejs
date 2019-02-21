@@ -1,7 +1,12 @@
 <template>
 	<div>
-	  <v-text-field v-validate="validate" prepend-icon="person" :name="name" :label="label" v-model="val"></v-text-field>
-	  <v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>  
+	  <v-text-field v-validate="validate" prepend-icon="person" :name="name" :label="label" v-model="val">
+	  	<div slot='append' v-show='showButtons'>
+	  		<v-icon @click='clear'>close</v-icon>
+	  		<v-icon @click='save'>save</v-icon>
+	  	</div>
+	  </v-text-field>
+	 	{{ errors.first(name) }}  
 	</div>
 </template>
 
@@ -9,10 +14,22 @@
 	export default {
 		inject: ['$validator'],
 		data: () => ({
-
+			oldValue: '',
 		}),
 		mounted() {
 			console.log(this.$store.state.detail, "STORE")
+		},
+		created() {
+			this.oldValue = this.val;
+		},
+		methods: {
+			save() {
+				this.$store.commit('setValue',{i: this.i, val: this.val, final: true})
+			},
+			clear() {
+				this.val = this.oldValue;
+				this.$emit('clear')
+			},
 		},
 		computed: {
 			val: {
@@ -24,24 +41,24 @@
 				}
 			},
 			required() {
-				return this.field_validation && this.field_validation.required;
+				return this.fieldValidation && this.fieldValidation.required;
 			},
 			min() {
-				return this.field_validation && this.field_validation.minValue;
+				return this.fieldValidation && this.fieldValidation.minValue;
 			},
 			max() {
-				return this.field_validation && this.field_validation.maxValue;
+				return this.fieldValidation && this.fieldValidation.maxValue;
 			},
 			pattern() {
-				return this.field_validation && this.field_validation.pattern;
+				return this.fieldValidation && this.fieldValidation.pattern;
 			},
 			validate() {
-				if(!this.field_validation) return null;
+				if(!this.fieldValidation) return null;
 				return {
-					required: this.field_validation.required,
-					min: this.field_validation.minValue,
-					max: this.field_validation.maxValue,
-					regex: this.field_validation.regex,
+					required: this.fieldValidation.required,
+					min: this.fieldValidation.minValue,
+					max: this.fieldValidation.maxValue,
+					regex: this.fieldValidation.regex,
 				}
 			}
 		},
@@ -49,8 +66,12 @@
 			name: String,
 			label: String,
 			type: String,
-			field_validation: Object,
+			fieldValidation: Object,
 			i: Number,
+			showButtons: {
+				type: Boolean,
+				default: false,
+			}
 		},
 	}
 </script>

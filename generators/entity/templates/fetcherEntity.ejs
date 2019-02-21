@@ -75,6 +75,9 @@ export function deleteImage(id) {
 	}
 	return axios.delete('/files/'+id).then(data=>data.data)
 }
+export function updateField(masterId, fieldName, val) {
+	return axios.put('countries'+masterId+'/updateField', {fieldName, val})
+}
 <% for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
