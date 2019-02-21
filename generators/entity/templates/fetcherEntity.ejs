@@ -7,7 +7,7 @@ export function getEntityData(page=0, sort='id,asc', search='', size=10, masterI
 	if(filterName) obj[filterName] = masterId;
 	if(search) obj.query = search;
 	if(!search) return axios.get('<%=pluralize(toDashed(name))%>', {params: obj});
-	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: obj);
+	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: obj});
 }
 export function getEntityCount(search='*', masterId='', filterName = '') {
 	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: {query: search, [filterName]: masterId}}).then(data=>data.headers['x-total-count']);	
