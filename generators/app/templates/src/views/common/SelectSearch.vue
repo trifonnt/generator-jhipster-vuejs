@@ -1,34 +1,31 @@
 <template>
-	<div>
-	  <datetime type='datetime' v-model="val" :input-id="name" input-class='borderField' v-validate="validate" :data-vv-name="name" :name='name'>
-	      <label slot="before">{{label}}</label>
-	  </datetime>  
-  	</div>
+	<v-autocomplete
+	  multiple return-object 
+	  :items='items'
+	  :search-input.sync="search"
+	  v-validate='validate' 
+	  :name="name" 
+	  :label="label"
+	  v-model="val"
+	  item-text='name' 
+	  item-value='code'
+	></v-autocomplete>
 </template>
 
 <script>
 	export default {
 		data: () => ({
-			menu: false,
-			date: null,
+			search: '',
 		}),
-		created() {
-
-		},
-		mounted() {
-
-		},
 		computed: {
+
 			val: {
 				set(val) {
 					this.$store.commit('setValue',{i: this.i, val})
 				},
 				get() {
-					return this.$store.state.detail.fields[this.i].val;
+					return this.$store.state.detail.fields[this.i].val || [];
 				}
-			},
-			date_format() {
-				return this.fieldValidation['date_format'];
 			},
 			required() {
 				return this.fieldValidation && this.fieldValidation.required;
@@ -49,16 +46,16 @@
 					min: this.fieldValidation.minValue,
 					max: this.fieldValidation.maxValue,
 					regex: this.fieldValidation.regex,
-					date_format: this.fieldValidation.date_format,
 				}
 			}
 		},
 		inject: ['$validator'],
 		props: {
-			name: String,
-			label: String,
-			i: Number,
+			items: Array,
 			fieldValidation: Object,
+			label: String,
+			name: String,
+			i: Number,
 		},
 	}
 </script>

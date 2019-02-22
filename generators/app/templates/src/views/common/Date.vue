@@ -52,28 +52,28 @@
 				}
 			},
 			date_format() {
-				return this.field_validation['date_format'];
+				return this.fieldValidation['date_format'];
 			},
 			required() {
-				return this.field_validation && this.field_validation.required;
+				return this.fieldValidation && this.fieldValidation.required;
 			},
 			min() {
-				return this.field_validation && this.field_validation.minValue;
+				return this.fieldValidation && this.fieldValidation.minValue;
 			},
 			max() {
-				return this.field_validation && this.field_validation.maxValue;
+				return this.fieldValidation && this.fieldValidation.maxValue;
 			},
 			pattern() {
-				return this.field_validation && this.field_validation.pattern;
+				return this.fieldValidation && this.fieldValidation.pattern;
 			},
 			validate() {
-				if(!this.field_validation) return null;
+				if(!this.fieldValidation) return null;
 				return {
-					required: this.field_validation.required,
-					min: this.field_validation.minValue,
-					max: this.field_validation.maxValue,
-					regex: this.field_validation.regex,
-					date_format: this.field_validation.date_format,
+					required: this.fieldValidation.required,
+					min: this.fieldValidation.minValue,
+					max: this.fieldValidation.maxValue,
+					regex: this.fieldValidation.regex,
+					date_format: this.fieldValidation.date_format,
 				}
 			}
 		},
@@ -82,7 +82,7 @@
 			name: String,
 			label: String,
 			i: Number,
-			field_validation: Object,
+			fieldValidation: Object,
 		},
 	}
 </script>
