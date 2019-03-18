@@ -12,7 +12,7 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form @keyup.native.enter='enterForm'>
                   <v-text-field v-validate="{required: true, max: 50, regex: /^[_.@A-Za-z0-9-]*$/}" prepend-icon="person" name="login" :label="$t('app.login.loginLabel')" type="text" v-model="username"></v-text-field>
                   <v-alert :value="errors.has('login')" type="error">{{ errors.first('login') }}</v-alert>
                   <v-text-field v-validate="{required: true, min: 4, max: 100}" id="password" prepend-icon="lock" name="password" :label="$t('app.login.passwordLabel')" type="password" v-model="password"></v-text-field>
@@ -52,6 +52,9 @@
       }
     },
 		methods: {
+      enterForm() {
+        if(!this.errors.any()) this.login()
+      },
 			async login() {
 				try {
 					await log(this.username, this.password, this.remember);

@@ -11,7 +11,7 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form @keyup.native.enter='enterForm'>
 
                   <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" :label="$t('app.rPassword.email')" type="text" v-model="email"></v-text-field>
                   <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>
@@ -48,6 +48,9 @@
       }
     },
     methods: {
+      enterForm() {
+        if(!this.errors.any()) this.register()
+      },
       async register() {
         let res;
         try {

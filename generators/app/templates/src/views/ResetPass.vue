@@ -11,7 +11,7 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form @keyup.native.enter='enterForm'>
                   <v-alert :value="!$route.query.key" type="error">No key</v-alert>      
                   <div v-show="$route.query.key">
                     <v-text-field ref='password' v-validate="{required: true, min: 4, max: 100}" prepend-icon="lock" name="password" :label="$t('app.fpassword.passwordLabel')" type="password" v-model="password"></v-text-field>
@@ -54,6 +54,9 @@
       }
     },
     methods: {
+      enterForm() {
+        if(!this.errors.any()) this.reset()
+      },
       async reset() {
         let res;
         try {

@@ -11,7 +11,7 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form @keyup.native.enter='enterForm'>
                   <v-text-field v-validate="{required: true, max: 50}" prepend-icon="person" name="fname" :label="$t('app.accountPage.firstNameLabel')" type="text" v-model="fname"></v-text-field>
                   <v-alert :value="errors.has('fname')" type="error">{{ errors.first('fname') }}</v-alert>  
 
@@ -70,6 +70,9 @@
       }
     },
     methods: {
+      enterForm() {
+        if(!this.errors.any()) this.register()
+      },
       async register() {
         let res;
         try {

@@ -49,10 +49,12 @@
       <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked' :hideName='hideName'></entity-table-head>
     </template>
     <template slot="items" slot-scope="props">
-        <entity-table-body :headers = 'headers' :items = 'props' store-name="<%=name%>" :hideName='hideName'></entity-table-body>
+      <slot name='tableBody'>
+        <component :is='entityTableBody' @cancel-item='cancelItem' :headers = 'headers' :items = 'props' store-name="<%=name%>" :hideName='hideName'></component>
+      </slot>
     </template>
     <template slot='footer'>
-      <slot name='tableFooter'></slot>
+      <slot name='tableFooter' :addNewLine='addNewLine'></slot>
     </template>
   </v-data-table>
 
@@ -65,7 +67,6 @@
   import SelectLabels from '../../common/SelectLabels.vue'
   import FilterLabels from '../../common/FilterLabels.vue'
   import Search from './Search.vue'
-  import EntityTableBody from './EntityTableBody.vue'
   import EntityTableHead from './EntityTableHead.vue'
   import DeleteDialog from './DeleteDialog.vue'
 
@@ -85,6 +86,10 @@
           type: String,
           default: '',
         },
+        lines: {
+          type: Boolean,
+          default: false,
+        }
       },
       data: () => ({
         footer: [],
@@ -110,11 +115,24 @@
         })
       },
       computed: {
+        entityTableBody() {
+          if(this.lines) return () => import(`./EntityTableBody.vue`)
+          return () => import(`./EntityTableBody2.vue`)
+        },
         checkedDeleted() {
           return this.$store.state.table.entity.checkedDeleted
         },
       },
       methods: {
+        addNewLine() {
+          let newLine = this.entitys[0];
+          Object.keys(newLine).forEach(k=>newLine[k]='')
+          newLine.new = true;
+          this.$store.commit('pushEntity',newLine);
+        },
+        cancelItem(i) {
+          this.entitys.splice(i,1)
+        },
         selectLabels(labels) {
           this.getData({labels})
         },
@@ -137,7 +155,6 @@
         SelectLabels,
         FilterLabels,
         Search,
-        EntityTableBody,
         EntityTableHead,
         DeleteDialog,
       }

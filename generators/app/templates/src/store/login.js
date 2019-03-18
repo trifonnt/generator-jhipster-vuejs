@@ -7,7 +7,6 @@ export async function login(username, password, remember) {
 		let jwt = response.id_token;
 		axios.defaults.headers.common['Authorization'] = 
                                 'Bearer ' + jwt;
-        if(!remember) jwt = null;
         console.log(jwt)
         let account = await getAccount();
         let roles = account.authorities;

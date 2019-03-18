@@ -11,7 +11,7 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form @keyup.native.enter='enterForm'>
                   <v-text-field ref='password' v-validate="{required: true, min: 4, max: 100}" prepend-icon="lock" name="cpassword" :label="$t('app.cpassword.currentLabel')" type="password" v-model="cpassword"></v-text-field>
                     <v-alert :value="errors.has('cpassword')" type="error">{{ errors.first('cpassword') }}</v-alert>
 
@@ -56,6 +56,9 @@
       }
     },
     methods: {
+      enterForm() {
+        if(!this.errors.any()) this.change()
+      },
       async change() {
         let res;
         try {

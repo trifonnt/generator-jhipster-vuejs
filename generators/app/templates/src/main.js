@@ -56,6 +56,8 @@ axios.interceptors.response.use(function (response) {
     if(error.response.status == 401) {
        identity.setProfile({})
        identity.user.auth = false;
+       identity.user.profile = null;
+       router.push('/login');
     }
     return Promise.reject(error);
   });

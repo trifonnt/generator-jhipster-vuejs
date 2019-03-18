@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import table from './modules/table'
 import app from './modules/app'
 import detail from './modules/detail'
+import line from './modules/line' 
 
 import _ from 'lodash'
 
@@ -26,6 +27,7 @@ export function createStore(name, name2, filterName='', masterId = '') {
             table: table, //_.cloneDeep?
             app: app,
             detail: detail,
+            line: line,
         },
     });
 }

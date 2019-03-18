@@ -132,6 +132,21 @@ export default((name, name2, filterName, masterId)=> {
 		clearDeleted(state) {
 			state.checkedDeleted = [];
 		},
+		pushEntity(state, entity) {
+			state.entity.entitys.push(entity)
+			state.entity.length++;
+			state.entity.totalItems++;
+		},
+		updateEntity(state, id) {
+			console.log(state.entity)
+			state.entity.entitys[state.entity.entitys.length-1].id = id;
+			state.entity.entitys[state.entity.entitys.length-1].new = false;
+		},
+		removeEntity(state, i) {
+			state.entity.entitys.splice(i, 1)
+			state.entity.length--;
+			state.entity.totalItems--;
+		},
 		getEntitys(state, entitys) {
 			state.entity.entitys = entitys;
 			state.entity.length = entitys.length
