@@ -78,12 +78,12 @@ export function deleteImage(id) {
 export function updateField(masterId, fieldName, val) {
 	return axios.put('countries'+masterId+'/updateField', {fieldName, val})
 }
-<% for(relationship of relationships) { 
+<%_ for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-%>
-	export function get<%=thename%>Data() {
-		return axios.get('<%=pluralize(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
-	}
+-%>
+export function get<%=thename%>Data() {
+	return axios.get('<%=pluralize(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
+}
 
-<% } } %>
+<%_ } } -%>
