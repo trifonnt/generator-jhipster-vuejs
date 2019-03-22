@@ -142,7 +142,8 @@ export default((name, name2, filterName, masterId)=> {
 			state.entity.entitys[state.entity.entitys.length-1].id = id;
 			state.entity.entitys[state.entity.entitys.length-1].new = false;
 		},
-		removeEntity(state, i) {
+		removeEntity(state, item) {
+			let i = state.entity.entitys.findIndex(o=>o.new==true);
 			state.entity.entitys.splice(i, 1)
 			state.entity.length--;
 			state.entity.totalItems--;

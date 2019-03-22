@@ -50,11 +50,12 @@
     </template>
     <template slot="items" slot-scope="props">
       <slot name='tableBody'>
-        <component :is='entityTableBody' @cancel-item='cancelItem' :headers = 'headers' :items = 'props' store-name="<%=name%>" :hideName='hideName'></component>
+        <component :is='entityTableBody' :headers = 'headers' :items = 'props' store-name="<%=name%>" :hideName='hideName'></component>
       </slot>
     </template>
     <template slot='footer'>
-      <slot name='tableFooter' :addNewLine='addNewLine'></slot>
+      <v-btn @click='addNewLine' color='primary'><v-icon>add</v-icon> Add new line</v-btn>
+      <slot name='tableFooter'></slot>
     </template>
   </v-data-table>
 
@@ -116,8 +117,8 @@
       },
       computed: {
         entityTableBody() {
-          if(this.lines) return () => import(`./EntityTableBody.vue`)
-          return () => import(`./EntityTableBody2.vue`)
+          if(this.lines) return () => import(`./EntityTableBody2.vue`)
+          return () => import(`./EntityTableBody.vue`)
         },
         checkedDeleted() {
           return this.$store.state.table.entity.checkedDeleted
@@ -125,14 +126,13 @@
       },
       methods: {
         addNewLine() {
-          let newLine = this.entitys[0];
+          let newLine = Object.assign({}, this.entitys[0]);
           Object.keys(newLine).forEach(k=>newLine[k]='')
           newLine.new = true;
           this.$store.commit('pushEntity',newLine);
         },
-        cancelItem(i) {
-          this.entitys.splice(i,1)
-        },
+
+
         selectLabels(labels) {
           this.getData({labels})
         },
