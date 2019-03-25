@@ -1,14 +1,11 @@
-<% include fns.ejs %>
-
-
-
+<%_ include fns.ejs _%>
 <template>
-	<tr  :class="{visible: visibleHeader}">
+	<tr :class="{visible: visibleHeader}">
 	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
     <td><div class='label'></div></td>
-    <% for(field of fields) { 
+    <%_ for(field of fields) { 
       if(field.fieldType == 'String' && field.fieldValues != undefined) {
-    %>
+    _%>
       <td v-if="items.item['<%=pluralize(field.fieldName)%>'] && items.item['<%=pluralize(field.fieldName)%>'].length" v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
@@ -27,17 +24,17 @@
         </v-menu>
       </td>
       <td v-show='hideName!="<%=field.fieldName%>"' v-if="!items.item['<%=pluralize(field.fieldName)%>'] || items.item['<%=pluralize(field.relationshipName)%>'].length == 0"></td>
-    <%
+    <%_
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') {
-    %>
+    _%>
       <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <a :href="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']" :download="items.item['<%=field.fieldName%>FileName']">{{items.item['<%=field.fieldName%>FileName']}}</a>
       </td>
-    <%
+    <%_
       } 
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
-    %>
+    _%>
       <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
             <v-dialog v-model="dialogImage<%=field.fieldName%>" fullscreen hide-overlay transition="dialog-bottom-transition">
               <v-btn slot="activator" color="primary" dark>Preview</v-btn>
@@ -46,10 +43,10 @@
               </v-card>
             </v-dialog>
       </td>    
-    <%
+    <%_
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
-        %>
+        _%>
         <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'">
          <v-bottom-sheet v-model="<%=field.fieldName%>sheet">
           <v-btn
@@ -65,17 +62,17 @@
           </v-list>
         </v-bottom-sheet>
         </td>
-        <%
+        <%_
       }
       else {
-    %>
+    _%>
       <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")' v-text="items.item['<%=field.fieldName%>']"></td>
-    <% } } %>
+    <%_ } } _%>
 
-    <% for(relationship of relationships) { 
+    <%_ for(relationship of relationships) { 
       if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
       if(relationship.otherEntityName == 'file') {
-    %>
+    _%>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
         <gallery :showDeleteButton='false' :galleryImages='images<%=relationship.relationshipName%>'>
           <v-btn slot='gallery'
@@ -87,13 +84,10 @@
           </v-btn>
         </gallery>
       </td>
-    <%
+    <%_
       }
       else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
-    %>
-
-
-
+    _%>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'" v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
         <v-chip v-for="val in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val.<%=relationship.otherEntityField%>}}</v-chip>
         <v-menu offset-y>
@@ -113,15 +107,12 @@
         </v-menu>
       </td>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'] || items.item['<%=pluralize(relationship.relationshipName)%>'].length == 0"></td>
-    <%
+    <%_
       }
       else {
-    %>
+    _%>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'"  @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")' v-text="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"></td>
-
-
-
-    <% } } } %>
+    <%_ } } } _%>
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">
           <v-icon
@@ -194,19 +185,19 @@
 
 	export default {
 		data: () => ({
-      <% for(field of fields) {
+      <%_ for(field of fields) {
         if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
-      %>
+      _%>
         <%=field.fieldName%>sheet: false,
-      <% } %>
-      <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { %>
+      <%_ } _%>
+      <%_ if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { _%>
         dialogImage<%=field.fieldName%>: false,
-      <% } } %>
-      <% for(relationship of relationships) {
+      <%_ } } _%>
+      <%_ for(relationship of relationships) {
         if(relationship.otherEntityName == 'file') {
-      %>
+      _%>
         images<%=relationship.relationshipName%>: [],
-      <% } } %>
+      <%_ } } _%>
     	visibleHeader: false,
     }),
     created() {

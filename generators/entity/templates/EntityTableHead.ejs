@@ -1,6 +1,4 @@
-<% include fns.ejs %>
-
-
+<%_ include fns.ejs _%>
 <template>
 	<tr>
 	<th width='10px'>
@@ -13,7 +11,7 @@
 	  ></v-checkbox>
 	</th>
 	<th width='10px'>Label</th>
-	<% for(field of fields) { %>
+	<%_ for(field of fields) { _%>
 		<th v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=field.fieldName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('<%=field.fieldName%>')"
@@ -22,10 +20,10 @@
 		  	<v-icon small>arrow_upward</v-icon>
 	  		{{$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")}}
 		</th>
-	<% } %>
-	<% for(relationship of relationships) { 
+	<%_ } _%>
+	<%_ for(relationship of relationships) { 
   		if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-	%>
+	_%>
 		<th v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('<%=relationship.relationshipName%>')"
@@ -34,7 +32,7 @@
 		  	<v-icon small>arrow_upward</v-icon>
 	  		{{$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(relationship.relationshipName) : relationship.relationshipName %>")}}
 		</th>
-	<% } } %>
+	<%_ } } _%>
 <!-- 	<th
 	  v-for="header in data.headers"
 	  :key="header.text"

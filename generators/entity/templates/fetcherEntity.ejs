@@ -1,5 +1,4 @@
-<% include fns.ejs %>
-
+<%_ include fns.ejs -%>
 import axios from '../modules/axios'
 
 export function getEntityData(page=0, sort='id,asc', search='', size=10, masterId='', filterName = '') {
@@ -85,5 +84,4 @@ export function updateField(masterId, fieldName, val) {
 export function get<%=thename%>Data() {
 	return axios.get('<%=pluralize(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
 }
-
-<%_ } } -%>
+<% } } -%>

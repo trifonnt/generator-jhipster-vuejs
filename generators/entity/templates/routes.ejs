@@ -1,5 +1,4 @@
-<% include fns.ejs %>
-
+<%_ include fns.ejs _%>
 var context = require.context(".", false, /\.vue$/);
 let views = {};
 context.keys().forEach(function (key) {

@@ -1,5 +1,4 @@
-<% include fns.ejs %>
-
+<%_ include fns.ejs _%>
 <template>
  <div>
   <div class='margin'></div>
@@ -95,12 +94,12 @@
       data: () => ({
         footer: [],
         headers: [
-          <% fields.forEach(field=>{%>
+          <%_ fields.forEach(field=>{ _%>
             { text: "<%=toSpaced(field.fieldName)%>", value: "<%=field.fieldName%>" },
-          <%})%>
-          <% for(relationship of relationships) { %>
+          <%_ }) _%>
+          <%_ for(relationship of relationships) { _%>
             { text: "<%=toSpaced(relationship.relationshipName)%>", value: "<%=relationship.relationshipName%>" },
-          <% }%>
+          <%_ } _%>
           { text: 'Actions', value: 'actions', sortable: false }
         ],
         labels: [
@@ -131,8 +130,6 @@
           newLine.new = true;
           this.$store.commit('pushEntity',newLine);
         },
-
-
         selectLabels(labels) {
           this.getData({labels})
         },

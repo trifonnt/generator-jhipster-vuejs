@@ -1,5 +1,4 @@
-<% include fns.ejs %>
-
+<%_ include fns.ejs _%>
 <template>
   <v-app id="inspire">
     <v-content>
@@ -13,9 +12,9 @@
                 <v-spacer></v-spacer>
 
               </v-toolbar>
-                            <v-card-text>
+              <v-card-text>
                 <v-form @submit.prevent='edit' @keyup.native.enter='enterForm'>
-                  <% 
+                  <%_
                   fields[0].focus = true;
                   fields.forEach(field=>{
                     let validate = {};
@@ -40,17 +39,16 @@
                     if(['Integer', 'BigDecimal', 'Long'].includes(fType)) validate.integer = true;
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
-                  %>
-                    <% if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
+                  _%>
+                    <%_ if(['Integer', 'BigDecimal', 'Long', 'Float', 'Double'].includes(fType) && field.fieldValues == undefined) {%>
                       <v-text-field :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
-                    <% }%>
-
-                    <% if(fType=="String" && field.fieldValues == undefined) {%>
+                    <%_ } _%>
+                    <%_ if(fType=="String" && field.fieldValues == undefined) { _%>
                       <v-text-field :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
-                    <% }%>
-                    <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
+                    <%_ } _%>
+                    <%_ if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { _%>
                         <span class='grey--text'>
                           {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
                         </span>
@@ -90,12 +88,12 @@
 
                           </v-card>
                         </v-dialog>
-                    <% } %>
-                    <% if(fType == "Boolean") {%>
+                    <%_ } _%>
+                    <%_ if(fType == "Boolean") { _%>
                       <v-checkbox :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
-                    <% } %>
-                    <% if(['LocalDate','ZonedDateTime'].includes(fType)) {%>
+                    <%_ } _%>
+                    <%_ if(['LocalDate','ZonedDateTime'].includes(fType)) { _%>
                       <v-menu :disabled='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'"
                           ref="menu<%=fName%>"
                           :close-on-content-click="false"
@@ -119,26 +117,26 @@
 
                         </v-menu>
                         <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
-                    <% } %>
-                    <% if(fType == 'Instant') { %>
+                    <%_ } _%>
+                    <%_ if(fType == 'Instant') { _%>
                       <datetime v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
                           <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
                       </datetime>   
-                    <% } %>
-                    <% if(fType == "String" && field.fieldValues != undefined) {%>
+                    <%_ } _%>
+                    <%_ if(fType == "String" && field.fieldValues != undefined) { _%>
                       <v-select :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
-                    <% } %>
-                  <% if(fType == 'Html' || fType == 'byte[]' && field.fieldTypeBlobContent == 'text') {%>
+                    <%_ } _%>
+                  <%_ if(fType == 'Html' || fType == 'byte[]' && field.fieldTypeBlobContent == 'text') { _%>
                       {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
                       <br/>
                       <quill-editor v-hasRole="'<%=field.visibleForRole%>'" ref="quillEditor<%=fName%>"
                         v-model="<%=fName%>"
                         :options="editorOptions">
                       </quill-editor>
-                  <% } %>
-                  <%})%>
-                  <% for(relationship of relationships) { 
+                  <%_ } _%>
+                  <%_ }) _%>
+                  <%_ for(relationship of relationships) { 
                     let multiple = false;
                     if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                     if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') multiple=true;
@@ -169,14 +167,12 @@
                     if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
                       model = fName+'Values';
                     }
-                  %>
+                  _%>
  <!--                      <v-select <%if(relationship.focus){%> autofocus <%}%> <%if(multiple){%> multiple return-object <%}%> :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"
                         item-text='<%=relationship.otherEntityField%>' item-value='id'
                         ></v-select>
-
-      
  -->
-                        <%if(relationship.otherEntityField2 && relationship.otherEntityName != 'file') {%>
+                        <%_ if(relationship.otherEntityField2 && relationship.otherEntityName != 'file') { _%>
                           <br>                        
                           <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect
@@ -209,7 +205,7 @@
                             ></v-pagination>
                           </template>
                           </multiselect>
-                      <% } else if(relationship.otherEntityName != 'file') { %>
+                      <%_ } else if(relationship.otherEntityName != 'file') { _%>
                           <br>
                           <div>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect
@@ -237,7 +233,7 @@
                             ></v-pagination>
                           </template>
                           </multiselect>
-                      <% } else { %>
+                      <%_ } else { _%>
                         <span class='grey--text'>
                           {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
                         </span>
@@ -277,11 +273,10 @@
 
                           </v-card>
                         </v-dialog>
-                      <% } %>
+                      <%_ } _%>
 
                       <v-alert v-hasRole="'<%=relationship.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
-                  <% } } %>
-        
+                  <%_ } } _%>
              <!--    <v-alert type='success' :value="registered==true">You successfully created a vendor</v-alert>
                 <v-alert type='error' :value="registered==false">Please try again, server error</v-alert>  -->               
                 </v-form>
@@ -304,14 +299,14 @@
   import InputFile from '../../common/InputFile.vue'
 
   let store = require('../../../store/<%=toLower(name)%>').default;
-  <% for(relationship of relationships) { %>
+  <%_ for(relationship of relationships) { _%>
     let <%=addS(firstToUpper(relationship.relationshipName))%>store = require('../../../store/<%=toLower(relationship.otherEntityName)%>').default;
-  <% } %> 
+  <%_ } _%> 
     let create = store.create;
     let relationStores = {};
-    <% for(relationship of relationships) {%>
+    <%_ for(relationship of relationships) { _%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
-    <% } %> 
+    <%_ } _%> 
     let getEntityByTemplate = store.getEntityByTemplate;    
     export default {
     inject: ['$validator'],
@@ -342,70 +337,70 @@
         }
       },
       registered: null,
-      <% fields.forEach(field=>{%>
-        <%
+      <%_ fields.forEach(field=>{ _%>
+        <%_
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
           if(fType == 'Boolean') val = "''";
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]'].includes(fType)) {
             val = '""';
-        %>
-          <% 
+        _%>
+          <%_ 
             if(['LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
-          %>
+          _%>
             menu<%=field.fieldName%>: '',
-          <% } %>
-          <% if(fType == 'byte[]') { %>
-            <% if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { %>
+          <%_ } _%>
+          <%_ if(fType == 'byte[]') { _%>
+            <%_ if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { _%>
               dialogFile<%=field.fieldName%>: false,
               loading<%=field.fieldName%>: false,
-            <% } %>
+            <%_ } %>
             <%=field.fieldName%>ContentType: "",
             <%=field.fieldName%>FileName: "",
-          <% } %>
+          <%_ } _%>
         <%=field.fieldName%>: <%-val%>,
-        <%
+        <%_
           }
           if(fType == 'String' && field.fieldValues != undefined) {
             val = field.fieldValues.split(',')
-        %>
+        _%>
         <%=field.fieldName%> : [],
         <%=addS(field.fieldName)%>: [
           <%for(val of field.fieldValues.split(',')) {%>
             "<%=val%>",
           <% } %>
         ],
-        <%
+        <%_
           }
-        %>
-      <%})%>
-      <% if(relationships.length) { %>
-        <% for(relationship of relationships) { %>
-          <% if(relationship.otherEntityName == 'file') { %>
+        _%>
+      <%_ }) _%>
+      <%_ if(relationships.length) { _%>
+        <%_ for(relationship of relationships) { _%>
+          <%_ if(relationship.otherEntityName == 'file') { _%>
               <%=relationship.relationshipName%>Id: null,
               dialogFile<%=relationship.relationshipName%>: false,
               loading<%=relationship.relationshipName%>: false,
-          <% } %>
+          <%_ } _%>
           <%=pluralize(relationship.relationshipName)%>search: '*',
           <%=pluralize(relationship.relationshipName)%>: [],
-          <%
+          <%_
             if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
-          %>
+          _%>
           <%=relationship.relationshipName%>:[],
           <%=relationship.relationshipName%>Values:[],
-          <% } else {%>
+          <%_ } else { _%>
           <%=relationship.relationshipName%>: '',
-          <% } %>
-        <% } %>
-      <% } %>
+          <%_ } _%>
+        <%_ } _%>
+      <%_ } _%>
 
     }),
     created() {
       this.getData();
     },
     watch: {
-      <% for(relationship of relationships) { %>
+      <%_ for(relationship of relationships) { _%>
         <%=pluralize(relationship.relationshipName)%>search(val) {
           try {
           this.getDropdownData();
@@ -414,7 +409,7 @@
             console.error(err)
           }
         },
-      <% } %>
+      <%_ } _%>
     },
     methods: {
       async getDropdownData() {
@@ -483,23 +478,23 @@
             <% } %>
           });*/
           res = await create({
-            <% for(field of fields) { %>
+            <%_ for(field of fields) { _%>
               <%=field.fieldName%>:this.<%=field.fieldName%>,
-              <% if(field.fieldType == 'byte[]') { %>
+              <%_ if(field.fieldType == 'byte[]') { _%>
                 <%=field.fieldName%>ContentType: this.<%=field.fieldName%>ContentType,
                 <%=field.fieldName%>FileName: this.<%=field.fieldName%>FileName,
-              <% } %>
-            <% } %>
-            <% for(relationship of relationships) { %>
-              <% if(relationship.otherEntityName == 'file') { %>
+              <%_ } _%>
+            <%_ } _%>
+            <%_ for(relationship of relationships) { _%>
+              <%_ if(relationship.otherEntityName == 'file') { _%>
                 <%=relationship.relationshipName%>Id: this.<%=relationship.relationshipName%>Id,
-              <%
+              <%_
                 } else if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
-              %>
+              _%>
               <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>o.id),
-              <% } else { %>
+              <%_ } else { _%>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
-            <% } }%>
+            <%_ } } _%>
           });
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.created', {id: res.id}), val: true, color: "success"})
           this.registered = true
@@ -517,37 +512,37 @@
       async getData() {
         try {
           let [
-            <% for(relationship of relationships) {
+            <%_ for(relationship of relationships) {
               if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-            %>
+            _%>
               <%=relationship.relationshipName%>,
-            <% } } %> entity] = await Promise.all([
-                <% for(relationship of relationships) {
+            <% } } _%> entity] = await Promise.all([
+                <%_ for(relationship of relationships) {
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-                %>
+                _%>
                   <%=addS(firstToUpper(relationship.relationshipName))%>store.getData(),
-                <% } }%> 
+                <%_ } } _%> 
                 getEntityByTemplate()
               ]);
-          <% for(field of fields) { %>
+          <%_ for(field of fields) { _%>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <% if(field.fieldType == 'byte[]') { %>
             this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
             this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName
-            <% } %>
-          <% } %>
-          <% for(relationship of relationships) { 
+            <%_ } _%>
+          <%_ } _%>
+          <%_ for(relationship of relationships) { 
             if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-          %>
-              this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
-              <%
-                if(relationship.relationshipType == 'many-to-many') {
-              %>
-                this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
-              <% } else  { %>
-              this.<%=relationship.relationshipName%> = this.<%=pluralize(relationship.relationshipName)%>.filter(o=>o.id == entity.<%=relationship.relationshipName%>Id)
-              <% } %>
-          <% } } %>
+          _%>
+            this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
+            <%_
+              if(relationship.relationshipType == 'many-to-many') {
+            _%>
+            this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
+            <%_ } else  { _%>
+            this.<%=relationship.relationshipName%> = this.<%=pluralize(relationship.relationshipName)%>.filter(o=>o.id == entity.<%=relationship.relationshipName%>Id)
+            <%_ } _%>
+          <%_ } } _%>
         }
         catch(err) {console.log(err)}
       },

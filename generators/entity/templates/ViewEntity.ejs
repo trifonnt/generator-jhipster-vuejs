@@ -1,5 +1,4 @@
-<% include fns.ejs %>
-
+<%_ include fns.ejs _%>
 <template>
   <v-app id="inspire">
     <v-content>
@@ -13,13 +12,13 @@
 
               </v-toolbar>
               <v-card-text>
-                <% for(field of fields) { %>
-                  <% if(field.fieldType == 'Html' || field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { %>
+                <%_ for(field of fields) { _%>
+                  <%_ if(field.fieldType == 'Html' || field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { _%>
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div v-html="<%=field.fieldName%>"></div></div>
-                  <% } 
-                  else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { %> 
+                  <%_ }
+                  else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { _%> 
 
-                  <div v-hasRole="''" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
+                    <div v-hasRole="''" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                     <div v-hasRole="'<%=field.visibleForRole%>'">
                     <v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
                     <v-dialog fullscreen v-show='<%=field.fieldName%>FileIds.length'
@@ -64,22 +63,22 @@
                       <a v-show='<%=field.fieldName%>' :href='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>' :download='<%=field.fieldName%>FileName'>{{<%=field.fieldName%>FileName}}</a>
                       <span v-show='!<%=field.fieldName%>'>{{$t('app.noFileAttached')}}</span>
                     </div>
-                  <% } 
+                  <%_ } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
-                  %>
+                  _%>
                     <img v-img :src='"data:"+<%=field.fieldName%>ContentType+";base64,"+<%=field.fieldName%>'/>
-                  <%
+                  <%_
                   }
-                  else if(field.fieldType == 'String' && field.fieldValues != undefined) { %>
+                  else if(field.fieldType == 'String' && field.fieldValues != undefined) { _%>
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div>
                       <v-chip v-for='val in <%=field.fieldName%>' :key='val' color="primary" text-color="white">{{val}}</v-chip>
                     </div></div>
-                  <% }
-                  else { %>
+                  <%_ }
+                  else { _%>
                   <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>{{<%=field.fieldName%>}}</div>
-                  <% } %>
-                <% }%>
-                <% for(relationship of relationships) { 
+                  <%_ } _%>
+                <%_ } _%>
+                <%_ for(relationship of relationships) { 
                   if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
                     if(relationship.otherEntityName == 'file') { %>
                     <div v-hasRole="'<%=field.visibleForRole%>'"><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
@@ -131,15 +130,15 @@
                         </gallery>
                         </div>
                       </div>
-                    <%
+                    <%_
                     } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
-                %>
+                _%>
                   <div v-hasRole="'<%=relationship.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= pluralize(relationship.relationshipName) %>')}}</v-chip>
                         <v-chip color="primary" text-color="white" v-for='i in <%=relationship.relationshipName%>' :key='i'>{{i.<%=relationship.otherEntityField%>}}</v-chip>
                   </div>
-                <% } else { %>
+                <%_ } else { _%>
                   <div v-hasRole="'<%=relationship.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>{{<%=relationship.relationshipName%>}}</div>
-                <% } } }%>   
+                <%_ } } } _%>   
                 <v-btn @click='print' class='viewbuttons'>{{$t('app.print')}}
                   <v-icon color="block">print</v-icon>
                 </v-btn>
@@ -162,8 +161,8 @@
 
     export default {
     data: () => ({
-      <% fields.forEach(field=>{%>
-        <%
+      <%_ fields.forEach(field=>{ _%>
+        <%_
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
@@ -171,19 +170,19 @@
             val = '""';
           }
           if(fType == 'String' && field.fieldValues != undefined) val = [];
-        %>
-        <% if(fType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
+        _%>
+        <%_ if(fType == 'byte[]' && field.fieldTypeBlobContent == 'image') { _%>
           dialogFile<%=field.fieldName%>: false,
           <%=field.fieldName%>FileIds: [],
           <%=field.fieldName%>ContentType: "",
           <%=field.fieldName%>FileName: "",
           <%=field.fieldName%>File: "",
           galleryImages: [],
-        <% } %>
-        <%=field.fieldName%>: <%-val%>,
-      <%})%>
-      <% for(relationship of relationships) {
-        if(relationship.otherEntityName == 'file') { %>
+        <%_ } _%>
+        <%=field.fieldName_%>: <%-val%>,
+      <%_})_%>
+      <%_ for(relationship of relationships) {
+        if(relationship.otherEntityName == 'file') { _%>
         dialogFile<%=relationship.relationshipName%>: false,
         <%=relationship.relationshipName%>FileIds: [],
         <%=relationship.relationshipName%>ContentType: "",
@@ -191,11 +190,9 @@
         <%=relationship.relationshipName%>File: "",  
         <%=relationship.relationshipName%>images: '',
         <%=relationship.relationshipName%>Id: '',
-      <% } else { %>
-
+      <%_ } else { _%>
         <%=relationship.relationshipName%>: '',
-
-      <% } } %>
+      <%_ } } _%>
     }),
     created() {
       this.getData();
@@ -204,32 +201,32 @@
       async getData() {
         try {
           let entity = await getEntityById(this.$route.params.id);
-          <% for(field of fields) { %>
+          <%_ for(field of fields) { _%>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
-            <% if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { %>
-/*              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+            <%_ if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { _%>
+  /*              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
               this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName*/
               this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
               let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
-            <% } %>
-          <% } %>
-            <% for(relationship of relationships) {
-              if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
-            %>
-              <% if(relationship.otherEntityName == 'file') { %>
-                this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id;
-                if(Number.isInteger(entity.<%=relationship.relationshipName%>Id) || (Array.isArray(entity.<%=relationship.relationshipName%>Id) && entity.<%=relationship.relationshipName%>Id.length > 1)) {
-                  let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
-                  this.<%=relationship.relationshipName%>images = [res]
-                }
-              <%
-                } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
-              %>
-                this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
-              <% } else  { %>
-              this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>
-              <% } %>
-            <% } } %> 
+            <%_ } _%>
+          <%_ } _%>
+          <%_ for(relationship of relationships) {
+            if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
+          _%>
+            <%_ if(relationship.otherEntityName == 'file') { _%>
+              this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id;
+              if(Number.isInteger(entity.<%=relationship.relationshipName%>Id) || (Array.isArray(entity.<%=relationship.relationshipName%>Id) && entity.<%=relationship.relationshipName%>Id.length > 1)) {
+                let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
+                this.<%=relationship.relationshipName%>images = [res]
+              }
+            <%_
+              } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
+            _%>
+            this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
+            <%_ } else  { _%>
+            this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)_%>
+            <%_ } _%>
+          <%_ } } _%> 
         }
         catch(err) {console.log(err)}
       },

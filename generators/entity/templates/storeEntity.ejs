@@ -1,9 +1,8 @@
-<% include fns.ejs %>
-
+<%_ include fns.ejs -%>
 import {
-	<% for(relationship of relationships) { %>
+	<%_ for(relationship of relationships) { -%>
 		get<%=addS(firstToUpper(relationship.relationshipName))%>Data,
-	<% } %>
+	<%_ } -%>
 } from '../fetchers/<%=toLower(name)%>'
 
 let store = require('./entity').default('<%=toLower(name)%>');
