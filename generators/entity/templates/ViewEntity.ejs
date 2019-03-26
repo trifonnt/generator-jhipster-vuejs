@@ -15,7 +15,13 @@
                 <%_ for(field of fields) { _%>
                   <%_ if(field.fieldType == 'Html' || field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') { _%>
                     <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip><div v-html="<%=field.fieldName%>"></div></div>
-                  <%_ }
+                  <%_ } if(field.fieldType == 'Enumeration') { _%>
+
+                    <div v-hasRole="'<%=field.visibleForRole%>'" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= pluralize(field.fieldName) %>')}}</v-chip>
+                          <v-chip color="primary" text-color="white" v-for='i in <%=field.fieldName%>' :key='i'>{{i}}</v-chip>
+                    </div>
+
+                  <%_ } 
                   else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') { _%> 
 
                     <div v-hasRole="''" ><v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>')}}</v-chip>
@@ -166,7 +172,7 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean', 'byte[]'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean', 'byte[]', 'Enumeration'].includes(fType)) {
             val = '""';
           }
           if(fType == 'String' && field.fieldValues != undefined) val = [];

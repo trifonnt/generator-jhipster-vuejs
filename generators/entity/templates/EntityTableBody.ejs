@@ -4,7 +4,7 @@
 	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
     <td><div class='label'></div></td>
     <%_ for(field of fields) { 
-      if(field.fieldType == 'String' && field.fieldValues != undefined) {
+      if((field.fieldType == 'String' && field.fieldValues != undefined) || field.fieldType == 'Enumeration') {
     _%>
       <td v-if="items.item['<%=pluralize(field.fieldName)%>'] && items.item['<%=pluralize(field.fieldName)%>'].length" v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
@@ -23,7 +23,8 @@
           </v-list>
         </v-menu>
       </td>
-      <td v-show='hideName!="<%=field.fieldName%>"' v-if="!items.item['<%=pluralize(field.fieldName)%>'] || items.item['<%=pluralize(field.relationshipName)%>'].length == 0"></td>
+
+      <td v-show='hideName!="<%=field.fieldName%>"' v-if="!items.item['<%=pluralize(field.fieldName)%>'] || items.item['<%=pluralize(field.fieldName)%>'].length == 0"></td>
     <%_
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'any') {
@@ -31,6 +32,7 @@
       <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <a :href="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']" :download="items.item['<%=field.fieldName%>FileName']">{{items.item['<%=field.fieldName%>FileName']}}</a>
       </td>
+
     <%_
       } 
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') {
@@ -42,7 +44,8 @@
                 <img :src="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']"/>
               </v-card>
             </v-dialog>
-      </td>    
+      </td>
+
     <%_
       }
       else if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'text') {
@@ -67,6 +70,7 @@
       else {
     _%>
       <td v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")' v-text="items.item['<%=field.fieldName%>']"></td>
+
     <%_ } } _%>
 
     <%_ for(relationship of relationships) { 
@@ -84,6 +88,7 @@
           </v-btn>
         </gallery>
       </td>
+
     <%_
       }
       else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
@@ -106,12 +111,15 @@
           </v-list>
         </v-menu>
       </td>
+
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-if="!items.item['<%=pluralize(relationship.relationshipName)%>'] || items.item['<%=pluralize(relationship.relationshipName)%>'].length == 0"></td>
+
     <%_
       }
       else {
     _%>
       <td v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'"  @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")' v-text="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"></td>
+      
     <%_ } } } _%>
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">

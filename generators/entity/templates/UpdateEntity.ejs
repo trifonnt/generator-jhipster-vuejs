@@ -44,10 +44,12 @@
                       <v-text-field v-show="$route.params.hideName != '<%=fName%>'" :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%>  v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <%_ } _%>
+
                     <%_ if(fType=="String" && field.fieldValues == undefined) { _%>
                       <v-text-field v-show="$route.params.hideName != '<%=fName%>'" :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <%_ } _%>
+
                     <%_ if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { _%>
 <!--                         <input-file v-show="$route.params.hideName != '<%=fName%>'" @upload='upload' name='<%=field.fieldName%>' :files='[{field:"<%=field.fieldName%>", name:<%=field.fieldName%>FileName}]' @removeUpload='removeUpload'></input-file>
                          -->
@@ -97,10 +99,34 @@
                           <v-btn v-show='<%=field.fieldName%>' v-hasRole="'<%=field.visibleForRole%>'" icon @click='<%=fName%>="";<%=field.fieldName%>ContentType="";<%=field.fieldName%>FileName=""'><v-icon>delete</v-icon></v-btn>
                         </v-chip> -->
                     <%_ } _%>
+
                     <%_ if(fType == "Boolean") { _%>
                       <v-checkbox v-show="$route.params.hideName != '<%=fName%>'" :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <%_ } _%>
+
+                    <%_ if(fType == "Enumeration") { _%>
+                       <multiselect
+                        v-validate = '<%-validate%>'
+                        data-vv-name = 'id'
+                        data-vv-value-path = 'id'
+                        :searchable = "true"
+                        :show-labels="false"
+                        :multiple = 'false'
+                        :close-on-select="true" 
+                        id='<%=pluralize(fName)%>'
+                        label='name'
+                        v-model = '<%=fName%>'
+                        :options = '<%=pluralize(fName)%>'
+                        :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (field.fieldType == 'many-to-many' || field.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
+                        track-by='id'
+                      >
+                       <template slot="option" slot-scope="props">
+                        <div>{{props.option}}</div>
+                      </template> 
+                      </multiselect>
+                    <%_ } _%>
+
                     <%_ if(['LocalDate','ZonedDateTime'].includes(fType)) { _%>
                       <v-menu v-show="$route.params.hideName != '<%=fName%>'" :disabled='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'"
                           ref="menu<%=fName%>"
@@ -126,15 +152,18 @@
                         </v-menu>
                         <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <%_ } _%>
+
                     <%_ if(fType == 'Instant') { _%>
                       <datetime v-show="$route.params.hideName != '<%=fName%>'" v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
                           <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
                       </datetime>   
                     <%_ } _%>
+
                     <%_ if(fType == "String" && field.fieldValues != undefined) { _%>
                       <v-select :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  :items='<%=addS(fName)%>' solo v-validate='<%-validate%>' name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-model="<%=fName%>"></v-select>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <%_ } _%>
+
                   <%_ if(fType == 'Html' || fType == 'byte[]' && field.fieldTypeBlobContent == 'text') { _%>
                       {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
                       <br/>
@@ -143,6 +172,7 @@
                         :options="editorOptions">
                       </quill-editor>
                   <%_ } _%>
+                  
                   <%_ }) _%>
                   <%_ for(relationship of relationships) { 
                     let multiple = false;
@@ -361,6 +391,7 @@
           let val;
           if(fType == 'String') val = '""';
           if(fType == 'Boolean') val = "''";
+          if(fType == 'Enumeration') val = field.defaultValueConstant;
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]'].includes(fType)) {
             val = '""';
         _%>
@@ -368,6 +399,11 @@
             if(['LocalDate', 'Instant', 'ZonedDateTime'].includes(fType)) {
           _%>
             menu<%=field.fieldName%>: '',
+          <%_ } _%>
+          <%_ 
+            if(fType == 'Enumeration') {
+          _%>
+            <%=pluralize(field.fieldName)%>: <%-field.fieldValues.split(',') _%>,
           <%_ } _%>
           <%_ if(fType == 'byte[]') { _%>
             <%_ if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { _%>

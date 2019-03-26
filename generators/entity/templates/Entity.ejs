@@ -52,7 +52,7 @@
         <component :is='entityTableBody' :headers = 'headers' :items = 'props' store-name="<%=name%>" :hideName='hideName'></component>
       </slot>
     </template>
-    <template slot='footer'>
+    <template slot='footer' v-if='lines'>
       <v-btn @click='addNewLine' color='primary'><v-icon>add</v-icon> Add new line</v-btn>
       <slot name='tableFooter'></slot>
     </template>

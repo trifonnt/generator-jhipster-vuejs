@@ -20,7 +20,9 @@
 		  	<v-icon small>arrow_upward</v-icon>
 	  		{{$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")}}
 		</th>
+
 	<%_ } _%>
+	
 	<%_ for(relationship of relationships) { 
   		if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 	_%>
@@ -32,6 +34,7 @@
 		  	<v-icon small>arrow_upward</v-icon>
 	  		{{$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(relationship.relationshipName) : relationship.relationshipName %>")}}
 		</th>
+		
 	<%_ } } _%>
 <!-- 	<th
 	  v-for="header in data.headers"

@@ -207,6 +207,7 @@
 	          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime', 'Boolean', 'byte[]'].includes(fType)) {
 	            val = '""';
 	          }
+			  if(fType == 'Enumeration') val = field.fieldValues;
 	          if(fType == 'String' && field.fieldValues !=undefined) val = '';
 	          obj[field.fieldName] = val;
 	        %>

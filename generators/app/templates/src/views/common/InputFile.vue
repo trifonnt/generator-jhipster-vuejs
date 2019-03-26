@@ -27,7 +27,7 @@ import Dropzone from 'dropzone'
 
 import Sortable from 'sortablejs'
 
-import fileStore from '../../store/file'
+let fileStore;
 
 export default {
   name: 'app',
@@ -55,6 +55,13 @@ export default {
     }
   },
   created() {
+    try {
+      fileStore = require('../../store/file').default
+    }
+    catch(err) {
+      fileStore = ''
+    }
+
   	this.$nextTick(()=> {
   		this.$refs.myVueDropzone.dropzone.__proto__.submitRequest = (xhr, formData, file) => {
   			this.$emit('uploadFile', {file, name: this.name})

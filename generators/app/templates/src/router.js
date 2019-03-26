@@ -8,10 +8,10 @@ import ResetPass from './views/ResetPass.vue'
 import AccSettings from './views/AccSettings.vue'
 import ChangePass from './views/ChangePass.vue'
 
-import Userx from './views/entities/Userx/User.vue'
-import CreateUserx from './views/entities/Userx/CreateUser.vue'
-import UpdateUserx from './views/entities/Userx/UpdateUser.vue'
-import ViewUserx from './views/entities/Userx/ViewUser.vue'
+import Userx from './views/entities/Userx/Userx.vue'
+import CreateUserx from './views/entities/Userx/CreateUserx.vue'
+import UpdateUserx from './views/entities/Userx/UpdateUserx.vue'
+import ViewUserx from './views/entities/Userx/ViewUserx.vue'
 
 import AdminDocs from './views/admin/Docs.vue'
 
