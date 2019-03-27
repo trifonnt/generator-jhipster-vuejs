@@ -102,18 +102,21 @@
                         data-vv-value-path = 'id'
                         :searchable = "true"
                         :show-labels="false"
-                        :multiple = 'false'
-                        :close-on-select="true" 
+                        :multiple = '<%=field.enumMultiple%>'
+                        :close-on-select="<%=!field.enumMultiple%>" 
                         id='<%=pluralize(fName)%>'
                         label='name'
                         v-model = '<%=fName%>'
-                        :options = '<%=pluralize(fName)%>'
+                        :options = '<%=fName%>Values'
                         :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (field.fieldType == 'many-to-many' || field.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                         track-by='id'
                       >
                        <template slot="option" slot-scope="props">
                         <div>{{props.option}}</div>
-                      </template> 
+                      </template>
+                      <template slot='singleLabel' slot-scope="{option}">
+                        <div>{{option}}</div>
+                      </template>
                       </multiselect>
                     <%_ } _%>
 
@@ -261,7 +264,7 @@
                           </template>
                           </multiselect>
                       <%_ } else { _%>
-                      
+
                         <span class='grey--text'>
                           {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}
                         </span>
@@ -371,7 +374,15 @@
           let val;
           if(fType == 'String') val = '""';
           if(fType == 'Boolean') val = "''";
-          if(fType == 'Enumeration') val = field.defaultValueConstant;
+          _%>
+          <%_  
+            if(fType == 'Enumeration') {
+              val = field.defaultValueConstant;
+          _%>
+            <%=field.fieldName%>Values: <%-JSON.stringify(field.fieldValues.split(',')) _%>,
+            <%=field.fieldName%>: "<%=val%>",
+          <%_ } _%>
+          <%_
           if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]'].includes(fType)) {
             val = '""';
         _%>
@@ -380,11 +391,7 @@
           _%>
             menu<%=field.fieldName%>: '',
           <%_ } _%>
-          <%_ 
-            if(fType == 'Enumeration') {
-          _%>
-            <%=pluralize(field.fieldName)%>: <%-field.fieldValues.split(',') _%>,
-          <%_ } _%>
+
           <%_ if(fType == 'byte[]') { _%>
             <%_ if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { _%>
               dialogFile<%=field.fieldName%>: false,
@@ -393,6 +400,7 @@
             <%=field.fieldName%>ContentType: "",
             <%=field.fieldName%>FileName: "",
           <%_ } _%>
+
         <%=field.fieldName%>: <%-val%>,
         <%_
           }

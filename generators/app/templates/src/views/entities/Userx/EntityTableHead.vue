@@ -1,6 +1,3 @@
-
-
-
 <template>
 	<tr>
 	<th width='10px'>
@@ -13,52 +10,114 @@
 	  ></v-checkbox>
 	</th>
 	<th width='10px'>Label</th>
-	
-		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'code' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort(code)"
-		  :data-label='$t("task.euromebelApp.task.code")'
+		<th v-show='hideName!="login"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'login' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('login')"
+		  :data-label='$t("userx.newappApp.userx.login")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("task.euromebelApp.task.code")}}
+	  		{{$t("userx.newappApp.userx.login")}}
 		</th>
-	
-		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'name' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort(name)"
-		  :data-label='$t("task.euromebelApp.task.name")'
+
+		<th v-show='hideName!="firstName"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'firstName' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('firstName')"
+		  :data-label='$t("userx.newappApp.userx.firstName")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("task.euromebelApp.task.name")}}
+	  		{{$t("userx.newappApp.userx.firstName")}}
 		</th>
-	
-		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'description' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort(description)"
-		  :data-label='$t("task.euromebelApp.task.description")'
+
+		<th v-show='hideName!="lastName"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'lastName' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('lastName')"
+		  :data-label='$t("userx.newappApp.userx.lastName")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("task.euromebelApp.task.description")}}
+	  		{{$t("userx.newappApp.userx.lastName")}}
 		</th>
-	
-	
-		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'responsiblePerson' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort(responsiblePerson)"
-		  :data-label='$t("task.euromebelApp.task.responsiblePerson")'
+
+		<th v-show='hideName!="email"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'email' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('email')"
+		  :data-label='$t("userx.newappApp.userx.email")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("task.euromebelApp.task.responsiblePerson")}}
+	  		{{$t("userx.newappApp.userx.email")}}
 		</th>
-	
-		<th
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'taskUpdate' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort(taskUpdate)"
-		  :data-label='$t("task.euromebelApp.task.taskUpdate")'
+
+		<th v-show='hideName!="imageUrl"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'imageUrl' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('imageUrl')"
+		  :data-label='$t("userx.newappApp.userx.imageUrl")'
 		>
 		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("task.euromebelApp.task.taskUpdate")}}
+	  		{{$t("userx.newappApp.userx.imageUrl")}}
 		</th>
+
+		<th v-show='hideName!="activated"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'activated' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('activated')"
+		  :data-label='$t("userx.newappApp.userx.activated")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.activated")}}
+		</th>
+
+		<th v-show='hideName!="authorities"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'authorities' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('authorities')"
+		  :data-label='$t("userx.newappApp.userx.authorities")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.authorities")}}
+		</th>
+
+		<th v-show='hideName!="createdBy"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'createdBy' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('createdBy')"
+		  :data-label='$t("userx.newappApp.userx.createdBy")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.createdBy")}}
+		</th>
+
+		<th v-show='hideName!="createdDate"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'createdDate' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('createdDate')"
+		  :data-label='$t("userx.newappApp.userx.createdDate")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.createdDate")}}
+		</th>
+
+		<th v-show='hideName!="lastModifiedBy"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'lastModifiedBy' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('lastModifiedBy')"
+		  :data-label='$t("userx.newappApp.userx.lastModifiedBy")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.lastModifiedBy")}}
+		</th>
+
+		<th v-show='hideName!="lastModifiedDate"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'lastModifiedDate' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('lastModifiedDate')"
+		  :data-label='$t("userx.newappApp.userx.lastModifiedDate")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.lastModifiedDate")}}
+		</th>
+
+		<th v-show='hideName!="langKey"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'langKey' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('langKey')"
+		  :data-label='$t("userx.newappApp.userx.langKey")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.langKey")}}
+		</th>
+
 	
 <!-- 	<th
 	  v-for="header in data.headers"
@@ -90,6 +149,7 @@
 			data: Object,
 			pagination: Object,
 			indeterminite: Boolean,
+			hideName: String,
 		},
 	}
 </script>

@@ -47,8 +47,80 @@
 			    	</v-flex>
 			    	<v-flex md9>
 					
-	                      <v-text-field  autofocus  v-validate='{"min":"1","max":"50","pattern":"(^[_.@A-Za-z0-9-]*$)","alpha_dash":true}' name="login" label="Login" type="text" v-model="login"></v-text-field>
+	                      <v-text-field  autofocus  v-validate='{"required":true,"alpha_dash":true}' name="login" label="Login" type="text" v-model="login"></v-text-field>
 	                      <v-alert :value="errors.has('login')" type="error">{{ errors.first('login') }}</v-alert>  
+	                    
+
+	                    
+	                    
+	                    
+	              	</v-flex>
+	              	
+	          		<v-flex md3>
+			      	    <v-select
+			      	      v-model = 'advancedValues.selectedfirstname'
+				          :items="advanced.selectItems2"
+				          label="Label"
+				        ></v-select>
+			    	</v-flex>
+			    	<v-flex md9>
+					
+	                      <v-text-field  v-validate='{"max":"50","alpha_dash":true}' name="firstName" label="First Name" type="text" v-model="firstName"></v-text-field>
+	                      <v-alert :value="errors.has('firstName')" type="error">{{ errors.first('firstName') }}</v-alert>  
+	                    
+
+	                    
+	                    
+	                    
+	              	</v-flex>
+	              	
+	          		<v-flex md3>
+			      	    <v-select
+			      	      v-model = 'advancedValues.selectedlastname'
+				          :items="advanced.selectItems2"
+				          label="Label"
+				        ></v-select>
+			    	</v-flex>
+			    	<v-flex md9>
+					
+	                      <v-text-field  v-validate='{"max":"50","alpha_dash":true}' name="lastName" label="Last Name" type="text" v-model="lastName"></v-text-field>
+	                      <v-alert :value="errors.has('lastName')" type="error">{{ errors.first('lastName') }}</v-alert>  
+	                    
+
+	                    
+	                    
+	                    
+	              	</v-flex>
+	              	
+	          		<v-flex md3>
+			      	    <v-select
+			      	      v-model = 'advancedValues.selectedemail'
+				          :items="advanced.selectItems2"
+				          label="Label"
+				        ></v-select>
+			    	</v-flex>
+			    	<v-flex md9>
+					
+	                      <v-text-field  v-validate='{"required":true,"max":"254","alpha_dash":true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
+	                      <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
+	                    
+
+	                    
+	                    
+	                    
+	              	</v-flex>
+	              	
+	          		<v-flex md3>
+			      	    <v-select
+			      	      v-model = 'advancedValues.selectedimageurl'
+				          :items="advanced.selectItems2"
+				          label="Label"
+				        ></v-select>
+			    	</v-flex>
+			    	<v-flex md9>
+					
+	                      <v-text-field  v-validate='{"max":"256","alpha_dash":true}' name="imageUrl" label="Image Url" type="text" v-model="imageUrl"></v-text-field>
+	                      <v-alert :value="errors.has('imageUrl')" type="error">{{ errors.first('imageUrl') }}</v-alert>  
 	                    
 
 	                    
@@ -67,7 +139,7 @@
 					
 
 	                    
-	                      <v-checkbox   :value='activated' label='Activated' v-validate='{"boolean":true}' name='active' ></v-checkbox>
+	                      <v-checkbox   :value='activated' label='Activated' v-validate='{"required":true,"boolean":true}' name='active' ></v-checkbox>
 	                      <v-alert :value="errors.has('activated')" type="error">{{ errors.first('activated') }}</v-alert>
 	                    
 	                    
@@ -77,18 +149,18 @@
 	          		<v-flex md3>
 			      	    <v-select
 			      	      v-model = 'advancedValues.selectedauthorities'
-				          :items="advanced.selectItems2"
+				          :items="advanced.selectItems"
 				          label="Label"
 				        ></v-select>
 			    	</v-flex>
 			    	<v-flex md9>
 					
-	                      <v-text-field  v-validate='{"alpha_dash":true}' name="authorities" label="Authorities" type="text" v-model="authorities"></v-text-field>
-	                      <v-alert :value="errors.has('authorities')" type="error">{{ errors.first('authorities') }}</v-alert>  
-	                    
 
 	                    
 	                    
+	                    
+	                      <v-select   :items='authoritiess' solo v-validate='{"required":true}' name="authorities" label="Authorities" v-model="authorities"></v-select>
+	                      <v-alert :value="errors.has('authorities')" type="error">{{ errors.first('authorities') }}</v-alert>
 	                    
 	              	</v-flex>
 	              	
@@ -101,7 +173,7 @@
 			    	</v-flex>
 			    	<v-flex md9>
 					
-	                      <v-text-field  v-validate='{"alpha_dash":true}' name="createdBy" label="Created By" type="text" v-model="createdBy"></v-text-field>
+	                      <v-text-field  v-validate='{"required":true,"max":"50","alpha_dash":true}' name="createdBy" label="Created By" type="text" v-model="createdBy"></v-text-field>
 	                      <v-alert :value="errors.has('createdBy')" type="error">{{ errors.first('createdBy') }}</v-alert>  
 	                    
 
@@ -150,78 +222,6 @@
 	              	
 	          		<v-flex md3>
 			      	    <v-select
-			      	      v-model = 'advancedValues.selectedemail'
-				          :items="advanced.selectItems2"
-				          label="Label"
-				        ></v-select>
-			    	</v-flex>
-			    	<v-flex md9>
-					
-	                      <v-text-field  v-validate='{"min":"5","max":"254","alpha_dash":true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
-	                      <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
-	                    
-
-	                    
-	                    
-	                    
-	              	</v-flex>
-	              	
-	          		<v-flex md3>
-			      	    <v-select
-			      	      v-model = 'advancedValues.selectedfirstname'
-				          :items="advanced.selectItems2"
-				          label="Label"
-				        ></v-select>
-			    	</v-flex>
-			    	<v-flex md9>
-					
-	                      <v-text-field  v-validate='{"max":"50","alpha_dash":true}' name="firstName" label="First Name" type="text" v-model="firstName"></v-text-field>
-	                      <v-alert :value="errors.has('firstName')" type="error">{{ errors.first('firstName') }}</v-alert>  
-	                    
-
-	                    
-	                    
-	                    
-	              	</v-flex>
-	              	
-	          		<v-flex md3>
-			      	    <v-select
-			      	      v-model = 'advancedValues.selectedimageurl'
-				          :items="advanced.selectItems2"
-				          label="Label"
-				        ></v-select>
-			    	</v-flex>
-			    	<v-flex md9>
-					
-	                      <v-text-field  v-validate='{"max":"256","alpha_dash":true}' name="imageUrl" label="Image Url" type="text" v-model="imageUrl"></v-text-field>
-	                      <v-alert :value="errors.has('imageUrl')" type="error">{{ errors.first('imageUrl') }}</v-alert>  
-	                    
-
-	                    
-	                    
-	                    
-	              	</v-flex>
-	              	
-	          		<v-flex md3>
-			      	    <v-select
-			      	      v-model = 'advancedValues.selectedlangkey'
-				          :items="advanced.selectItems2"
-				          label="Label"
-				        ></v-select>
-			    	</v-flex>
-			    	<v-flex md9>
-					
-	                      <v-text-field  v-validate='{"min":"2","max":"6","alpha_dash":true}' name="langKey" label="Lang Key" type="text" v-model="langKey"></v-text-field>
-	                      <v-alert :value="errors.has('langKey')" type="error">{{ errors.first('langKey') }}</v-alert>  
-	                    
-
-	                    
-	                    
-	                    
-	              	</v-flex>
-	              	
-	          		<v-flex md3>
-			      	    <v-select
 			      	      v-model = 'advancedValues.selectedlastmodifiedby'
 				          :items="advanced.selectItems2"
 				          label="Label"
@@ -229,7 +229,7 @@
 			    	</v-flex>
 			    	<v-flex md9>
 					
-	                      <v-text-field  v-validate='{"alpha_dash":true}' name="lastModifiedBy" label="Last Modified By" type="text" v-model="lastModifiedBy"></v-text-field>
+	                      <v-text-field  v-validate='{"max":"50","alpha_dash":true}' name="lastModifiedBy" label="Last Modified By" type="text" v-model="lastModifiedBy"></v-text-field>
 	                      <v-alert :value="errors.has('lastModifiedBy')" type="error">{{ errors.first('lastModifiedBy') }}</v-alert>  
 	                    
 
@@ -278,19 +278,19 @@
 	              	
 	          		<v-flex md3>
 			      	    <v-select
-			      	      v-model = 'advancedValues.selectedlastname'
-				          :items="advanced.selectItems2"
+			      	      v-model = 'advancedValues.selectedlangkey'
+				          :items="advanced.selectItems"
 				          label="Label"
 				        ></v-select>
 			    	</v-flex>
 			    	<v-flex md9>
 					
-	                      <v-text-field  v-validate='{"max":"50","alpha_dash":true}' name="lastName" label="Last Name" type="text" v-model="lastName"></v-text-field>
-	                      <v-alert :value="errors.has('lastName')" type="error">{{ errors.first('lastName') }}</v-alert>  
-	                    
 
 	                    
 	                    
+	                    
+	                      <v-select   :items='langKeys' solo v-validate='{"required":true}' name="langKey" label="Lang Key" v-model="langKey"></v-select>
+	                      <v-alert :value="errors.has('langKey')" type="error">{{ errors.first('langKey') }}</v-alert>
 	                    
 	              	</v-flex>
 	              	
@@ -342,7 +342,7 @@
 </template>
 
 <script>
-	import axios from '../../../modules/axios'
+	import axios from 'axios'
 	let store = require('../../../store/entity').default('userx');
 	export default {
 		inject: ['$validator'],
@@ -350,6 +350,7 @@
 			//this.getData();
 		},
 		data: () =>  ({
+		  touchedSearch: false,
 	      
 	        
 	        
@@ -357,11 +358,27 @@
 	      
 	        
 	        
+	        firstName: "",
+	      
+	        
+	        
+	        lastName: "",
+	      
+	        
+	        
+	        email: "",
+	      
+	        
+	        
+	        imageUrl: "",
+	      
+	        
+	        
 	        activated: "",
 	      
 	        
 	        
-	        authorities: "",
+	        authorities: ROLE_USER,ROLE_ADMIN,
 	      
 	        
 	        
@@ -375,22 +392,6 @@
 	      
 	        
 	        
-	        email: "",
-	      
-	        
-	        
-	        firstName: "",
-	      
-	        
-	        
-	        imageUrl: "",
-	      
-	        
-	        
-	        langKey: "",
-	      
-	        
-	        
 	        lastModifiedBy: "",
 	      
 	        
@@ -401,7 +402,7 @@
 	      
 	        
 	        
-	        lastName: "",
+	        langKey: en,bg,
 	      
 		  
 			advanced: [
@@ -409,7 +410,7 @@
 				{selectItems2: [{text: 'equal', value: 1}, {text:'right*', value: 2},{text:'*left', value: 3}],},
 			],
 			advancedValues: {},
-			advancedValues2: {"login":"\"\"","activated":"\"\"","authorities":"","createdBy":"\"\"","createdDate":"\"\"","email":"\"\"","firstName":"\"\"","imageUrl":"\"\"","langKey":"\"\"","lastModifiedBy":"\"\"","lastModifiedDate":"\"\"","lastName":"\"\""},
+			advancedValues2: {"login":"\"\"","firstName":"\"\"","lastName":"\"\"","email":"\"\"","imageUrl":"\"\"","activated":"\"\"","authorities":"ROLE_USER,ROLE_ADMIN","createdBy":"\"\"","createdDate":"\"\"","lastModifiedBy":"\"\"","lastModifiedDate":"\"\"","langKey":"en,bg"},
 			savedSearch: null,
 			savedSearches: [],
 			dialog: false,
@@ -442,7 +443,7 @@
 		  	}
 		  },
 	      search() {
-	        if(!this.searchQuery) return false;
+	        //if(!this.searchQuery) return false;
 	        this.$store.dispatch('search', this.searchQuery)
 	      },
 	      searchAdvanced() {
@@ -463,8 +464,9 @@
 
 		watch: {
 			async searchQuery(val) {
-		    	//this.search();
-			    try {
+				if(!val && !this.touchedSearch) return false;
+		    	this.search();
+/*			    try {
 			    	let response = await axios.get('https://cat-fact.herokuapp.com/facts');
 			    	this.items = response.data.all;
 			    	this.items.splice(0,0,{_id:'aa', text:'yy', disabled: true})
@@ -472,7 +474,7 @@
 			    }
 			    catch(err) {
 			    	console.log(err)
-			    }
+			    }*/
 			}
 		}
 	}

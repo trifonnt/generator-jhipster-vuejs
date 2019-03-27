@@ -1,0 +1,199 @@
+<template>
+ <div>
+  <div class='margin'></div>
+  <div id='toptable' style='display:flex'>
+    <slot name="createButton">
+      <div id='createnew' v-show='!filterName'>
+        <v-btn v-show='!$route.params.masterId' to='/entities/userx/new/'  color="primary">
+            <v-icon>add</v-icon>
+            {{$t('userx.newappApp.userx.home.createLabel')}}
+        </v-btn>
+        <v-btn v-show='$route.params.masterId' :to='"/entities/userx/new/"+$route.params.masterId'  color="primary">
+
+            <v-icon>add</v-icon>
+            {{$t('userx.newappApp.userx.home.createLabel')}}
+        </v-btn>
+      </div>
+    </slot>
+   <search></search>
+   <div id='filterlabels'>
+    <filter-labels :change='getData' store-name="userx"></filter-labels>
+   </div>
+  </div>
+    <div  v-show='areAllChecked'>
+      <v-btn @click='deleteAll'>{{$t('app.deleteAll')}}
+            <v-icon color="red">delete</v-icon>
+      </v-btn>
+      <v-btn @click='print'>{{$t('app.print')}}
+        <v-icon color="block">print</v-icon>
+      </v-btn>
+      <div id='selectLabels'>
+        <select-labels v-on:selected='selectLabels' store-name="userx"></select-labels>
+      </div>
+    </div>
+ <delete-dialog store-name="userx"></delete-dialog>
+ <v-data-table
+    :headers="headers"
+    :items="entitys"
+    :loading='loading'
+    class="elevation-1"
+    :pagination='pagination'
+    v-on:update:pagination='updatePagination'
+    :total-items='totalItems'
+    :rows-per-page-items="[1,10,20,50]"
+    select-all
+  >
+    <template slot="headers" slot-scope="props">
+      <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked' :hideName='hideName'></entity-table-head>
+    </template>
+    <template slot="items" slot-scope="props">
+      <slot name='tableBody'>
+        <component :is='entityTableBody' :headers = 'headers' :items = 'props' store-name="Userx" :hideName='hideName'></component>
+      </slot>
+    </template>
+    <template slot='footer' v-if='lines'>
+      <v-btn @click='addNewLine' color='primary'><v-icon>add</v-icon> Add new line</v-btn>
+      <slot name='tableFooter'></slot>
+    </template>
+  </v-data-table>
+
+  </div>
+</template>
+
+<script>
+  import table from '../../mixins/Table'
+  import {createStore} from '../../../storex/'
+  import SelectLabels from '../../common/SelectLabels.vue'
+  import FilterLabels from '../../common/FilterLabels.vue'
+  import Search from './Search.vue'
+  import EntityTableHead from './EntityTableHead.vue'
+  import DeleteDialog from './DeleteDialog.vue'
+
+  import EventBus from '../../common/EventBus.js'
+
+  import _ from 'lodash';
+
+  export default {
+      mixins: [table("userx")],
+      props: {
+        filterName: String,
+        masterId: {
+          type: Number,
+          default: '',
+        },
+        hideName: {
+          type: String,
+          default: '',
+        },
+        lines: {
+          type: Boolean,
+          default: false,
+        }
+      },
+      data: () => ({
+        footer: [],
+        headers: [
+            { text: "Login", value: "login" },
+            { text: "First Name", value: "firstName" },
+            { text: "Last Name", value: "lastName" },
+            { text: "Email", value: "email" },
+            { text: "Image Url", value: "imageUrl" },
+            { text: "Activated", value: "activated" },
+            { text: "Authorities", value: "authorities" },
+            { text: "Created By", value: "createdBy" },
+            { text: "Created Date", value: "createdDate" },
+            { text: "Last Modified By", value: "lastModifiedBy" },
+            { text: "Last Modified Date", value: "lastModifiedDate" },
+            { text: "Lang Key", value: "langKey" },
+          { text: 'Actions', value: 'actions', sortable: false }
+        ],
+        labels: [
+          {text:'completed', value:1},
+          {text:'in progress', value:2}
+        ],
+        selectedLabels: [],
+      }),
+      created() {
+        this.$on('closeDialog', (makeRequest) => {
+          if(!makeRequest) return false;
+          this.getData({masterId: this.$route.params.masterId, filterName: this.filterName})
+        })
+      },
+      computed: {
+        entityTableBody() {
+          if(this.lines) return () => import(`./EntityTableBody2.vue`)
+          return () => import(`./EntityTableBody.vue`)
+        },
+        checkedDeleted() {
+          return this.$store.state.table.entity.checkedDeleted
+        },
+      },
+      methods: {
+        addNewLine() {
+          let newLine = Object.assign({}, this.entitys[0]);
+          Object.keys(newLine).forEach(k=>newLine[k]='')
+          newLine.new = true;
+          this.$store.commit('pushEntity',newLine);
+        },
+        selectLabels(labels) {
+          this.getData({labels})
+        },
+        print() {
+          let status = this.$store.state.app.leftDrawer;
+          this.$store.commit('setLeftDrawer', false);
+          this.$nextTick(()=>window.print());
+          window.onafterprint = () => {
+            this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
+          }
+        },
+        updatePagination(pagination) {
+          if(!_.isEqual(pagination,this.pagination)) this.pagination = pagination
+        }
+      },
+      beforeCreate() {
+        this.$store = createStore('userx', '', this.$options.propsData.filterName, this.$route.params.masterId)
+      },
+      components: {
+        SelectLabels,
+        FilterLabels,
+        Search,
+        EntityTableHead,
+        DeleteDialog,
+      }
+  }
+</script>
+<style>
+<style>
+  #toptable {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background: #f5f5f5;
+    width: 100%;
+    z-index: 1;
+  }
+  #createnew {
+    display: inline-block;
+    align-self: center;
+  }
+  #selectLabels {
+    display: inline-block;
+  }
+  #filterlabels {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  #filterlabels .v-select.v-select--chips .v-select__selections  {
+    min-height: initial;
+  }
+  .greenlabel {
+    background: green;
+    width: 30px;
+    height: 30px;
+  }
+  .margin {
+  }
+  .rightalign {
+    text-align: right;
+  }
+</style>

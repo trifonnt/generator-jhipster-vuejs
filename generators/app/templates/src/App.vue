@@ -91,7 +91,7 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
-      <v-toolbar-title><img src="./assets/01_logo.png"/></v-toolbar-title>
+      <v-toolbar-title><img src="./assets/potatologo.png"/></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
 
