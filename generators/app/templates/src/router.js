@@ -133,11 +133,15 @@ const router = new Router({
 let guestRoutes = ['login','register','forgot', 'reset']
 router.beforeEach((to, from, next) => {
   let path = to.fullPath.substr(1);
-  let profile = getProfile() && getProfile().jwt;
-  if(profile && guestRoutes.includes(path)) {
+  let jwt = getProfile() && getProfile().jwt;
+  let profile = getProfile();
+  if(jwt && guestRoutes.includes(path)) {
     return next('/');
   }
-  if(!profile && (to.fullPath.includes('entities') || to.fullPath.includes('admin'))) {
+  if(jwt && !profile.roles.includes('ROLE_ADMIN') && to.fullPath.includes('admin')) {
+    return next('/')
+  }
+  if(!jwt && (to.fullPath.includes('entities') || to.fullPath.includes('admin'))) {
     return next('login');
   }
   //inserthere

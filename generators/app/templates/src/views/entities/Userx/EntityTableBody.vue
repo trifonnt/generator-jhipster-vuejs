@@ -2,19 +2,19 @@
 	<tr :class="{visible: visibleHeader}">
 	  <td><v-checkbox :value='isChecked' @change='updateChecked($event)' v-model='isChecked'></v-checkbox></td>
     <td><div class='label'></div></td>
-      <td v-show='hideName!="login"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.login")' v-text="items.item['login']"></td>
+      <td v-show='hideName!="login" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.login")' v-text="items.item['login']"></td>
 
-      <td v-show='hideName!="firstName"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.firstName")' v-text="items.item['firstName']"></td>
+      <td v-show='hideName!="firstName" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.firstName")' v-text="items.item['firstName']"></td>
 
-      <td v-show='hideName!="lastName"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastName")' v-text="items.item['lastName']"></td>
+      <td v-show='hideName!="lastName" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastName")' v-text="items.item['lastName']"></td>
 
-      <td v-show='hideName!="email"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.email")' v-text="items.item['email']"></td>
+      <td v-show='hideName!="email" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.email")' v-text="items.item['email']"></td>
 
-      <td v-show='hideName!="imageUrl"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.imageUrl")' v-text="items.item['imageUrl']"></td>
+      <td v-show='hideName!="imageUrl" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.imageUrl")' v-text="items.item['imageUrl']"></td>
 
-      <td v-show='hideName!="activated"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.activated")' v-text="items.item['activated']"></td>
+      <td v-show='hideName!="activated" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.activated")' v-text="items.item['activated']"></td>
 
-      <td v-if="items.item['authorities'] && items.item['authorities'].length" v-show='hideName!="authorities"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.authorities")'>
+      <td v-if="items.item['authorities'] && items.item['authorities'].length" v-show='hideName!="authorities" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.authorities")'>
         <v-chip v-for="val in items.item['authorities'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
           <v-chip color='primary' class='morechips' v-show="items.item['authorities'] && items.item['authorities'].length > 2"
@@ -32,16 +32,16 @@
         </v-menu>
       </td>
 
-      <td v-show='hideName!="authorities"' v-if="!items.item['authorities'] || items.item['authorities'].length == 0"></td>
-      <td v-show='hideName!="createdBy"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdBy")' v-text="items.item['createdBy']"></td>
+      <td v-show='hideName!="authorities" && true' v-if="!items.item['authorities'] || items.item['authorities'].length == 0"></td>
+      <td v-show='hideName!="createdBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdBy")' v-text="items.item['createdBy']"></td>
 
-      <td v-show='hideName!="createdDate"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdDate")' v-text="items.item['createdDate']"></td>
+      <td v-show='hideName!="createdDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdDate")' v-text="items.item['createdDate']"></td>
 
-      <td v-show='hideName!="lastModifiedBy"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedBy")' v-text="items.item['lastModifiedBy']"></td>
+      <td v-show='hideName!="lastModifiedBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedBy")' v-text="items.item['lastModifiedBy']"></td>
 
-      <td v-show='hideName!="lastModifiedDate"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedDate")' v-text="items.item['lastModifiedDate']"></td>
+      <td v-show='hideName!="lastModifiedDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedDate")' v-text="items.item['lastModifiedDate']"></td>
 
-      <td v-if="items.item['langKeys'] && items.item['langKeys'].length" v-show='hideName!="langKey"' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.langKey")'>
+      <td v-if="items.item['langKeys'] && items.item['langKeys'].length" v-show='hideName!="langKey" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.langKey")'>
         <v-chip v-for="val in items.item['langKey'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
           <v-chip color='primary' class='morechips' v-show="items.item['langKey'] && items.item['langKey'].length > 2"
@@ -59,7 +59,7 @@
         </v-menu>
       </td>
 
-      <td v-show='hideName!="langKey"' v-if="!items.item['langKeys'] || items.item['langKeys'].length == 0"></td>
+      <td v-show='hideName!="langKey" && true' v-if="!items.item['langKeys'] || items.item['langKeys'].length == 0"></td>
 
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">

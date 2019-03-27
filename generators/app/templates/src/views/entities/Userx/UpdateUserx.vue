@@ -14,7 +14,7 @@
               <v-card-text>
                 <v-form @submit.prevent='edit' @keyup.native.enter='enterForm'>
 
-                      <v-text-field v-show="$route.params.hideName != 'login'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   autofocus  name="login" :label="$t('userx.newappApp.userx.login')" type="text" v-model="login"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'login'" v-validate='{"required":true,"alpha_dash":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   autofocus  name="login" :label="$t('userx.newappApp.userx.login')" type="text" v-model="login"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('login')" type="error">{{ errors.first('login') }}</v-alert>  
 
 
@@ -25,7 +25,7 @@
 
 
 
-                      <v-text-field v-show="$route.params.hideName != 'firstName'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="firstName" :label="$t('userx.newappApp.userx.firstName')" type="text" v-model="firstName"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'firstName'" v-validate='{"max":"50","alpha_dash":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="firstName" :label="$t('userx.newappApp.userx.firstName')" type="text" v-model="firstName"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('firstName')" type="error">{{ errors.first('firstName') }}</v-alert>  
 
 
@@ -36,7 +36,7 @@
 
 
 
-                      <v-text-field v-show="$route.params.hideName != 'lastName'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastName" :label="$t('userx.newappApp.userx.lastName')" type="text" v-model="lastName"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'lastName'" v-validate='{"max":"50","alpha_dash":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastName" :label="$t('userx.newappApp.userx.lastName')" type="text" v-model="lastName"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('lastName')" type="error">{{ errors.first('lastName') }}</v-alert>  
 
 
@@ -47,7 +47,7 @@
 
 
 
-                      <v-text-field v-show="$route.params.hideName != 'email'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="email" :label="$t('userx.newappApp.userx.email')" type="text" v-model="email"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'email'" v-validate='{"required":true,"max":"254","regex":"/(.+)@(.+){2,}\\.(.+){2,}/"}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="email" :label="$t('userx.newappApp.userx.email')" type="text" v-model="email"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
 
 
@@ -58,7 +58,7 @@
 
 
 
-                      <v-text-field v-show="$route.params.hideName != 'imageUrl'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="imageUrl" :label="$t('userx.newappApp.userx.imageUrl')" type="text" v-model="imageUrl"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'imageUrl'" v-validate='{"max":"256","alpha_dash":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="imageUrl" :label="$t('userx.newappApp.userx.imageUrl')" type="text" v-model="imageUrl"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('imageUrl')" type="error">{{ errors.first('imageUrl') }}</v-alert>  
 
 
@@ -71,7 +71,7 @@
 
 
 
-                      <v-checkbox v-show="$route.params.hideName != 'activated'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   v-model='activated' :label="$t('userx.newappApp.userx.activated')" name='activated'></v-checkbox>
+                      <v-checkbox v-show="$route.params.hideName != 'activated'" v-validate='{"required":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   v-model='activated' :label="$t('userx.newappApp.userx.activated')" name='activated'></v-checkbox>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('activated')" type="error">{{ errors.first('activated') }}</v-alert>
 
 
@@ -96,13 +96,18 @@
                         v-model = 'authorities'
                         :options = 'authoritiesValues'
                         :placeholder="$t('userx.newappApp.userx.authorities')"
-                        track-by='id'
                       >
                        <template slot="option" slot-scope="props">
                         <div>{{props.option}}</div>
                       </template>
                       <template slot='singleLabel' slot-scope="{option}">
                         <div>{{option}}</div>
+                      </template>
+                      <template slot="tag" slot-scope="{ option, remove, index }">
+                        <span class="multiselect__tag" :key="index">
+                          <span>{{option}}</span>
+                          <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
+                        </span>
                       </template>
                       </multiselect>
 
@@ -111,7 +116,7 @@
 
 
 
-                      <v-text-field v-show="$route.params.hideName != 'createdBy'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="createdBy" :label="$t('userx.newappApp.userx.createdBy')" type="text" v-model="createdBy"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'createdBy'" v-validate='{"required":true,"max":"50","alpha_dash":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="createdBy" :label="$t('userx.newappApp.userx.createdBy')" type="text" v-model="createdBy"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('createdBy')" type="error">{{ errors.first('createdBy') }}</v-alert>  
 
 
@@ -134,7 +139,7 @@
 
 
 
-                      <v-text-field v-show="$route.params.hideName != 'lastModifiedBy'" :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastModifiedBy" :label="$t('userx.newappApp.userx.lastModifiedBy')" type="text" v-model="lastModifiedBy"></v-text-field>
+                      <v-text-field v-show="$route.params.hideName != 'lastModifiedBy'" v-validate='{"max":"50","alpha_dash":true}' :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastModifiedBy" :label="$t('userx.newappApp.userx.lastModifiedBy')" type="text" v-model="lastModifiedBy"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('lastModifiedBy')" type="error">{{ errors.first('lastModifiedBy') }}</v-alert>  
 
 
@@ -173,13 +178,18 @@
                         v-model = 'langKey'
                         :options = 'langKeyValues'
                         :placeholder="$t('userx.newappApp.userx.langKey')"
-                        track-by='id'
                       >
                        <template slot="option" slot-scope="props">
                         <div>{{props.option}}</div>
                       </template>
                       <template slot='singleLabel' slot-scope="{option}">
                         <div>{{option}}</div>
+                      </template>
+                      <template slot="tag" slot-scope="{ option, remove, index }">
+                        <span class="multiselect__tag" :key="index">
+                          <span>{{option}}</span>
+                          <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
+                        </span>
                       </template>
                       </multiselect>
 
@@ -249,6 +259,7 @@
         lastName: "",
         email: "",
         imageUrl: "",
+        activated: "",
             authoritiesValues: ["ROLE_USER","ROLE_ADMIN"],
             authorities: "ROLE_USER",
         createdBy: "",

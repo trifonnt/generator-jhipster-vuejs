@@ -101,7 +101,7 @@
 			    	</v-flex>
 			    	<v-flex md9>
 					
-	                      <v-text-field  v-validate='{"required":true,"max":"254","alpha_dash":true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
+	                      <v-text-field  v-validate='{"required":true,"max":"254","pattern":"/(.+)@(.+){2,}\\.(.+){2,}/","alpha_dash":true}' name="email" label="Email" type="text" v-model="email"></v-text-field>
 	                      <v-alert :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
 	                    
 

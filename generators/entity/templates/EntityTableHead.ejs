@@ -12,7 +12,7 @@
 	</th>
 	<th width='10px'>Label</th>
 	<%_ for(field of fields) { _%>
-		<th v-show='hideName!="<%=field.fieldName%>"' v-hasRole="'<%=field.visibleForRole%>'"
+		<th v-show='hideName!="<%=field.fieldName%>" && <%=field.visibleInTableMode%>' v-hasRole="'<%=field.visibleForRole%>'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=field.fieldName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('<%=field.fieldName%>')"
 		  :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'
@@ -26,7 +26,7 @@
 	<%_ for(relationship of relationships) { 
   		if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 	_%>
-		<th v-show='hideName!="<%=relationship.relationshipName%>"' v-hasRole="'<%=relationship.visibleForRole%>'"
+		<th v-show='hideName!="<%=relationship.relationshipName%>" && <%=relationship.visibleInTableMode%>' v-hasRole="'<%=relationship.visibleForRole%>'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', '<%=relationship.relationshipName%>' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('<%=relationship.relationshipName%>')"
 		  :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(relationship.relationshipName) : relationship.relationshipName %>")'

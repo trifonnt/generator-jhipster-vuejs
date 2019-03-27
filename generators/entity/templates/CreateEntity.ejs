@@ -32,10 +32,10 @@
                       validate.max=field.fieldValidateRulesMaxlength;
                     }
                     if("fieldValidateRulesPattern" in field) {
-                      validate.pattern = field.fieldValidateRulesPattern;
+                      validate.regex = field.fieldValidateRulesPattern;
                     }
                     //if(fType == "Boolean") validate.boolean = true;
-                    if(fType == "String") validate["alpha_dash"] = true;
+                    if(fType == "String" && !("fieldValidateRulesPattern" in field)) validate["alpha_dash"] = true;
                     if(['Integer', 'BigDecimal', 'Long'].includes(fType)) validate.integer = true;
                     if(['Float', 'Double'].includes(fType)) validate.regex = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?/;
                     validate = JSON.stringify(validate)
@@ -45,7 +45,7 @@
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <%_ } _%>
                     <%_ if(fType=="String" && field.fieldValues == undefined) { _%>
-                      <v-text-field :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" type="text" v-model="<%=fName%>"></v-text-field>
+                      <v-text-field :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(req) {%> prepend-inner-icon='*' <%}%> <%if(field.focus){%> autofocus <%}%> name="<%=fName%>" :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" v-validate='<%-validate%>' type="text" v-model="<%=fName%>"></v-text-field>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>  
                     <%_ } _%>
                     <%_ if(fType=="byte[]" && (field.fieldTypeBlobContent == 'any' || field.fieldTypeBlobContent == 'image')) { _%>
@@ -91,7 +91,7 @@
                     <%_ } _%>
 
                     <%_ if(fType == "Boolean") { _%>
-                      <v-checkbox :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
+                      <v-checkbox :readonly='isReadOnly("<%=field.readonlyForRoles%>")' v-validate='<%-validate%>' v-hasRole="'<%=field.visibleForRole%>'" <%if(field.focus){%> autofocus <%}%>  v-model='<%=fName%>' :label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')" name='<%=fName%>'></v-checkbox>
                       <v-alert v-hasRole="'<%=field.visibleForRole%>'" :value="errors.has('<%=fName%>')" type="error">{{ errors.first('<%=fName%>') }}</v-alert>
                     <%_ } _%>
 
@@ -109,13 +109,18 @@
                         v-model = '<%=fName%>'
                         :options = '<%=fName%>Values'
                         :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (field.fieldType == 'many-to-many' || field.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
-                        track-by='id'
                       >
                        <template slot="option" slot-scope="props">
                         <div>{{props.option}}</div>
                       </template>
                       <template slot='singleLabel' slot-scope="{option}">
                         <div>{{option}}</div>
+                      </template>
+                      <template slot="tag" slot-scope="{ option, remove, index }">
+                        <span class="multiselect__tag" :key="index">
+                          <span>{{option}}</span>
+                          <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
+                        </span>
                       </template>
                       </multiselect>
                     <%_ } _%>
@@ -234,6 +239,12 @@
                               :length="pageLength"
                             ></v-pagination>
                           </template>
+                          <template slot="tag" slot-scope="{ option, remove, index }">
+                            <span class="multiselect__tag" :key="index">
+                              <span>{{option.otherEntityField}}</span>
+                              <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
+                            </span>
+                          </template>
                           </multiselect>
                       <%_ } else if(relationship.otherEntityName != 'file') { _%>
                           <br>
@@ -262,6 +273,12 @@
                               :length="pageLength"
                             ></v-pagination>
                           </template>
+                          <template slot="tag" slot-scope="{ option, remove, index }">
+                            <span class="multiselect__tag" :key="index">
+                              <span>{{option}}</span>
+                              <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
+                            </span>
+                          </template>   
                           </multiselect>
                       <%_ } else { _%>
 
@@ -373,7 +390,6 @@
           let fType = field.fieldType;
           let val;
           if(fType == 'String') val = '""';
-          if(fType == 'Boolean') val = "''";
           _%>
           <%_  
             if(fType == 'Enumeration') {
@@ -383,7 +399,7 @@
             <%=field.fieldName%>: "<%=val%>",
           <%_ } _%>
           <%_
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]','Boolean'].includes(fType)) {
             val = '""';
         _%>
           <%_ 

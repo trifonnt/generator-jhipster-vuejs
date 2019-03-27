@@ -10,7 +10,7 @@
 	  ></v-checkbox>
 	</th>
 	<th width='10px'>Label</th>
-		<th v-show='hideName!="login"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="login" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'login' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('login')"
 		  :data-label='$t("userx.newappApp.userx.login")'
@@ -19,7 +19,7 @@
 	  		{{$t("userx.newappApp.userx.login")}}
 		</th>
 
-		<th v-show='hideName!="firstName"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="firstName" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'firstName' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('firstName')"
 		  :data-label='$t("userx.newappApp.userx.firstName")'
@@ -28,7 +28,7 @@
 	  		{{$t("userx.newappApp.userx.firstName")}}
 		</th>
 
-		<th v-show='hideName!="lastName"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="lastName" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'lastName' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('lastName')"
 		  :data-label='$t("userx.newappApp.userx.lastName")'
@@ -37,7 +37,7 @@
 	  		{{$t("userx.newappApp.userx.lastName")}}
 		</th>
 
-		<th v-show='hideName!="email"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="email" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'email' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('email')"
 		  :data-label='$t("userx.newappApp.userx.email")'
@@ -46,7 +46,7 @@
 	  		{{$t("userx.newappApp.userx.email")}}
 		</th>
 
-		<th v-show='hideName!="imageUrl"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="imageUrl" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'imageUrl' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('imageUrl')"
 		  :data-label='$t("userx.newappApp.userx.imageUrl")'
@@ -55,7 +55,7 @@
 	  		{{$t("userx.newappApp.userx.imageUrl")}}
 		</th>
 
-		<th v-show='hideName!="activated"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="activated" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'activated' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('activated')"
 		  :data-label='$t("userx.newappApp.userx.activated")'
@@ -64,7 +64,7 @@
 	  		{{$t("userx.newappApp.userx.activated")}}
 		</th>
 
-		<th v-show='hideName!="authorities"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="authorities" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'authorities' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('authorities')"
 		  :data-label='$t("userx.newappApp.userx.authorities")'
@@ -73,7 +73,7 @@
 	  		{{$t("userx.newappApp.userx.authorities")}}
 		</th>
 
-		<th v-show='hideName!="createdBy"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="createdBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'createdBy' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('createdBy')"
 		  :data-label='$t("userx.newappApp.userx.createdBy")'
@@ -82,7 +82,7 @@
 	  		{{$t("userx.newappApp.userx.createdBy")}}
 		</th>
 
-		<th v-show='hideName!="createdDate"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="createdDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'createdDate' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('createdDate')"
 		  :data-label='$t("userx.newappApp.userx.createdDate")'
@@ -91,7 +91,7 @@
 	  		{{$t("userx.newappApp.userx.createdDate")}}
 		</th>
 
-		<th v-show='hideName!="lastModifiedBy"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="lastModifiedBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'lastModifiedBy' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('lastModifiedBy')"
 		  :data-label='$t("userx.newappApp.userx.lastModifiedBy")'
@@ -100,7 +100,7 @@
 	  		{{$t("userx.newappApp.userx.lastModifiedBy")}}
 		</th>
 
-		<th v-show='hideName!="lastModifiedDate"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="lastModifiedDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'lastModifiedDate' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('lastModifiedDate')"
 		  :data-label='$t("userx.newappApp.userx.lastModifiedDate")'
@@ -109,7 +109,7 @@
 	  		{{$t("userx.newappApp.userx.lastModifiedDate")}}
 		</th>
 
-		<th v-show='hideName!="langKey"' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		<th v-show='hideName!="langKey" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'langKey' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('langKey')"
 		  :data-label='$t("userx.newappApp.userx.langKey")'
