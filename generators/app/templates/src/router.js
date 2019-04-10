@@ -14,7 +14,7 @@ import UpdateUserx from './views/entities/Userx/UpdateUserx.vue'
 import ViewUserx from './views/entities/Userx/ViewUserx.vue'
 
 import AdminDocs from './views/admin/Docs.vue'
-
+import AdminHealth from './views/admin/Health.vue'
 
 //import Detail from './views/entities/mDetail/Detail.vue'
 
@@ -114,6 +114,11 @@ let routes = [
       path: '/admin/docs',
       name: 'admindocs',
       component: AdminDocs,
+    },
+    {
+      path: '/admin/health',
+      name: 'adminhealth',
+      component: AdminHealth,
     },
   ];
   let context = require('./views/entities').default;
