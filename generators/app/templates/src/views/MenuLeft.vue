@@ -48,9 +48,10 @@
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
           <v-list-tile-action>
-            <v-icon>user</v-icon>
+            <v-icon>local_hospital</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
+            <v-icon color='primary'>local_hospital</v-icon> &nbsp;
             <v-list-tile-title><router-link to='/admin/health'>{{$t('app.admin.health')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>

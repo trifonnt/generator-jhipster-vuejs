@@ -152,15 +152,25 @@
         </v-list>
     </v-menu>
 
-    <v-btn flat to='/home'><router-link to="home">{{$t('app.home')}}</router-link></v-btn>
-    <v-btn flat v-show='!user.auth' to='/login'><router-link to="/login">{{$t('app.login.title')}}</router-link></v-btn>
-    <v-btn flat v-show='!user.auth' to='/register'><router-link to="/register">{{$t('app.register.title')}}</router-link></v-btn>
+    <v-btn flat to='/home'>
+      <v-icon color='primary'>home</v-icon> &nbsp;
+      <router-link to="home">{{$t('app.home')}}</router-link>
+    </v-btn>
+    <v-btn flat v-show='!user.auth' to='/login'>
+      <v-icon color='primary'>lock</v-icon> &nbsp;
+      <router-link to="/login">{{$t('app.login.title')}}</router-link>
+    </v-btn>
+    <v-btn flat v-show='!user.auth' to='/register'>
+      <v-icon color='primary'>account_box</v-icon> &nbsp;
+      <router-link to="/register">{{$t('app.register.title')}}</router-link>
+    </v-btn>
     <v-menu offset-y v-show='user.auth'>
     <v-btn flat
       slot="activator"
       color="primary"
       dark
     >
+      <v-icon color='primary'>view_list</v-icon> &nbsp;
       {{$t('app.entities')}}
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
@@ -172,6 +182,7 @@
       color="primary"
       dark
     >
+      <v-icon color='primary'>view_list</v-icon> &nbsp;
       {{$t('app.entitiesx')}}
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
@@ -183,6 +194,7 @@
       color="primary"
       dark
     >
+      <v-icon color='primary'>school</v-icon> &nbsp;
       {{$t('app.admin.admin')}}
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
@@ -207,16 +219,19 @@
         <v-list-tile
           @click=""
         >
+          <v-icon color='primary'>account_box</v-icon> &nbsp;
           <v-list-tile-title><router-link to='/account'>{{$t('app.account.login')}}</router-link></v-list-tile-title>
         </v-list-tile>        
         <v-list-tile
           @click=""
         >
+          <v-icon color='primary'>lock</v-icon> &nbsp;
           <v-list-tile-title><router-link to='/changepass'>{{$t('app.account.password')}}</router-link></v-list-tile-title>
         </v-list-tile>        
         <v-list-tile
           @click=""
         >
+          <v-icon color='primary'>local_hospital</v-icon> &nbsp;
           <v-list-tile-title><a href='#' @click='logout'>{{$t('app.account.logout')}}</a></v-list-tile-title>
         </v-list-tile>
       </v-list>

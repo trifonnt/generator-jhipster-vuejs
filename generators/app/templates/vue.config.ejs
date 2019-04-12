@@ -1,17 +1,35 @@
+const path = require('path');
+
 module.exports = {
   lintOnSave: true,
+  chainWebpack: (config) => {
+    config
+      .plugin('html')
+      .tap(([options]) => [Object.assign(options, {
+          template: path.resolve('src/main/webapp/public/index.html'),
+      })]);
+  },
   outputDir: "./target/www",
   baseUrl: '/',
   configureWebpack: config => {
     if(process.env.NODE_ENV != 'production') {
-      console.log(config)
-      config.devServer = {};
+      config.devServer = {
+        index: 'src/main/webapp/public/index.html'
+      };
         config.devServer.proxy = {
           '/api': {
             target: 'http://127.0.0.1:8080',
             changeOrigin: true,
           },
           '/swagger-resources': {
+            target: 'http://127.0.0.1:8080',
+            changeOrigin: true,
+          },
+          '/swagger-ui': {
+            target: 'http://127.0.0.1:8080',
+            changeOrigin: true,
+          },
+          '/management': {
             target: 'http://127.0.0.1:8080',
             changeOrigin: true,
           },
