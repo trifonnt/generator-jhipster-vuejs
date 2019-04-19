@@ -31,6 +31,10 @@ To install this module:
 yarn global add generator-jhipster-vuejs2
 ```
 
+```bash
+yarn global add generator-jhipster-x
+```
+
 In order for the entity post hook to work, the module should be installed locally
 
 ```bash
@@ -67,7 +71,7 @@ npm update -g generator-jhipster-vuejs2
 
 ```bash
 yarn add generator-jhipster-vuejs2 --latest
-yo jhipster-vuejs2
+jhipster-x
 ```
 # License
 
