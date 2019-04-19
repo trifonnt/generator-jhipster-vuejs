@@ -51,8 +51,15 @@
             <v-icon>local_hospital</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-icon color='primary'>local_hospital</v-icon> &nbsp;
             <v-list-tile-title><router-link to='/admin/health'>{{$t('app.admin.health')}}</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-show='user.auth'>
+          <v-list-tile-action>
+            <v-icon>playlist_add_check</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title><router-link to='/admin/audit'>{{$t('app.admin.audit')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -65,15 +72,15 @@
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
           <v-list-tile-action>
-            <v-icon>home</v-icon>
+            <v-icon color='primary'>account_box</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to='/account'>{{$t('app.account.password')}}</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/account'>{{$t('app.settings')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
           <v-list-tile-action>
-            <v-icon>home</v-icon>
+            <v-icon color='primary'>lock</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title><router-link to='/changepass'>{{$t('app.account.password')}}</router-link></v-list-tile-title>
@@ -81,7 +88,7 @@
         </v-list-tile>
         <v-list-tile v-show='user.auth'>
           <v-list-tile-action>
-            <v-icon>home</v-icon>
+            <v-icon color='primary' style='width: 24px'>power_setting_new</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title><router-link to='/logout'>{{$t('app.account.logout')}}</router-link></v-list-tile-title>
@@ -100,7 +107,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><a href='#' @click='logout'>{{$t('app.login.title')}}</a></router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to='/register'>{{$t('app.register.title')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list-group>

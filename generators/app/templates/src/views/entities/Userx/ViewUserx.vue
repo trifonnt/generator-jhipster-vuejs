@@ -15,21 +15,21 @@
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.firstName')}}</v-chip>{{firstName}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.lastName')}}</v-chip>{{lastName}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.email')}}</v-chip>{{email}}</div>
-                  <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.imageUrl')}}</v-chip>{{imageUrl}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.activated')}}</v-chip>{{activated}}</div>
+                  <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.authorities')}}</v-chip>
+                        <v-chip color="primary" text-color="white" v-for='i in authorities' :key='i'>{{i}}</v-chip>
+                  </div>
+                  <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.langKey')}}</v-chip>
 
-                    <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.authorities')}}</v-chip>
-                          <v-chip color="primary" text-color="white" v-for='i in authorities' :key='i'>{{i}}</v-chip>
-                    </div>
-
+                  <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.imageUrl')}}</v-chip>{{imageUrl}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.createdBy')}}</v-chip>{{createdBy}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.createdDate')}}</v-chip>{{createdDate}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.lastModifiedBy')}}</v-chip>{{lastModifiedBy}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.lastModifiedDate')}}</v-chip>{{lastModifiedDate}}</div>
 
-                    <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.langKeys')}}</v-chip>
-                          <v-chip color="primary" text-color="white" v-for='i in langKey' :key='i'>{{i}}</v-chip>
-                    </div>
+<!--                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.langKeys')}}</v-chip>
+                        <v-chip color="primary" text-color="white" v-for='i in langKey' :key='i'>{{i}}</v-chip>
+                  </div> -->
 
                 <v-btn @click='print' class='viewbuttons'>{{$t('app.print')}}
                   <v-icon color="block">print</v-icon>

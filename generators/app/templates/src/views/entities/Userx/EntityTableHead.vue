@@ -46,15 +46,6 @@
 	  		{{$t("userx.newappApp.userx.email")}}
 		</th>
 
-		<th v-show='hideName!="imageUrl" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'imageUrl' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort('imageUrl')"
-		  :data-label='$t("userx.newappApp.userx.imageUrl")'
-		>
-		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("userx.newappApp.userx.imageUrl")}}
-		</th>
-
 		<th v-show='hideName!="activated" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'activated' === pagination.sortBy ? 'active' : '']"
 		  @click="changeSort('activated')"
@@ -72,6 +63,25 @@
 		  	<v-icon small>arrow_upward</v-icon>
 	  		{{$t("userx.newappApp.userx.authorities")}}
 		</th>
+
+		<th v-show='hideName!="imageUrl" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'imageUrl' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('imageUrl')"
+		  :data-label='$t("userx.newappApp.userx.imageUrl")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.imageUrl")}}
+		</th>
+
+		<th v-show='hideName!="langKey" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
+		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'langKey' === pagination.sortBy ? 'active' : '']"
+		  @click="changeSort('langKey')"
+		  :data-label='$t("userx.newappApp.userx.langKey")'
+		>
+		  	<v-icon small>arrow_upward</v-icon>
+	  		{{$t("userx.newappApp.userx.langKey")}}
+		</th>
+
 
 		<th v-show='hideName!="createdBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
 		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'createdBy' === pagination.sortBy ? 'active' : '']"
@@ -109,14 +119,7 @@
 	  		{{$t("userx.newappApp.userx.lastModifiedDate")}}
 		</th>
 
-		<th v-show='hideName!="langKey" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'"
-		  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 'langKey' === pagination.sortBy ? 'active' : '']"
-		  @click="changeSort('langKey')"
-		  :data-label='$t("userx.newappApp.userx.langKey")'
-		>
-		  	<v-icon small>arrow_upward</v-icon>
-	  		{{$t("userx.newappApp.userx.langKey")}}
-		</th>
+
 
 	
 <!-- 	<th

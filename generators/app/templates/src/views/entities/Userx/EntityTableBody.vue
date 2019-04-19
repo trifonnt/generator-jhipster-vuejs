@@ -10,8 +10,6 @@
 
       <td v-show='hideName!="email" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.email")' v-text="items.item['email']"></td>
 
-      <td v-show='hideName!="imageUrl" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.imageUrl")' v-text="items.item['imageUrl']"></td>
-
       <td v-show='hideName!="activated" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.activated")' v-text="items.item['activated']"></td>
 
       <td v-if="items.item['authorities'] && items.item['authorities'].length" v-show='hideName!="authorities" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.authorities")'>
@@ -32,16 +30,7 @@
         </v-menu>
       </td>
 
-      <td v-show='hideName!="authorities" && true' v-if="!items.item['authorities'] || items.item['authorities'].length == 0"></td>
-      <td v-show='hideName!="createdBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdBy")' v-text="items.item['createdBy']"></td>
-
-      <td v-show='hideName!="createdDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdDate")' v-text="items.item['createdDate']"></td>
-
-      <td v-show='hideName!="lastModifiedBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedBy")' v-text="items.item['lastModifiedBy']"></td>
-
-      <td v-show='hideName!="lastModifiedDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedDate")' v-text="items.item['lastModifiedDate']"></td>
-
-      <td v-if="items.item['langKeys'] && items.item['langKeys'].length" v-show='hideName!="langKey" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.langKey")'>
+<!--       <td v-if="items.item['langKeys'] && items.item['langKeys'].length" v-show='hideName!="langKey" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.langKey")'>
         <v-chip v-for="val in items.item['langKey'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
           <v-chip color='primary' class='morechips' v-show="items.item['langKey'] && items.item['langKey'].length > 2"
@@ -57,9 +46,23 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-      </td>
-
+      </td> -->
+      
       <td v-show='hideName!="langKey" && true' v-if="!items.item['langKeys'] || items.item['langKeys'].length == 0"></td>
+
+      <td v-show='hideName!="imageUrl" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.imageUrl")' v-text="items.item['imageUrl']"></td>
+
+      <td v-show='hideName!="createdBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdBy")' v-text="items.item['createdBy']"></td>
+
+      <td v-show='hideName!="createdDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.createdDate")' v-text="items.item['createdDate']"></td>
+      
+<!--       <td v-show='hideName!="authorities" && true' v-if="!items.item['authorities'] || items.item['authorities'].length == 0"></td> -->
+
+      <td v-show='hideName!="lastModifiedBy" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedBy")' v-text="items.item['lastModifiedBy']"></td>
+
+      <td v-show='hideName!="lastModifiedDate" && false' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.lastModifiedDate")' v-text="items.item['lastModifiedDate']"></td>
+
+
 
       <td class="justify-center layout px-0" :class="{visible: visibleHeader}">
           <router-link :to="{name: 'view'+storeName.charAt(0).toUpperCase() + storeName.slice(1), params:{id: items.item.id}}">

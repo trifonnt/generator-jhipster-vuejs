@@ -15,6 +15,7 @@ import ViewUserx from './views/entities/Userx/ViewUserx.vue'
 
 import AdminDocs from './views/admin/Docs.vue'
 import AdminHealth from './views/admin/Health.vue'
+import AdminAudits from './views/admin/Audits.vue'
 
 //import Detail from './views/entities/mDetail/Detail.vue'
 
@@ -120,6 +121,11 @@ let routes = [
       name: 'adminhealth',
       component: AdminHealth,
     },
+    {
+      path: '/admin/audits',
+      name: 'adminaudits',
+      component: AdminAudits,
+    },
   ];
   let context = require('./views/entities').default;
   let views = {};
@@ -147,7 +153,7 @@ router.beforeEach((to, from, next) => {
     return next('/')
   }
   if(!jwt && (to.fullPath.includes('entities') || to.fullPath.includes('admin'))) {
-    return next('login');
+    return next('/login');
   }
   //inserthere
   return next();

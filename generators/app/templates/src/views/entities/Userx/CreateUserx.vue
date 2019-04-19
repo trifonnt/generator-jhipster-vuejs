@@ -17,53 +17,20 @@
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('login')" type="error">{{ errors.first('login') }}</v-alert>  
 
 
-
-
-
-
                       <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="firstName" :label="$t('userx.newappApp.userx.firstName')" v-validate='{"max":"50","alpha_dash":true}' type="text" v-model="firstName"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('firstName')" type="error">{{ errors.first('firstName') }}</v-alert>  
 
-
-
-
-
-
                       <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastName" :label="$t('userx.newappApp.userx.lastName')" v-validate='{"max":"50","alpha_dash":true}' type="text" v-model="lastName"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('lastName')" type="error">{{ errors.first('lastName') }}</v-alert>  
-
-
-
-
-
 
                       <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="email" :label="$t('userx.newappApp.userx.email')" v-validate='{"required":true,"max":"254","regex":"/(.+)@(.+){2,}\\.(.+){2,}/"}' type="text" v-model="email"></v-text-field>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('email')" type="error">{{ errors.first('email') }}</v-alert>  
 
 
-
-
-
-
-                      <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="imageUrl" :label="$t('userx.newappApp.userx.imageUrl')" v-validate='{"max":"256","alpha_dash":true}' type="text" v-model="imageUrl"></v-text-field>
-                      <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('imageUrl')" type="error">{{ errors.first('imageUrl') }}</v-alert>  
-
-
-
-
-
-
-
                       <v-checkbox :readonly='isReadOnly("")' v-validate='{"required":true}' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   v-model='activated' :label="$t('userx.newappApp.userx.activated')" name='activated'></v-checkbox>
                       <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('activated')" type="error">{{ errors.first('activated') }}</v-alert>
 
-
-
-
-
-
-
-                       <multiselect
+                      <multiselect
                         v-validate = '{"required":true}'
                         data-vv-name = 'id'
                         data-vv-value-path = 'id'
@@ -91,46 +58,10 @@
                       </template>
                       </multiselect>
 
+                      <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="imageUrl" :label="$t('userx.newappApp.userx.imageUrl')" v-validate='{"max":"256","alpha_dash":true}' type="text" v-model="imageUrl"></v-text-field>
+                      <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('imageUrl')" type="error">{{ errors.first('imageUrl') }}</v-alert>  
 
-
-
-                      <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="createdBy" :label="$t('userx.newappApp.userx.createdBy')" v-validate='{"required":true,"max":"50","alpha_dash":true}' type="text" v-model="createdBy"></v-text-field>
-                      <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('createdBy')" type="error">{{ errors.first('createdBy') }}</v-alert>  
-
-
-
-
-
-
-
-
-
-
-                      <datetime v-hasRole="'ROLE_USER,ROLE_ADMIN'" type='datetime' v-model="createdDate" input-id="createdDate" input-class='borderField'>
-                          <label for="createdDate" slot="before">{{$t('userx.newappApp.userx.createdDate')}}</label>
-                      </datetime>   
-
-
-                      <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastModifiedBy" :label="$t('userx.newappApp.userx.lastModifiedBy')" v-validate='{"max":"50","alpha_dash":true}' type="text" v-model="lastModifiedBy"></v-text-field>
-                      <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('lastModifiedBy')" type="error">{{ errors.first('lastModifiedBy') }}</v-alert>  
-
-
-
-
-
-
-
-
-
-
-                      <datetime v-hasRole="'ROLE_USER,ROLE_ADMIN'" type='datetime' v-model="lastModifiedDate" input-id="lastModifiedDate" input-class='borderField'>
-                          <label for="lastModifiedDate" slot="before">{{$t('userx.newappApp.userx.lastModifiedDate')}}</label>
-                      </datetime>   
-
-
-
-
-                       <multiselect
+                      <multiselect
                         v-validate = '{"required":true}'
                         data-vv-name = 'id'
                         data-vv-value-path = 'id'
@@ -159,6 +90,22 @@
                       </multiselect>
 
 
+
+                      <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"  prepend-inner-icon='*'   name="createdBy" :label="$t('userx.newappApp.userx.createdBy')" v-validate='{"required":true,"max":"50","alpha_dash":true}' type="text" v-model="createdBy"></v-text-field>
+                      <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('createdBy')" type="error">{{ errors.first('createdBy') }}</v-alert>  
+
+                      <datetime v-hasRole="'ROLE_USER,ROLE_ADMIN'" type='datetime' v-model="createdDate" input-id="createdDate" input-class='borderField'>
+                          <label for="createdDate" slot="before">{{$t('userx.newappApp.userx.createdDate')}}</label>
+                      </datetime>   
+
+
+                      <v-text-field :readonly='isReadOnly("")' v-hasRole="'ROLE_USER,ROLE_ADMIN'"   name="lastModifiedBy" :label="$t('userx.newappApp.userx.lastModifiedBy')" v-validate='{"max":"50","alpha_dash":true}' type="text" v-model="lastModifiedBy"></v-text-field>
+                      <v-alert v-hasRole="'ROLE_USER,ROLE_ADMIN'" :value="errors.has('lastModifiedBy')" type="error">{{ errors.first('lastModifiedBy') }}</v-alert>  
+
+
+                      <datetime v-hasRole="'ROLE_USER,ROLE_ADMIN'" type='datetime' v-model="lastModifiedDate" input-id="lastModifiedDate" input-class='borderField'>
+                          <label for="lastModifiedDate" slot="before">{{$t('userx.newappApp.userx.lastModifiedDate')}}</label>
+                      </datetime>   
 
 
              <!--    <v-alert type='success' :value="registered==true">You successfully created a vendor</v-alert>

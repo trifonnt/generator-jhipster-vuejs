@@ -199,11 +199,25 @@
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
     <v-list>
-      <v-list-tile><v-list-tile-title><router-link to='/admin/userx'>{{$t('app.admin.user')}}</router-link></v-list-tile-title></v-list-tile>
+      <v-list-tile>
+        <v-icon color='primary'>account_box</v-icon> &nbsp;
+        <v-list-tile-title><router-link to='/admin/userx'>{{$t('app.admin.user')}}</router-link></v-list-tile-title>
+      </v-list-tile>
 
-      <v-list-tile><v-list-tile-title><router-link to='/admin/docs'>{{$t('app.admin.docs')}}</router-link></v-list-tile-title></v-list-tile>
-      
-      <v-list-tile><v-list-tile-title><router-link to='/admin/health'>{{$t('app.admin.health')}}</router-link></v-list-tile-title></v-list-tile>
+      <v-list-tile>
+        <v-icon color='primary'>library_books</v-icon> &nbsp;
+        <v-list-tile-title><router-link to='/admin/docs'>{{$t('app.admin.docs')}}</router-link></v-list-tile-title>
+      </v-list-tile>
+
+      <v-list-tile>
+        <v-icon color='primary'>local_hospital</v-icon> &nbsp;
+        <v-list-tile-title><router-link to='/admin/health'>{{$t('app.admin.health')}}</router-link></v-list-tile-title>
+      </v-list-tile>
+
+      <v-list-tile>
+        <v-icon color='primary'>playlist_add_check</v-icon> &nbsp;
+        <v-list-tile-title><router-link to='/admin/audit'>{{$t('app.admin.audit')}}</router-link></v-list-tile-title>
+      </v-list-tile>
     </v-list>
   </v-menu>  
       <v-menu offset-y v-show='user.auth'>
@@ -231,12 +245,12 @@
         <v-list-tile
           @click=""
         >
-          <v-icon color='primary'>local_hospital</v-icon> &nbsp;
+          <v-icon color='primary'>power_settings_new</v-icon> &nbsp;
           <v-list-tile-title><a href='#' @click='logout'>{{$t('app.account.logout')}}</a></v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
-          <v-btn flat @click.stop='rightDrawer=!rightDrawer' v-show='user.auth'
+      <v-btn flat @click.stop='rightDrawer=!rightDrawer' v-show='user.auth'
         color="primary"
       >
         <v-icon dark>messages</v-icon>

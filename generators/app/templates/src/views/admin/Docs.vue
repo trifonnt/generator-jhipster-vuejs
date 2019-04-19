@@ -1,17 +1,16 @@
 <template>
 	<div>
-		<v-select
-		  v-model = 'api'
-          :items="apis"
-          label="API"
-          solo
-        ></v-select>
+        <div style='display: flex; justify-content: center;'>
+        	<v-btn color='primary' v-for='(a,i) in apis' @click='api=a.value' :outline='api!==a.value'>{{a.text}}</v-btn>
+        </div>
 		<div id='swagger'></div>
 	</div>
 </template>
 
 <style>
-	
+	.swagger-ui .information-container {
+		display: none !important;
+	}
 </style>
 
 <script>
@@ -26,19 +25,19 @@
 		mounted() {
 			this.$nextTick(() => {
 				swagger = SwaggerUI({
+					docExpansion: 'none',
 			  		dom_id: '#swagger',
 			  		url: this.api,
 		  			plugins: [StandalonePreset],
-					layout: 'StandaloneLayout',
 			  		requestInterceptor: req => {
 			  			req.headers['Authorization'] = 'Bearer ' + getProfile().jwt
 			  		},
 				})	
-				console.log(swagger)	
 				swagger.preauthorizeApiKey("Bearer", getProfile().jwt)
 			})
 		},
 		data: () => ({
+			active: 0,
 			api: '/v2/api-docs',
 			apis: [
 				{text: 'Api V2', value: '/v2/api-docs'},
@@ -48,10 +47,10 @@
 		watch: {
 			api(val) {
 				swagger = SwaggerUI({
+					docExpansion: 'none',
 			  		dom_id: '#swagger',
 			  		url: val,
 		  			plugins: [StandalonePreset],
-					layout: 'StandaloneLayout',
 			  		requestInterceptor: req => {
 			  			req.headers['Authorization'] = 'Bearer ' + getProfile().jwt
 			  		},
