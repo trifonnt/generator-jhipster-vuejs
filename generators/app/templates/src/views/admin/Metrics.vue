@@ -2,21 +2,21 @@
 	<div v-if='Object.keys(audits).length'>
 	  <v-toolbar color='primary'>
 	  	<v-toolbar-title>
-	  		Application Metrics
+	  		{{$t('metrics.metrics.title')}}
 	  	</v-toolbar-title>
 	  </v-toolbar>
 	  <v-card>
-	  	<v-card-title><h3>JVM Metrics</h3></v-card-title>
+	  	<v-card-title><h3>{{$t('metrics.metrics.jvm.title')}}</h3></v-card-title>
 
 	  	<div id='flex'>
 		  	<div>
 		  		<div>
 		  			<div>
-		  				<b>Memory</b>
+		  				<b>{{$t('metrics.metrics.jvm.memory.title')}}</b>
 		  			</div>
 		  		</div>
 			    <div>
-			    	<div>Total Memory</div>
+			    	<div>{{$t('metrics.metrics.jvm.memory.total')}}</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.memory.used/jvm.memory.total*100"
@@ -26,7 +26,7 @@
 				    </v-progress-linear>
 				</div>
 			    <div>
-			    	<div>Heap Memory</div>
+			    	<div>{{$t('metrics.metrics.jvm.memory.heap')}}</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.heapMemory.used/jvm.heapMemory.total*100"
@@ -36,7 +36,7 @@
 				    </v-progress-linear>
 				</div>
 			    <div>
-			    	<div>Non-Heap Memory</div>
+			    	<div>{{$t('metrics.metrics.jvm.memory.nonheap')}}</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.nonHeapMemory.used/jvm.nonHeapMemory.total*100"
@@ -48,10 +48,10 @@
 			</div>
 		  	<div>
 		  		<div>
-		  			<div><b>Threads</b></div>
+		  			<div><b>{{$t('metrics.metrics.jvm.threads.title')}}</b></div>
 		  		</div>
 			    <div>
-			    	<div>Runnable ({{jvm.threads.runnable}})</div>
+			    	<div>{{$t('metrics.metrics.jvm.threads.runnable')}} ({{jvm.threads.runnable}})</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.threads.runnable/jvm.threads.all*100"
@@ -61,7 +61,7 @@
 				    </v-progress-linear>
 				</div>
 			    <div>
-			    	<div>Timed waiting ({{jvm.threads.timed_waiting}})</div>
+			    	<div>{{$t('metrics.metrics.jvm.threads.timedwaiting')}} ({{jvm.threads.timed_waiting}})</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.threads.timed_waiting/jvm.threads.all*100"
@@ -71,7 +71,7 @@
 				    </v-progress-linear>
 				</div>
 			    <div>
-			    	<div>Waiting ({{jvm.threads.waiting}})</div>
+			    	<div>{{$t('metrics.metrics.jvm.threads.waiting')}} ({{jvm.threads.waiting}})</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.threads.waiting/jvm.threads.all*100"
@@ -81,7 +81,7 @@
 				    </v-progress-linear>
 				</div>
 			    <div>
-			    	<div>Blocked ({{jvm.threads.blocked}})</div>
+			    	<div>{{$t('metrics.metrics.jvm.threads.blocked')}} ({{jvm.threads.blocked}})</div>
 				    <v-progress-linear
 				      :height="20"
 				      :value="jvm.threads.blocked/jvm.threads.all*100"
@@ -92,21 +92,21 @@
 				</div>
 			</div>
 			<div>
-				<div>Garbage collections</div>
+				<div>{{$t('metrics.metrics.jvm.gc.title')}}</div>
 				<div>
-					<v-chip label color='primary'>Mark Sweep count</v-chip>
+					<v-chip label color='primary'>{{$t('metrics.metrics.jvm.gc.marksweepcount')}}</v-chip>
 					<span>{{jvm.garbage.sweepCount}}</span>
 				</div>
 				<div>
-					<v-chip label color='primary'>Mark Sweep time</v-chip>
+					<v-chip label color='primary'>{{$t('metrics.metrics.jvm.gc.marksweeptime')}}</v-chip>
 					<span>{{jvm.garbage.sweepTime}}</span>
 				</div>
 				<div>
-					<v-chip label color='primary'>Scavenge count</v-chip>
+					<v-chip label color='primary'>{{$t('metrics.metrics.jvm.gc.scavengecount')}}</v-chip>
 					<span>{{jvm.garbage.scavengeCount}}</span>
 				</div>
 				<div>
-					<v-chip label color='primary'>Scavenge time</v-chip>
+					<v-chip label color='primary'>{{$t('metrics.metrics.jvm.gc.scavengetime')}}</v-chip>
 					<span>{{jvm.garbage.scavengeTime}}</span>
 				</div>
 			</div>
@@ -114,7 +114,7 @@
 
 	  </v-card>
 	  <v-card>
-	  	<v-card-title><h3>HTTP Requests</h3></v-card-title>
+	  	<v-card-title><h3>{{$t('metrics.metrics.jvm.http.title')}}</h3></v-card-title>
 		  <v-data-table
 		    v-if='Object.keys(audits).length'
 		    :headers="headersRequest"
@@ -126,7 +126,7 @@
 		  </v-data-table>
 	  </v-card>
   	  <v-card>
-	  	<v-card-title><h3>Service statistics</h3></v-card-title>
+	  	<v-card-title><h3>{{$t('metrics.metrics.servicesstats.title')}}</h3></v-card-title>
 			<v-layout wrap align-center>
 			  <v-flex xs12 sm3 d-flex>
 			 	  <v-text-field
@@ -150,7 +150,7 @@
 		  </v-data-table>
 	  </v-card>
 	  <v-card>
-	  	<v-card-title><h3>Cache statistics</h3></v-card-title>
+	  	<v-card-title><h3>{{$t('metrics.metrics.cache.title')}}</h3></v-card-title>
 			<v-layout wrap align-center>
 			  <v-flex xs12 sm3 d-flex>
 			 	  <v-text-field
@@ -174,7 +174,7 @@
 		  </v-data-table>
 	  </v-card>
   	  <v-card>
-	  	<v-card-title><h3>DataSource statistics</h3></v-card-title>
+	  	<v-card-title><h3>{{$t('metrics.metrics.datasource.title')}}</h3></v-card-title>
 		  <v-data-table
 		    :headers="headersDataSource"
 		    :items="itemsDataSource"
@@ -248,12 +248,12 @@
 			},
 			headersRequest() {
 				return [
-					{text:"Code", value: 'code'},
-					{text:"Count", value: 'count'},
-					{text:"Mean", value: 'mean_rate'},
-					{text:"Average(1 min)", value: 'm1_rate'},
-					{text:"Average(5 min)", value: 'm5_rate'},
-					{text:"Average(15 min)", value: 'm15_rate'},
+					{text: this.$t('metrics.metrics.jvm.http.table.code'), value: 'code'},
+					{text: this.$t('metrics.metrics.jvm.http.table.count'), value: 'count'},
+					{text: this.$t('metrics.metrics.jvm.http.table.mean'), value: 'mean_rate'},
+					{text: this.$t('metrics.metrics.jvm.http.table.average') + "(1 min)", value: 'm1_rate'},
+					{text: this.$t('metrics.metrics.jvm.http.table.average') + "(5 min)", value: 'm5_rate'},
+					{text: this.$t('metrics.metrics.jvm.http.table.average') + "(15 min)", value: 'm15_rate'},
 				]
 			},
 			itemsRequests() {
@@ -269,15 +269,15 @@
 			},
 			headersServices() {
 				return [
-					{text:"Service name", value: 'name'},
-					{text:"Count", value: 'count'},
-					{text:"Mean", value: 'mean_rate'},
-					{text:"Min", value: 'min'},
-					{text:"p50", value: 'p50'},
-					{text:"p75", value: 'p75'},
-					{text:"p95", value: 'p95'},
-					{text:"p99", value: 'p99'},
-					{text:"Max", value: 'max'},
+					{text: this.$t('metrics.metrics.servicesstats.table.name'), value: 'name'},
+					{text: this.$t('metrics.metrics.servicesstats.table.count'), value: 'count'},
+					{text: this.$t('metrics.metrics.servicesstats.table.mean'), value: 'mean_rate'},
+					{text: this.$t('metrics.metrics.servicesstats.table.min'), value: 'min'},
+					{text: this.$t('metrics.metrics.servicesstats.table.p50'), value: 'p50'},
+					{text: this.$t('metrics.metrics.servicesstats.table.p75'), value: 'p75'},
+					{text: this.$t('metrics.metrics.servicesstats.table.p95'), value: 'p95'},
+					{text: this.$t('metrics.metrics.servicesstats.table.p99'), value: 'p99'},
+					{text: this.$t('metrics.metrics.servicesstats.table.max'), value: 'max'},
 				]
 			},
 			itemsServices() {
@@ -289,18 +289,18 @@
 			},
 			headersCache() {
 				return [
-					{text:"Cache name", value: 'name'},
-					{text:"Cache hits", value: 'cache-hits'},
-					{text:"Cache misses", value: 'cache-misses'},
-					{text:"Cache gets", value: 'cache-gets'},
-					{text:"Cache puts", value: 'cache-puts'},
-					{text:"Cache removals", value: 'cache-removals'},
-					{text:"Cache evictions", value: 'cache-evictions'},
-					{text:"Cache hit %", value: 'cache-hit-percentage'},
-					{text:"Cache miss %", value: 'cache-miss-percentage'},
-					{text:"Average get time", value: 'average-get-time'},
-					{text:"Average put time", value: 'average-put-time'},
-					{text:"Average remove time", value: 'average-remove-time'},
+					{text: this.$t('metrics.metrics.cache.cachename'), value: 'name'},
+					{text: this.$t('metrics.metrics.cache.hits'), value: 'cache-hits'},
+					{text: this.$t('metrics.metrics.cache.misses'), value: 'cache-misses'},
+					{text: this.$t('metrics.metrics.cache.gets'), value: 'cache-gets'},
+					{text: this.$t('metrics.metrics.cache.puts'), value: 'cache-puts'},
+					{text: this.$t('metrics.metrics.cache.removals'), value: 'cache-removals'},
+					{text: this.$t('metrics.metrics.cache.evictions'), value: 'cache-evictions'},
+					{text: this.$t('metrics.metrics.cache.hitPercent'), value: 'cache-hit-percentage'},
+					{text: this.$t('metrics.metrics.cache.missPercent'), value: 'cache-miss-percentage'},
+					{text: this.$t('metrics.metrics.cache.averageGetTime'), value: 'average-get-time'},
+					{text: this.$t('metrics.metrics.cache.averagePutTime'), value: 'average-put-time'},
+					{text: this.$t('metrics.metrics.cache.averageRemoveTime'), value: 'average-remove-time'},
 				]
 			},
 			itemsCache() {
@@ -327,15 +327,15 @@
 			},
 			headersDataSource() {
 				return [
-					{text:"Name", value: 'name'},
-					{text:"Count", value: 'count'},
-					{text:"Mean", value: 'mean_rate'},
-					{text:"Min", value: 'min'},
-					{text:"p50", value: 'p50'},
-					{text:"p75", value: 'p75'},
-					{text:"p95", value: 'p95'},
-					{text:"p99", value: 'p99'},
-					{text:"Max", value: 'max'},
+					{text: $t('metrics.metrics.datasource.title'), value: 'name'},
+					{text: $t('metrics.metrics.datasource.count'), value: 'count'},
+					{text: $t('metrics.metrics.datasource.mean'), value: 'mean_rate'},
+					{text: $t('metrics.metrics.datasource.min'), value: 'min'},
+					{text: $t('metrics.metrics.datasource.p50'), value: 'p50'},
+					{text: $t('metrics.metrics.datasource.p75'), value: 'p75'},
+					{text: $t('metrics.metrics.datasource.p95'), value: 'p95'},
+					{text: $t('metrics.metrics.datasource.p99'), value: 'p99'},
+					{text: $t('metrics.metrics.datasource.max'), value: 'max'},
 				]
 			},
 			itemsDataSource() {

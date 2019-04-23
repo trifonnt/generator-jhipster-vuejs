@@ -2,7 +2,7 @@
 	<div id='root'>
 		<v-card class='statuscard'>
 			<v-toolbar color='primary'>
-				<v-toolbar-title>Status</v-toolbar-title>
+				<v-toolbar-title>{{$t('health.health.title')}}</v-toolbar-title>
 			</v-toolbar>
 
 			<health-node id='rootnode' :children='children' name='Site'></health-node>

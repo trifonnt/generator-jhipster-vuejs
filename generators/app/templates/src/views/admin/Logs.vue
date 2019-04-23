@@ -7,7 +7,7 @@
 				 	id='text'
 				    v-model="search"
 				    append-icon="search"
-				    label="Search"
+				    :label="$t('logs.logs.filter')"
 				    clearable
 				  >
 				  	
@@ -17,7 +17,7 @@
 			  	<v-select 
 			  	id='select' 
 			  	:items='levels'
-			  	label = 'Level'
+			  	:label = "$t('logs.logs.table.level')"
 			  	item-text='name'
 			  	v-model = 'filterLevel'
 			  	clearable
@@ -37,8 +37,8 @@
 		    :rows-per-page-items='[5,10,20,{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}]'
 		  >
 		    <template slot="items" slot-scope="props">
-		      <td data-label='Name' class="text-xs-left show">{{ props.item.name }}</td>
-		      <td data-label='Level' class="text-xs-left">
+		      <td :data-label="$t('logs.logs.table.name')" class="text-xs-left show">{{ props.item.name }}</td>
+		      <td :data-label="$t('logs.logs.table.level')" class="text-xs-left">
 		      	<v-btn @click='setLevel(props.item, level)' v-for='level in levels' :outline='level.name != props.item.level' :color='level.color'>{{level.name}}</v-btn>
 		      </td>
 		    </template>
@@ -103,8 +103,8 @@
 			},
 			headers() {
 				return [
-					{text:"Name", value: this.$t('audits.table.header.timestamp')},
-					{text:"Level", value: this.$t('audits.table.header.principal')},
+					{text: this.$t('logs.logs.table.name'), value: this.$t('audits.table.header.timestamp')},
+					{text: this.$t('logs.logs.table.level'), value: this.$t('audits.table.header.principal')},
 				]
 			},
 			items() {

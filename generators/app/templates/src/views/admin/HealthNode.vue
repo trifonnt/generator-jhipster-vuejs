@@ -5,9 +5,9 @@
 			<div class='nodedetails'>
 				<div v-if="typeof entries[0][1] !='object'">
 					<v-dialog width='400px' v-model='dialog'>
-						<v-btn slot='activator' color='primary'>Details</v-btn>
+						<v-btn slot='activator' color='primary'>{{$t('health.health.details.details')}}</v-btn>
 						<v-card>
-							<v-toolbar color='primary'>{{name}} details</v-toolbar>
+							<v-toolbar color='primary'>{{name}} {{$t('health.health.details.details')}}</v-toolbar>
 							<v-card-text>
 								<v-card color='light-blue' v-for='(val,detail) in children.details' class='detailslist'>
 									<v-chip label color='grey lighten-2'>{{detail}}</v-chip><span class='white--text'>{{val}}</span>

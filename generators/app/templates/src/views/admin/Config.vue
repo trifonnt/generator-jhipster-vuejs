@@ -6,7 +6,7 @@
 			 	id='text'
 			    v-model="search"
 			    append-icon="search"
-			    label="Search prefix"
+			    :label="$t('configuration.configuration.filter')"
 			    clearable
 			  >
 			  	
@@ -20,8 +20,8 @@
 	    class="elevation-1"
 	  >
 	    <template slot="items" slot-scope="props">
-	      <td data-label='Prefix' class="show text-xs-left">{{ props.item.prefix }}</td>
-	      <td data-label='Properties' class="text-xs-left">
+	      <td :data-label="$t('configuration.configuration.table.prefix')" class="show text-xs-left">{{ props.item.prefix }}</td>
+	      <td :data-label="$t('configuration.configuration.table.properties')" class="text-xs-left">
 	      	<div v-for='(v, i) in props.item.properties'>
 	      		<v-chip label color='primary'>{{i}}</v-chip>
 	  			<json-viewer :value="v" boxed></json-viewer>
@@ -64,8 +64,8 @@
 			},
 			headers() {
 				return [
-					{text:"Prefix", value: this.$t('audits.table.header.timestamp')},
-					{text:"Properties", value: this.$t('audits.table.header.principal')},
+					{text:this.$t('configuration.configuration.table.prefix'), value: this.$t('configuration.configuration.table.prefix')},
+					{text:this.$t('configuration.configuration.table.properties'), value: this.$t('configuration.configuration.table.properties')},
 				]
 			},
 			items() {
