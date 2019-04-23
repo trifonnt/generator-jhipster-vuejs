@@ -222,14 +222,14 @@
               this.<%=relationship.relationshipName%>Id = entity.<%=relationship.relationshipName%>Id;
               if(Number.isInteger(entity.<%=relationship.relationshipName%>Id) || (Array.isArray(entity.<%=relationship.relationshipName%>Id) && entity.<%=relationship.relationshipName%>Id.length > 1)) {
                 let res = await getFiles(entity.<%=relationship.relationshipName%>Id);
-                this.<%=relationship.relationshipName%>images = [res]
+                this.<%=relationship.relationshipName%>images = [res];
               }
             <%_
               } else if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
             _%>
-            this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>
+            this.<%=relationship.relationshipName%> = entity.<%=pluralize(relationship.relationshipName)%>;
             <%_ } else  { _%>
-            this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)_%>
+            this.<%=relationship.relationshipName%> = entity.<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)_%>;
             <%_ } _%>
           <%_ } } _%> 
         }
