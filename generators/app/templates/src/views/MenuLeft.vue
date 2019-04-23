@@ -18,7 +18,7 @@
         <v-list-group v-show='user.auth'
         prepend-icon="list"
       >
-        <v-list-tile slot="activator">
+        <v-list-tile v-slot:activator>
           <v-list-tile-title>{{$t('app.entities')}}</v-list-tile-title>
         </v-list-tile>
         <!--insertlinkshere-->
@@ -27,7 +27,7 @@
       <v-list-group v-hasRole="'ROLE_ADMIN'" v-show='user.auth'
         prepend-icon="list"
       >
-        <v-list-tile slot="activator">
+        <v-list-tile v-slot:activator>
           <v-list-tile-title>{{$t('app.admin.admin')}}</v-list-tile-title>
         </v-list-tile>
         <v-list-tile>
@@ -62,12 +62,36 @@
             <v-list-tile-title><router-link to='/admin/audit'>{{$t('app.admin.audit')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile v-show='user.auth'>
+          <v-list-tile-action>
+            <v-icon>book</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title><router-link to='/admin/logs'>{{$t('app.admin.logs')}}</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-show='user.auth'>
+          <v-list-tile-action>
+            <v-icon>build</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title><router-link to='/admin/config'>{{$t('app.admin.config')}}</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-show='user.auth'>
+          <v-list-tile-action>
+            <v-icon>timeline</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title><router-link to='/admin/metrics'>{{$t('app.admin.metrics')}}</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
       </v-list-group>
       <v-list-group
         prepend-icon="person"
       >
-        <v-list-tile slot="activator">
+        <v-list-tile v-slot:activator>
           <v-list-tile-title>{{$t('app.account.menu')}}</router-link></v-list-tile-title>
         </v-list-tile>
         <v-list-tile v-show='user.auth'>

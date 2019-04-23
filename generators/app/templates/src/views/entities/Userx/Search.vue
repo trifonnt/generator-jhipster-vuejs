@@ -15,7 +15,7 @@
 		    :filter="v => v"
 		  >
 
-			<template slot="item" slot-scope="{item}">
+			<template v-slot:item="{item}">
 				<div class='leftcol'>{{item.text.substr(0,20)}}</div> <div class='rightcol'>{{item._id}}</div>
 			</template>
 
@@ -207,7 +207,7 @@
 	                          min-width="290px"
 	                        >
 	                          <v-text-field
-	                            slot="activator"
+	                            v-slot:activator
 	                            label="Created Date"
 	                            prepend-icon="event"
 	                            readonly
@@ -263,7 +263,7 @@
 	                          min-width="290px"
 	                        >
 	                          <v-text-field
-	                            slot="activator"
+	                            v-slot:activator
 	                            label="Last Modified Date"
 	                            prepend-icon="event"
 	                            readonly

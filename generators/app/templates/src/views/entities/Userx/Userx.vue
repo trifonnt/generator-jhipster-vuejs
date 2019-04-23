@@ -43,15 +43,15 @@
     :rows-per-page-items="[1,10,20,50]"
     select-all
   >
-    <template slot="headers" slot-scope="props">
+    <template v-slot:headers="props">
       <entity-table-head :data.sync='props' :pagination.sync='pagination' :indeterminite.sync='indeterminite' :allChecked.sync='areAllChecked' :hideName='hideName'></entity-table-head>
     </template>
-    <template slot="items" slot-scope="props">
+    <template v-slot:items="props">
       <slot name='tableBody'>
         <component :is='entityTableBody' :headers = 'headers' :items = 'props' store-name="Userx" :hideName='hideName'></component>
       </slot>
     </template>
-    <template slot='footer' v-if='lines'>
+    <template v-slot:footer='lines'>
       <v-btn @click='addNewLine' color='primary'><v-icon>add</v-icon> Add new line</v-btn>
       <slot name='tableFooter'></slot>
     </template>

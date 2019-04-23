@@ -97,7 +97,7 @@
 
         <v-menu offset-y v-show='user.auth'>
       <v-btn flat
-        slot="activator"
+        v-slot:activator
         color="primary"
         dark
       >
@@ -166,7 +166,7 @@
     </v-btn>
     <v-menu offset-y v-show='user.auth'>
     <v-btn flat
-      slot="activator"
+      v-slot:activator
       color="primary"
       dark
     >
@@ -178,7 +178,7 @@
   </v-menu>
   <v-menu offset-y v-show='user.auth'>
     <v-btn flat
-      slot="activator"
+      v-slot:activator
       color="primary"
       dark
     >
@@ -190,7 +190,7 @@
   </v-menu>
     <v-menu offset-y v-hasRole="'ROLE_ADMIN'" v-show='user.auth'>
     <v-btn flat
-      slot="activator"
+      v-slot:activator
       color="primary"
       dark
     >
@@ -218,11 +218,32 @@
         <v-icon color='primary'>playlist_add_check</v-icon> &nbsp;
         <v-list-tile-title><router-link to='/admin/audit'>{{$t('app.admin.audit')}}</router-link></v-list-tile-title>
       </v-list-tile>
+      <v-list-tile>
+        <v-icon color='primary'>book</v-icon> &nbsp;
+        <v-list-tile-title>
+          <router-link to='/admin/logs'>{{$t('app.admin.logs')}}</router-link>
+        </v-list-tile-title>
+      </v-list-tile>
+
+      <v-list-tile>
+        <v-icon color='primary'>build</v-icon> &nbsp;
+        <v-list-tile-title>
+          <router-link to='/admin/config'>{{$t('app.admin.config')}}</router-link>
+        </v-list-tile-title>
+      </v-list-tile>
+
+      <v-list-tile>
+        <v-icon color='primary'>timeline</v-icon> &nbsp;
+        <v-list-tile-title>
+          <router-link to='/admin/metrics'>{{$t('app.admin.metrics')}}</router-link>
+        </v-list-tile-title>
+      </v-list-tile>
+
     </v-list>
   </v-menu>  
       <v-menu offset-y v-show='user.auth'>
       <v-btn flat
-        slot="activator"
+        v-slot:activator
         color="primary"
         dark
       >

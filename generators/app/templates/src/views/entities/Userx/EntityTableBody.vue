@@ -17,7 +17,7 @@
         <v-menu offset-y>
           <v-chip color='primary' class='morechips' v-show="items.item['authorities'] && items.item['authorities'].length > 2"
             style='padding: 0;'
-            slot="activator"
+            v-slot:activator
             outline
           >
             <v-icon>more_vert</v-icon>
@@ -103,7 +103,7 @@
         </a>
         <v-menu style='margin-left: 0;'>
           <v-btn style='margin-left: 0;'
-            slot="activator"
+            v-slot:activator
             dark
             icon
           >

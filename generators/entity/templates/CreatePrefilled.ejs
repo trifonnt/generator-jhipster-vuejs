@@ -2,7 +2,7 @@
 
 <template>
   <v-dialog v-model="dialog" persistent>
-  <v-btn @click.native='getData' slot="activator" color="primary" dark>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.addLabel')}}</v-btn>
+  <v-btn @click.native='getData' v-slot:activator color="primary" dark>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.addLabel')}}</v-btn>
 
     <v-card class="elevation-12 createPrefilled">
       <v-toolbar dark color="primary">
@@ -68,7 +68,7 @@
                   min-width="290px"
                 >
                   <v-text-field
-                    slot="activator"
+                    v-slot:activator
                     v-model="<%=fName%>"
                     label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')"
                     prepend-icon="event"
@@ -81,7 +81,7 @@
             <%_ } _%>
             <%_ if(fType == 'Instant') { _%>
               <datetime v-show='!hiddenFields.includes("<%=fName%>")' v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
-                  <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')}}</label>
+                  <label for="<%=fName%>" v-slot:before>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')}}</label>
               </datetime>   
             <%_ } _%>
             <%_ if(fType == "String" && field.fieldValues != undefined) { _%>
@@ -175,11 +175,11 @@
                     :placeholder="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                     track-by='id'
                   >
-                  <template slot="option" slot-scope="props">
+                  <template v-slot:option="props">
                     <div class='leftcol'>{{props.option.<%=relationship.otherEntityField%>}}</div>
                     <div class='rightcol'>{{props.option.<%=relationship.otherEntityField2%>}}</div>
                   </template>
-                  <template slot='afterList'>
+                  <template v-slot:afterList>
                     <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
                       v-model="currentPage"
                       :length="pageLength"
@@ -223,7 +223,7 @@
                     :placeholder="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                     track-by='id'
                   >
-                  <template slot='afterList'>
+                  <template v-slot:afterList>
                     <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
                       v-model="currentPage"
                       :length="pageLength"

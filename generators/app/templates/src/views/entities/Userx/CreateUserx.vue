@@ -44,13 +44,13 @@
                         :options = 'authoritiesValues'
                         :placeholder="$t('userx.newappApp.userx.authorities')"
                       >
-                       <template slot="option" slot-scope="props">
+                       <template v-slot:option="props">
                         <div>{{props.option}}</div>
                       </template>
-                      <template slot='singleLabel' slot-scope="{option}">
+                      <template v-slot:singleLabel="{option}">
                         <div>{{option}}</div>
                       </template>
-                      <template slot="tag" slot-scope="{ option, remove, index }">
+                      <template v-slot:tag="{ option, remove, index }">
                         <span class="multiselect__tag" :key="index">
                           <span>{{option}}</span>
                           <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
@@ -75,13 +75,13 @@
                         :options = 'langKeyValues'
                         :placeholder="$t('userx.newappApp.userx.langKey')"
                       >
-                       <template slot="option" slot-scope="props">
+                       <template v-slot:option="props">
                         <div>{{props.option}}</div>
                       </template>
-                      <template slot='singleLabel' slot-scope="{option}">
+                      <template v-slot:singleLabel="{option}">
                         <div>{{option}}</div>
                       </template>
-                      <template slot="tag" slot-scope="{ option, remove, index }">
+                      <template v-slot:tag="{ option, remove, index }">
                         <span class="multiselect__tag" :key="index">
                           <span>{{option}}</span>
                           <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>

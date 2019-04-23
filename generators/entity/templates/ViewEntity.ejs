@@ -32,7 +32,7 @@
                           width="500"
                         >
                           <v-btn v-hasRole="'<%=field.visibleForRole%>'"
-                            slot="activator"
+                            v-slot:activator
                             color="primary"
                             dark
                           >
@@ -93,7 +93,7 @@
                           width="500"
                         >
                           <v-btn v-hasRole="'<%=relationship.visibleForRole%>'"
-                            slot="activator"
+                            v-slot:activator
                             color="primary"
                             dark
                             @click='viewFiles(<%=relationship.relationshipName%>)'
@@ -128,8 +128,7 @@
                         <div class='flex' v-hasRole="'<%=field.visibleForRole%>'" v-show='Number.isInteger(<%=relationship.relationshipName%>Id)'>
                         <v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>
                         <gallery @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'  :galleryImages='<%=relationship.relationshipName%>images'>
-                        <img class='smallimage' :src='"data:" + <%=relationship.relationshipName%>images[0].fileContentType + ";base64," + <%=relationship.relationshipName%>images[0].file' slot='gallery'
-                          slot-scope='{setImage}' 
+                        <img class='smallimage' :src='"data:" + <%=relationship.relationshipName%>images[0].fileContentType + ";base64," + <%=relationship.relationshipName%>images[0].file' v-slot:gallery='{setImage}' 
                           @click.stop='setImage(0)' 
                           color='primary'
                         />

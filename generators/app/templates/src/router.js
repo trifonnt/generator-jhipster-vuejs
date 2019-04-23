@@ -16,6 +16,9 @@ import ViewUserx from './views/entities/Userx/ViewUserx.vue'
 import AdminDocs from './views/admin/Docs.vue'
 import AdminHealth from './views/admin/Health.vue'
 import AdminAudits from './views/admin/Audits.vue'
+import AdminLogs from './views/admin/Logs.vue'
+import AdminConfig from './views/admin/Config.vue'
+import AdminMetrics from './views/admin/Metrics.vue'
 
 //import Detail from './views/entities/mDetail/Detail.vue'
 
@@ -125,6 +128,21 @@ let routes = [
       path: '/admin/audits',
       name: 'adminaudits',
       component: AdminAudits,
+    },
+    {
+      path: '/admin/logs',
+      name: 'adminlogs',
+      component: AdminLogs,
+    },
+    {
+      path: '/admin/config',
+      name: 'adminconfig',
+      component: AdminConfig,
+    },
+    {
+      path: '/admin/metrics',
+      name: 'adminmetrics',
+      component: AdminMetrics,
     },
   ];
   let context = require('./views/entities').default;

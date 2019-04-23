@@ -1,0 +1,23 @@
+import * as fetcher from '../fetchers/stats'
+
+export function getHealth() {
+	return fetcher.getHealth();
+}
+
+export function getLogs() {
+	return fetcher.getLogs();
+}
+
+export function setLogsLevel(item, level) {
+	return fetcher.setLogsLevel(item, level);
+}
+
+export async function getConfig() {
+	let config = await fetcher.getConfig();
+	config = config.contexts.<%=baseName%>.beans
+	return Object.values(config)
+}
+
+export function getMetrics() {
+	return fetcher.getMetrics();
+}

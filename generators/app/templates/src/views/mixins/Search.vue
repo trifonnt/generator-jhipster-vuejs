@@ -13,7 +13,7 @@
 		    :filter="v => v"
 		  >
 
-			<template slot="item" slot-scope="{item}">
+			<template v-slot:item="{item}">
 				<div class='leftcol'>{{item.text.substr(0,20)}}</div> <div class='rightcol'>{{item._id}}</div>
 			</template>
 

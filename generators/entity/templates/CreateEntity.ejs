@@ -57,7 +57,7 @@
                           fullscreen
                         >
                           <v-btn
-                            slot="activator"
+                            v-slot:activator
                             color="primary"
                             dark
                           >
@@ -110,13 +110,13 @@
                         :options = '<%=fName%>Values'
                         :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (field.fieldType == 'many-to-many' || field.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                       >
-                       <template slot="option" slot-scope="props">
+                       <template v-slot:option="props">
                         <div>{{props.option}}</div>
                       </template>
-                      <template slot='singleLabel' slot-scope="{option}">
+                      <template v-slot:singleLabel="{option}">
                         <div>{{option}}</div>
                       </template>
-                      <template slot="tag" slot-scope="{ option, remove, index }">
+                      <template v-slot:tag="{ option, remove, index }">
                         <span class="multiselect__tag" :key="index">
                           <span>{{option}}</span>
                           <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
@@ -139,7 +139,7 @@
                           min-width="290px"
                         >
                           <v-text-field
-                            slot="activator"
+                            v-slot:activator
                             v-model="<%=fName%>"
                             label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
                             prepend-icon="event"
@@ -153,7 +153,7 @@
 
                     <%_ if(fType == 'Instant') { _%>
                       <datetime v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
-                          <label for="<%=fName%>" slot="before">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
+                          <label for="<%=fName%>" v-slot:before>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
                       </datetime>   
                     <%_ } _%>
 
@@ -229,17 +229,17 @@
                             :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                             track-by='id'
                           >
-                          <template slot="option" slot-scope="props">
+                          <template v-slot:option="props">
                             <div class='leftcol'>{{props.option.<%=relationship.otherEntityField%>}}</div>
                             <div class='rightcol'>{{props.option.<%=relationship.otherEntityField2%>}}</div>
                           </template>
-                          <template slot='afterList'>
+                          <template v-slot:afterList>
                             <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
                               v-model="currentPage"
                               :length="pageLength"
                             ></v-pagination>
                           </template>
-                          <template slot="tag" slot-scope="{ option, remove, index }">
+                          <template v-slot:tag="{ option, remove, index }">
                             <span class="multiselect__tag" :key="index">
                               <span>{{option.otherEntityField}}</span>
                               <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
@@ -267,13 +267,13 @@
                             :placeholder="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')"
                             track-by='id'
                           >
-                          <template slot='afterList'>
+                          <template v-slot:afterList>
                             <v-pagination :total-visible='pageLength' @input='changePage' v-show='pageLength'
                               v-model="currentPage"
                               :length="pageLength"
                             ></v-pagination>
                           </template>
-                          <template slot="tag" slot-scope="{ option, remove, index }">
+                          <template v-slot:tag="{ option, remove, index }">
                             <span class="multiselect__tag" :key="index">
                               <span>{{option}}</span>
                               <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
@@ -290,7 +290,7 @@
                           fullscreen
                         >
                           <v-btn
-                            slot="activator"
+                            v-slot:activator
                             color="primary"
                             dark
                           >
