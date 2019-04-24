@@ -19,7 +19,7 @@
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.authorities')}}</v-chip>
                         <v-chip color="primary" text-color="white" v-for='i in authorities' :key='i'>{{i}}</v-chip>
                   </div>
-                  <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.langKey')}}</v-chip>
+                  <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.langKey')}}</v-chip></div>
 
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.imageUrl')}}</v-chip>{{imageUrl}}</div>
                   <div v-hasRole="'ROLE_USER,ROLE_ADMIN'" ><v-chip label>{{$t('userx.newappApp.userx.createdBy')}}</v-chip>{{createdBy}}</div>

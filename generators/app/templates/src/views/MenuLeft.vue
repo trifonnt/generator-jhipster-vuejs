@@ -18,8 +18,8 @@
         <v-list-group v-show='user.auth'
         prepend-icon="list"
       >
-        <template v-slot:activator = '{on}'>
-          <v-list-tile v-on='on'>
+        <template v-slot:activator>
+          <v-list-tile>
             <v-list-tile-title>{{$t('app.entities')}}</v-list-tile-title>
           </v-list-tile>
         </template>
@@ -29,7 +29,7 @@
       <v-list-group v-hasRole="'ROLE_ADMIN'" v-show='user.auth'
         prepend-icon="list"
       >
-        <template v-slot:activator = '{on}'>
+        <template v-slot:activator>
           <v-list-tile v-on='on'>
             <v-list-tile-title>{{$t('app.admin.admin')}}</v-list-tile-title>
           </v-list-tile>
@@ -95,7 +95,7 @@
       <v-list-group
         prepend-icon="person"
       >
-        <template v-slot:activator = '{on}'>
+        <template v-slot:activator>
           <v-list-tile v-on='on'>
             <v-list-tile-title>{{$t('app.account.menu')}}</router-link></v-list-tile-title>
           </v-list-tile>
