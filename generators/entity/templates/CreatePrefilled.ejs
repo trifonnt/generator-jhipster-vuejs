@@ -2,7 +2,8 @@
 
 <template>
   <v-dialog v-model="dialog" persistent>
-  <v-btn @click.native='getData' v-slot:activator color="primary" dark>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.addLabel')}}</v-btn>
+  <template v-slot:activator = '{on}'>
+  <v-btn @click.native='getData' v-on = 'on' color="primary" dark>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.home.addLabel')}}</v-btn></template>
 
     <v-card class="elevation-12 createPrefilled">
       <v-toolbar dark color="primary">
@@ -67,13 +68,15 @@
                   full-width
                   min-width="290px"
                 >
-                  <v-text-field
-                    v-slot:activator
-                    v-model="<%=fName%>"
-                    label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')"
-                    prepend-icon="event"
-                    readonly
-                  ></v-text-field>
+                  <template v-slot:activator = '{on}'>
+                    <v-text-field
+                      v-model="<%=fName%>"
+                      label="$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')"
+                      prepend-icon="event"
+                      readonly
+                      v-on = 'on'
+                    ></v-text-field>
+                  </template>
                   <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(<%=fName%>)"></v-date-picker>
 
                 </v-menu>
@@ -81,7 +84,9 @@
             <%_ } _%>
             <%_ if(fType == 'Instant') { _%>
               <datetime v-show='!hiddenFields.includes("<%=fName%>")' v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
-                  <label for="<%=fName%>" v-slot:before>{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')}}</label>
+                  <template v-slot:before>
+                    <label for="<%=fName%>">{{$t('<%=firstToLower(relationshipName)%>.<%=baseNameApp%>.<%=firstToLower(relationshipName)%>.<%=fName%>')}}</label>
+                  </template>
               </datetime>   
             <%_ } _%>
             <%_ if(fType == "String" && field.fieldValues != undefined) { _%>

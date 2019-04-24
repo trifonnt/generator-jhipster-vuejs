@@ -18,18 +18,22 @@
         <v-list-group v-show='user.auth'
         prepend-icon="list"
       >
-        <v-list-tile v-slot:activator>
-          <v-list-tile-title>{{$t('app.entities')}}</v-list-tile-title>
-        </v-list-tile>
+        <template v-slot:activator = '{on}'>
+          <v-list-tile v-on='on'>
+            <v-list-tile-title>{{$t('app.entities')}}</v-list-tile-title>
+          </v-list-tile>
+        </template>
         <!--insertlinkshere-->
 
       </v-list-group>
       <v-list-group v-hasRole="'ROLE_ADMIN'" v-show='user.auth'
         prepend-icon="list"
       >
-        <v-list-tile v-slot:activator>
-          <v-list-tile-title>{{$t('app.admin.admin')}}</v-list-tile-title>
-        </v-list-tile>
+        <template v-slot:activator = '{on}'>
+          <v-list-tile v-on='on'>
+            <v-list-tile-title>{{$t('app.admin.admin')}}</v-list-tile-title>
+          </v-list-tile>
+        </template>
         <v-list-tile>
           <v-list-tile-action>
             <v-icon>user</v-icon>
@@ -91,9 +95,11 @@
       <v-list-group
         prepend-icon="person"
       >
-        <v-list-tile v-slot:activator>
-          <v-list-tile-title>{{$t('app.account.menu')}}</router-link></v-list-tile-title>
-        </v-list-tile>
+        <template v-slot:activator = '{on}'>
+          <v-list-tile v-on='on'>
+            <v-list-tile-title>{{$t('app.account.menu')}}</router-link></v-list-tile-title>
+          </v-list-tile>
+        </template>
         <v-list-tile v-show='user.auth'>
           <v-list-tile-action>
             <v-icon color='primary'>account_box</v-icon>

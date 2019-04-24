@@ -15,13 +15,15 @@
       <td v-if="items.item['authorities'] && items.item['authorities'].length" v-show='hideName!="authorities" && true' v-hasRole="'ROLE_USER,ROLE_ADMIN'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("userx.newappApp.userx.authorities")'>
         <v-chip v-for="val in items.item['authorities'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
-          <v-chip color='primary' class='morechips' v-show="items.item['authorities'] && items.item['authorities'].length > 2"
-            style='padding: 0;'
-            v-slot:activator
-            outline
-          >
-            <v-icon>more_vert</v-icon>
-          </v-chip>
+          <template v-slot:activator = '{on}'>
+            <v-chip color='primary' class='morechips' v-show="items.item['authorities'] && items.item['authorities'].length > 2"
+              style='padding: 0;'
+              outline
+              v-on = 'on'
+            >
+              <v-icon>more_vert</v-icon>
+            </v-chip>
+          </template>
           <v-list>
             <v-list-tile v-for="val2 in items.item['authorities'].slice(2)" :key='val2'>
               <v-chip color='primary' class='white--text'>{{val2}}</v-chip>
@@ -102,14 +104,15 @@
           </v-icon>
         </a>
         <v-menu style='margin-left: 0;'>
-          <v-btn style='margin-left: 0;'
-            v-slot:activator
-            dark
-            icon
-          >
-            <a href='#'> <v-icon size='20px' class='mr-2' color='rgba(0,0,0,.54)'>more_vert</v-icon> </a>
-          </v-btn>
-
+          <template v-slot:activator = '{on}'>
+            <v-btn style='margin-left: 0;'
+              dark
+              icon
+              v-on = 'on'
+            >
+              <a href='#'> <v-icon size='20px' class='mr-2' color='rgba(0,0,0,.54)'>more_vert</v-icon> </a>
+            </v-btn>
+          </template>
           <v-list>
             <v-list-tile>
               <v-list-tile-title>Action</v-list-tile-title>

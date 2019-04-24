@@ -60,14 +60,15 @@
                           v-model="dialogFile<%fName%>"
                           fullscreen
                         >
-                          <v-btn
-                            v-slot:activator
-                            color="primary"
-                            dark
-                          >
-                            Upload a file
-                          </v-btn>
-
+                          <template v-slot:activator = '{on}'>
+                            <v-btn
+                              :on = 'on'
+                              color="primary"
+                              dark
+                            >
+                              Upload a file
+                            </v-btn>
+                          </template>
                           <v-card>
                             <v-card-title
                               class="headline grey lighten-2"
@@ -148,13 +149,15 @@
                           full-width
                           min-width="290px"
                         >
-                          <v-text-field
-                            v-slot:activator
-                            v-model="<%=fName%>"
-                            label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
-                            prepend-icon="event"
-                            readonly
-                          ></v-text-field>
+                          <template v-slot:activator = '{on}'>
+                            <v-text-field
+                              v-on = 'on'
+                              v-model="<%=fName%>"
+                              label="$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')"
+                              prepend-icon="event"
+                              readonly
+                            ></v-text-field>
+                          </template>
                           <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(<%=fName%>)"></v-date-picker>
 
                         </v-menu>
@@ -163,7 +166,9 @@
 
                     <%_ if(fType == 'Instant') { _%>
                       <datetime v-show="$route.params.hideName != '<%=fName%>'" v-hasRole="'<%=field.visibleForRole%>'" type='datetime' v-model="<%=fName%>" input-id="<%=fName%>" input-class='borderField'>
-                          <label for="<%=fName%>" v-slot:before>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
+                          <template v-slot:before>
+                            <label for="<%=fName%>">{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=fName%>')}}</label>
+                          </template>
                       </datetime>   
                     <%_ } _%>
 
@@ -304,14 +309,15 @@
                           v-model="dialogFile<%=fName%>"
                           fullscreen
                         >
-                          <v-btn
-                            v-slot:activator
-                            color="primary"
-                            dark
-                          >
-                            Upload a file
-                          </v-btn>
-
+                          <template v-slot:activator = '{on}'>
+                            <v-btn
+                              color="primary"
+                              dark
+                              v-on = 'on'
+                            >
+                              Upload a file
+                            </v-btn>
+                          </template>
                           <v-card>
                             <v-card-title
                               class="headline grey lighten-2"

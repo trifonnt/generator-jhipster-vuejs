@@ -133,7 +133,9 @@
 
 
                       <datetime v-show="$route.params.hideName != 'createdDate'" v-hasRole="'ROLE_USER,ROLE_ADMIN'" type='datetime' v-model="createdDate" input-id="createdDate" input-class='borderField'>
-                          <label for="createdDate" v-slot:before>{{$t('userx.newappApp.userx.createdDate')}}</label>
+                          <template v-slot:before>
+                            <label for="createdDate">{{$t('userx.newappApp.userx.createdDate')}}</label>
+                          </template>
                       </datetime>   
 
 
@@ -156,7 +158,9 @@
 
 
                       <datetime v-show="$route.params.hideName != 'lastModifiedDate'" v-hasRole="'ROLE_USER,ROLE_ADMIN'" type='datetime' v-model="lastModifiedDate" input-id="lastModifiedDate" input-class='borderField'>
-                          <label for="lastModifiedDate" v-slot:before>{{$t('userx.newappApp.userx.lastModifiedDate')}}</label>
+                          <template v-slot:before>
+                            <label for="lastModifiedDate">{{$t('userx.newappApp.userx.lastModifiedDate')}}</label>
+                          </template>
                       </datetime>   
 
 

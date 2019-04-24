@@ -96,13 +96,15 @@
       <v-toolbar-items class="hidden-sm-and-down">
 
         <v-menu offset-y v-show='user.auth'>
-      <v-btn flat
-        v-slot:activator
-        color="primary"
-        dark
-      >
-        <v-icon dark>notifications</v-icon>
-      </v-btn>
+        <template v-slot:activator = '{on}'>
+          <v-btn flat
+            color="primary"
+            dark
+            v-on = 'on'
+          >
+            <v-icon dark>notifications</v-icon>
+          </v-btn>
+        </template>
         <v-list>
           <v-list-tile
             avatar
@@ -165,39 +167,45 @@
       <router-link to="/register">{{$t('app.register.title')}}</router-link>
     </v-btn>
     <v-menu offset-y v-show='user.auth'>
-    <v-btn flat
-      v-slot:activator
-      color="primary"
-      dark
-    >
-      <v-icon color='primary'>view_list</v-icon> &nbsp;
-      {{$t('app.entities')}}
-      <v-icon dark>arrow_drop_down</v-icon>
-    </v-btn>
+    <template v-slot:activator = '{on}'>
+      <v-btn flat
+        color="primary"
+        dark
+        v-on = 'on'
+      >
+        <v-icon color='primary'>view_list</v-icon> &nbsp;
+        {{$t('app.entities')}}
+        <v-icon dark>arrow_drop_down</v-icon>
+      </v-btn>
+    </template>
     <menu-up></menu-up>
   </v-menu>
   <v-menu offset-y v-show='user.auth'>
-    <v-btn flat
-      v-slot:activator
-      color="primary"
-      dark
-    >
-      <v-icon color='primary'>view_list</v-icon> &nbsp;
-      {{$t('app.entitiesx')}}
-      <v-icon dark>arrow_drop_down</v-icon>
-    </v-btn>
+    <template v-slot:activator = '{on}'>
+      <v-btn flat
+        color="primary"
+        dark
+        v-on = 'on'
+      >
+        <v-icon color='primary'>view_list</v-icon> &nbsp;
+        {{$t('app.entitiesx')}}
+        <v-icon dark>arrow_drop_down</v-icon>
+      </v-btn>
+    </template>
     <menu-entitiesx></menu-entitiesx>
   </v-menu>
     <v-menu offset-y v-hasRole="'ROLE_ADMIN'" v-show='user.auth'>
-    <v-btn flat
-      v-slot:activator
-      color="primary"
-      dark
-    >
-      <v-icon color='primary'>school</v-icon> &nbsp;
-      {{$t('app.admin.admin')}}
-      <v-icon dark>arrow_drop_down</v-icon>
-    </v-btn>
+    <template v-slot:activator = '{on}'>
+      <v-btn flat
+        color="primary"
+        dark
+        v-on = 'on'
+      >
+        <v-icon color='primary'>school</v-icon> &nbsp;
+        {{$t('app.admin.admin')}}
+        <v-icon dark>arrow_drop_down</v-icon>
+      </v-btn>
+    </template>
     <v-list>
       <v-list-tile>
         <v-icon color='primary'>account_box</v-icon> &nbsp;
@@ -242,14 +250,16 @@
     </v-list>
   </v-menu>  
       <v-menu offset-y v-show='user.auth'>
-      <v-btn flat
-        v-slot:activator
-        color="primary"
-        dark
-      >
-        {{$t('app.account.menu')}}
-        <v-icon dark>arrow_drop_down</v-icon>
-      </v-btn>
+      <template v-slot:activator = '{on}'>
+        <v-btn flat
+          color="primary"
+          dark
+          v-on = 'on'
+        >
+          {{$t('app.account.menu')}}
+          <v-icon dark>arrow_drop_down</v-icon>
+        </v-btn>
+      </template>
       <v-list >
         <v-list-tile
           @click=""

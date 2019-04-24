@@ -93,12 +93,14 @@
 	                          full-width
 	                          min-width="290px"
 	                        >
-	                          <v-text-field
-	                            v-slot:activator
-	                            label="<%=toSpaced(fName)%>"
-	                            prepend-icon="event"
-	                            readonly
-	                          ></v-text-field>
+		                        <template v-slot:activator = '{on}'>
+		                          <v-text-field
+		                          	v-on = 'on'
+		                            label="<%=toSpaced(fName)%>"
+		                            prepend-icon="event"
+		                            readonly
+		                          ></v-text-field>
+		                      	</template>
 	                          <v-date-picker v-model="<%=fName%>" @input="$refs.menu<%=fName%>.save(<%=fName%>)"></v-date-picker>
 
 	                        </v-menu>

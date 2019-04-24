@@ -31,14 +31,15 @@
                           v-model="dialogFile<%fName%>"
                           width="500"
                         >
-                          <v-btn v-hasRole="'<%=field.visibleForRole%>'"
-                            v-slot:activator
-                            color="primary"
-                            dark
-                          >
-                            View files
-                          </v-btn>
-
+                          <template v-slot:activator = '{on}'>
+                            <v-btn v-hasRole="'<%=field.visibleForRole%>'"
+                              color="primary"
+                              dark
+                              v-on = 'on'
+                            >
+                              View files
+                            </v-btn>
+                          </template>
                           <v-card>
                             <v-card-title
                               class="headline grey lighten-2"
@@ -92,15 +93,16 @@
                           v-model="dialogFile<%=relationship.relationshipName%>"
                           width="500"
                         >
-                          <v-btn v-hasRole="'<%=relationship.visibleForRole%>'"
-                            v-slot:activator
-                            color="primary"
-                            dark
-                            @click='viewFiles(<%=relationship.relationshipName%>)'
-                          >
-                            View files
-                          </v-btn>
-
+                          <template v-slot:activator = '{on}'>
+                            <v-btn v-hasRole="'<%=relationship.visibleForRole%>'"
+                              color="primary"
+                              dark
+                              @click='viewFiles(<%=relationship.relationshipName%>)'
+                              v-on = 'on'
+                            >
+                              View files
+                            </v-btn>
+                          </template>
                           <v-card>
                             <v-card-title
                               class="headline grey lighten-2"
@@ -128,10 +130,12 @@
                         <div class='flex' v-hasRole="'<%=field.visibleForRole%>'" v-show='Number.isInteger(<%=relationship.relationshipName%>Id)'>
                         <v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>
                         <gallery @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'  :galleryImages='<%=relationship.relationshipName%>images'>
-                        <img class='smallimage' :src='"data:" + <%=relationship.relationshipName%>images[0].fileContentType + ";base64," + <%=relationship.relationshipName%>images[0].file' v-slot:gallery='{setImage}' 
-                          @click.stop='setImage(0)' 
-                          color='primary'
-                        />
+                          <template v-slot:gallery='{setImage}'>
+                            <img class='smallimage' :src='"data:" + <%=relationship.relationshipName%>images[0].fileContentType + ";base64," + <%=relationship.relationshipName%>images[0].file' :gallery='setImage' 
+                              @click.stop='setImage(0)' 
+                              color='primary'
+                            />
+                          </template>
                         </gallery>
                         </div>
                       </div>

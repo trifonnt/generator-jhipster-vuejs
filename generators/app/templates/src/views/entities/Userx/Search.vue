@@ -206,12 +206,14 @@
 	                          full-width
 	                          min-width="290px"
 	                        >
-	                          <v-text-field
-	                            v-slot:activator
-	                            label="Created Date"
-	                            prepend-icon="event"
-	                            readonly
-	                          ></v-text-field>
+		                        <template v-slot:activator = '{on}'>
+		                          <v-text-field
+		                            label="Created Date"
+		                            prepend-icon="event"
+		                            readonly
+		                            v-on = 'on'
+		                          ></v-text-field>
+		                      	</template>
 	                          <v-date-picker v-model="createdDate" @input="$refs.menucreatedDate.save(createdDate)"></v-date-picker>
 
 	                        </v-menu>
@@ -262,12 +264,14 @@
 	                          full-width
 	                          min-width="290px"
 	                        >
-	                          <v-text-field
-	                            v-slot:activator
-	                            label="Last Modified Date"
-	                            prepend-icon="event"
-	                            readonly
-	                          ></v-text-field>
+		                        <template v-slot:activator = '{on}'>
+		                          <v-text-field
+		                            label="Last Modified Date"
+		                            prepend-icon="event"
+		                            readonly
+		                            v-on = 'on'
+		                          ></v-text-field>
+		                      	</template>
 	                          <v-date-picker v-model="lastModifiedDate" @input="$refs.menulastModifiedDate.save(lastModifiedDate)"></v-date-picker>
 
 	                        </v-menu>

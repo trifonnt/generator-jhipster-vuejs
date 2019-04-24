@@ -9,13 +9,15 @@
       <td v-if="items.item['<%=pluralize(field.fieldName)%>'] && items.item['<%=pluralize(field.fieldName)%>'].length" v-show='hideName!="<%=field.fieldName%>" && <%=field.visibleInTableMode%>' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
         <v-chip v-for="val in items.item['<%=field.fieldName%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val}}</v-chip>
         <v-menu offset-y>
+          <template v-slot:activator = '{on}'>
           <v-chip color='primary' class='morechips' v-show="items.item['<%=field.fieldName%>'] && items.item['<%=field.fieldName%>'].length > 2"
             style='padding: 0;'
-            v-slot:activator
             outline
+            v-on = 'on'
           >
             <v-icon>more_vert</v-icon>
           </v-chip>
+        </template>
           <v-list>
             <v-list-tile v-for="val2 in items.item['<%=field.fieldName%>'].slice(2)" :key='val2'>
               <v-chip color='primary' class='white--text'>{{val2}}</v-chip>
@@ -39,7 +41,9 @@
     _%>
       <td v-show='hideName!="<%=field.fieldName%>" && <%=field.visibleInTableMode%>' v-hasRole="'<%=field.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=field.fieldName%>")'>
             <v-dialog v-model="dialogImage<%=field.fieldName%>" fullscreen hide-overlay transition="dialog-bottom-transition">
-              <v-btn v-slot:activator color="primary" dark>Preview</v-btn>
+              <template v-slot:activator = '{on}'>
+                <v-btn v-on = 'on' color="primary" dark>Preview</v-btn>
+              </template>
               <v-card>
                 <img :src="'data:'+items.item['<%=field.fieldName%>ContentType']+';base64,'+items.item['<%=field.fieldName%>']"/>
               </v-card>
@@ -52,13 +56,14 @@
         _%>
         <td v-show='hideName!="<%=field.fieldName%>" && <%=field.visibleInTableMode%>' v-hasRole="'<%=field.visibleForRole%>'">
          <v-bottom-sheet v-model="<%=field.fieldName%>sheet">
-          <v-btn
-            v-slot:activator
-            color="primary"
-          >
-            {{$t('app.preview')}}
-          </v-btn>
-
+          <template v-slot:activator = '{on}'>
+            <v-btn
+              v-on = 'on'
+              color="primary"
+            >
+              {{$t('app.preview')}}
+            </v-btn>
+          </template>
           <v-list>
             <v-subheader><p class='text-xs-center'>{{$t('app.preview')}}</p></v-subheader>
             <div v-html="items.item['<%=field.fieldName%>']"></div>
@@ -79,12 +84,14 @@
     _%>
       <td v-show='hideName!="<%=relationship.relationshipName%>" && <%=relationship.visibleInTableMode%>' v-hasRole="'<%=relationship.visibleForRole%>'" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
         <gallery :showDeleteButton='false' :galleryImages='images<%=relationship.relationshipName%>'>
-          <v-btn v-slot:gallery='{setImage}' 
-            @click.stop='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 
-            color='primary' v-show="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"
-          >
-            Preview image
-          </v-btn>
+          <template v-slot:gallery = '{setImage}'>
+            <v-btn :gallery='setImage' 
+              @click.stop='getImages<%=relationship.relationshipName%>(items.item["<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>"]);setImage(0)' 
+              color='primary' v-show="items.item['<%=relationship.relationshipName%><%=firstToUpper(relationship.otherEntityField)%>']"
+            >
+              Preview image
+            </v-btn>
+          </template>
         </gallery>
       </td>
 
@@ -95,14 +102,16 @@
       <td v-show='hideName!="<%=relationship.relationshipName%>" && <%=relationship.visibleInTableMode%>' v-hasRole="'<%=relationship.visibleForRole%>'" v-if="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length" @click='visibleHeader = !visibleHeader' :class="{visible: visibleHeader}" class='text-xs-center' :data-label='$t("<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>")'>
         <v-chip v-for="val in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(0,2)" :key='val' color="primary" text-color="white">{{val.<%=relationship.otherEntityField%>}}</v-chip>
         <v-menu offset-y>
-          <v-chip
-            color='primary'
-            class='morechips' v-show="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length > 2"
-            v-slot:activator
-            outline
-          >
-            <v-icon>more_vert</v-icon>
-          </v-chip>
+          <template v-slot:activator = '{on}'>
+            <v-chip
+              color='primary'
+              class='morechips' v-show="items.item['<%=pluralize(relationship.relationshipName)%>'] && items.item['<%=pluralize(relationship.relationshipName)%>'].length > 2"
+              outline
+              v-on = 'on'
+            >
+              <v-icon>more_vert</v-icon>
+            </v-chip>
+          </template>
           <v-list>
             <v-list-tile v-for="val2 in items.item['<%=pluralize(relationship.relationshipName)%>'].slice(2)" :key='val2'>
               <v-chip color='primary' class='white--text'>{{val2.<%=relationship.otherEntityField%>}}</v-chip>
@@ -158,14 +167,15 @@
           </v-icon>
         </a>
         <v-menu style='margin-left: 0;'>
-          <v-btn style='margin-left: 0;'
-            v-slot:activator
-            dark
-            icon
-          >
-            <a href='#'> <v-icon size='20px' class='mr-2' color='rgba(0,0,0,.54)'>more_vert</v-icon> </a>
-          </v-btn>
-
+          <template v-slot:activator = '{on}'>
+            <v-btn style='margin-left: 0;'
+              dark
+              icon
+              v-on = 'on'
+            >
+              <a href='#'> <v-icon size='20px' class='mr-2' color='rgba(0,0,0,.54)'>more_vert</v-icon> </a>
+            </v-btn>
+          </template>
           <v-list>
             <v-list-tile>
               <v-list-tile-title>Action</v-list-tile-title>
