@@ -219,12 +219,12 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "jquery": "^3.3.1",
             "lodash": "^4.17.10",
             "vee-validate": "^2.1.0-beta.7",
-            "vue": "^2.5.17",
+            "vue": "^2.6.10",
             "vue-i18n": "^8.1.0",
             "vue-router": "^3.0.1",
             "vue2-datatable-component": "^2.3.1",
             "vueify": "^9.4.1",
-            "vuetify": "^1.0.19",
+            "vuetify": "^1.5.12",
             "vuex": "^3.0.1",
             "material-design-icons-iconfont": "^3.0.3",
             "vuedraggable": "^2.16.0",
@@ -248,7 +248,7 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "stylus": "^0.54.5",
             "stylus-loader": "^3.0.2",
             "vue-cli-plugin-vuetify": "^0.1.6",
-            "vue-template-compiler": "^2.5.17"
+            "vue-template-compiler": "^2.6.10"
           },
           scripts: {
             "serve": "vue-cli-service serve --port 8888",
