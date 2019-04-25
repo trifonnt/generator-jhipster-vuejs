@@ -263,8 +263,8 @@
                             @search-change = 'changeSearch'
                             :limit = '10'
                             @open='newDropdown'
-                            :multiple = '<%=!multiple%>'
-                            :close-on-select="<%=multiple%>" 
+                            :multiple = '<%=multiple%>'
+                            :close-on-select="<%=!multiple%>" 
                             id='<%=pluralize(fName)%>'
                             label='name'
                             v-model = '<%=model%>'
@@ -280,7 +280,7 @@
                           </template>
                           <template v-slot:tag="{ option, remove, index }">
                             <span class="multiselect__tag" :key="index">
-                              <span>{{option}}</span>
+                              <span>{{option.otherEntityField}}</span>
                               <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
                             </span>
                           </template>   
@@ -600,11 +600,12 @@
           _%>
             this.<%=pluralize(relationship.relationshipName)%> = <%=relationship.relationshipName%>.data
             <%_
-              if(relationship.relationshipType == 'many-to-many') {
+              if(relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') {
             _%>
             this.<%=relationship.relationshipName%>Values = entity.<%=pluralize(relationship.relationshipName)%>
             <%_ } else  { _%>
             this.<%=relationship.relationshipName%> = this.<%=pluralize(relationship.relationshipName)%>.filter(o=>o.id == entity.<%=relationship.relationshipName%>Id)
+            if(this.<%=relationship.relationshipName%>.length == 1) this.<%=relationship.relationshipName%> = this.<%=relationship.relationshipName%>[0]
             <%_ } _%>
           <%_ } } _%>
         }
