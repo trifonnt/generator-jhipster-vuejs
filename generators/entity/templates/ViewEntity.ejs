@@ -127,7 +127,7 @@
 
                           </v-card>
                         </v-dialog>
-                        <div class='flex' v-hasRole="'<%=field.visibleForRole%>'" v-show='Number.isInteger(<%=relationship.relationshipName%>Id)'>
+                        <div class='displayflex' v-hasRole="'<%=field.visibleForRole%>'" v-show='Number.isInteger(<%=relationship.relationshipName%>Id)'>
                         <v-chip label>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%=relationship.relationshipName%>')}}</v-chip>
                         <gallery @delete='deleteImage' :showDeleteAll='false' :showDeleteButton='false'  :galleryImages='<%=relationship.relationshipName%>images'>
                           <template v-slot:gallery='{setImage}'>
@@ -281,7 +281,7 @@
     height: 100px;
     object-fit: contain;
   }
-  .flex {
+  .displayflex {
     display: flex;
   }
 </style>
