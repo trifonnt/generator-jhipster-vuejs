@@ -246,7 +246,7 @@
                           </template>
                           <template v-slot:tag="{ option, remove, index }">
                             <span class="multiselect__tag" :key="index">
-                              <span>{{option.otherEntityField}}</span>
+                              <span>{{option.<%=relationship.otherEntityField%>}}</span>
                               <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
                             </span>
                           </template>
@@ -280,7 +280,7 @@
                           </template>
                           <template v-slot:tag="{ option, remove, index }">
                             <span class="multiselect__tag" :key="index">
-                              <span>{{option.otherEntityField}}</span>
+                              <span>{{option.<%=relationship.otherEntityField%>}}</span>
                               <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
                             </span>
                           </template>   
