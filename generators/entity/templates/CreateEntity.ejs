@@ -555,7 +555,7 @@
               <%_
                 } else if(relationship.relationshipType=='many-to-many' || relationship.relationshipType=='one-to-many') {
               _%>
-              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>o.id),
+              <%=pluralize(relationship.relationshipName)%>: this.<%=relationship.relationshipName%>Values.map(o=>({id: o.id})),
               <%_ } else { _%>
               <%=relationship.relationshipName%>Id:this.<%=relationship.relationshipName%>.id, 
             <%_ } } _%>
