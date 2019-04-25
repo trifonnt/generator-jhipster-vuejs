@@ -296,7 +296,7 @@
                           </template>
                           <template v-slot:tag="{ option, remove, index }">
                             <span class="multiselect__tag" :key="index">
-                              <span>{{option}}</span>
+                              <span>{{option.otherEntityField}}</span>
                               <i aria-hidden="true" tabindex="1" @keypress.enter.prevent="remove(option)"  @mousedown.prevent="remove(option)" class="multiselect__tag-icon"></i>
                             </span>
                           </template>                          
