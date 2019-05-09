@@ -20,3 +20,7 @@ export function getConfig() {
 export function getMetrics() {
 	return axios.get('/management/metrics').then(data=>data.data)
 }
+
+export function pushNotification(subject, description) {
+	return axios.post('/push/notification', {subject, description})
+}

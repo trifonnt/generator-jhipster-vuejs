@@ -7,6 +7,8 @@ import axios from './modules/axios'
 import * as identity from './store/identity'
 import VeeValidate from 'vee-validate';
 
+import '../../../registerServiceWorker'
+
 import Datatable from 'vue2-datatable-component'
 
 import VueI18n from 'vue-i18n'

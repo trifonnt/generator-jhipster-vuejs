@@ -19,6 +19,7 @@ import AdminAudits from './views/admin/Audits.vue'
 import AdminLogs from './views/admin/Logs.vue'
 import AdminConfig from './views/admin/Config.vue'
 import AdminMetrics from './views/admin/Metrics.vue'
+import AdminPushNotification from './views/admin/PushNotification.vue'
 
 //import Detail from './views/entities/mDetail/Detail.vue'
 
@@ -143,6 +144,29 @@ let routes = [
       path: '/admin/metrics',
       name: 'adminmetrics',
       component: AdminMetrics,
+    },
+    {
+      path: '/admin/pushNotification',
+      name: 'adminPushNotification',
+      component: AdminPushNotification,
+    },
+    {
+      path: '/user/activate',
+      name:'userActivate',
+      beforeEnter: (to, from, next) => {
+        axios.get('activate?key='+to.query.key)
+        .then(data=>next('/'))
+        .catch(err=>next('/'));
+      }
+    },
+    {
+      path: '/reset',
+      name:'userResetKey',
+      beforeEnter: (to, from, next) => {
+        axios.get('reset?key='+to.query.key)
+        .then(data=>next('/'))
+        .catch(err=>next('/'));
+      }
     },
   ];
   let context = require('./views/entities').default;

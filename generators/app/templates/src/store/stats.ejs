@@ -21,3 +21,7 @@ export async function getConfig() {
 export function getMetrics() {
 	return fetcher.getMetrics();
 }
+
+export function pushNotification(subject, description) {
+	return fetcher.pushNotification(subject, description)
+}

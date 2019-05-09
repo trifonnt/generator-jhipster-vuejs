@@ -123,6 +123,12 @@ module.exports = class extends BaseGenerator {
         );
         
         this.fs.copyTpl(
+            this.templatePath('registerServiceWorker.js'),
+            this.destinationPath(this.options.env.cwd+'/src/'+'registerServiceWorker.js'),
+            {}
+        )
+
+        this.fs.copyTpl(
             this.templatePath('vue.config.ejs'),
             this.destinationPath(this.options.env.cwd+'/vue.config.js'),
             {srcdir: this.options.env.cwd+'/'+'src/main/webapp/'}
@@ -240,6 +246,7 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "vue2-touch-events": "^1.1.2",
             "sortablejs": "^1.8.1",
             "pluralize": "^7.0.0",
+            "register-service-worker": "^1.6.2",
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",
