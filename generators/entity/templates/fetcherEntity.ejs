@@ -75,7 +75,15 @@ export function deleteImage(id) {
 	return axios.delete('/files/'+id).then(data=>data.data)
 }
 export function updateField(masterId, fieldName, val) {
-	return axios.put('countries'+masterId+'/updateField', {fieldName, val})
+	return axios.patch('<%=pluralize(toDashed(name))%>/'+masterId, [{
+		op: 'replace',
+		path: '/'+fieldName,
+		value: val,
+	}], {
+		headers: {
+			'content-type': 'application/json-patch+json'
+		}
+	})
 }
 <%_ for(relationship of relationships) { 
 	let thename = addS(firstToUpper(relationship.relationshipName))
