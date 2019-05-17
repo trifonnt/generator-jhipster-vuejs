@@ -11,11 +11,14 @@ const mutations = {
 		state.fields[data.i].val = data.val;
 		state.fields[data.i].final = data.final ? true: false;
 	},
+	editField(state, data) {
+		state.fields.find(o=>o.name == data.name).edit = data.edit;
+	},
 	setValues(state, data) {
 		state.fields = data;
 	},
 	fillFields(state, fields) {
-		state.fields = [...Array(fields.length)].map((el, i)=>({name:fields[i].name, val: null}))
+		state.fields = [...Array(fields.length)].map((el, i)=>({name:fields[i].name, val: null, edit: false}))
 	},
 }
 
