@@ -159,7 +159,17 @@ module.exports = class extends BaseGenerator {
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./storeEntityExtend.ejs'),
+                this.destinationPath(destPath+'/store/'+this._toLower(name)+'Extend.js'),
+                obj
+            )
+            this.fs.copyTpl(
                 this.templatePath('./fetcherEntity.ejs'),
+                this.destinationPath(destPath+'/fetchers/'+this._toLower(name)+'Extend.js'),
+                obj
+            )
+            this.fs.copyTpl(
+                this.templatePath('./fetcherEntityExtend.ejs'),
                 this.destinationPath(destPath+'/fetchers/'+this._toLower(name)+'.js'),
                 obj
             )

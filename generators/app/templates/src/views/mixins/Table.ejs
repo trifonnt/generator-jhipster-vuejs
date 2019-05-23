@@ -71,7 +71,7 @@ export default (name) => {
       return this.$store.state.table.entity.loading
     },
     totalItems() {
-      return this.$store.state.table.entity.totalItems
+      return +this.$store.state.table.entity.totalItems
     },
     indeterminite() {
       return this.$store.state.table.entity.indeterminite

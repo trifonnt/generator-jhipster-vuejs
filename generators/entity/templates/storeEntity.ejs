@@ -21,4 +21,12 @@ let store = require('./entity').default('<%=toLower(name)%>');
 		}
 	}
 <% } } %>
+
+try {
+	let extend = require('./<%=name%>Extend')
+	Object.assign(store, extend)
+} catch(err) {
+	console.log(err)
+}
+
 export default store;

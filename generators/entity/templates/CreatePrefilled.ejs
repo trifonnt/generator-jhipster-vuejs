@@ -306,7 +306,7 @@
           let val;
           if(fType == 'String') val = '""';
           if(fType == 'Boolean') val = "''";
-          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]'].includes(fType)) {
+          if(['Integer','BigDecimal','Long','Float','Double', 'LocalDate', 'Instant', 'ZonedDateTime','String', 'byte[]', 'Boolean'].includes(fType)) {
             val = '""';
         _%>
           <%_ 

@@ -1,17 +1,17 @@
 <%_ include fns.ejs -%>
 import axios from '../modules/axios'
 
-export function getEntityData(page=0, sort='id,asc', search='', size=10, masterId='', filterName = '') {
+module.exports.getEntityData = function(page=0, sort='id,asc', search='', size=10, masterId='', filterName = '') {
 	let obj = {paged: true, page, size, sort};
 	if(filterName) obj[filterName] = masterId;
 	if(search) obj.query = search;
 	if(!search) return axios.get('<%=pluralize(toDashed(name))%>', {params: obj});
 	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: obj});
 }
-export function getEntityCount(search='*', masterId='', filterName = '') {
+module.exports.getEntityCount = function(search='*', masterId='', filterName = '') {
 	return axios.get('_search/<%=pluralize(toDashed(name))%>', {params: {query: search, [filterName]: masterId}}).then(data=>data.headers['x-total-count']);	
 }
-export function createEntity(obj) {
+module.exports.createEntity = function(obj) {
   <% for(field of fields) {
     if(['Float','Double'].includes(field.fieldType)) {
    %>
@@ -19,7 +19,7 @@ export function createEntity(obj) {
    <% }} %>
 	return axios.post('<%=pluralize(toDashed(name))%>', obj).then(data=>data.data);
 }
-export function editEntity(obj) {
+module.exports.editEntity = function(obj) {
    <% for(field of fields) {
     if(['Float','Double'].includes(field.fieldType)) {
    %>
@@ -27,54 +27,54 @@ export function editEntity(obj) {
    <% }} %>
 	return axios.put('<%=pluralize(toDashed(name))%>', obj).then(data=>data.data);
 }
-export function getEntityId(id) {
+module.exports.getEntityId = function(id) {
 	return axios.get('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
 }
-export function getEntityTemplate() {
+module.exports.getEntityTemplate = function() {
 	return axios.get('<%=pluralize(toDashed(name))%>/template').then(data=>data.data)
 }
-export function getEntityPrefilled(id,name, masterName) {
+module.exports.getEntityPrefilled = function(id,name, masterName) {
 	return axios.get(masterName.toLowerCase() + '/'+id+'/'+name.toLowerCase()+'/template')
 }
-export function deleteId(id) {
+module.exports.deleteId = function(id) {
 	return axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data)
 }
-export function deleteAllItems(items) {
+module.exports.deleteAllItems = function(items) {
 	return axios.delete('<%=pluralize(toDashed(name))%>', {data: {ids: items}}).then(data=>data.headers)
 	/* let promises = items.map(id=>axios.delete('<%=pluralize(toDashed(name))%>/'+id).then(data=>data.data));
 	return Promise.all(promises) */
 }
-export function getLabels() {
+module.exports.getLabels = function() {
 	return axios.get('<%=pluralize(toDashed(name))%>/getLabels');
 }
-export function saveLabels(data) {
+module.exports.saveLabels = function(data) {
 	return axios.post('<%=pluralize(toDashed(name))%>/labels', data);
 }
-export function saveItemOrder(left, right) {
+module.exports.saveItemOrder = function(left, right) {
 	return axios.post('<%=pluralize(toDashed(name))%>/saveItemOrder', {left, right}).then(data=>data.data)
 }
-export function getItemOrder() {
+module.exports.getItemOrder = function() {
 	return axios.get('itemorder').then(data=>data.data);
 }
-export function saveSearch(searchBy, values) {
+module.exports.saveSearch = function(searchBy, values) {
 	return axios.post('savesearch', {searchBy, values}).then(data=>data.data);
 }
-export function uploadFile(file, name) {
+module.exports.uploadFile = function(file, name) {
 	let ct = name + 'ContentType';
 	let fn = name + 'FileName';
 	let fs = name + 'FileSize'
 	return axios.post('files', {order: file.previewElement.dataset, file: file.dataURL.split('base64,')[1], fileFileName: file.name, fileContentType: file.type, fileFileSize: file.size}).then(data=>data.data)
 }
-export function getFiles(ids) {
+module.exports.getFiles = function(ids) {
 	return axios.get('/files/'+ids).then(data=>data.data);
 }
-export function deleteImage(id) {
+module.exports.deleteImage = function(id) {
 	if(Array.isArray(id)) {
 		return axios.delete('/files', {data: {ids: id }}).then(data=>data);
 	}
 	return axios.delete('/files/'+id).then(data=>data.data)
 }
-export function updateField(masterId, fieldName, val) {
+module.exports.updateField = function(masterId, fieldName, val) {
 	return axios.patch('<%=pluralize(toDashed(name))%>/'+masterId, [{
 		op: 'replace',
 		path: '/'+fieldName,
@@ -89,7 +89,14 @@ export function updateField(masterId, fieldName, val) {
 	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 -%>
-export function get<%=thename%>Data() {
+module.exports.get = function<%=thename%>Data() {
 	return axios.get('<%=pluralize(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
 }
 <% } } -%>
+
+try {
+	let extend = require('./<%=name%>Extend')
+	Object.assign(module.exports, extend)
+} catch(err) {
+	console.log(err)
+}

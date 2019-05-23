@@ -65,7 +65,7 @@
 		props: {
 			name: String,
 			label: String,
-			type: String,
+			typeName: String,
 			fieldValidation: Object,
 			i: Number,
 			showButtons: {
