@@ -95,9 +95,9 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
 
-        <v-menu offset-y v-show='user.auth'>
+        <v-menu offset-y>
         <template v-slot:activator = '{on}'>
-          <v-btn flat
+          <v-btn flat v-show='user.auth'
             color="primary"
             dark
             v-on = 'on'
@@ -166,9 +166,9 @@
       <v-icon color='primary'>account_box</v-icon> &nbsp;
       <router-link to="/register">{{$t('app.register.title')}}</router-link>
     </v-btn>
-    <v-menu offset-y v-show='user.auth'>
+    <v-menu offset-y>
     <template v-slot:activator = '{on}'>
-      <v-btn flat
+      <v-btn flat v-show='user.auth'
         color="primary"
         dark
         v-on = 'on'
@@ -180,9 +180,9 @@
     </template>
     <menu-up></menu-up>
   </v-menu>
-  <v-menu offset-y v-show='user.auth'>
+  <v-menu offset-y>
     <template v-slot:activator = '{on}'>
-      <v-btn flat
+      <v-btn flat v-show='user.auth'
         color="primary"
         dark
         v-on = 'on'
@@ -194,9 +194,9 @@
     </template>
     <menu-entitiesx></menu-entitiesx>
   </v-menu>
-    <v-menu offset-y v-hasRole="'ROLE_ADMIN'" v-show='user.auth'>
+    <v-menu offset-y>
     <template v-slot:activator = '{on}'>
-      <v-btn flat
+      <v-btn flat v-hasRole="'ROLE_ADMIN'" v-show='user.auth'
         color="primary"
         dark
         v-on = 'on'
@@ -249,9 +249,9 @@
 
     </v-list>
   </v-menu>  
-      <v-menu offset-y v-show='user.auth'>
+      <v-menu offset-y >
       <template v-slot:activator = '{on}'>
-        <v-btn flat
+        <v-btn flat v-show='user.auth'
           color="primary"
           dark
           v-on = 'on'

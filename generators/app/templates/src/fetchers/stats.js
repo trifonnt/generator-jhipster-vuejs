@@ -21,6 +21,10 @@ export function getMetrics() {
 	return axios.get('/management/metrics').then(data=>data.data)
 }
 
+export function getMetrics() {
+	return axios.get('/management/audits').then(data=>data.data)
+}
+
 export function pushNotification(subject, description) {
 	return axios.post('/push/notification', {subject, description})
 }
