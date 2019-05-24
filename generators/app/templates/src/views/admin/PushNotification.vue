@@ -36,7 +36,7 @@
 </template>
 
 <script>
-	import * as store from '../store/stats'
+	import * as store from '../../store/stats'
 		export default {
     inject: ['$validator'],
 		data: () => ({
