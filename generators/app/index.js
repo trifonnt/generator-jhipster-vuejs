@@ -163,7 +163,8 @@ module.exports = class extends BaseGenerator {
             this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/store/stats.js'),
             {baseName}
         )
-
+        this.fs.delete(this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/store/stats.ejs'))
+        
         this.fs.copyTpl(
             this.templatePath('./src/views/mixins/Table.ejs'),
             this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/views/mixins/Table.js'),
