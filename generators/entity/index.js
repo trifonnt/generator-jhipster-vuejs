@@ -146,7 +146,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./CreateEntityFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/'+name+'/CreateEntityFunctionsX.vue'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/CreateEntityFunctionsX.js'),
                 obj
             )
 /*            this.fs.copyTpl(
@@ -162,7 +162,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./UpdateEntityFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/'+name+'/UpdateEntityFunctionsX.vue'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/UpdateEntityFunctionsX.js'),
                 obj
             )
 
@@ -173,7 +173,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./ViewEntityFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/'+name+'/ViewEntityFunctionsX.vue'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/ViewEntityFunctionsX.js'),
                 obj
             )
 
@@ -215,7 +215,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./EntityTableBodyFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/'+name+'/EntityTableBodyFunctionsX.vue'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/EntityTableBodyFunctionsX.js'),
                 obj
             )
 
@@ -232,7 +232,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./DeleteDialogFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/' + name + '/DeleteDialogFunctionsX.vue'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/DeleteDialogFunctionsX.js'),
                 obj
             )
 
@@ -243,7 +243,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./EntityTableHeadFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableHeadFunctionsX.vue'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableHeadFunctionsX.js'),
                 obj
             )
 
