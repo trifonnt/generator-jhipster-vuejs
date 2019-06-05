@@ -12,7 +12,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form @keyup.native.enter='enterForm'>
-                  <v-text-field v-validate="{required: true, max: 50, regex: /^[_.@A-Za-z0-9-]*$/}" prepend-icon="person" name="login" :label="$t('app.register.usernameLabel')" type="text" v-model="username"></v-text-field>
+                  <v-text-field autofocus v-validate="{required: true, max: 50, regex: /^[_.@A-Za-z0-9-]*$/}" prepend-icon="person" name="login" :label="$t('app.register.usernameLabel')" type="text" v-model="username"></v-text-field>
                   <v-alert :value="errors.has('username')" type="error">{{ errors.first('username') }}</v-alert>  
 
                   <v-text-field  v-validate="{required: true, email: true, min:5, max: 254}" prepend-icon="email" name="email" :label="$t('app.register.emailLabel')" type="text" v-model="email"></v-text-field>

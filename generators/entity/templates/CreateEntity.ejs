@@ -591,6 +591,7 @@
             if(this.<%=relationship.relationshipName%>.length == 1) this.<%=relationship.relationshipName%> = this.<%=relationship.relationshipName%>[0]
             <%_ } _%>
           <%_ } } _%>
+          this.$validator.reset();
         }
         catch(err) {console.log(err)}
       },
