@@ -89,13 +89,13 @@ module.exports.updateField = function(masterId, fieldName, val) {
 	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 -%>
-module.exports = function get<%=thename%>Data() {
+module.exports.get<%=thename%>Data = function() {
 	return axios.get('<%=pluralize(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
 }
 <% } } -%>
 
 try {
-	let extend = require('./<%=firstToLower(name)%>Extend')
+	let extend = require('./<%=toLower(name)%>Extend')
 	Object.assign(module.exports, extend)
 } catch(err) {
 	console.log(err)
