@@ -135,7 +135,7 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./EntityFunctionsX.ejs'),
-                this.destinationPath(destPath+'/views/entities/'+name+'EntityFunctionsX.js'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/EntityFunctionsX.js'),
                 obj
             )
 
