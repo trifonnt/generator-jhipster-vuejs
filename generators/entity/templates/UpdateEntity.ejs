@@ -355,7 +355,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :disabled="errors.any()" color="primary" @click='edit'>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel')}}</v-btn>
+                <v-btn :disabled="errors.any() || !formValid" color="primary" @click='edit'>{{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.home.createOrEditLabel')}}</v-btn>
                 <v-btn @click='cancel'>{{$t('app.cancel')}}</v-btn>
               </v-card-actions>
             </v-card>
@@ -647,6 +647,13 @@
     data: vueObj.data,
     created() {
       this.getData();
+    },
+    computed: {
+      formValid() {
+        return Object.keys(this.fields).every(field => {
+          return this.fields[field] && this.fields[field].valid;
+        });
+      }
     },
     watch: {
       <%_ for(relationship of relationships) { _%>
