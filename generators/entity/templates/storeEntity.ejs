@@ -1,9 +1,6 @@
 <%_ include fns.ejs -%>
-import {
-	<%_ for(relationship of relationships) { -%>
-		get<%=addS(firstToUpper(relationship.relationshipName))%>Data,
-	<%_ } -%>
-} from '../fetchers/<%=toLower(name)%>'
+
+let fetcher = require('../fetchers/<%=toLower(name)%>').default;
 
 let store = require('./entity').default('<%=toLower(name)%>');
 <% for(relationship of relationships) { 
@@ -12,7 +9,7 @@ let store = require('./entity').default('<%=toLower(name)%>');
 %>
 	store.get<%=thename%> = async function() {
 		try {
-			let response = await get<%=thename%>Data();
+			let response = await fetcher.get<%=thename%>Data();
 			return response;
 			//return response.map(u=>({id: u.id, <%=relationship.otherEntityField%>: u.<%=relationship.otherEntityField%>})) 
 		}
@@ -23,7 +20,7 @@ let store = require('./entity').default('<%=toLower(name)%>');
 <% } } %>
 
 try {
-	let extend = require('./<%=firstToLower(name)%>Extend')
+	let extend = require('./<%=toLower(name)%>Extend')
 	Object.assign(store, extend)
 } catch(err) {
 	console.log(err)
