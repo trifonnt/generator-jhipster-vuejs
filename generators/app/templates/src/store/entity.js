@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 export default((name) => {
-	let fetcher = require('../fetchers/'+name)
+	let fetcher = require('../fetchers/'+name).default
 	return {
 		async getData(page=0, sort="id,asc", search='', size=10, labels= '', options='',values='',masterId='', filterName = '') {
 			return fetcher.getEntityData(page, sort, search, size, masterId, filterName);
