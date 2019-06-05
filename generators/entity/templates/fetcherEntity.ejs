@@ -89,7 +89,7 @@ module.exports.updateField = function(masterId, fieldName, val) {
 	let thename = addS(firstToUpper(relationship.relationshipName))
 	if(!(relationship.relationshipType == 'many-to-many' && relationship.ownerSide==false)) {
 -%>
-module.exports.get = function<%=thename%>Data() {
+module.exports.get = function <%=thename%>Data() {
 	return axios.get('<%=pluralize(toDashed(relationship.otherEntityName))%>', {params: {}}).then(data=>data.data);
 }
 <% } } -%>

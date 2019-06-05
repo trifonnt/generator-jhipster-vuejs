@@ -133,12 +133,10 @@
     let create = store.create;
     let relationStores = {};
     let getEntityByTemplate = store.getEntityByTemplate;    
-    export default {
-    inject: ['$validator'],
-    components: {
-      InputFile,
-    },
-    data: () => ({
+
+
+    let vueObj = {};
+    vueObj.data = () => ({
       activeDropdown: '',
       currentPage: 1,
       pageLength: 0,
@@ -162,50 +160,26 @@
         }
       },
       registered: null,
+      login: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      imageUrl: "",
+      activated: "",
+          authoritiesValues: ["ROLE_USER","ROLE_ADMIN"],
+          authorities: "ROLE_USER",
+      createdBy: "",
+      menucreatedDate: '',
+      createdDate: "",
+      lastModifiedBy: "",
+      menulastModifiedDate: '',
+      lastModifiedDate: "",
+      langKeyValues: ["en","bg"],
+      langKey: "en",
 
+    });
 
-        login: "",
-
-
-        firstName: "",
-
-
-        lastName: "",
-
-
-        email: "",
-
-
-        imageUrl: "",
-
-
-        activated: "",
-            authoritiesValues: ["ROLE_USER","ROLE_ADMIN"],
-            authorities: "ROLE_USER",
-
-
-        createdBy: "",
-            menucreatedDate: '',
-
-
-        createdDate: "",
-
-
-        lastModifiedBy: "",
-            menulastModifiedDate: '',
-
-
-        lastModifiedDate: "",
-            langKeyValues: ["en","bg"],
-            langKey: "en",
-
-    }),
-    created() {
-      this.getData();
-    },
-    watch: {
-    },
-    methods: {
+    vueObj.methods =  {
       async getDropdownData() {
         if(!this.activeDropdown) return;
         let relation,count;
@@ -316,7 +290,7 @@
       async getData() {
         try {
           let [
-entity] = await Promise.all([
+          entity] = await Promise.all([
                 getEntityByTemplate()
               ]);
             this.login = entity.login;
@@ -335,6 +309,29 @@ entity] = await Promise.all([
         catch(err) {console.log(err)}
       },
     }
+
+    try {
+      let extend = require('./createUserxFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
+    export default {
+    inject: ['$validator'],
+    components: {
+      InputFile,
+    },
+    data: vueObj.data,
+    created() {
+      this.getData();
+    },
+    watch: {
+    },
+    methods: vueObj.methods,
+     
   }
 </script>
 <style scoped>

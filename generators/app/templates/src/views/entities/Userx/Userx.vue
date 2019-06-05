@@ -73,6 +73,74 @@
 
   import _ from 'lodash';
 
+  let vueObj = {};
+  vueObj.data = () => ({
+    footer: [],
+    headers: [
+        { text: "Login", value: "login" },
+        { text: "First Name", value: "firstName" },
+        { text: "Last Name", value: "lastName" },
+        { text: "Email", value: "email" },
+        { text: "Image Url", value: "imageUrl" },
+        { text: "Activated", value: "activated" },
+        { text: "Authorities", value: "authorities" },
+        { text: "Created By", value: "createdBy" },
+        { text: "Created Date", value: "createdDate" },
+        { text: "Last Modified By", value: "lastModifiedBy" },
+        { text: "Last Modified Date", value: "lastModifiedDate" },
+        { text: "Lang Key", value: "langKey" },
+      { text: 'Actions', value: 'actions', sortable: false }
+    ],
+    labels: [
+      {text:'completed', value:1},
+      {text:'in progress', value:2}
+    ],
+    selectedLabels: [],
+  })
+
+  vueObj.computed = {
+    entityTableBody() {
+      if(this.lines) return () => import(`./EntityTableBody2.vue`)
+      return () => import(`./EntityTableBody.vue`)
+    },
+    checkedDeleted() {
+      return this.$store.state.table.entity.checkedDeleted
+    },
+  }
+
+  vueObj.methods = {
+    addNewLine() {
+      let newLine = Object.assign({}, this.entitys[0]);
+      Object.keys(newLine).forEach(k=>newLine[k]='')
+      newLine.new = true;
+      this.$store.commit('pushEntity',newLine);
+    },
+    selectLabels(labels) {
+      this.getData({labels})
+    },
+    print() {
+      let status = this.$store.state.app.leftDrawer;
+      this.$store.commit('setLeftDrawer', false);
+      this.$nextTick(()=>window.print());
+      window.onafterprint = () => {
+        this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
+      }
+    },
+    updatePagination(pagination) {
+      if(!_.isEqual(pagination,this.pagination)) this.pagination = pagination
+    }
+  }
+
+
+  try {
+    let extend = require('./UserxFunctionsX')
+    vueObj.data && Object.assign(vueObj.data, extend.data)
+    vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+    vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+  } catch(err) {
+    console.log(err)
+  }
+
   export default {
       mixins: [table("userx")],
       props: {
@@ -90,66 +158,15 @@
           default: false,
         }
       },
-      data: () => ({
-        footer: [],
-        headers: [
-            { text: "Login", value: "login" },
-            { text: "First Name", value: "firstName" },
-            { text: "Last Name", value: "lastName" },
-            { text: "Email", value: "email" },
-            { text: "Image Url", value: "imageUrl" },
-            { text: "Activated", value: "activated" },
-            { text: "Authorities", value: "authorities" },
-            { text: "Created By", value: "createdBy" },
-            { text: "Created Date", value: "createdDate" },
-            { text: "Last Modified By", value: "lastModifiedBy" },
-            { text: "Last Modified Date", value: "lastModifiedDate" },
-            { text: "Lang Key", value: "langKey" },
-          { text: 'Actions', value: 'actions', sortable: false }
-        ],
-        labels: [
-          {text:'completed', value:1},
-          {text:'in progress', value:2}
-        ],
-        selectedLabels: [],
-      }),
+      data: vueObj.data,
       created() {
         this.$on('closeDialog', (makeRequest) => {
           if(!makeRequest) return false;
           this.getData({masterId: this.$route.params.masterId, filterName: this.filterName})
         })
       },
-      computed: {
-        entityTableBody() {
-          if(this.lines) return () => import(`./EntityTableBody2.vue`)
-          return () => import(`./EntityTableBody.vue`)
-        },
-        checkedDeleted() {
-          return this.$store.state.table.entity.checkedDeleted
-        },
-      },
-      methods: {
-        addNewLine() {
-          let newLine = Object.assign({}, this.entitys[0]);
-          Object.keys(newLine).forEach(k=>newLine[k]='')
-          newLine.new = true;
-          this.$store.commit('pushEntity',newLine);
-        },
-        selectLabels(labels) {
-          this.getData({labels})
-        },
-        print() {
-          let status = this.$store.state.app.leftDrawer;
-          this.$store.commit('setLeftDrawer', false);
-          this.$nextTick(()=>window.print());
-          window.onafterprint = () => {
-            this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
-          }
-        },
-        updatePagination(pagination) {
-          if(!_.isEqual(pagination,this.pagination)) this.pagination = pagination
-        }
-      },
+      computed: vueObj.computed,
+      methods: vueObj.methods,
       beforeCreate() {
         this.$store = createStore('userx', '', this.$options.propsData.filterName, this.$route.params.masterId)
       },

@@ -137,32 +137,46 @@
   let store = require('../../../store/userx').default;
   let getFiles = store.getFiles;
 
+  let vueObj = {};
+  vueObj.computed = {
+    isChecked: {
+      set: function() {
+
+      },
+      get: function() {
+        return this.$store.getters.isChecked(this.items.item.id);
+      },
+    }
+  };
+
+  vueObj.methods = {      
+    deleteItem() {
+      this.$store.commit('deleteItem', this.items.item)
+    },
+    updateChecked(event) {
+      let e = {value:this.items.item.id, checked: event!=null}
+      this.$store.dispatch('updateChecked', e);
+    },
+  };
+
+
+  try {
+    let extend = require('./EntityTableBodyFunctionsX')
+    vueObj.data && Object.assign(vueObj.data, extend.data)
+    vueObj.methods && Object.assign(vueObj.methods, extend.methods)
+    vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+  } catch(err) {
+    console.log(err)
+  }
+
 	export default {
 		data: () => ({
     	visibleHeader: false,
     }),
     created() {
     },
-    computed: {
-      isChecked: {
-        set: function() {
-
-        },
-        get: function() {
-          return this.$store.getters.isChecked(this.items.item.id);
-        },
-      }
-    },
-		methods: {
-      
-      deleteItem() {
-        this.$store.commit('deleteItem', this.items.item)
-      },
-      updateChecked(event) {
-        let e = {value:this.items.item.id, checked: event!=null}
-        this.$store.dispatch('updateChecked', e);
-      },
-		},
+    computed: vueObj.computed,
+		methods: vueObj.methods,
 		props: {
 			items: Object,
 			headers: Array,

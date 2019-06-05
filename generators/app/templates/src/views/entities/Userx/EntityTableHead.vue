@@ -136,18 +136,34 @@
 
 <script>
 	import {mapGetters} from 'vuex'
+
+	let vueObj = {};
+	
+	vueObj.computed = {
+		allChecked() {
+			return this.$store.getters.allChecked
+		}
+	};
+
+	vueObj.methods = {
+		changeSort(val) {
+			this.$store.dispatch('changeSort', val)
+		}
+	};
+
+    try {
+      let extend = require('./EntityTableHeadFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
 	export default {
 		data: () => ({}),
-		computed: {
-			allChecked() {
-				return this.$store.getters.allChecked
-			}
-		},
-		methods: {
-			changeSort(val) {
-				this.$store.dispatch('changeSort', val)
-			}
-		},
+		computed: vueObj.computed,
+		methods: vueObj.methods,
 		props: {
 			data: Object,
 			pagination: Object,

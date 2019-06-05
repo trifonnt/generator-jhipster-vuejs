@@ -382,12 +382,10 @@
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <%_ } _%> 
     let getEntityById = store.getEntityById;    
-    export default {
-    inject: ['$validator'],
-    components: {
-      InputFile,
-    },
-    data: () => ({
+    
+    let vueObj = {};
+
+    vueObj.data = () => ({
       activeDropdown: '',
       currentPage: 1,
       pageLength: 0,
@@ -479,23 +477,9 @@
         <%_ } _%>
       <%_ } _%>
 
-    }),
-    created() {
-      this.getData();
-    },
-    watch: {
-      <%_ for(relationship of relationships) { _%>
-        <%=pluralize(relationship.relationshipName)%>search(val) {
-          try {
-            this.getDropdownData();
-          }
-          catch(err) {
-            console.error(err)
-          }
-        },
-      <%_ } _%>
-    },
-    methods: {
+    })
+
+    vueObj.methods = {
       removedFile(file) {
         this[file.name+'Id'] = null;
         this.edit()
@@ -547,7 +531,7 @@
           console.error(err)
         }
       },
-			async edit() {
+      async edit() {
         let res;
         let masterId = this.$route.params.hideName+'Id';
         let masterIdVal = this.$route.params.masterId;
@@ -577,13 +561,13 @@
           this.$store.dispatch('snackShowAction', {text: this.$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.updated', {id: this.$route.params.id}), val: true, color: "success"})          
           this.registered = true
           this.$router.go(-1);
-				}
-				catch(err) {
+        }
+        catch(err) {
           let msg = err.response.data.title
           this.$store.dispatch('snackShowAction', {text: msg, val: true, color: "error"})          
-					this.registered = false
-				}
-			},
+          this.registered = false
+        }
+      },
       cancel() {
         this.$router.go(-1);
       },
@@ -643,7 +627,40 @@
         }
         catch(err) {console.log(err)}
       },
-		}
+    }
+
+
+    try {
+      let extend = require('./updateEntityFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
+    export default {
+    inject: ['$validator'],
+    components: {
+      InputFile,
+    },
+    data: vueObj.data,
+    created() {
+      this.getData();
+    },
+    watch: {
+      <%_ for(relationship of relationships) { _%>
+        <%=pluralize(relationship.relationshipName)%>search(val) {
+          try {
+            this.getDropdownData();
+          }
+          catch(err) {
+            console.error(err)
+          }
+        },
+      <%_ } _%>
+    },
+    methods: vueObj.methods,
 	}
 </script>
 <style scoped>

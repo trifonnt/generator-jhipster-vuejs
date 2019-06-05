@@ -167,9 +167,10 @@
     let getFiles = store.getFiles;
     let deleteImage = store.deleteImage;
     import Gallery from '../../common/Gallery.vue'
+    
+    let vueObj = {};
 
-    export default {
-    data: () => ({
+    vueObj.data = () => ({
       <%_ fields.forEach(field=>{ _%>
         <%_
           let fType = field.fieldType;
@@ -202,18 +203,16 @@
       <%_ } else { _%>
         <%=relationship.relationshipName%>: '',
       <%_ } } _%>
-    }),
-    created() {
-      this.getData();
-    },
-    methods: {
+    })
+
+    vueObj.methods = {
       async getData() {
         try {
           let entity = await getEntityById(this.$route.params.id);
           <%_ for(field of fields) { _%>
             this.<%=field.fieldName%> = entity.<%=field.fieldName%>;
             <%_ if(field.fieldType == 'byte[]' && field.fieldTypeBlobContent == 'image') { _%>
-  /*              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
+    /*              this.<%=field.fieldName%>ContentType = entity.<%=field.fieldName%>ContentType
               this.<%=field.fieldName%>FileName = entity.<%=field.fieldName%>FileName*/
               this.<%=field.fieldName%>FileIds = entity.<%=field.fieldName%>FileIds;
               let entityImages = await getFiles(entity.<%=field.fieldName%>FileIds);
@@ -263,7 +262,23 @@
           console.error(err)
         }
       }
+    }
+
+    try {
+      let extend = require('./ViewEntityFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
+    export default {
+    data: vueObj.data,
+    created() {
+      this.getData();
     },
+    methods: vueObj.methods,
     components: {
       Gallery,
     }

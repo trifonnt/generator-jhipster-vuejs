@@ -134,8 +134,19 @@ module.exports = class extends BaseGenerator {
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./EntityFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/'+name+'EntityFunctionsX.js'),
+                obj
+            )
+
+            this.fs.copyTpl(
                 this.templatePath('./CreateEntity.ejs'),
                 this.destinationPath(destPath+'/views/entities/'+name+'/Create'+this._firstToUpper(name)+'.vue'),
+                obj
+            )
+            this.fs.copyTpl(
+                this.templatePath('./CreateEntityFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/CreateEntityFunctionsX.vue'),
                 obj
             )
 /*            this.fs.copyTpl(
@@ -143,16 +154,29 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/'+name+'/CreatePrefilled'+this._firstToUpper(name)+'.vue'),
                 obj
             )*/
+
             this.fs.copyTpl(
                 this.templatePath('./UpdateEntity.ejs'),
                 this.destinationPath(destPath+'/views/entities/'+name+'/Update'+this._firstToUpper(name)+'.vue'),
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./UpdateEntityFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/UpdateEntityFunctionsX.vue'),
+                obj
+            )
+
+            this.fs.copyTpl(
                 this.templatePath('./ViewEntity.ejs'),
                 this.destinationPath(destPath+'/views/entities/'+name+'/View'+this._firstToUpper(name)+'.vue'),
                 obj
             )
+            this.fs.copyTpl(
+                this.templatePath('./ViewEntityFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/ViewEntityFunctionsX.vue'),
+                obj
+            )
+
             this.fs.copyTpl(
                 this.templatePath('./storeEntity.ejs'),
                 this.destinationPath(destPath+'/store/'+this._toLower(name)+'.js'),
@@ -165,12 +189,12 @@ module.exports = class extends BaseGenerator {
             )
             this.fs.copyTpl(
                 this.templatePath('./fetcherEntity.ejs'),
-                this.destinationPath(destPath+'/fetchers/'+this._toLower(name)+'Extend.js'),
+                this.destinationPath(destPath+'/fetchers/'+this._toLower(name)+'.js'),
                 obj
             )
             this.fs.copyTpl(
                 this.templatePath('./fetcherEntityExtend.ejs'),
-                this.destinationPath(destPath+'/fetchers/'+this._toLower(name)+'.js'),
+                this.destinationPath(destPath+'/fetchers/'+this._toLower(name)+'Extend.js'),
                 obj
             )
             this.fs.copyTpl(
@@ -183,31 +207,52 @@ module.exports = class extends BaseGenerator {
                 this.destinationPath(destPath+'/views/entities/' + name + '/Search.vue'),
                 obj
             )
+
             this.fs.copyTpl(
                 this.templatePath('./EntityTableBody.ejs'),
                 this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableBody.vue'),
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./EntityTableBodyFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/'+name+'/EntityTableBodyFunctionsX.vue'),
+                obj
+            )
+
+            this.fs.copyTpl(
                 this.templatePath('./EntityTableBody2.ejs'),
                 this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableBody2.vue'),
                 obj
             )
+
             this.fs.copyTpl(
                 this.templatePath('./DeleteDialog.ejs'),
                 this.destinationPath(destPath+'/views/entities/' + name + '/DeleteDialog.vue'),
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./DeleteDialogFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/DeleteDialogFunctionsX.vue'),
+                obj
+            )
+
+            this.fs.copyTpl(
                 this.templatePath('./EntityTableHead.ejs'),
                 this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableHead.vue'),
                 obj
             )
             this.fs.copyTpl(
+                this.templatePath('./EntityTableHeadFunctionsX.ejs'),
+                this.destinationPath(destPath+'/views/entities/' + name + '/EntityTableHeadFunctionsX.vue'),
+                obj
+            )
+
+            this.fs.copyTpl(
                 this.templatePath('./entityIndex.js'),
                 this.destinationPath(destPath+'/views/entities/index.js'),
                 {}
             )
+
             if(this.props.genMenu == true || obj.generateMenuItem) {
                 let baseNameApp = this.baseName + 'App';
                 let template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {name, baseNameApp}, (err, str) => {

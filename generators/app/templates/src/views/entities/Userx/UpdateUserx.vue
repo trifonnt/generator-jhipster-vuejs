@@ -224,173 +224,187 @@
   import InputFile from '../../common/InputFile.vue'
 
   let store = require('../../../store/userx').default;
-    let edit = store.edit;
-    let getFiles = store.getFiles;
-    let deleteImage = store.deleteImage;
-    let relationStores = {};
-    let getEntityById = store.getEntityById;    
-    export default {
+  let edit = store.edit;
+  let getFiles = store.getFiles;
+  let deleteImage = store.deleteImage;
+  let relationStores = {};
+  let getEntityById = store.getEntityById;    
+
+  let vueObj = {};
+  vueObj.data = () => ({
+    activeDropdown: '',
+    currentPage: 1,
+    pageLength: 0,
+    editorOptions: {
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+          [{ 'header': 1 }, { 'header': 2 }],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          [{ 'script': 'sub' }, { 'script': 'super' }],
+          [{ 'indent': '-1' }, { 'indent': '+1' }],
+          [{ 'direction': 'rtl' }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          [{ 'font': [] }],
+          [{ 'color': [] }, { 'background': [] }],
+          [{ 'align': [] }],
+          ['clean'],
+        ],
+      }
+    },
+    registered: null,
+      login: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      imageUrl: "",
+      activated: "",
+          authoritiesValues: ["ROLE_USER","ROLE_ADMIN"],
+          authorities: "ROLE_USER",
+      createdBy: "",
+          menucreatedDate: '',
+      createdDate: "",
+      lastModifiedBy: "",
+          menulastModifiedDate: '',
+      lastModifiedDate: "",
+          langKeyValues: ["en","bg"],
+          langKey: "en",
+
+  })
+  vueObj.methods = {
+    removedFile(file) {
+      this[file.name+'Id'] = null;
+      this.edit()
+    },
+    async getDropdownData() {
+      if(!this.activeDropdown) return;
+      let relation,count;
+      let prop = this.activeDropdown + 'search';
+      relation = await relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", this[prop])
+      count = relation.headers['x-total-count']
+      relation = relation.data
+      this[this.activeDropdown] = relation;
+      this.pageLength = Math.ceil(count/10);
+    },
+    changePage(val) {
+      this.currentPage = val;
+      this.getDropdownData();
+    },
+    changeSearch(val) {
+      let prop = this.activeDropdown + 'search';
+      this[prop] = val
+    },
+    newDropdown(event) {
+      this.activeDropdown = event;
+      this.getDropdownData();
+    },
+    enterForm() {
+      if(!this.errors.any()) this.edit()
+    },
+    isReadOnly(roles) {
+      if(roles == "false" || !roles) return false;
+      if(!roles.length) return roles;
+      if(roles.includes(',') 
+        && roles.split(',').every(r=>!getProfile().roles.includes(r)).length==0) return false;
+      else if(!roles.includes(',') && getProfile().jwt && getProfile().roles[0]!=roles) return false;
+      return true
+    },
+    async uploadFile(obj) {
+      try {
+        let res = await store.uploadFile(obj.file[0], obj.name)
+        let prop = 'loading'+obj.name;
+        this[prop] = false;
+        prop = 'dialogFile'+ obj.name.charAt(0).toLowerCase() + obj.name.slice(1);
+        this[prop] = false
+        this.$store.dispatch('snackShowAction', {text: this.$t('file.newappApp.file.created', {id: res.id}), val: true, color: "success"})
+        this[obj.name+'Id'] = res.id;
+      }
+      catch(err) {
+        console.error(err)
+      }
+    },
+    async edit() {
+      let res;
+      let masterId = this.$route.params.hideName+'Id';
+      let masterIdVal = this.$route.params.masterId;
+      let obj =  {           
+          id: this.$route.params.id,
+            login:this.login,
+            firstName:this.firstName,
+            lastName:this.lastName,
+            email:this.email,
+            imageUrl:this.imageUrl,
+            activated:this.activated,
+            authorities:this.authorities,
+            createdBy:this.createdBy,
+            createdDate:this.createdDate,
+            lastModifiedBy:this.lastModifiedBy,
+            lastModifiedDate:this.lastModifiedDate,
+            langKey:this.langKey,
+        }
+      if(masterIdVal) obj[masterId] = masterIdVal;
+      try {
+        res = await edit(obj);
+        this.$store.dispatch('snackShowAction', {text: this.$t('userx.newappApp.userx.updated', {id: this.$route.params.id}), val: true, color: "success"})          
+        this.registered = true
+        this.$router.go(-1);
+      }
+      catch(err) {
+        let msg = err.response.data.title
+        this.$store.dispatch('snackShowAction', {text: msg, val: true, color: "error"})          
+        this.registered = false
+      }
+    },
+    cancel() {
+      this.$router.go(-1);
+    },
+    async getData() {
+      try {
+        let [
+entity] = await Promise.all([
+          getEntityById(this.$route.params.id)
+        ]);
+
+      this.login = entity.login;
+                  this.firstName = entity.firstName;
+                  this.lastName = entity.lastName;
+                  this.email = entity.email;
+                  this.imageUrl = entity.imageUrl;
+                  this.activated = entity.activated;
+                  this.authorities = entity.authorities;
+                  this.createdBy = entity.createdBy;
+                  this.createdDate = entity.createdDate;
+                  this.lastModifiedBy = entity.lastModifiedBy;
+                  this.lastModifiedDate = entity.lastModifiedDate;
+                  this.langKey = entity.langKey;
+              }
+    catch(err) {console.log(err)}
+  },
+  };
+
+  try {
+    let extend = require('./UpdateUserxFunctionsX')
+    vueObj.data && Object.assign(vueObj.data, extend.data)
+    vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+    vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+  } catch(err) {
+    console.log(err)
+  }
+
+  export default {
     inject: ['$validator'],
     components: {
       InputFile,
     },
-    data: () => ({
-      activeDropdown: '',
-      currentPage: 1,
-      pageLength: 0,
-      editorOptions: {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{ 'header': 1 }, { 'header': 2 }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'script': 'sub' }, { 'script': 'super' }],
-            [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'direction': 'rtl' }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'font': [] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['clean'],
-          ],
-        }
-      },
-      registered: null,
-        login: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        imageUrl: "",
-        activated: "",
-            authoritiesValues: ["ROLE_USER","ROLE_ADMIN"],
-            authorities: "ROLE_USER",
-        createdBy: "",
-            menucreatedDate: '',
-        createdDate: "",
-        lastModifiedBy: "",
-            menulastModifiedDate: '',
-        lastModifiedDate: "",
-            langKeyValues: ["en","bg"],
-            langKey: "en",
-
-    }),
+    data: vueObj.data,
     created() {
       this.getData();
     },
     watch: {
     },
-    methods: {
-      removedFile(file) {
-        this[file.name+'Id'] = null;
-        this.edit()
-      },
-      async getDropdownData() {
-        if(!this.activeDropdown) return;
-        let relation,count;
-        let prop = this.activeDropdown + 'search';
-        relation = await relationStores[this.activeDropdown].getData(this.currentPage-1, "id,asc", this[prop])
-        count = relation.headers['x-total-count']
-        relation = relation.data
-        this[this.activeDropdown] = relation;
-        this.pageLength = Math.ceil(count/10);
-      },
-      changePage(val) {
-        this.currentPage = val;
-        this.getDropdownData();
-      },
-      changeSearch(val) {
-        let prop = this.activeDropdown + 'search';
-        this[prop] = val
-      },
-      newDropdown(event) {
-        this.activeDropdown = event;
-        this.getDropdownData();
-      },
-      enterForm() {
-        if(!this.errors.any()) this.edit()
-      },
-      isReadOnly(roles) {
-        if(roles == "false" || !roles) return false;
-        if(!roles.length) return roles;
-        if(roles.includes(',') 
-          && roles.split(',').every(r=>!getProfile().roles.includes(r)).length==0) return false;
-        else if(!roles.includes(',') && getProfile().jwt && getProfile().roles[0]!=roles) return false;
-        return true
-      },
-      async uploadFile(obj) {
-        try {
-          let res = await store.uploadFile(obj.file[0], obj.name)
-          let prop = 'loading'+obj.name;
-          this[prop] = false;
-          prop = 'dialogFile'+ obj.name.charAt(0).toLowerCase() + obj.name.slice(1);
-          this[prop] = false
-          this.$store.dispatch('snackShowAction', {text: this.$t('file.newappApp.file.created', {id: res.id}), val: true, color: "success"})
-          this[obj.name+'Id'] = res.id;
-        }
-        catch(err) {
-          console.error(err)
-        }
-      },
-			async edit() {
-        let res;
-        let masterId = this.$route.params.hideName+'Id';
-        let masterIdVal = this.$route.params.masterId;
-        let obj =  {           
-            id: this.$route.params.id,
-              login:this.login,
-              firstName:this.firstName,
-              lastName:this.lastName,
-              email:this.email,
-              imageUrl:this.imageUrl,
-              activated:this.activated,
-              authorities:this.authorities,
-              createdBy:this.createdBy,
-              createdDate:this.createdDate,
-              lastModifiedBy:this.lastModifiedBy,
-              lastModifiedDate:this.lastModifiedDate,
-              langKey:this.langKey,
-          }
-        if(masterIdVal) obj[masterId] = masterIdVal;
-        try {
-          res = await edit(obj);
-          this.$store.dispatch('snackShowAction', {text: this.$t('userx.newappApp.userx.updated', {id: this.$route.params.id}), val: true, color: "success"})          
-          this.registered = true
-          this.$router.go(-1);
-				}
-				catch(err) {
-          let msg = err.response.data.title
-          this.$store.dispatch('snackShowAction', {text: msg, val: true, color: "error"})          
-					this.registered = false
-				}
-			},
-      cancel() {
-        this.$router.go(-1);
-      },
-      async getData() {
-        try {
-          let [
- entity] = await Promise.all([
-                getEntityById(this.$route.params.id)
-              ]);
-
-            this.login = entity.login;
-                        this.firstName = entity.firstName;
-                        this.lastName = entity.lastName;
-                        this.email = entity.email;
-                        this.imageUrl = entity.imageUrl;
-                        this.activated = entity.activated;
-                        this.authorities = entity.authorities;
-                        this.createdBy = entity.createdBy;
-                        this.createdDate = entity.createdDate;
-                        this.lastModifiedBy = entity.lastModifiedBy;
-                        this.lastModifiedDate = entity.lastModifiedDate;
-                        this.langKey = entity.langKey;
-                    }
-        catch(err) {console.log(err)}
-      },
-		}
+    methods: vueObj.methods,
 	}
 </script>
 <style scoped>

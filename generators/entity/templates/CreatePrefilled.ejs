@@ -264,17 +264,11 @@
     <%_ for(relationship of relationships) { _%>
       relationStores.<%=pluralize(relationship.relationshipName)%> = <%=addS(firstToUpper(relationship.relationshipName))%>store;
     <%_ } _%> 
-    export default {
-    inject: ['$validator'],
-    components: {
-      InputFile,
-    },
-    created() {
-      store = require('../../../store/'+this.relationshipOther.toLowerCase()).default;
-      create = store.create
-      getEntityPrefilled = store.getEntityPrefilled;
-    },
-    data: () => ({
+
+
+    let vueObj = {};
+
+    vueObj.data = () => ({
       hiddenFields: [],
       dialog: false,
       activeDropdown: '',
@@ -349,33 +343,10 @@
         <%_ } _%>
       <%_ } _%>
 
-    }),
-    props: {
-      prefillId: Number,
-      prefillName: String,
-      relationshipName: String,
-      relationshipOther: String,
-      masterEntity: String,
-    },
-    watch: {
-      <%_ for(relationship of relationships) { _%>
-        <%=pluralize(relationship.relationshipName)%>search(val) {
-          try {
-          this.getDropdownData();
-          }
-          catch(err) {
-            console.error(err)
-          }
-        },
-      <%_ } _%>
-      dialog(val) {
-        if(!val) return;
-        requestAnimationFrame(() => {
-          document.querySelector('.createPrefilled input').focus()
-        })
-      }
-    },
-    methods: {
+    })
+
+
+    vueObj.methods = {
       async getDropdownData() {
         if(!this.activeDropdown) return;
         let relation,count;
@@ -435,7 +406,7 @@
       async edit() {
         let res;
         try {
-/*          let res = await edit({
+    /*          let res = await edit({
             id: this.$route.params.id,
             <% for(field of fields) { %>
               <%=field.fieldName%>:this.<%=field.fieldName%>, 
@@ -541,6 +512,54 @@
         catch(err) {console.log(err)}
       },
     }
+
+    try {
+      let extend = require('./createPrefilledFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
+    
+    export default {
+    inject: ['$validator'],
+    components: {
+      InputFile,
+    },
+    created() {
+      store = require('../../../store/'+this.relationshipOther.toLowerCase()).default;
+      create = store.create
+      getEntityPrefilled = store.getEntityPrefilled;
+    },
+    data: vueObj.data,
+    props: {
+      prefillId: Number,
+      prefillName: String,
+      relationshipName: String,
+      relationshipOther: String,
+      masterEntity: String,
+    },
+    watch: {
+      <%_ for(relationship of relationships) { _%>
+        <%=pluralize(relationship.relationshipName)%>search(val) {
+          try {
+          this.getDropdownData();
+          }
+          catch(err) {
+            console.error(err)
+          }
+        },
+      <%_ } _%>
+      dialog(val) {
+        if(!val) return;
+        requestAnimationFrame(() => {
+          document.querySelector('.createPrefilled input').focus()
+        })
+      }
+    },
+    methods: vueObj.methods,
   }
 </script>
 <style scoped>

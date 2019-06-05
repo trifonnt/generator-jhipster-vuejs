@@ -19,6 +19,45 @@
 	let deleteItemById;
 	import {createStore} from '../../../storex/'
 
+
+	let vueObj = {};
+	vueObj.methods = {
+		close() {
+		    this.$store.commit('changeDialog', false)
+		},
+		async deleted() {
+			console.log("HERE")
+	        this.$store.commit('changeDialog', false)
+	        try {
+        		console.log("HERE2")
+	       		let res = await deleteItemById(this.deletedItem.id);
+					this.$store.dispatch('snackShowAction', {text: this.$t('userx.newappApp.userx.deleted', {id: this.deletedItem.id}), val: true, color: "success"})
+	        }
+	        catch(err) {
+	          this.$store.commit('snackShow', {text: res.title, val: true})
+	          console.log(err, "ERROR")
+	        }
+	        this.$store.dispatch('changePaginationWatcher', {page:1})
+	    },
+	};
+	vueObj.computed = {
+		deletedItem() {
+		  return this.$store.state.table.entity.deletedItem;
+		},
+	    dialog() {
+	      return this.$store.state.table.entity.dialog;
+	    }
+	};
+
+    try {
+      let extend = require('./DeleteDialogFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
 	export default {
 		beforeCreate() {
   			store = require('../../../store/entity').default(this.$options.propsData.storeName);
@@ -28,33 +67,8 @@
     	created() {
     		console.log(this.$store.state.table.entity)
     	},
-		computed: {
-			deletedItem() {
-			  return this.$store.state.table.entity.deletedItem;
-			},
-		    dialog() {
-		      return this.$store.state.table.entity.dialog;
-		    }
-		},
-		methods: {
-			close() {
-			    this.$store.commit('changeDialog', false)
-			},
-			async deleted() {
-				console.log("HERE")
-		        this.$store.commit('changeDialog', false)
-		        try {
-	        		console.log("HERE2")
-		       		let res = await deleteItemById(this.deletedItem.id);
-  					this.$store.dispatch('snackShowAction', {text: this.$t('userx.newappApp.userx.deleted', {id: this.deletedItem.id}), val: true, color: "success"})
-		        }
-		        catch(err) {
-		          this.$store.commit('snackShow', {text: res.title, val: true})
-		          console.log(err, "ERROR")
-		        }
-		        this.$store.dispatch('changePaginationWatcher', {page:1})
-		    },
-		},
+		computed: vueObj.computed,
+		methods: vueObj.methods,
 		props: {
 			storeName: String,
 		},

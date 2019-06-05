@@ -51,8 +51,8 @@
     let deleteImage = store.deleteImage;
     import Gallery from '../../common/Gallery.vue'
 
-    export default {
-    data: () => ({
+    let vueObj = {};
+    vueObj.data = () => ({
         login: "",
         firstName: "",
         lastName: "",
@@ -65,11 +65,8 @@
         lastModifiedBy: "",
         lastModifiedDate: "",
         langKey: "",
-    }),
-    created() {
-      this.getData();
-    },
-    methods: {
+    })
+    vueObj.methods = {
       async getData() {
         try {
           let entity = await getEntityById(this.$route.params.id);
@@ -112,7 +109,23 @@
           console.error(err)
         }
       }
+    };
+
+    try {
+      let extend = require('./viewUserxFunctionsX')
+      vueObj.data && Object.assign(vueObj.data, extend.data)
+      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+    } catch(err) {
+      console.log(err)
+    }
+
+    export default {
+    data: vueObj.data,
+    created() {
+      this.getData();
     },
+    methods: vueObj.methods,
     components: {
       Gallery,
     }

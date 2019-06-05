@@ -74,6 +74,68 @@
 
   import _ from 'lodash';
 
+  let vueObj = {};
+
+  vueObj.data = () => ({
+    footer: [],
+    headers: [
+      <%_ fields.forEach(field=>{ _%>
+        { text: "<%=toSpaced(field.fieldName)%>", value: "<%=field.fieldName%>" },
+      <%_ }) _%>
+      <%_ for(relationship of relationships) { _%>
+        { text: "<%=toSpaced(relationship.relationshipName)%>", value: "<%=relationship.relationshipName%>" },
+      <%_ } _%>
+      { text: 'Actions', value: 'actions', sortable: false }
+    ],
+    labels: [
+      {text:'completed', value:1},
+      {text:'in progress', value:2}
+    ],
+    selectedLabels: [],
+  })
+
+  vueObj.computed = {
+    entityTableBody() {
+      if(this.lines) return () => import(`./EntityTableBody2.vue`)
+      return () => import(`./EntityTableBody.vue`)
+    },
+    checkedDeleted() {
+      return this.$store.state.table.entity.checkedDeleted
+    },
+  }
+
+  vueObj.methods = {
+    addNewLine() {
+      let newLine = Object.assign({}, this.entitys[0]);
+      Object.keys(newLine).forEach(k=>newLine[k]='')
+      newLine.new = true;
+      this.$store.commit('pushEntity',newLine);
+    },
+    selectLabels(labels) {
+      this.getData({labels})
+    },
+    print() {
+      let status = this.$store.state.app.leftDrawer;
+      this.$store.commit('setLeftDrawer', false);
+      this.$nextTick(()=>window.print());
+      window.onafterprint = () => {
+        this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
+      }
+    },
+    updatePagination(pagination) {
+      if(!_.isEqual(pagination,this.pagination)) this.pagination = pagination
+    }
+  }
+
+  try {
+    let extend = require('./EntityFunctionsX')
+    vueObj.data && Object.assign(vueObj.data, extend.data)
+    vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+    vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+  } catch(err) {
+    console.log(err)
+  }
+  
   export default {
       mixins: [table("<%=toLower(name)%>")],
       props: {
@@ -91,60 +153,15 @@
           default: false,
         }
       },
-      data: () => ({
-        footer: [],
-        headers: [
-          <%_ fields.forEach(field=>{ _%>
-            { text: "<%=toSpaced(field.fieldName)%>", value: "<%=field.fieldName%>" },
-          <%_ }) _%>
-          <%_ for(relationship of relationships) { _%>
-            { text: "<%=toSpaced(relationship.relationshipName)%>", value: "<%=relationship.relationshipName%>" },
-          <%_ } _%>
-          { text: 'Actions', value: 'actions', sortable: false }
-        ],
-        labels: [
-          {text:'completed', value:1},
-          {text:'in progress', value:2}
-        ],
-        selectedLabels: [],
-      }),
+      data: vueObj.data,
       created() {
         this.$on('closeDialog', (makeRequest) => {
           if(!makeRequest) return false;
           this.getData({masterId: this.$route.params.masterId, filterName: this.filterName})
         })
       },
-      computed: {
-        entityTableBody() {
-          if(this.lines) return () => import(`./EntityTableBody2.vue`)
-          return () => import(`./EntityTableBody.vue`)
-        },
-        checkedDeleted() {
-          return this.$store.state.table.entity.checkedDeleted
-        },
-      },
-      methods: {
-        addNewLine() {
-          let newLine = Object.assign({}, this.entitys[0]);
-          Object.keys(newLine).forEach(k=>newLine[k]='')
-          newLine.new = true;
-          this.$store.commit('pushEntity',newLine);
-        },
-        selectLabels(labels) {
-          this.getData({labels})
-        },
-        print() {
-          let status = this.$store.state.app.leftDrawer;
-          this.$store.commit('setLeftDrawer', false);
-          this.$nextTick(()=>window.print());
-          window.onafterprint = () => {
-            this.$nextTick(() => this.$store.commit('setLeftDrawer', status))
-          }
-        },
-        updatePagination(pagination) {
-          if(!_.isEqual(pagination,this.pagination)) this.pagination = pagination
-        }
-      },
+      computed: vueObj.computed,
+      methods: vueObj.methods,
       beforeCreate() {
         this.$store = createStore('<%=toLower(name)%>', '', this.$options.propsData.filterName, this.$route.params.masterId)
       },

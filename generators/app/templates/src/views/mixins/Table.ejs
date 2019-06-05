@@ -2,17 +2,8 @@ import {objtourl, urltoobj} from '../../utils/url'
 
 import {mapState, mapMutations} from 'vuex'
   
-
-
-export default (name) => {
-  let store = require('../../store/entity').default(name);
-  let getData = store.getData;
-  let deleteItemById = store.deleteItemById;
-  let getCountEntity = store.getCountEntity;
-  let deleteAll = store.deleteAll;
-
-    return {
-      data: () => ({
+let vueObj = {
+  data: () => ({
         headers: [
         { text: 'ID', value: 'id' },
         { text: 'Code', value: 'code' },
@@ -83,44 +74,62 @@ export default (name) => {
       return this.$store.state.table.entity.entitys
     },
   },
-    methods: {
-      console() {
+  methods: {
+    console() {
 
-      },
-
-      async getData(obj) { // {page, sort, search, rowsPerPage}
-        try {
-          console.warn('AAAAAAAAA')
-          await this.$store.dispatch('getData', obj || this.pagination)
-
-        }
-        catch(err) {console.log(err)}
-      },
-      deleteQuery() {
-        this.searchQuery = '';
-        this.$store.dispatch('search', '')
-      },
-      async deleteAll() {
-        try {
-          console.log(this.checkedDeleted)
-          let headers = await deleteAll(this.checkedDeleted);
-          let key = headers['x-'+'<%=baseName%>app-'+'alert'];
-          let keyentity = key.split('.')[1];
-          let ids = headers['x-'+'<%=baseName%>app-'+'params'];
-          this.getData()
-          this.$store.dispatch('snackShowAction', {text: this.$t(keyentity+'.'+key, {id: ids}), val: true, color: "success"})
-        }
-        catch(err) {
-          this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})
-        }
-        this.$store.commit('deleteAllChecked');
-      },
-      changeSort(val) {
-        return this.$store.commit('changeSort',val);
-      },
     },
-    components: {
-      
-    }
+
+    async getData(obj) { // {page, sort, search, rowsPerPage}
+      try {
+        console.warn('AAAAAAAAA')
+        await this.$store.dispatch('getData', obj || this.pagination)
+
+      }
+      catch(err) {console.log(err)}
+    },
+    deleteQuery() {
+      this.searchQuery = '';
+      this.$store.dispatch('search', '')
+    },
+    async deleteAll() {
+      try {
+        console.log(this.checkedDeleted)
+        let headers = await deleteAll(this.checkedDeleted);
+        let key = headers['x-'+'<%=baseName%>app-'+'alert'];
+        let keyentity = key.split('.')[1];
+        let ids = headers['x-'+'<%=baseName%>app-'+'params'];
+        this.getData()
+        this.$store.dispatch('snackShowAction', {text: this.$t(keyentity+'.'+key, {id: ids}), val: true, color: "success"})
+      }
+      catch(err) {
+        this.$store.dispatch('snackShowAction', {text: "error", val: true, color: "error"})
+      }
+      this.$store.commit('deleteAllChecked');
+    },
+    changeSort(val) {
+      return this.$store.commit('changeSort',val);
+    },
+  },
+  components: {
+    
   }
+}
+
+try {
+  let extend = require('./TableExtend')
+  vueObj.data && Object.assign(vueObj.data, extend.data)
+  vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+  vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+} catch(err) {
+  console.log(err)
+}
+
+export default (name) => {
+  let store = require('../../store/entity').default(name);
+  let getData = store.getData;
+  let deleteItemById = store.deleteItemById;
+  let getCountEntity = store.getCountEntity;
+  let deleteAll = store.deleteAll;
+
+    return vueObj; 
 }
