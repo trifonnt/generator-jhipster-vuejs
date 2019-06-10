@@ -272,7 +272,7 @@
                             {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
                             v-validate = '<%-validate%>'
-                            data-vv-name = 'id'
+                            name='<%=fName%>'
                             data-vv-value-path = 'id'
                             :internal-search="false"
                             :searchable = "true"
@@ -624,7 +624,8 @@
             if(this.<%=relationship.relationshipName%>.length == 1) this.<%=relationship.relationshipName%> = this.<%=relationship.relationshipName%>[0]
             <%_ } _%>
           <%_ } } _%>
-          this.$validator.reset();
+          await this.$validator.validateAll();
+          this.errors.clear();
         }
         catch(err) {console.log(err)}
       },
