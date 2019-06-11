@@ -1,5 +1,5 @@
 <template>
-	<v-autocomplete
+	<v-autocomplete :autofocus='i==0'
 	  multiple return-object 
 	  :items='items'
 	  :search-input.sync="search"

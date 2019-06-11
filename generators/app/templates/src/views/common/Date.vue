@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-menu
+		<v-menu :autofocus='i==0'
 	        ref="menu"
 	        :close-on-content-click="false"
 	        v-model="menu"
@@ -12,7 +12,7 @@
 	        full-width
 	        min-width="290px"
 	      >
-	        <v-text-field v-validate="validate"
+	        <v-text-field :autofocus='i==0' v-validate="validate"
 	          slot="activator"
 	          v-model="val"
 	          :label="label"

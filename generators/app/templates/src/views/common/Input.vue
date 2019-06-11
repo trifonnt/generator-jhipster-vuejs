@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <v-text-field v-validate="validate" prepend-icon="person" :name="name" :label="label" v-model="val">
+	  <v-text-field :autofocus='i==0' v-validate="validate" prepend-icon="person" :name="name" :label="label" v-model="val">
 	  	<div slot='append' v-show='showButtons'>
 	  		<v-icon @click='clear'>close</v-icon>
 	  		<v-icon @click='save'>save</v-icon>

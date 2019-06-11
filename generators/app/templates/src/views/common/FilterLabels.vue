@@ -1,6 +1,6 @@
 <template>
 
-  <v-select
+  <v-select :autofocus='i==0'
     :items="labels"
     v-model="filterLabels"
     label="Label"

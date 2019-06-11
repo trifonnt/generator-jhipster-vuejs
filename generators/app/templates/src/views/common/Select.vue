@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-select multiple :items='items' item-text='name' item-value='code' solo v-validate="validate" :data-vv-name="name" :name='name' :label="label" v-model="val" return-object></v-select>
+		<v-select :autofocus='i==0' multiple :items='items' item-text='name' item-value='code' solo v-validate="validate" :data-vv-name="name" :name='name' :label="label" v-model="val" return-object></v-select>
 	  	<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
 
 

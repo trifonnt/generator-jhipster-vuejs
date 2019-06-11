@@ -227,7 +227,7 @@
  -->
                          <%_ if(relationship.otherEntityField2 && relationship.otherEntityName != 'file') { _%>
                             <div v-show="$route.params.hideName != '<%=fName%>'">
-                              <br>
+                              <br><v-icon v-show='validate.required' style='padding: 0 6px 0 6px;'>*</v-icon> 
                               {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
                             v-validate = '<%-validate%>'
@@ -269,7 +269,7 @@
                       <%_ } else if(relationship.otherEntityName != 'file') { _%>
                           <div v-show="$route.params.hideName != '<%=fName%>'">
                             <br>
-                            {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
+                            <v-icon v-show='validate.required' style='padding: 0 6px 0 6px;'>*</v-icon> {{$t('<%=firstToLower(name)%>.<%=baseNameApp%>.<%=firstToLower(name)%>.<%= (relationship.relationshipType == 'many-to-many' || relationship.relationshipType == 'one-to-many') ? pluralize(fName) : fName %>')}}</div>
                           <multiselect v-show="$route.params.hideName != '<%=fName%>'"
                             v-validate = '<%-validate%>'
                             name='<%=fName%>'

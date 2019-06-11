@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-checkbox :label="label" v-model="val" :name='name' v-validate="validate"></v-checkbox>
+		<v-checkbox :autofocus='i==0' :label="label" v-model="val" :name='name' v-validate="validate"></v-checkbox>
 		<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
 	</div>
 </template>

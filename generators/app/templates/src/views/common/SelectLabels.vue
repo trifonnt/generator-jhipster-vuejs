@@ -1,5 +1,5 @@
 <template>
-  <v-select
+  <v-select :autofocus='i==0'
     :items="labels"
     v-model="selectedLabels"
     label="Label"

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<input :name="name" type="file" multiple="multiple" @input="upload($event)" v-validate.reject="'image'">
+		<input :autofocus='i==0' :name="name" type="file" multiple="multiple" @input="upload($event)" v-validate.reject="'image'">
 	  	<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>  
 	</div>
 </template>
