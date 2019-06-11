@@ -114,7 +114,7 @@
     try {
       let extend = require('./viewUserxFunctionsX')
       vueObj.data && Object.assign(vueObj.data, extend.data)
-      vueObj.mehtods && Object.assign(vueObj.methods, extend.methods)
+      vueObj.methods && Object.assign(vueObj.methods, extend.methods)
       vueObj.computed && Object.assign(vueObj.computed, extend.computed)
     } catch(err) {
       console.log(err)
