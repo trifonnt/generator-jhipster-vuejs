@@ -1,17 +1,26 @@
 import * as fetcher from './fwiki'
 
-export function getData(id='') {
+let obj = {};
+
+obj.getData = function(id='') {
 	return fetcher.getData(id);
 }
 
-export function editWiki(id, content) {
+obj.editWiki = function(id, content) {
 	return fetcher.editWiki(id, content)
 }
 
-export function deleteWiki(id) {
+obj.deleteWiki = function(id) {
 	return fetcher.deleteWiki(id);
 }
 
-export function createWiki(content) {
+obj.createWiki = function(content) {
 	return fetcher.createWiki(content);
+}
+
+try {
+	let extend = require('./wikiExtend')
+	Object.assign(obj, extend)
+} catch(err) {
+	console.log(err)
 }

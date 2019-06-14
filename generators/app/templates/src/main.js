@@ -33,9 +33,13 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 import 'vue-datetime/dist/vue-datetime.css'
-
-import messages from '../i18n/';
-
+let messages = [];
+try {
+  messages = require('../i18n/').default;
+}
+catch(err) {
+  console.log(err)
+}
 
 import './directives/hasRole'
 

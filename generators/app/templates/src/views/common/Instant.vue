@@ -2,7 +2,8 @@
 	<div>
 	  <datetime type='datetime' v-model="val" :input-id="name" input-class='borderField' v-validate="validate" :data-vv-name="name" :name='name'>
 	      <label slot="before">{{label}}</label>
-	  </datetime>  
+	  </datetime>
+	  <v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
   	</div>
 </template>
 

@@ -1,40 +1,11 @@
-const chalk = require('chalk');
+const Generator = require('yeoman-generator');
+const jhipsterUtils = require('generator-jhipster-x/generators/utils');
+const ejs = require('ejs')
+
 const packagejs = require('../../package.json');
-const semver = require('semver');
-const BaseGenerator = require('generator-jhipster/generators/generator-base');
-const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
-module.exports = class extends BaseGenerator {
-    get initializing() {
-        return {
-            init(args) {
-                if (args === 'default') {
-                    // do something when argument is 'default'
-                }
-            },
-            readConfig() {
-/*                this.jhipsterAppConfig = this.getJhipsterAppConfig();
-                if (!this.jhipsterAppConfig) {
-                    this.error('Can\'t read .yo-rc.json');
-                }*/
-            },
-            displayLogo() {
-                // it's here to show that you can use functions from generator-jhipster
-                // this function is in: generator-jhipster/generators/generator-base.js
-                this.printJHipsterLogo();
 
-                // Have Yeoman greet the user.
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster Wiki')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
-            },
-            checkJhipster() {
-/*                const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
-                const minimumJhipsterVersion = packagejs.dependencies['generator-jhipster'];
-                if (!semver.satisfies(currentJhipsterVersion, minimumJhipsterVersion)) {
-                    this.warning(`\nYour generated project used an old JHipster version (${currentJhipsterVersion})... you need at least (${minimumJhipsterVersion})\n`);
-                }*/
-            }
-        };
-    }
+module.exports = class extends Generator {
 
     prompting() {
 /*        const prompts = [
@@ -65,43 +36,45 @@ module.exports = class extends BaseGenerator {
             );
         };
 
-
+        if(!this.fs.exists(this.destinationPath(this.options.env.cwd + '/' + '.generator-vuejs2'))) {
+            this.composeWith(require.resolve('generator-jhipster-vuejs2/generators/app'))
+        }
 
         this.fs.copy(
           this.templatePath('./'),
           this.destinationPath('src/main/webapp/src/views/wiki')
         );
 
+        this.log(this.templatePath('./MenuApp.ejs'))
 
-    }
+        let template = ejs.renderFile(this.templatePath('./MenuApp.ejs'), {}, (err, str) => {
+            jhipsterUtils.rewriteFile(
+                {
+                    path: '/',
+                    file: this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/views/MenuApp.vue'),
+                    needle: 'insertlinkshere',
+                    splicable: [
+                        str
+                    ]
+                },
+                this
+            );
+        });
 
-    install() {
-        let logMsg =
-            `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+        template = ejs.renderFile(this.templatePath('./MenuLeft.ejs'), {}, (err, str) => {
+            jhipsterUtils.rewriteFile(
+                {
+                    path: '/',
+                    file: this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/views/MenuLeft.vue'),
+                    needle: 'insertapplinkshere',
+                    splicable: [
+                        str
+                    ]
+                },
+                this
+            );
+        });
 
-        if (this.clientFramework === 'angular1') {
-            logMsg =
-                `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install & bower install`)}`;
-        }
-        const injectDependenciesAndConstants = (err) => {
-            if (err) {
-                this.warning('Install of dependencies failed!');
-                this.log(logMsg);
-            } else if (this.clientFramework === 'angular1') {
-                this.spawnCommand('gulp', ['install']);
-            }
-        };
-        const installConfig = {
-            bower: this.clientFramework === 'angular1',
-            npm: this.clientPackageManager !== 'yarn',
-            yarn: this.clientPackageManager === 'yarn',
-            callback: injectDependenciesAndConstants
-        };
-        if (this.options['skip-install']) {
-            this.log(logMsg);
-        } else {
-            this.installDependencies(installConfig);
-        }
     }
 
     end() {

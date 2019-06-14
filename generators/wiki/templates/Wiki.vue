@@ -50,6 +50,73 @@
 <script>
 	import * as store from './wiki'
 
+	let vueObj = {};
+
+	vueObj.computed = {
+		drawer: {
+			get() {
+				if(this.$store.state.app.leftDrawer || !this.menu.length) return false;
+				return this.drawerOpen;
+			},
+			set(value) {
+				this.drawerOpen = value;
+			}
+		}
+	}
+
+	vueObj.methods = {
+		async getData() {
+			try {
+				let response = await store.getData(this.$route.params.id);
+				this.menu = response.menu;
+				this.content = response.content;
+				this.author = response.author;
+				this.date = response.date;
+				this.title = response.title;
+				console.log(response)
+			}
+			catch(err) {
+				console.error(err);
+			}
+		},
+		async deleteWiki() {
+			try {
+				//await store.deleteWiki(this.$route.params.id)
+	  			this.$store.dispatch('snackShowAction', {text: "Successfully deleted", val: true, color: "success"})
+			}
+			catch(err) {
+				console.error(err)
+			}
+		},
+		async editWiki() {
+			try {
+				//await store.editWiki(this.$route.params.id, this.content)
+	  			this.$store.dispatch('snackShowAction', {text: "Successfully edited", val: true, color: "success"})
+			}
+			catch(err) {
+				console.error(err)
+			}
+		},
+		async createWiki() {
+			try {
+				//await store.createWiki(this.content)
+				this.$store.dispatch('snackShowAction', {text: "Succesfully created", val: true, color: "success"})
+			}
+			catch(err) {
+				console.error(err)
+			}
+		},
+	}
+
+	  try {
+	    let extend = require('./WikiFunctionsX')
+	    vueObj.data && Object.assign(vueObj.data, extend.data)
+	    vueObj.methods && Object.assign(vueObj.methods, extend.methods)
+	    vueObj.computed && Object.assign(vueObj.computed, extend.computed)
+	  } catch(err) {
+	    console.log(err)
+	  }
+
 	export default {
 		created() {
 			if(this.$route.params.id != 'create') this.getData();
@@ -62,60 +129,8 @@
 			title: '',
 			drawerOpen: true,
 		}),
-		computed: {
-			drawer: {
-				get() {
-					if(this.$store.state.app.leftDrawer || !this.menu.length) return false;
-					return this.drawerOpen;
-				},
-				set(value) {
-					this.drawerOpen = value;
-				}
-			}
-		},
-		methods: {
-			async getData() {
-				try {
-					let response = await store.getData(this.$route.params.id);
-					this.menu = response.menu;
-					this.content = response.content;
-					this.author = response.author;
-					this.date = response.date;
-					this.title = response.title;
-					console.log(response)
-				}
-				catch(err) {
-					console.error(err);
-				}
-			},
-			async deleteWiki() {
-				try {
-					//await store.deleteWiki(this.$route.params.id)
-          			this.$store.dispatch('snackShowAction', {text: "Successfully deleted", val: true, color: "success"})
-				}
-				catch(err) {
-					console.error(err)
-				}
-			},
-			async editWiki() {
-				try {
-					//await store.editWiki(this.$route.params.id, this.content)
-          			this.$store.dispatch('snackShowAction', {text: "Successfully edited", val: true, color: "success"})
-				}
-				catch(err) {
-					console.error(err)
-				}
-			},
-			async createWiki() {
-				try {
-					//await store.createWiki(this.content)
-					this.$store.dispatch('snackShowAction', {text: "Succesfully created", val: true, color: "success"})
-				}
-				catch(err) {
-					console.error(err)
-				}
-			},
-		}
+		computed: vueObj.computed,
+		methods: vueObj.methods,
 	}
 </script>
 

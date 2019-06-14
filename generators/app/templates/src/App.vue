@@ -153,19 +153,7 @@
           </v-list-tile>
         </v-list>
     </v-menu>
-
-    <v-btn flat to='/home'>
-      <v-icon color='primary'>home</v-icon> &nbsp;
-      <router-link to="home">{{$t('app.home')}}</router-link>
-    </v-btn>
-    <v-btn flat v-show='!user.auth' to='/login'>
-      <v-icon color='primary'>lock</v-icon> &nbsp;
-      <router-link to="/login">{{$t('app.login.title')}}</router-link>
-    </v-btn>
-    <v-btn flat v-show='!user.auth' to='/register'>
-      <v-icon color='primary'>account_box</v-icon> &nbsp;
-      <router-link to="/register">{{$t('app.register.title')}}</router-link>
-    </v-btn>
+    <menu-app></menu-app>
     <v-menu offset-y>
     <template v-slot:activator = '{on}'>
       <v-btn flat v-show='user.auth'
@@ -302,6 +290,7 @@
   import {user,logout} from './store/identity'
   import MenuLeft from './views/MenuLeft.vue'
   import MenuUp from './views/MenuUp.vue'
+  import MenuApp from './views/MenuApp.vue'
   import MenuEntitiesx from './views/MenuEntitiesx.vue'
 
   export default {
@@ -346,6 +335,7 @@
     components: {
       MenuLeft,
       MenuUp,
+      MenuApp,
       MenuEntitiesx,
     }
   }

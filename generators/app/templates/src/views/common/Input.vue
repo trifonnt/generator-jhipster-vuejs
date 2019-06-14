@@ -6,7 +6,7 @@
 	  		<v-icon @click='save'>save</v-icon>
 	  	</div>
 	  </v-text-field>
-	 	{{ errors.first(name) }}  
+	  <v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
 	</div>
 </template>
 

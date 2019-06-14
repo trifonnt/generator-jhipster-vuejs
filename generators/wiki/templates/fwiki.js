@@ -1,17 +1,26 @@
 import axios from 'axios'
 
-export function getData(id='') {
+let obj = {};
+
+obj.getData = function(id='') {
 	return axios.get('http://www.mocky.io/v2/5bf2d0cf2f0000df2fcfa2ae'/*+id*/).then(data=>data.data)
 }
 
-export function editWiki(id, content) {
+obj.editWiki = function(id, content) {
 	return axios.put('/editWiki', {id, content})
 }
 
-export function deleteWiki(id) {
+obj.deleteWiki = function(id) {
 	return axios.delete('/deleteWiki/'+id)
 }
 
-export function createWiki(content) {
+obj.createWiki = function(content) {
 	return axios.post('/createWiki/', {content})
+}
+
+try {
+	let extend = require('./fwikiExtend')
+	Object.assign(obj, extend)
+} catch(err) {
+	console.log(err)
 }

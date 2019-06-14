@@ -159,6 +159,12 @@ module.exports = class extends BaseGenerator {
         )
 
         this.fs.copyTpl(
+            this.templatePath('.generator-vuejs2'),
+            this.destinationPath(this.options.env.cwd+'/'+'.generator-vuejs2'),
+            {}
+        )
+
+        this.fs.copyTpl(
             this.templatePath('./src/store/stats.ejs'),
             this.destinationPath(this.options.env.cwd+'/src/main/webapp/src/store/stats.js'),
             {baseName}
@@ -171,30 +177,31 @@ module.exports = class extends BaseGenerator {
             {baseName}
         )
         const yorc = this.fs.readJSON(this.destinationPath('.yo-rc.json'), {});
-
-        this.fs.copyTpl(
-            this.templatePath('./src/i18n/index.ejs'),
-            this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/index.js'),
-            {languages: yorc['generator-jhipster-x'].languages}
-        )
-        for(lang of yorc['generator-jhipster-x'].languages) {
+        if(yorc['generator-jhipster-x'].languages && yorc['generator-jhipster-x'].languages.length > 0) {        
             this.fs.copyTpl(
-                this.templatePath('./src/i18n/app.json.ejs'),
-                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/app.json'),
-                {}
+                this.templatePath('./src/i18n/index.ejs'),
+                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/index.js'),
+                {languages: yorc['generator-jhipster-x'].languages}
             )
+            for(lang of yorc['generator-jhipster-x'].languages) {
+                this.fs.copyTpl(
+                    this.templatePath('./src/i18n/app.json.ejs'),
+                    this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/app.json'),
+                    {}
+                )
 
-            this.fs.copyTpl(
-                this.templatePath('./src/i18n/validations.json.ejs'),
-                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/validations.json'),
-                {}
-            )
+                this.fs.copyTpl(
+                    this.templatePath('./src/i18n/validations.json.ejs'),
+                    this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/validations.json'),
+                    {}
+                )
 
-            this.fs.copyTpl(
-                this.templatePath('./src/i18n/langIndex.ejs'),
-                this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/index.js'),
-                {}
-            )
+                this.fs.copyTpl(
+                    this.templatePath('./src/i18n/langIndex.ejs'),
+                    this.destinationPath(this.options.env.cwd+'/'+'/src/main/webapp/i18n/'+lang+'/index.js'),
+                    {}
+                )
+            }
         }
 
 /*        this.fs.copyTpl(
@@ -236,6 +243,7 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "material-design-icons-iconfont": "^3.0.3",
             "vuedraggable": "^2.16.0",
             "vue-quill-editor": "^3.0.6",
+            "quill-mention": "^2.1.1",
             "luxon": "^1.8.2",
             "vue-datetime": "^1.0.0-beta.8",
             "weekstart": "^1.0.0",
@@ -248,6 +256,7 @@ let destPath = this.options.env.cwd+'/'+'src/main/webapp/'+'/src';
             "sortablejs": "^1.8.1",
             "pluralize": "^7.0.0",
             "register-service-worker": "^1.6.2",
+            "vue-mq": "^1.0.1",
           },
           devDependencies: {
             "@babel/polyfill": "^7.0.0-beta.49",

@@ -1,15 +1,18 @@
 <template>
-	<v-autocomplete :autofocus='i==0'
-	  multiple return-object 
-	  :items='items'
-	  :search-input.sync="search"
-	  v-validate='validate' 
-	  :name="name" 
-	  :label="label"
-	  v-model="val"
-	  item-text='name' 
-	  item-value='code'
-	></v-autocomplete>
+	<div>
+		<v-autocomplete :autofocus='i==0'
+		  multiple return-object 
+		  :items='items'
+		  :search-input.sync="search"
+		  v-validate='validate' 
+		  :name="name" 
+		  :label="label"
+		  v-model="val"
+		  item-text='name' 
+		  item-value='code'
+		></v-autocomplete>
+	  	<v-alert :value="errors.has(name)" type="error">{{ errors.first(name) }}</v-alert>
+	</div>
 </template>
 
 <script>

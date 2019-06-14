@@ -112,7 +112,7 @@
     };
 
     try {
-      let extend = require('./viewUserxFunctionsX')
+      let extend = require('./ViewUserxFunctionsX')
       vueObj.data && Object.assign(vueObj.data, extend.data)
       vueObj.methods && Object.assign(vueObj.methods, extend.methods)
       vueObj.computed && Object.assign(vueObj.computed, extend.computed)

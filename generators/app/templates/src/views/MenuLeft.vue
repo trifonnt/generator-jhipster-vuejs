@@ -12,9 +12,10 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to="home">{{$t('app.home')}}</router-link></v-list-tile-title>
+            <v-list-tile-title><router-link to="/">{{$t('app.home')}}</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <!--insertapplinkshere-->
         <v-list-group v-show='user.auth'
         prepend-icon="list"
       >
