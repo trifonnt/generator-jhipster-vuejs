@@ -16,46 +16,46 @@ module.exports = {
       config.devServer = {
         index: 'src/main/webapp/public/index.html'
       };
-        config.devServer.proxy = {
-          '/api': {
-            target: 'http://127.0.0.1:8080',
-            changeOrigin: true,
-          },
-          '/swagger-resources': {
-            target: 'http://127.0.0.1:8080',
-            changeOrigin: true,
-          },
-          '/swagger-ui': {
-            target: 'http://127.0.0.1:8080',
-            changeOrigin: true,
-          },
-          '/management': {
-            target: 'http://127.0.0.1:8080',
-            changeOrigin: true,
-          },
-          '/v2/api-docs': {
-            target: 'http://127.0.0.1:8080',
-            changeOrigin: true,
-          }
-        }
-            config.resolve = {
-      alias: {
-        '@': "./src/main/webapp/src/"
-      }
-    },
-    config.entry =  {
-      app: "./src/main/webapp/src/main.js"
-    }
-      }
-      else {
-        config.resolve =  {
-          alias: {
-            '@': './src/main/webapp/src'
-          }
+      config.devServer.proxy = {
+        '/api': {
+          target: 'http://127.0.0.1:8080',
+          changeOrigin: true,
         },
-        config.entry =  {
-          app: './src/main/webapp/src/main.js'
+        '/swagger-resources': {
+          target: 'http://127.0.0.1:8080',
+          changeOrigin: true,
+        },
+        '/swagger-ui': {
+          target: 'http://127.0.0.1:8080',
+          changeOrigin: true,
+        },
+        '/management': {
+          target: 'http://127.0.0.1:8080',
+          changeOrigin: true,
+        },
+        '/v2/api-docs': {
+          target: 'http://127.0.0.1:8080',
+          changeOrigin: true,
         }
+      }
+      config.resolve = {
+        alias: {
+          '@': "./src/main/webapp/src/"
+        }
+      },
+      config.entry =  {
+        app: "./src/main/webapp/src/main.js"
+      }
+    }
+    else {
+      config.resolve =  {
+        alias: {
+          '@': './src/main/webapp/src'
+        }
+      },
+      config.entry =  {
+        app: './src/main/webapp/src/main.js'
       }
     }
   }
+}
